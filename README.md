@@ -1,4 +1,4 @@
-# Sq1 Assignment
+# Multitec App
 
 <!-- ![coverage][coverage_badge] -->
 
@@ -24,20 +24,20 @@ Clone the project repository (choose one):
 
 ```sh
 # Using SSH
-git clone git@github.com:victorcovi/sq1_assignment.git
+git clone git@github.com:Multitec-UA/multitec-app.git
 ```
 
 or
 
 ```sh
 # Using HTTPS
-git clone https://github.com/victorcovi/sq1_assignment.git
+git clone https://github.com/Multitec-UA/multitec-app.git
 ```
 
 Then, navigate into the project folder:
 
 ```sh
-cd sq1_assignment
+cd multitec-app
 ```
 
 Install **FVM** (Flutter Version Management) globally to manage Flutter SDK versions easily:
@@ -81,7 +81,7 @@ Create the **environment** folder in the project root and define 3 files inside 
 Also before testing in Android define a **secrets.properties** file inside the android directory.
 
 ```
-sq1_assignment
+multitec-app
 |-- android/
   |-- secrets.properties
 |-- environment/
@@ -135,7 +135,7 @@ $ flutter run --flavor staging --target lib/main_staging.dart --dart-define-from
 $ flutter run --flavor production --target lib/main_production.dart --dart-define-from-file environment/production_key.json
 ```
 
-_\*Sq1 Assignment works on iOS and Android._
+_\*Multitec App works on iOS and Android._
 
 [coverage_badge]: coverage_badge.svg
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
