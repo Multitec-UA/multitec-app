@@ -1,0 +1,40 @@
+name: sq1_assignment
+description: Technical assignment.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  bloc: ^8.1.4
+  collection: ^1.19.1
+  dio: ^5.7.0
+  dio_cache_interceptor: ^3.5.1
+  dio_cache_interceptor_hive_store: ^4.0.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  flutter_localizations:
+    sdk: flutter
+  freezed_annotation: ^2.4.4
+  get_it: ^8.0.3
+  google_maps_flutter: ^2.10.0
+  intl: ^0.20.2
+  multiple_result: ^5.1.0
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  bloc_test: ^9.1.7
+  build_runner: ^2.4.13
+  commitlint_cli: ^0.8.1
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.5.8
+  husky: ^0.1.7
+  mockito: ^5.4.4
+  very_good_analysis: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true

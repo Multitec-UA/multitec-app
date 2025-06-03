@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+dart run commitlint_cli --edit "$1"
+
+flutter pub get --no-example
