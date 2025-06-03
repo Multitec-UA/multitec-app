@@ -17,7 +17,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_localizations:
     sdk: flutter
-  freezed_annotation: ^2.4.4
+  freezed_annotation: ^3.0.0
   get_it: ^8.0.3
   google_maps_flutter: ^2.10.0
   intl: ^0.20.2
@@ -30,7 +30,7 @@ dev_dependencies:
   commitlint_cli: ^0.8.1
   flutter_test:
     sdk: flutter
-  freezed: ^2.5.8
+  freezed: ^3.0.6
   husky: ^0.1.7
   mockito: ^5.4.4
   very_good_analysis: ^6.0.0
