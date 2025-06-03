@@ -7,14 +7,14 @@ environment:
   sdk: ^3.5.0
 
 dependencies:
-  bloc: ^8.1.4
+  bloc: ^9.0.0
   collection: ^1.19.1
   dio: ^5.7.0
   dio_cache_interceptor: ^3.5.1
   dio_cache_interceptor_hive_store: ^4.0.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
   freezed_annotation: ^2.4.4
@@ -25,7 +25,7 @@ dependencies:
   path_provider: ^2.1.5
 
 dev_dependencies:
-  bloc_test: ^9.1.7
+  bloc_test: ^10.0.0
   build_runner: ^2.4.13
   commitlint_cli: ^0.8.1
   flutter_test:
