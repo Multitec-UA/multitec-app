@@ -33,7 +33,7 @@ dev_dependencies:
   freezed: ^3.0.6
   husky: ^0.1.7
   mockito: ^5.4.4
-  very_good_analysis: ^8.0.0
+  very_good_analysis: ^9.0.0
 
 flutter:
   uses-material-design: true
