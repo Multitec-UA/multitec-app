@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sq1_assignment/feature/home/view/screens/home_screen.dart';
+import 'package:sq1_assignment/core/router/app_router.dart';
 import 'package:sq1_assignment/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -7,8 +7,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
+      routerConfig: goRouter,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
@@ -17,7 +18,6 @@ class App extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
     );
   }
 }
