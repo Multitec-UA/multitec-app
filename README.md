@@ -92,6 +92,8 @@ multitec-app
 ...
 ```
 
+> ⚠️ Signing keys are required for certain APIs to work (Ask project maintainers).
+
 [Download files](https://drive.proton.me/urls/CM6Y693B80#0xMaToSrri7C)
 _\*Remember to replace VALID_API_KEY_HERE with your google maps api key in the all files._
 
