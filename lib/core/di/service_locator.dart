@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:sq1_assignment/core/network/network_service.dart';
 import 'package:sq1_assignment/feature/city_search/city_search.dart';
-import 'package:sq1_assignment/network_service/network_service.dart';
 
 final locator = GetIt.instance;
 
