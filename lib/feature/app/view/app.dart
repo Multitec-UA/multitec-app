@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sq1_assignment/feature/city_search/city_search.dart';
+import 'package:sq1_assignment/feature/home/view/screens/home_screen.dart';
 import 'package:sq1_assignment/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -9,15 +9,15 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         useMaterial3: true,
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const CitySearchPage(),
+      home: const HomeScreen(),
     );
   }
 }
