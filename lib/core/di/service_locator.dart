@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:sq1_assignment/core/network/multitec_api/multitec_api.dart';
+import 'package:sq1_assignment/core/network/multitec_api/multitec_api_client.dart';
 import 'package:sq1_assignment/core/network/network_service.dart';
 import 'package:sq1_assignment/feature/city_search/city_search.dart';
 
@@ -15,6 +17,10 @@ Future<void> serviceLocatorSetUp() async {
       ),
       dependsOn: [Square1ApiClient, GoogleMapsApiClient],
     );
+
+  locator.registerSingletonAsync<MultitecApi>(
+    MultitecApiClient.create,
+  );
 
   await locator.allReady();
 }
