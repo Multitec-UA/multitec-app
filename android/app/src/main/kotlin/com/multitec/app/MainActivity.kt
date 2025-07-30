@@ -1,4 +1,4 @@
-package com.example.verygoodcore.sq1_assignment
+package com.multitec.app
 
 import io.flutter.embedding.android.FlutterActivity
 

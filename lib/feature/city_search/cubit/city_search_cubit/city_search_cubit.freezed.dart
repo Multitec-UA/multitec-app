@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,93 +10,52 @@ part of 'city_search_cubit.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CitySearchState {
-  CitySearchStatus get status => throw _privateConstructorUsedError;
-  List<City> get cities => throw _privateConstructorUsedError;
-  PaginationMeta get meta => throw _privateConstructorUsedError;
-  String get query => throw _privateConstructorUsedError;
-  String? get message => throw _privateConstructorUsedError;
+  CitySearchStatus get status;
+  List<City> get cities;
+  PaginationMeta get meta;
+  String get query;
+  String? get message;
 
   /// Create a copy of CitySearchState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CitySearchStateCopyWith<CitySearchState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CitySearchStateCopyWith<$Res> {
-  factory $CitySearchStateCopyWith(
-          CitySearchState value, $Res Function(CitySearchState) then) =
-      _$CitySearchStateCopyWithImpl<$Res, CitySearchState>;
-  @useResult
-  $Res call(
-      {CitySearchStatus status,
-      List<City> cities,
-      PaginationMeta meta,
-      String query,
-      String? message});
-}
-
-/// @nodoc
-class _$CitySearchStateCopyWithImpl<$Res, $Val extends CitySearchState>
-    implements $CitySearchStateCopyWith<$Res> {
-  _$CitySearchStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of CitySearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $CitySearchStateCopyWith<CitySearchState> get copyWith =>
+      _$CitySearchStateCopyWithImpl<CitySearchState>(
+          this as CitySearchState, _$identity);
+
   @override
-  $Res call({
-    Object? status = null,
-    Object? cities = null,
-    Object? meta = null,
-    Object? query = null,
-    Object? message = freezed,
-  }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as CitySearchStatus,
-      cities: null == cities
-          ? _value.cities
-          : cities // ignore: cast_nullable_to_non_nullable
-              as List<City>,
-      meta: null == meta
-          ? _value.meta
-          : meta // ignore: cast_nullable_to_non_nullable
-              as PaginationMeta,
-      query: null == query
-          ? _value.query
-          : query // ignore: cast_nullable_to_non_nullable
-              as String,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CitySearchState &&
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other.cities, cities) &&
+            (identical(other.meta, meta) || other.meta == meta) &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(cities), meta, query, message);
+
+  @override
+  String toString() {
+    return 'CitySearchState(status: $status, cities: $cities, meta: $meta, query: $query, message: $message)';
   }
 }
 
 /// @nodoc
-abstract class _$$CitySearchStateImplCopyWith<$Res>
-    implements $CitySearchStateCopyWith<$Res> {
-  factory _$$CitySearchStateImplCopyWith(_$CitySearchStateImpl value,
-          $Res Function(_$CitySearchStateImpl) then) =
-      __$$CitySearchStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CitySearchStateCopyWith<$Res> {
+  factory $CitySearchStateCopyWith(
+          CitySearchState value, $Res Function(CitySearchState) _then) =
+      _$CitySearchStateCopyWithImpl;
   @useResult
   $Res call(
       {CitySearchStatus status,
@@ -106,12 +66,12 @@ abstract class _$$CitySearchStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$CitySearchStateImplCopyWithImpl<$Res>
-    extends _$CitySearchStateCopyWithImpl<$Res, _$CitySearchStateImpl>
-    implements _$$CitySearchStateImplCopyWith<$Res> {
-  __$$CitySearchStateImplCopyWithImpl(
-      _$CitySearchStateImpl _value, $Res Function(_$CitySearchStateImpl) _then)
-      : super(_value, _then);
+class _$CitySearchStateCopyWithImpl<$Res>
+    implements $CitySearchStateCopyWith<$Res> {
+  _$CitySearchStateCopyWithImpl(this._self, this._then);
+
+  final CitySearchState _self;
+  final $Res Function(CitySearchState) _then;
 
   /// Create a copy of CitySearchState
   /// with the given fields replaced by the non-null parameter values.
@@ -124,25 +84,25 @@ class __$$CitySearchStateImplCopyWithImpl<$Res>
     Object? query = null,
     Object? message = freezed,
   }) {
-    return _then(_$CitySearchStateImpl(
+    return _then(_self.copyWith(
       status: null == status
-          ? _value.status
+          ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as CitySearchStatus,
       cities: null == cities
-          ? _value._cities
+          ? _self.cities
           : cities // ignore: cast_nullable_to_non_nullable
               as List<City>,
       meta: null == meta
-          ? _value.meta
+          ? _self.meta
           : meta // ignore: cast_nullable_to_non_nullable
               as PaginationMeta,
       query: null == query
-          ? _value.query
+          ? _self.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
       message: freezed == message
-          ? _value.message
+          ? _self.message
           : message // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
@@ -151,8 +111,8 @@ class __$$CitySearchStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CitySearchStateImpl implements _CitySearchState {
-  const _$CitySearchStateImpl(
+class _CitySearchState implements CitySearchState {
+  const _CitySearchState(
       {required this.status,
       final List<City> cities = const [],
       this.meta = const PaginationMeta(),
@@ -180,16 +140,19 @@ class _$CitySearchStateImpl implements _CitySearchState {
   @override
   final String? message;
 
+  /// Create a copy of CitySearchState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CitySearchState(status: $status, cities: $cities, meta: $meta, query: $query, message: $message)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CitySearchStateCopyWith<_CitySearchState> get copyWith =>
+      __$CitySearchStateCopyWithImpl<_CitySearchState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CitySearchStateImpl &&
+            other is _CitySearchState &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality().equals(other._cities, _cities) &&
             (identical(other.meta, meta) || other.meta == meta) &&
@@ -201,39 +164,70 @@ class _$CitySearchStateImpl implements _CitySearchState {
   int get hashCode => Object.hash(runtimeType, status,
       const DeepCollectionEquality().hash(_cities), meta, query, message);
 
+  @override
+  String toString() {
+    return 'CitySearchState(status: $status, cities: $cities, meta: $meta, query: $query, message: $message)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$CitySearchStateCopyWith<$Res>
+    implements $CitySearchStateCopyWith<$Res> {
+  factory _$CitySearchStateCopyWith(
+          _CitySearchState value, $Res Function(_CitySearchState) _then) =
+      __$CitySearchStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {CitySearchStatus status,
+      List<City> cities,
+      PaginationMeta meta,
+      String query,
+      String? message});
+}
+
+/// @nodoc
+class __$CitySearchStateCopyWithImpl<$Res>
+    implements _$CitySearchStateCopyWith<$Res> {
+  __$CitySearchStateCopyWithImpl(this._self, this._then);
+
+  final _CitySearchState _self;
+  final $Res Function(_CitySearchState) _then;
+
   /// Create a copy of CitySearchState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CitySearchStateImplCopyWith<_$CitySearchStateImpl> get copyWith =>
-      __$$CitySearchStateImplCopyWithImpl<_$CitySearchStateImpl>(
-          this, _$identity);
+  $Res call({
+    Object? status = null,
+    Object? cities = null,
+    Object? meta = null,
+    Object? query = null,
+    Object? message = freezed,
+  }) {
+    return _then(_CitySearchState(
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as CitySearchStatus,
+      cities: null == cities
+          ? _self._cities
+          : cities // ignore: cast_nullable_to_non_nullable
+              as List<City>,
+      meta: null == meta
+          ? _self.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as PaginationMeta,
+      query: null == query
+          ? _self.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+      message: freezed == message
+          ? _self.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
-abstract class _CitySearchState implements CitySearchState {
-  const factory _CitySearchState(
-      {required final CitySearchStatus status,
-      final List<City> cities,
-      final PaginationMeta meta,
-      final String query,
-      final String? message}) = _$CitySearchStateImpl;
-
-  @override
-  CitySearchStatus get status;
-  @override
-  List<City> get cities;
-  @override
-  PaginationMeta get meta;
-  @override
-  String get query;
-  @override
-  String? get message;
-
-  /// Create a copy of CitySearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CitySearchStateImplCopyWith<_$CitySearchStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on
