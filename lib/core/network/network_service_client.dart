@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sq1_assignment/core/network/network_service.dart';
 
 abstract class NetworkServiceClient {
   NetworkServiceClient({
@@ -20,4 +22,21 @@ abstract class NetworkServiceClient {
   }
 
   final Dio httpClient;
+
+  // ==== Common Method to Get Cache Directory ===============================
+  static Future<String> getCacheDir() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return dir.path;
+  }
+
+  // ==== Optional Method to Parse Pagination Meta ===========================
+  // Default implementation - subclasses can override this if needed
+  PaginationMeta paginationMetaFromJson(Map<String, dynamic> json) {
+    return PaginationMeta(
+      currentPage: json['current_page'] as int,
+      lastPage: json['last_page'] as int,
+      perPage: json['per_page'] as int,
+      totalResults: json['total'] as int,
+    );
+  }
 }
