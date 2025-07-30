@@ -1,0 +1,7 @@
+{
+  "@@locale": "en",
+  "home": "Home",
+  "@home": {
+    "description": "Home page title"
+  }
+}

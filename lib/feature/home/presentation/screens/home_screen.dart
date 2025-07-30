@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sq1_assignment/core/di/service_locator.dart';
+import 'package:sq1_assignment/core/l10n/l10n.dart';
 import 'package:sq1_assignment/core/network/multitec_api/multitec_api.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            const Text('Home'),
+            Text(context.l10n.home),
             Text(locator<MultitecApi>().exampleMethod()),
           ],
         ),

@@ -13,7 +13,7 @@ enum CitySearchStatus {
 }
 
 @freezed
-class CitySearchState with _$CitySearchState {
+sealed class CitySearchState with _$CitySearchState {
   const factory CitySearchState({
     required CitySearchStatus status,
     @Default([]) List<City> cities,

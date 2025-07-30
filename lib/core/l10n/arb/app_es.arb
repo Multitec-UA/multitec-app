@@ -1,0 +1,7 @@
+{
+  "@@locale": "es",
+  "home": "Inicio",
+  "@home": {
+    "description": "Home page title"
+  }
+}
