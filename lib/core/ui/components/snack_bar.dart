@@ -22,7 +22,7 @@ class AppSnackBar extends SnackBar {
     super.clipBehavior = Clip.hardEdge,
   }) : super(
           shape:
-              shape ?? RoundedRectangleBorder(borderRadius: borderRadius.low),
+              shape ?? RoundedRectangleBorder(borderRadius: borderRadius.br10),
           behavior: behavior ?? SnackBarBehavior.floating,
         );
   AppSnackBar.success({
@@ -47,7 +47,7 @@ class AppSnackBar extends SnackBar {
   }) : super(
           backgroundColor: backgroundColor ?? Colors.green,
           shape:
-              shape ?? RoundedRectangleBorder(borderRadius: borderRadius.low),
+              shape ?? RoundedRectangleBorder(borderRadius: borderRadius.br10),
           behavior: behavior ?? SnackBarBehavior.floating,
         );
 
@@ -73,7 +73,7 @@ class AppSnackBar extends SnackBar {
   }) : super(
           backgroundColor: backgroundColor ?? Colors.redAccent,
           shape:
-              shape ?? RoundedRectangleBorder(borderRadius: borderRadius.low),
+              shape ?? RoundedRectangleBorder(borderRadius: borderRadius.br10),
           behavior: behavior ?? SnackBarBehavior.floating,
         );
 }
