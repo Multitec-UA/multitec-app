@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sq1_assignment/core/di/service_locator.dart';
 import 'package:sq1_assignment/core/l10n/l10n.dart';
 import 'package:sq1_assignment/core/network/multitec_api/multitec_api.dart';
+import 'package:sq1_assignment/core/ui/components/snack_bar.dart';
+import 'package:sq1_assignment/core/ui/extensions/context_extension.dart';
+import 'package:sq1_assignment/core/ui/styles/spacings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -11,11 +14,26 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          children: [
-            Text(context.l10n.home),
-            Text(locator<MultitecApi>().exampleMethod()),
-          ],
+        child: Padding(
+          padding: paddings.all.s16,
+          child: Column(
+            children: [
+              Text(context.l10n.home),
+              spacings.y.s16,
+              Text(locator<MultitecApi>().exampleMethod()),
+              spacings.y.s16,
+              ElevatedButton(
+                onPressed: () {
+                  context.showSnackBar(
+                    AppSnackBar.success(
+                      content: Text(context.l10n.home),
+                    ),
+                  );
+                },
+                child: Text(context.l10n.home),
+              ),
+            ],
+          ),
         ),
       ),
     );
