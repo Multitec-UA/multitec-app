@@ -5,3 +5,6 @@ linter:
     cascade_invocations: false
     lines_longer_than_80_chars: false
 
+analyzer:
+  exclude:
+    - bricks/**
