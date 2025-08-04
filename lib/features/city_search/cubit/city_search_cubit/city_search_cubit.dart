@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:sq1_assignment/core/network/network_service.dart';
-import 'package:sq1_assignment/feature/city_search/city_search.dart';
+import 'package:sq1_assignment/features/city_search/city_search.dart';
 
 part 'city_search_cubit.freezed.dart';
 part 'city_search_state.dart';
