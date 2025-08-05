@@ -1,5 +1,5 @@
-import 'package:sq1_assignment/bootstrap.dart';
-import 'package:sq1_assignment/feature/app/app.dart';
+import 'package:multitec_app/bootstrap.dart';
+import 'package:multitec_app/features/app/app.dart';
 
 void main() {
   bootstrap(() => const App());

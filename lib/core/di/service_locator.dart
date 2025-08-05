@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:sq1_assignment/core/network/network_service.dart';
-import 'package:sq1_assignment/feature/city_search/city_search.dart';
+import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/features/city_search/city_search.dart';
 
 final locator = GetIt.instance;
 

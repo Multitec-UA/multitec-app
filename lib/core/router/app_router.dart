@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sq1_assignment/core/ui/screens/not_found_screen.dart';
-import 'package:sq1_assignment/feature/home/presentation/screens/home_screen.dart';
+import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
+import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 
 enum AppRoute {
   home('/');

@@ -54,24 +54,18 @@ fvm install
 
 > ⚠️ After running `fvm install`, it is likely necessary to restart VSCode or at least its terminal for the changes to take effect and for VSCode to use the FVM-installed Flutter version properly.
 
-Install the **Very Good CLI** globally to assist with project tasks:
-
-```sh
-dart pub global activate very_good_cli
-```
-
 ### Downloading and installing project dependencies ✨
 
-Fetch all packages recursively using the Very Good CLI:
+Fetch all packages:
 
 ```sh
-very_good packages get -r
+fvm flutter pub get
 ```
 
 Finally, install Husky git hooks:
 
 ```sh
-dart run husky install
+fvm dart run husky install
 ```
 
 ### Setup environments and secrets
