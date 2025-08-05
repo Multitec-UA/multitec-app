@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sq1_assignment/core/di/service_locator.dart';
-import 'package:sq1_assignment/core/l10n/l10n.dart';
-import 'package:sq1_assignment/core/network/multitec_api/multitec_api.dart';
-import 'package:sq1_assignment/core/ui/components/snack_bar.dart';
-import 'package:sq1_assignment/core/ui/extensions/context_extension.dart';
-import 'package:sq1_assignment/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
+import 'package:multitec_app/core/network/multitec_api/multitec_api.dart';
+import 'package:multitec_app/core/ui/components/snack_bar.dart';
+import 'package:multitec_app/core/ui/extensions/context_extension.dart';
+import 'package:multitec_app/core/ui/styles/spacings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

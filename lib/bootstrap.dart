@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sq1_assignment/core/di/service_locator.dart';
-import 'package:sq1_assignment/core/network/network_service.dart';
+import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/network/network_service.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();

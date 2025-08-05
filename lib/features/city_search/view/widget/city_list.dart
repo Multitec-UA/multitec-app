@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sq1_assignment/features/city_search/city_search.dart';
+import 'package:multitec_app/features/city_search/city_search.dart';
 
 class CityList extends StatefulWidget {
   const CityList({

@@ -1,4 +1,4 @@
-name: sq1_assignment
+name: multitec_app
 
 concurrency:
   group: $-$

@@ -1,6 +1,6 @@
 import 'package:multiple_result/multiple_result.dart';
-import 'package:sq1_assignment/core/network/network_service.dart';
-import 'package:sq1_assignment/features/city_search/city_search.dart';
+import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/features/city_search/city_search.dart';
 
 class ApiCitySearchRepository implements CitySearchRepository {
   ApiCitySearchRepository({

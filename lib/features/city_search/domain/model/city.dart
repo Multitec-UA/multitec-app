@@ -1,4 +1,4 @@
-import 'package:sq1_assignment/features/city_search/city_search.dart';
+import 'package:multitec_app/features/city_search/city_search.dart';
 
 class City {
   const City({

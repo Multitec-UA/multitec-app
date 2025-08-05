@@ -86,17 +86,17 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Sq1 Assignment"]
+            manifestPlaceholders = [appName: "Multitec App"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Sq1 Assignment"]
+            manifestPlaceholders = [appName: "[STG] Multitec App"]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Sq1 Assignment"]
+            manifestPlaceholders = [appName: "[DEV] Multitec App"]
         }
     }
 

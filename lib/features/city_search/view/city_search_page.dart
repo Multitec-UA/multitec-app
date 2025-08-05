@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sq1_assignment/core/di/service_locator.dart';
-import 'package:sq1_assignment/features/city_search/city_search.dart';
+import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/features/city_search/city_search.dart';
 
 class CitySearchPage extends StatelessWidget {
   const CitySearchPage({super.key});

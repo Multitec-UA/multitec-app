@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sq1_assignment/core/ui/styles/border_radius.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 
 class AppSnackBar extends SnackBar {
   AppSnackBar({
