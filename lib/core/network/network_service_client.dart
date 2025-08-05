@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:multitec_app/core/network/network_service.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sq1_assignment/core/network/network_service.dart';
 
 abstract class NetworkServiceClient {
   NetworkServiceClient({
