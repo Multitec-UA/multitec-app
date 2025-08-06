@@ -68,6 +68,21 @@ Finally, install Husky git hooks:
 fvm dart run husky install
 ```
 
+### Using Mason bricks 🧱
+
+This project uses [Mason](https://pub.dev/packages/mason_cli) to generate feature folders inside `lib/features` following the standard structure.
+
+Install Mason CLI:
+
+```sh
+dart pub global activate mason_cli
+```
+
+To generate a new feature, run:
+```sh
+mason make feature
+```
+
 ### Setup environments and secrets
 
 Create the **environment** folder in the project root and define 3 files inside of it corresponding to the 3 different flavours (you can find and download the files in the link below).
