@@ -20,7 +20,12 @@ class HomeScreen extends StatelessWidget {
             children: [
               Text(context.l10n.home),
               spacings.y.s16,
-              Text(locator<MultitecApiClient>().exampleMethod()),
+              Text(
+                (locator.get<NetworkServiceClient>(
+                  instanceName: 'MultitecApiClient',
+                ) as MultitecApiClient)
+                    .exampleMethod(),
+              ),
               spacings.y.s16,
               ElevatedButton(
                 onPressed: () {

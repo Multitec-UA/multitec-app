@@ -6,15 +6,38 @@ final locator = GetIt.instance;
 
 Future<void> serviceLocatorSetUp() async {
   locator
-    ..registerSingletonAsync<Square1ApiClient>(Square1ApiClient.create)
-    ..registerSingletonAsync<GoogleMapsApiClient>(GoogleMapsApiClient.create)
-    ..registerSingletonAsync<MultitecApiClient>(MultitecApiClient.create)
+    ..enableRegisteringMultipleInstancesOfOneType()
+    ..registerSingletonAsync<NetworkServiceClient>(
+      Square1ApiClient.create,
+      instanceName: 'Square1ApiClient',
+    )
+    ..registerSingletonAsync<NetworkServiceClient>(
+      GoogleMapsApiClient.create,
+      instanceName: 'GoogleMapsApiClient',
+    )
+    ..registerSingletonAsync<NetworkServiceClient>(
+      MultitecApiClient.create,
+      instanceName: 'MultitecApiClient',
+    )
     ..registerSingletonWithDependencies<CitySearchRepository>(
       () => ApiCitySearchRepository(
-        square1Client: locator<Square1ApiClient>(),
-        googleMapsApiClient: locator<GoogleMapsApiClient>(),
+        square1Client: locator.get<NetworkServiceClient>(
+          instanceName: 'Square1ApiClient',
+        ) as Square1ApiClient,
+        googleMapsApiClient: locator.get<NetworkServiceClient>(
+          instanceName: 'GoogleMapsApiClient',
+        ) as GoogleMapsApiClient,
       ),
-      dependsOn: [Square1ApiClient, GoogleMapsApiClient],
+      dependsOn: [
+        InitDependency(
+          NetworkServiceClient,
+          instanceName: 'Square1ApiClient',
+        ),
+        InitDependency(
+          NetworkServiceClient,
+          instanceName: 'GoogleMapsApiClient',
+        ),
+      ],
     );
 
   await locator.allReady();
