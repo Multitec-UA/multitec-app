@@ -40,30 +40,33 @@ class MockCitySearchRepository extends _i1.Mock
     int? page,
   }) =>
       (super.noSuchMethod(
-        Invocation.method(#getCitiesByName, [], {#name: name, #page: page}),
-        returnValue:
-            _i3.Future<_i4.Result<_i5.PaginatedData<_i2.City>, String>>.value(
-          _i6.dummyValue<_i4.Result<_i5.PaginatedData<_i2.City>, String>>(
-            this,
-            Invocation.method(#getCitiesByName, [], {
-              #name: name,
-              #page: page,
-            }),
-          ),
-        ),
-      ) as _i3.Future<_i4.Result<_i5.PaginatedData<_i2.City>, String>>);
+            Invocation.method(#getCitiesByName, [], {#name: name, #page: page}),
+            returnValue: _i3.Future<
+              _i4.Result<_i5.PaginatedData<_i2.City>, String>
+            >.value(
+              _i6.dummyValue<_i4.Result<_i5.PaginatedData<_i2.City>, String>>(
+                this,
+                Invocation.method(#getCitiesByName, [], {
+                  #name: name,
+                  #page: page,
+                }),
+              ),
+            ),
+          )
+          as _i3.Future<_i4.Result<_i5.PaginatedData<_i2.City>, String>>);
 
   @override
   _i3.Future<_i4.Result<_i2.Location, String>> getCityLocation(
     _i2.City? city,
   ) =>
       (super.noSuchMethod(
-        Invocation.method(#getCityLocation, [city]),
-        returnValue: _i3.Future<_i4.Result<_i2.Location, String>>.value(
-          _i6.dummyValue<_i4.Result<_i2.Location, String>>(
-            this,
             Invocation.method(#getCityLocation, [city]),
-          ),
-        ),
-      ) as _i3.Future<_i4.Result<_i2.Location, String>>);
+            returnValue: _i3.Future<_i4.Result<_i2.Location, String>>.value(
+              _i6.dummyValue<_i4.Result<_i2.Location, String>>(
+                this,
+                Invocation.method(#getCityLocation, [city]),
+              ),
+            ),
+          )
+          as _i3.Future<_i4.Result<_i2.Location, String>>);
 }

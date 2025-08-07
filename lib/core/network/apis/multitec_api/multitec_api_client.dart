@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
-import 'package:multitec_app/core/network/multitec_api/multitec_api.dart';
-import 'package:multitec_app/core/network/network_service_client.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:multitec_app/core/network/network_service.dart';
 
-class MultitecApiClient extends NetworkServiceClient implements MultitecApi {
+class MultitecApiClient extends NetworkServiceClient {
   MultitecApiClient._internal(List<Interceptor> interceptors)
       : super(
           baseUrl: const String.fromEnvironment('MULTITEC_API_URL'),
@@ -16,9 +14,10 @@ class MultitecApiClient extends NetworkServiceClient implements MultitecApi {
     return MultitecApiClient._internal(await _initializeInterceptors());
   }
 
+  // ==== FACTORY METHODS ======================================================
   static Future<List<Interceptor>> _initializeInterceptors() async {
     final cacheOptions = CacheOptions(
-      store: HiveCacheStore(await _getCacheDir()),
+      store: HiveCacheStore(await NetworkServiceClient.getCacheDir()),
       policy: CachePolicy.forceCache,
       hitCacheOnErrorExcept: [401, 403],
       maxStale: const Duration(days: 10),
@@ -29,12 +28,6 @@ class MultitecApiClient extends NetworkServiceClient implements MultitecApi {
     ];
   }
 
-  static Future<String> _getCacheDir() async {
-    final dir = await getApplicationDocumentsDirectory();
-    return dir.path;
-  }
-
-  @override
   String exampleMethod() {
     return 'Example method';
   }

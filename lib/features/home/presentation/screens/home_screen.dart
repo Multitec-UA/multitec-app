@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
-import 'package:multitec_app/core/network/multitec_api/multitec_api.dart';
+import 'package:multitec_app/core/network/network_service.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
@@ -20,7 +20,12 @@ class HomeScreen extends StatelessWidget {
             children: [
               Text(context.l10n.home),
               spacings.y.s16,
-              Text(locator<MultitecApi>().exampleMethod()),
+              Text(
+                (locator.get<NetworkServiceClient>(
+                  instanceName: 'MultitecApiClient',
+                ) as MultitecApiClient)
+                    .exampleMethod(),
+              ),
               spacings.y.s16,
               ElevatedButton(
                 onPressed: () {
