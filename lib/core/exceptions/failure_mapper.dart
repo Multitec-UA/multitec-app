@@ -5,11 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:multitec_app/core/exceptions/app_exception.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 
-class ErrorMapper {
-  const ErrorMapper();
+class FailureMapper {
+  const FailureMapper();
 
   Failure map(Object error) {
-    if (error is DioException) return _fromDio(error);
+    if (error is DioException) return _fromDioException(error);
 
     // if (error is FirebaseAuthException) return _fromFirebaseAuth(error);
 
@@ -52,7 +52,7 @@ class ErrorMapper {
     return const UnknownFailure();
   }
 
-  Failure _fromDio(DioException e) {
+  Failure _fromDioException(DioException e) {
     switch (e.type) {
       case DioExceptionType.cancel:
         return const GenericFailure(message: 'Operación cancelada');

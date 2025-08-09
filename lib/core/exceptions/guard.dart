@@ -1,9 +1,9 @@
 import 'package:multiple_result/multiple_result.dart';
-import 'package:multitec_app/core/exceptions/error_mapper.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
+import 'package:multitec_app/core/exceptions/failure_mapper.dart';
 
-Future<Result<T, Failure>> guard<T>(
+Future<Result<T, Failure>> guardAsync<T>(
   Future<T> Function() operation, {
   String? hint,
 }) async {
@@ -13,7 +13,7 @@ Future<Result<T, Failure>> guard<T>(
   } catch (e, st) {
     ErrorReporter().report(e, stackTrace: st, hint: hint);
 
-    final failure = const ErrorMapper().map(e);
+    final failure = const FailureMapper().map(e);
 
     return Error(failure);
   }
@@ -30,7 +30,7 @@ Result<T, Failure> guardSync<T>(
   } catch (e, st) {
     ErrorReporter().report(e, stackTrace: st, hint: hint);
 
-    final failure = const ErrorMapper().map(e);
+    final failure = const FailureMapper().map(e);
 
     return Error(failure);
   }

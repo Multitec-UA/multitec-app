@@ -30,7 +30,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   FlutterError.onError = (details) {
     if (kDebugMode) FlutterError.presentError(details);
-    Zone.current.handleUncaughtError(details.exception, details.stack!);
+    Zone.current.handleUncaughtError(
+      details.exception,
+      details.stack ?? StackTrace.current,
+    );
   };
 
   PlatformDispatcher.instance.onError = (error, stack) {
