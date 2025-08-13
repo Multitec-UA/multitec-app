@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/ui/styles/spacings.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -24,17 +26,57 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   FlutterError.onError = (details) {
-    log(details.exceptionAsString(), stackTrace: details.stack);
+    if (kDebugMode) FlutterError.presentError(details);
+    //TODO: Ver si dejarlo asi o reportar el error aqui directamente
+    Zone.current.handleUncaughtError(
+      details.exception,
+      details.stack ?? StackTrace.current,
+    );
   };
 
-  Bloc.observer = const AppBlocObserver();
+  PlatformDispatcher.instance.onError = (error, stack) {
+    //TODO: Ver si dejarlo asi o reportar el error aqui directamente
+    Zone.current.handleUncaughtError(error, stack);
+    return true;
+  };
 
-  WidgetsFlutterBinding.ensureInitialized();
+  ErrorWidget.builder = errorBuilderWidget;
+
+  Bloc.observer = const AppBlocObserver();
 
   if (Platform.isIOS) await ApiKeyProvider.provideGoogleMapsApiKey();
 
   await serviceLocatorSetUp();
 
-  runApp(await builder());
+  await runZonedGuarded(
+    () async => runApp(await builder()),
+    (error, stackTrace) {
+      ErrorReporter().report(
+        error,
+        stackTrace: stackTrace,
+        hint: 'zoneGuarded',
+        fatal: true,
+      );
+    },
+  );
+}
+
+Widget errorBuilderWidget(FlutterErrorDetails details) {
+  final text =
+      kReleaseMode ? 'Se ha producido un error' : details.exception.toString();
+
+  return Material(
+    child: ColoredBox(
+      color: Colors.grey,
+      child: Padding(
+        padding: paddings.all.s16,
+        child: SingleChildScrollView(
+          child: Text(text),
+        ),
+      ),
+    ),
+  );
 }
