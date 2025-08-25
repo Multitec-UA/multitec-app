@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:multitec_app/core/network/network.dart';
 
-class GeocodeResource {
-  GeocodeResource(this._httpClient);
+class GoogleMapsApiClient implements GoogleMapsApi {
+  GoogleMapsApiClient(this._httpClient);
 
-  final Dio _httpClient;
+  final HttpClient _httpClient;
 
   static const String _geocodeJson = '/geocode/json';
 
+  @override
   Future<Response<T>> getCoordinatesFromAddress<T>({
     required String address,
   }) async {

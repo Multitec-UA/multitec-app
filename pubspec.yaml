@@ -1,5 +1,6 @@
 name: multitec_app
-description: Multitec App - A Flutter application for the community management of the multitec student association.
+description: Multitec App - A Flutter application for the community management
+  of the multitec student association.
 version: 1.0.0+1
 publish_to: none
 

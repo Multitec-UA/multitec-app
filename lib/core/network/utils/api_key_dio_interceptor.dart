@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-class ApiKeyInterceptor extends Interceptor {
-  const ApiKeyInterceptor(this.apiKey);
+class ApiKeyDioInterceptor extends Interceptor {
+  const ApiKeyDioInterceptor(this.apiKey);
 
   final String apiKey;
 
