@@ -103,6 +103,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home'**
   String get home;
+
+  /// No description provided for @genericError.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong.'**
+  String get genericError;
+
+  /// No description provided for @errorNetworkGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection error. Check your internet connection.'**
+  String get errorNetworkGeneric;
+
+  /// No description provided for @errorTimeoutGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'The request timed out. Please try again.'**
+  String get errorTimeoutGeneric;
+
+  /// No description provided for @errorPermissionGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission denied.'**
+  String get errorPermissionGeneric;
+
+  /// No description provided for @errorLocationGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Location service is unavailable.'**
+  String get errorLocationGeneric;
+
+  /// No description provided for @errorEmailAlreadyInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Email is already in use.'**
+  String get errorEmailAlreadyInUse;
+
+  /// No description provided for @errorInvalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid credentials.'**
+  String get errorInvalidCredentials;
+
+  /// No description provided for @errorWeakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'The password is too weak.'**
+  String get errorWeakPassword;
+
+  /// No description provided for @errorUserNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'User not found.'**
+  String get errorUserNotFound;
+
+  /// No description provided for @errorWrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect password.'**
+  String get errorWrongPassword;
+
+  /// No description provided for @errorNetworkBadCertificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure connection failed (SSL certificate error).'**
+  String get errorNetworkBadCertificate;
+
+  /// No description provided for @errorHttp400BadRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad request.'**
+  String get errorHttp400BadRequest;
+
+  /// No description provided for @errorHttp401Unauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Unauthorized.'**
+  String get errorHttp401Unauthorized;
+
+  /// No description provided for @errorHttp403Forbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Forbidden.'**
+  String get errorHttp403Forbidden;
+
+  /// No description provided for @errorHttp404NotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Resource not found.'**
+  String get errorHttp404NotFound;
+
+  /// No description provided for @errorHttp409Conflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Conflict while processing the request.'**
+  String get errorHttp409Conflict;
+
+  /// No description provided for @errorHttp429TooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many requests. Please try again later.'**
+  String get errorHttp429TooManyRequests;
+
+  /// No description provided for @errorHttp5xxServer.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error. Please try again later.'**
+  String get errorHttp5xxServer;
 }
 
 class _AppLocalizationsDelegate

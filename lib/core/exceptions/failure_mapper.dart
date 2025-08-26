@@ -22,111 +22,98 @@ class FailureMapper {
         error is WebSocketException ||
         error is HandshakeException ||
         error is CertificateException) {
-      return const NetworkFailure();
+      return const NetworkFailure(code: 'network_error');
     }
 
-    if (error is TimeoutException) return const TimeoutFailure();
+    if (error is TimeoutException) {
+      return const TimeoutFailure(code: 'timeout');
+    }
 
     if (error is FormatException || error is TypeError || error is StateError) {
-      return const GenericFailure();
+      return const GenericFailure(code: 'format_error');
     }
 
     if (error is PlatformException) {
       final code = error.code.toLowerCase();
       if (code.contains('denied') || code.contains('permission')) {
-        return const PermissionFailure();
+        return const PermissionFailure(code: 'permission_denied');
       }
       if (code.contains('location') || code.contains('gps')) {
-        return const LocationFailure();
+        return const LocationFailure(code: 'location_unavailable');
       }
     }
 
     if (error is FileSystemException) {
-      return const GenericFailure(
-        message: 'No se ha podido acceder a los archivos',
-      );
+      return const GenericFailure(code: 'filesystem_error');
     }
 
-    if (error is AppException) return AppFailure(message: error.message);
+    if (error is AppException) {
+      return AppFailure(code: error.code, debugMessage: error.message);
+    }
 
-    return const UnknownFailure();
+    return const UnknownFailure(code: 'unknown');
   }
 
   Failure _fromDioException(DioException e) {
     switch (e.type) {
       case DioExceptionType.cancel:
-        return const GenericFailure(message: 'Operación cancelada');
+        return const GenericFailure(code: 'request_cancelled');
 
       case DioExceptionType.connectionTimeout:
       case DioExceptionType.sendTimeout:
       case DioExceptionType.receiveTimeout:
-        return const TimeoutFailure();
+        return const TimeoutFailure(code: 'timeout');
 
       case DioExceptionType.badCertificate:
-        return const NetworkFailure(message: 'Error de conexión segura');
+        return const NetworkFailure(code: 'bad_certificate');
 
       case DioExceptionType.connectionError:
-        return const NetworkFailure();
+        return const NetworkFailure(code: 'connection_error');
 
       case DioExceptionType.badResponse:
         final status = e.response?.statusCode ?? 0;
-        switch (status) {
-          case 400:
-          case 401:
-          case 403:
-            return const GenericFailure(message: 'No autorizado');
-          case 404:
-            return const GenericFailure(message: 'Recurso no encontrado');
-          case 408:
-            return const TimeoutFailure();
-          case 409:
-            return const GenericFailure(
-              message: 'Conflicto al procesar la solicitud',
-            );
-          case 429:
-            return const GenericFailure(
-              message: 'Límite de peticiones alcanzado',
-            );
-        }
-        if (status >= 500 && status < 600) {
-          return const GenericFailure(message: 'Error del servidor');
-        }
-        return const GenericFailure(message: 'Error de red');
+        return GenericFailure(
+          code: 'http_$status',
+          debugMessage: 'HTTP error with status $status',
+        );
 
       case DioExceptionType.unknown:
         final underlying = e.error;
         if (underlying is SocketException) {
-          return const NetworkFailure();
+          return const NetworkFailure(code: 'socket');
         }
         if (underlying is HandshakeException ||
             underlying is CertificateException) {
-          return const NetworkFailure(message: 'Error de conexión segura');
+          return const NetworkFailure(code: 'handshake_failed');
         }
         if (underlying is FormatException) {
-          return const GenericFailure(message: 'Error al procesar datos');
+          return const GenericFailure(code: 'invalid_format');
         }
-        return const GenericFailure(message: 'Error de red');
+        return const GenericFailure(code: 'unknown_network');
     }
   }
 
   // Failure _fromFirebaseAuth(FirebaseAuthException e) {
   //   switch (e.code) {
   //     case 'email-already-in-use':
-  //       return const EmailAlreadyInUseFailure();
+  //       return const EmailAlreadyInUseFailure(code: 'email_already_in_use');
   //     case 'invalid-credential':
   //     case 'invalid-email':
   //     case 'missing-password':
   //     case 'user-disabled':
   //     case 'operation-not-allowed':
-  //       return const InvalidCredentialsFailure();
+  //       return const InvalidCredentialsFailure(code: 'invalid_credentials');
   //     case 'weak-password':
-  //       return const WeakPasswordFailure();
+  //       return const WeakPasswordFailure(code: 'weak_password');
   //     case 'user-not-found':
-  //       return const UserNotFoundFailure();
+  //       return const UserNotFoundFailure(code: 'user_not_found');
   //     case 'wrong-password':
-  //       return const WrongPasswordFailure();
+  //       return const WrongPasswordFailure(code: 'wrong_password');
   //     default:
-  //       return GenericFailure(message: e.message ?? 'Error de autentificación');
+  //       return GenericFailure(
+  //         code: 'firebase_auth_error_${e.code}',
+  //         debugMessage: e.message,
+  //       );
   //   }
   // }
 }

@@ -3,5 +3,23 @@
   "home": "Inicio",
   "@home": {
     "description": "Home page title"
-  }
+  },
+  "genericError": "Ha ocurrido un error.",
+  "errorNetworkGeneric": "Error de conexión. Revisa tu conexión a Internet.",
+  "errorTimeoutGeneric": "La solicitud ha superado el tiempo de espera. Inténtalo de nuevo.",
+  "errorPermissionGeneric": "Permiso denegado.",
+  "errorLocationGeneric": "El servicio de ubicación no está disponible.",
+  "errorEmailAlreadyInUse": "El correo electrónico ya está en uso.",
+  "errorInvalidCredentials": "Credenciales inválidas.",
+  "errorWeakPassword": "La contraseña es demasiado débil.",
+  "errorUserNotFound": "Usuario no encontrado.",
+  "errorWrongPassword": "Contraseña incorrecta.",
+  "errorNetworkBadCertificate": "Fallo de conexión segura (error de certificado SSL).",
+  "errorHttp400BadRequest": "Solicitud incorrecta.",
+  "errorHttp401Unauthorized": "No autorizado.",
+  "errorHttp403Forbidden": "Prohibido.",
+  "errorHttp404NotFound": "Recurso no encontrado.",
+  "errorHttp409Conflict": "Conflicto al procesar la solicitud.",
+  "errorHttp429TooManyRequests": "Demasiadas solicitudes. Inténtalo de nuevo más tarde.",
+  "errorHttp5xxServer": "Error del servidor. Inténtalo de nuevo más tarde."
 }

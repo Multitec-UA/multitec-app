@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
@@ -26,16 +28,34 @@ class HomeScreen extends StatelessWidget {
                 ) as MultitecApiClient)
                     .exampleMethod(),
               ),
-              spacings.y.s16,
+              const Divider(height: 50),
               ElevatedButton(
                 onPressed: () {
                   context.showSnackBar(
                     AppSnackBar.success(
-                      content: Text(context.l10n.home),
+                      content: const Text('Texto de ejemplo'),
                     ),
                   );
                 },
-                child: Text(context.l10n.home),
+                child: const Text('Show success snackbar'),
+              ),
+              spacings.y.s16,
+              ElevatedButton(
+                onPressed: () {
+                  context.showSnackBar(
+                    AppSnackBar.error(
+                      content: const Text('Texto de ejemplo'),
+                    ),
+                  );
+                },
+                child: const Text('Show error snackbar'),
+              ),
+              spacings.y.s16,
+              ElevatedButton(
+                onPressed: () {
+                  context.pushNamed(AppRoute.example.name);
+                },
+                child: const Text('Ir a Feature Example'),
               ),
             ],
           ),

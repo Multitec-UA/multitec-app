@@ -47,7 +47,9 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
 
-  if (Platform.isIOS) await ApiKeyProvider.provideGoogleMapsApiKey();
+  if (!kIsWeb && Platform.isIOS) {
+    await ApiKeyProvider.provideGoogleMapsApiKey();
+  }
 
   await serviceLocatorSetUp();
 

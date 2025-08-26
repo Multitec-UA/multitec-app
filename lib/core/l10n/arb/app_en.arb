@@ -3,5 +3,23 @@
   "home": "Home",
   "@home": {
     "description": "Home page title"
-  }
+  },
+  "genericError": "Something went wrong.",
+  "errorNetworkGeneric": "Connection error. Check your internet connection.",
+  "errorTimeoutGeneric": "The request timed out. Please try again.",
+  "errorPermissionGeneric": "Permission denied.",
+  "errorLocationGeneric": "Location service is unavailable.",
+  "errorEmailAlreadyInUse": "Email is already in use.",
+  "errorInvalidCredentials": "Invalid credentials.",
+  "errorWeakPassword": "The password is too weak.",
+  "errorUserNotFound": "User not found.",
+  "errorWrongPassword": "Incorrect password.",
+  "errorNetworkBadCertificate": "Secure connection failed (SSL certificate error).",
+  "errorHttp400BadRequest": "Bad request.",
+  "errorHttp401Unauthorized": "Unauthorized.",
+  "errorHttp403Forbidden": "Forbidden.",
+  "errorHttp404NotFound": "Resource not found.",
+  "errorHttp409Conflict": "Conflict while processing the request.",
+  "errorHttp429TooManyRequests": "Too many requests. Please try again later.",
+  "errorHttp5xxServer": "Server error. Please try again later."
 }
