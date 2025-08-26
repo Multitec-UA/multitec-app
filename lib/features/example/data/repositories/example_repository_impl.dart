@@ -6,13 +6,9 @@ import 'package:multitec_app/features/example/domain/models/example_item.dart';
 import 'package:multitec_app/features/example/domain/repositories/example_repository.dart';
 
 class ExampleRepositoryImpl implements ExampleRepository {
-  ExampleRepositoryImpl(
-    this._remote,
-    //this._local,
-  );
+  ExampleRepositoryImpl(this._remote);
 
   final ExampleRemoteDataSource _remote;
-  //final ExampleLocalDataSource _local;
 
   @override
   Future<Result<List<ExampleItem>, Failure>> fetchItems() {

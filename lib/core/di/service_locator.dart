@@ -67,10 +67,7 @@ Future<void> serviceLocatorSetUp() async {
 
   // Repository
   locator.registerFactory<ExampleRepository>(
-    () => ExampleRepositoryImpl(
-      locator<ExampleRemoteDataSource>(),
-      locator<ExampleLocalDataSource>(),
-    ),
+    () => ExampleRepositoryImpl(locator<ExampleRemoteDataSource>()),
   );
 
   // UseCases
