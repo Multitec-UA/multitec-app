@@ -24,7 +24,7 @@ jobs:
       flutter_version: ${{ steps.read_version.outputs.flutter_version }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - id: read_version
         name: Parse Flutter version from .fvmrc
