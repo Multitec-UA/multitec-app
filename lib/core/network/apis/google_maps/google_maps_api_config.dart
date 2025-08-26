@@ -4,6 +4,10 @@ import 'package:multitec_app/core/network/network.dart';
 class GoogleMapsApiConfig {
   static const String baseUrl = String.fromEnvironment('GOOGLE_MAPS_URL');
 
+  static const String apiKey = String.fromEnvironment('GOOGLE_MAPS_API_KEY');
+
+  static const String apiKeyChannelMethod = 'setGoogleMapsApiKey';
+
   static const Duration timeout = Duration(seconds: 12);
 
   static Future<List<Interceptor>> getInterceptors() async => [
@@ -24,8 +28,6 @@ class GoogleMapsApiConfig {
   }
 
   static Interceptor _getApiKeyInterceptor() {
-    return const ApiKeyDioInterceptor(
-      String.fromEnvironment('GOOGLE_MAPS_API_KEY'),
-    );
+    return const ApiKeyDioInterceptor(apiKey);
   }
 }

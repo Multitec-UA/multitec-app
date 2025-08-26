@@ -1,12 +1,14 @@
 import 'package:flutter/services.dart';
 
-class ApiKeyProvider {
+class ApiKeyChannel {
   static const _channel = MethodChannel('environment_config');
 
-  static Future<void> provideGoogleMapsApiKey() async {
-    const apiKey = String.fromEnvironment('GOOGLE_MAPS_API_KEY');
+  static Future<void> provideKey({
+    required String apiKey,
+    required String method,
+  }) async {
     if (apiKey.isNotEmpty) {
-      await _channel.invokeMethod('setGoogleMapsApiKey', apiKey);
+      await _channel.invokeMethod(method, {'apiKey': apiKey});
     }
   }
 }

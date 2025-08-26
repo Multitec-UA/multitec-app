@@ -8,7 +8,7 @@ Future<void> serviceLocatorSetUp() async {
   locator
     ..registerSingletonAsync<Square1Api>(
       () async => Square1ApiClient(
-        DioClient(
+        HttpClient(
           baseUrl: Square1ApiConfig.baseUrl,
           timeout: Square1ApiConfig.timeout,
           interceptors: await Square1ApiConfig.getInterceptors(),
@@ -17,7 +17,7 @@ Future<void> serviceLocatorSetUp() async {
     )
     ..registerSingletonAsync<GoogleMapsApi>(
       () async => GoogleMapsApiClient(
-        DioClient(
+        HttpClient(
           baseUrl: GoogleMapsApiConfig.baseUrl,
           timeout: GoogleMapsApiConfig.timeout,
           interceptors: await GoogleMapsApiConfig.getInterceptors(),
@@ -26,7 +26,7 @@ Future<void> serviceLocatorSetUp() async {
     )
     ..registerSingletonAsync<MultitecApi>(
       () async => MultitecApiClient(
-        DioClient(
+        HttpClient(
           baseUrl: MultitecApiConfig.baseUrl,
           timeout: MultitecApiConfig.timeout,
           interceptors: await MultitecApiConfig.getInterceptors(),
