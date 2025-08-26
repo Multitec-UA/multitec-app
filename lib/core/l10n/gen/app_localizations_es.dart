@@ -10,4 +10,64 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get home => 'Inicio';
+
+  @override
+  String get genericError => 'Ha ocurrido un error.';
+
+  @override
+  String get errorNetworkGeneric =>
+      'Error de conexión. Revisa tu conexión a Internet.';
+
+  @override
+  String get errorTimeoutGeneric =>
+      'La solicitud ha superado el tiempo de espera. Inténtalo de nuevo.';
+
+  @override
+  String get errorPermissionGeneric => 'Permiso denegado.';
+
+  @override
+  String get errorLocationGeneric =>
+      'El servicio de ubicación no está disponible.';
+
+  @override
+  String get errorEmailAlreadyInUse => 'El correo electrónico ya está en uso.';
+
+  @override
+  String get errorInvalidCredentials => 'Credenciales inválidas.';
+
+  @override
+  String get errorWeakPassword => 'La contraseña es demasiado débil.';
+
+  @override
+  String get errorUserNotFound => 'Usuario no encontrado.';
+
+  @override
+  String get errorWrongPassword => 'Contraseña incorrecta.';
+
+  @override
+  String get errorNetworkBadCertificate =>
+      'Fallo de conexión segura (error de certificado SSL).';
+
+  @override
+  String get errorHttp400BadRequest => 'Solicitud incorrecta.';
+
+  @override
+  String get errorHttp401Unauthorized => 'No autorizado.';
+
+  @override
+  String get errorHttp403Forbidden => 'Prohibido.';
+
+  @override
+  String get errorHttp404NotFound => 'Recurso no encontrado.';
+
+  @override
+  String get errorHttp409Conflict => 'Conflicto al procesar la solicitud.';
+
+  @override
+  String get errorHttp429TooManyRequests =>
+      'Demasiadas solicitudes. Inténtalo de nuevo más tarde.';
+
+  @override
+  String get errorHttp5xxServer =>
+      'Error del servidor. Inténtalo de nuevo más tarde.';
 }

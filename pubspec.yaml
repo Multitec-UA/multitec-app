@@ -17,6 +17,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  freezed: ^3.2.0
   freezed_annotation: ^3.0.0
   get_it: ^8.0.3
   go_router: ^16.0.0
@@ -32,7 +33,6 @@ dev_dependencies:
   commitlint_cli: ^0.8.1
   flutter_test:
     sdk: flutter
-  freezed: ^3.0.6
   husky: ^0.1.7
   mockito: ^5.4.4
   very_good_analysis: ^8.0.0
