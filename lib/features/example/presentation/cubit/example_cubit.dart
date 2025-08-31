@@ -42,6 +42,7 @@ class ExampleCubit extends Cubit<ExampleState> {
       (_) => emit(
         state.copyWith(
           reportStatus: StateStatus.loaded,
+          reportFailure: null,
         ),
       ),
       (failure) => emit(
