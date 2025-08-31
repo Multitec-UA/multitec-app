@@ -7,6 +7,8 @@ import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/core/ui/theme/theme_toggle_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -56,6 +58,58 @@ class HomeScreen extends StatelessWidget {
                   context.pushNamed(AppRoute.example.name);
                 },
                 child: const Text('Ir a Feature Example'),
+              ),
+              const Divider(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Change Theme Mode ->',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const ThemeToggleButton(),
+                ],
+              ),
+              spacings.y.s16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.primaryBase,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray10,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray20,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray30,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray40,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray50,
+                  ),
+                ],
+              ),
+              spacings.y.s16,
+              Text(
+                'Estilo de texto de prueba',
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
           ),

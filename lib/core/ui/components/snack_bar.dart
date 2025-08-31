@@ -45,7 +45,7 @@ class AppSnackBar extends SnackBar {
     super.dismissDirection = DismissDirection.down,
     super.clipBehavior = Clip.hardEdge,
   }) : super(
-          backgroundColor: backgroundColor ?? Colors.green,
+          backgroundColor: backgroundColor ?? const Color(0xFF2ECC71),
           shape:
               shape ?? RoundedRectangleBorder(borderRadius: borderRadius.br10),
           behavior: behavior ?? SnackBarBehavior.floating,
@@ -71,7 +71,7 @@ class AppSnackBar extends SnackBar {
     super.dismissDirection = DismissDirection.down,
     super.clipBehavior = Clip.hardEdge,
   }) : super(
-          backgroundColor: backgroundColor ?? Colors.redAccent,
+          backgroundColor: backgroundColor ?? const Color(0xFFE74C3C),
           shape:
               shape ?? RoundedRectangleBorder(borderRadius: borderRadius.br10),
           behavior: behavior ?? SnackBarBehavior.floating,
