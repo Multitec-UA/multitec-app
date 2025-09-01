@@ -13,6 +13,7 @@ dependencies:
   dio: ^5.7.0
   dio_cache_interceptor: ^3.5.1
   dio_cache_interceptor_hive_store: ^4.0.0
+  dio_cache_interceptor_isar_store: ^1.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1

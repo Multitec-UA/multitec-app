@@ -1,5 +1,5 @@
 enum CacheStoreType {
   hive,
-  sembast,
+  isar,
   memory,
 }
