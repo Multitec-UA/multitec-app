@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:multitec_app/core/constants/constants.dart';
 import 'package:multitec_app/core/network/network.dart';
 
 class GoogleMapsApiConfig {
-  static const String baseUrl = String.fromEnvironment('GOOGLE_MAPS_URL');
+  static const String baseUrl = Environment.googleMapsUrl;
 
-  static const String apiKey = String.fromEnvironment('GOOGLE_MAPS_API_KEY');
+  static const String apiKey = Environment.googleMapsApiKey;
 
-  static const String apiKeyChannelMethod = 'setGoogleMapsApiKey';
+  static const String apiKeyChannelMethod =
+      ApiConstants.setGoogleMapsApiKeyMethod;
 
   static const Duration timeout = Duration(seconds: 12);
 

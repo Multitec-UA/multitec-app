@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:multitec_app/core/constants/constants.dart';
 import 'package:multitec_app/core/network/network.dart';
 
 class Square1ApiConfig {
-  static const String baseUrl = String.fromEnvironment('SQUARE1_URL');
+  static const String baseUrl = Environment.square1Url;
 
   static const Duration timeout = Duration(seconds: 12);
 

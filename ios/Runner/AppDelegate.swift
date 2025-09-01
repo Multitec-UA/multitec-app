@@ -11,10 +11,10 @@ import GoogleMaps
         GeneratedPluginRegistrant.register(with: self)
         
         let controller: FlutterViewController = window?.rootViewController as! FlutterViewController
-        let channel = FlutterMethodChannel(name: "environment_config", binaryMessenger: controller.binaryMessenger)
+        let channel = FlutterMethodChannel(name: ApiConstants.apiKeyChannelName, binaryMessenger: controller.binaryMessenger)
 
         channel.setMethodCallHandler { (call: FlutterMethodCall, result: FlutterResult) in
-            if call.method == "setGoogleMapsApiKey" {
+            if call.method == ApiConstants.setGoogleMapsApiKeyMethod {
                 if let apiKey = call.arguments as? String {
                     GMSServices.provideAPIKey(apiKey)
                 }

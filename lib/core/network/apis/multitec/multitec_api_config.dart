@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:multitec_app/core/constants/constants.dart';
 import 'package:multitec_app/core/network/network.dart';
 
 class MultitecApiConfig {
-  static const String baseUrl = String.fromEnvironment('MULTITEC_URL');
+  static const String baseUrl = Environment.multitecUrl;
 
   static const Duration timeout = Duration(seconds: 12);
 
