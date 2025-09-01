@@ -4,11 +4,11 @@ import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/network/network_service.dart';
 import 'package:multitec_app/core/router/app_router.dart';
+import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
-import 'package:multitec_app/core/ui/theme/theme_toggle_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const MultitecAppBar(),
       body: Center(
         child: Padding(
           padding: paddings.all.s16,
@@ -60,17 +60,6 @@ class HomeScreen extends StatelessWidget {
                 child: const Text('Ir a Feature Example'),
               ),
               const Divider(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Change Theme Mode ->',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const ThemeToggleButton(),
-                ],
-              ),
-              spacings.y.s16,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
