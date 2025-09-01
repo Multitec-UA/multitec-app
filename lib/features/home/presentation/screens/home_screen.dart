@@ -9,7 +9,6 @@ import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
-import 'package:multitec_app/core/ui/theme/theme_toggle_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
