@@ -34,6 +34,6 @@ class ErrorReporter {
   // }
 
   bool get _isRunningTest {
-    return Platform.environment.containsKey('FLUTTER_TEST');
+    return !kIsWeb && Platform.environment.containsKey('FLUTTER_TEST');
   }
 }

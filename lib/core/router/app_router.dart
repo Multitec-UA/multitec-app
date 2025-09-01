@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
+import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 
 enum AppRoute {
-  home('/');
+  home('/'),
+  example('/example');
 
   const AppRoute(this.path);
   final String path;
@@ -21,6 +23,11 @@ final goRouter = GoRouter(
       path: AppRoute.home.path,
       name: AppRoute.home.name,
       builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: AppRoute.example.path,
+      name: AppRoute.example.name,
+      builder: (context, state) => const ExampleScreen(),
     ),
   ],
   errorBuilder: (context, state) => const NotFoundScreen(),

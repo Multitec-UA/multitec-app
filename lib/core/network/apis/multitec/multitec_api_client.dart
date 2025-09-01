@@ -1,18 +1,15 @@
-import 'package:dio/dio.dart';
 import 'package:multitec_app/core/network/network.dart';
 
-class MultitecApiClient implements MultitecApi {
-  MultitecApiClient(this._httpClient);
+class MultitecApiClient extends HttpClient {
+  MultitecApiClient._({
+    super.interceptors,
+  }) : super(
+          baseUrl: MultitecApiConfig.baseUrl,
+          timeout: MultitecApiConfig.timeout,
+        );
 
-  final HttpClient _httpClient;
-
-  @override
-  String exampleMethod() {
-    return 'Example method';
-  }
-
-  @override
-  Future<Response<T>> exampleMethod2<T>() {
-    return _httpClient.get<T>('/example');
+  static Future<MultitecApiClient> create() async {
+    final interceptors = await MultitecApiConfig.getInterceptors();
+    return MultitecApiClient._(interceptors: interceptors);
   }
 }

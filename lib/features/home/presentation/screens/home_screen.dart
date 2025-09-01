@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/core/ui/theme/theme_toggle_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,20 +23,86 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(context.l10n.home),
-              spacings.y.s16,
-              Text(
-                locator.get<MultitecApi>().exampleMethod(),
+              const Divider(height: 50),
+              ElevatedButton(
+                onPressed: () {
+                  context.showSnackBar(
+                    AppSnackBar.success(
+                      content: const Text('Texto de ejemplo'),
+                    ),
+                  );
+                },
+                child: const Text('Show success snackbar'),
               ),
               spacings.y.s16,
               ElevatedButton(
                 onPressed: () {
                   context.showSnackBar(
-                    AppSnackBar.success(
-                      content: Text(context.l10n.home),
+                    AppSnackBar.error(
+                      content: const Text('Texto de ejemplo'),
                     ),
                   );
                 },
-                child: Text(context.l10n.home),
+                child: const Text('Show error snackbar'),
+              ),
+              spacings.y.s16,
+              ElevatedButton(
+                onPressed: () {
+                  context.pushNamed(AppRoute.example.name);
+                },
+                child: const Text('Ir a Feature Example'),
+              ),
+              const Divider(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Change Theme Mode ->',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const ThemeToggleButton(),
+                ],
+              ),
+              spacings.y.s16,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.primaryBase,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray10,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray20,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray30,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray40,
+                  ),
+                  Container(
+                    width: 30,
+                    height: 30,
+                    color: context.colors.gray50,
+                  ),
+                ],
+              ),
+              spacings.y.s16,
+              Text(
+                'Estilo de texto de prueba',
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ],
           ),

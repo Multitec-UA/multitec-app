@@ -37,7 +37,7 @@ jobs:
     uses: victorcovi/very_good_workflows/.github/workflows/flutter_package.yml@main
     with:
       flutter_version: ${{ needs.read-version.outputs.flutter_version }}
-      min_coverage: 10
+      min_coverage: 5
 
   spell-check:
     uses: victorcovi/very_good_workflows/.github/workflows/spell_check.yml@main

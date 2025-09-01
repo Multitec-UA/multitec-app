@@ -10,4 +10,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get home => 'Home';
+
+  @override
+  String get genericError => 'Something went wrong.';
+
+  @override
+  String get errorNetworkGeneric =>
+      'Connection error. Check your internet connection.';
+
+  @override
+  String get errorTimeoutGeneric => 'The request timed out. Please try again.';
+
+  @override
+  String get errorPermissionGeneric => 'Permission denied.';
+
+  @override
+  String get errorLocationGeneric => 'Location service is unavailable.';
+
+  @override
+  String get errorEmailAlreadyInUse => 'Email is already in use.';
+
+  @override
+  String get errorInvalidCredentials => 'Invalid credentials.';
+
+  @override
+  String get errorWeakPassword => 'The password is too weak.';
+
+  @override
+  String get errorUserNotFound => 'User not found.';
+
+  @override
+  String get errorWrongPassword => 'Incorrect password.';
+
+  @override
+  String get errorNetworkBadCertificate =>
+      'Secure connection failed (SSL certificate error).';
+
+  @override
+  String get errorHttp400BadRequest => 'Bad request.';
+
+  @override
+  String get errorHttp401Unauthorized => 'Unauthorized.';
+
+  @override
+  String get errorHttp403Forbidden => 'Forbidden.';
+
+  @override
+  String get errorHttp404NotFound => 'Resource not found.';
+
+  @override
+  String get errorHttp409Conflict => 'Conflict while processing the request.';
+
+  @override
+  String get errorHttp429TooManyRequests =>
+      'Too many requests. Please try again later.';
+
+  @override
+  String get errorHttp5xxServer => 'Server error. Please try again later.';
 }

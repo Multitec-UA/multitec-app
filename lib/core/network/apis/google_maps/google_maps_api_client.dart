@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:multitec_app/core/network/network.dart';
 
 class GoogleMapsApiClient implements GoogleMapsApi {
-  GoogleMapsApiClient(this._httpClient);
+  GoogleMapsApiClient(this.httpClient);
 
-  final HttpClient _httpClient;
+  final HttpClient httpClient;
 
   static const String _geocodeJson = '/geocode/json';
 
@@ -12,7 +12,7 @@ class GoogleMapsApiClient implements GoogleMapsApi {
   Future<Response<T>> getCoordinatesFromAddress<T>({
     required String address,
   }) async {
-    return _httpClient.get<T>(
+    return httpClient.get<T>(
       _geocodeJson,
       queryParameters: {
         'address': address,

@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:multitec_app/core/network/network.dart';
 
 class Square1ApiClient implements Square1Api {
-  Square1ApiClient(this._httpClient);
+  Square1ApiClient(this.httpClient);
 
-  final HttpClient _httpClient;
+  final HttpClient httpClient;
 
   static const String _city = '/city';
 
@@ -14,7 +14,7 @@ class Square1ApiClient implements Square1Api {
     String? include,
     int? page,
   }) async {
-    return _httpClient.get<T>(
+    return httpClient.get<T>(
       _city,
       queryParameters: {
         'filter[0][name][contains]': name,
