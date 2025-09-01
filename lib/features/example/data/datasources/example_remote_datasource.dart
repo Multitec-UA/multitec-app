@@ -13,11 +13,10 @@ class ExampleRemoteDataSourceImpl implements ExampleRemoteDataSource {
 
   @override
   Future<List<ExampleItemDto>> fetchItems() async {
-    final raw = await _client.get<List<dynamic>>('/example/items');
+    final response = await _client.get<List<dynamic>>('/example/items');
 
-    final list = raw
-        .cast<Map<String, dynamic>>()
-        .map(ExampleItemDto.fromJson)
+    final list = response.data!
+        .map((e) => ExampleItemDto.fromJson(e as Map<String, dynamic>))
         .toList(growable: false);
 
     return list;
