@@ -1,10 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:multitec_app/core/network/network.dart';
 
-class Square1ApiClient implements Square1Api {
-  Square1ApiClient(this.httpClient);
+class Square1ApiClient extends NetworkService implements Square1Api {
+  Square1ApiClient._({
+    super.interceptors,
+  }) : super(
+          baseUrl: Square1ApiConfig.baseUrl,
+          timeout: Square1ApiConfig.timeout,
+        );
 
-  final HttpClient httpClient;
+  static Future<Square1ApiClient> create() async {
+    final interceptors = await Square1ApiConfig.getInterceptors();
+    return Square1ApiClient._(interceptors: interceptors);
+  }
 
   static const String _city = '/city';
 
@@ -14,7 +22,7 @@ class Square1ApiClient implements Square1Api {
     String? include,
     int? page,
   }) async {
-    return httpClient.get<T>(
+    return get<T>(
       _city,
       queryParameters: {
         'filter[0][name][contains]': name,

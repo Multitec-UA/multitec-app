@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-class HttpClient {
-  HttpClient({
+abstract class NetworkService {
+  NetworkService({
     required String baseUrl,
     Map<String, dynamic>? headers,
     List<Interceptor> interceptors = const [],

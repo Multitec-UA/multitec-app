@@ -17,32 +17,25 @@ Future<void> serviceLocatorSetUp() async {
   //const useMocks = bool.fromEnvironment('USE_MOCK_DS', defaultValue: false);
 
   locator
-    ..registerSingletonAsync<Square1Api>(
-      () async => Square1ApiClient(
-        HttpClient(
-          baseUrl: Square1ApiConfig.baseUrl,
-          timeout: Square1ApiConfig.timeout,
-          interceptors: await Square1ApiConfig.getInterceptors(),
-        ),
-      ),
+    ..enableRegisteringMultipleInstancesOfOneType()
+    ..registerSingletonAsync<NetworkService>(
+      Square1ApiClient.create,
+      instanceName: 'Square1Api',
     )
-    ..registerSingletonAsync<GoogleMapsApi>(
-      () async => GoogleMapsApiClient(
-        HttpClient(
-          baseUrl: GoogleMapsApiConfig.baseUrl,
-          timeout: GoogleMapsApiConfig.timeout,
-          interceptors: await GoogleMapsApiConfig.getInterceptors(),
-        ),
-      ),
+    ..registerSingletonAsync<NetworkService>(
+      GoogleMapsApiClient.create,
+      instanceName: 'GoogleMapsApi',
     )
-    ..registerSingletonAsync<HttpClient>(
+    ..registerSingletonAsync<NetworkService>(
       MultitecApiClient.create,
-      instanceName: 'multitecApi',
+      instanceName: 'MultitecApi',
     )
     ..registerSingletonWithDependencies<CitySearchRepository>(
       () => ApiCitySearchRepository(
-        square1Api: locator.get<Square1Api>(),
-        googleMapsApi: locator.get<GoogleMapsApi>(),
+        square1Api:
+            locator<NetworkService>(instanceName: 'Square1Api') as Square1Api,
+        googleMapsApi: locator<NetworkService>(instanceName: 'GoogleMapsApi')
+            as GoogleMapsApi,
       ),
       dependsOn: [
         Square1Api,
@@ -56,7 +49,7 @@ Future<void> serviceLocatorSetUp() async {
     () => useMocks
         ? ExampleMockDataSource()
         : ExampleRemoteDataSourceImpl(
-            locator<HttpClient>(instanceName: 'multitecApi'),
+            locator<NetworkService>(instanceName: 'MultitecApi'),
           ),
   );
 

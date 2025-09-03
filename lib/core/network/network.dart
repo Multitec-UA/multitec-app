@@ -1,3 +1,3 @@
 export 'apis/apis.dart';
-export 'http_client.dart';
+export 'network_service.dart';
 export 'utils/utils.dart';

@@ -9,7 +9,7 @@ abstract class ExampleRemoteDataSource {
 class ExampleRemoteDataSourceImpl implements ExampleRemoteDataSource {
   ExampleRemoteDataSourceImpl(this._client);
 
-  final HttpClient _client;
+  final NetworkService _client;
 
   @override
   Future<List<ExampleItemDto>> fetchItems() async {

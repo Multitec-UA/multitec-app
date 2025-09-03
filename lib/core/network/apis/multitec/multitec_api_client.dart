@@ -1,6 +1,6 @@
 import 'package:multitec_app/core/network/network.dart';
 
-class MultitecApiClient extends HttpClient {
+class MultitecApiClient extends NetworkService {
   MultitecApiClient._({
     super.interceptors,
   }) : super(
