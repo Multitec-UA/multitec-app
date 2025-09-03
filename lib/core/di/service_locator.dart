@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:multitec_app/core/local_storage/local_storage.dart';
+import 'package:multitec_app/core/local_storage/shared_preferences.dart';
 import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
@@ -8,6 +10,7 @@ import 'package:multitec_app/features/example/data/repositories/example_reposito
 import 'package:multitec_app/features/example/domain/repositories/example_repository.dart';
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
 import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final locator = GetIt.instance;
 const useMocks = true;
@@ -15,6 +18,16 @@ const useMocks = true;
 Future<void> serviceLocatorSetUp() async {
   //TODO: Alternativa a useMocks
   //const useMocks = bool.fromEnvironment('USE_MOCK_DS', defaultValue: false);
+
+  locator.registerLazySingletonAsync<SharedPreferences>(
+    SharedPreferences.getInstance,
+  );
+
+  locator.registerLazySingleton<LocalStorageService>(
+    () => SharedPreferencesService(
+      preferences: locator<SharedPreferences>(),
+    ),
+  );
 
   locator
     ..enableRegisteringMultipleInstancesOfOneType()

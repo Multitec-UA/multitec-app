@@ -2,12 +2,16 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/firebase_options.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -54,19 +58,25 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     );
   }
 
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await serviceLocatorSetUp();
 
-  await runZonedGuarded(
-    () async => runApp(await builder()),
-    (error, stackTrace) {
-      ErrorReporter().report(
-        error,
-        stackTrace: stackTrace,
-        hint: 'zoneGuarded',
-        fatal: true,
-      );
-    },
-  );
+  await GetIt.I.isReady<SharedPreferences>().then((_) async {
+    await runZonedGuarded(
+      () async => runApp(await builder()),
+      (error, stackTrace) {
+        ErrorReporter().report(
+          error,
+          stackTrace: stackTrace,
+          hint: 'zoneGuarded',
+          fatal: true,
+        );
+      },
+    );
+  });
 }
 
 Widget errorBuilderWidget(FlutterErrorDetails details) {
