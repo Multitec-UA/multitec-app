@@ -2,12 +2,14 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/network/network_service.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/firebase_options.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -50,6 +52,10 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   if (!kIsWeb && Platform.isIOS) {
     await ApiKeyProvider.provideGoogleMapsApiKey();
   }
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await serviceLocatorSetUp();
 
