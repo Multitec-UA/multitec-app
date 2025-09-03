@@ -14,10 +14,10 @@ void main() async {
 
   // Generate Dart constants
   await _generateDartConstants(config);
-  
+
   // Generate Swift constants
   await _generateSwiftConstants(config);
-  
+
   print('Constants generated successfully!');
 }
 
@@ -28,7 +28,7 @@ Future<void> _generateDartConstants(Map<String, dynamic> config) async {
 class ApiConstants {
   /// Channel name for API key configuration between Flutter and native platforms
   static const String apiKeyChannelName = '${config['api_key_channel_name']}';
-  
+
   /// Method name for setting Google Maps API key
   static const String setGoogleMapsApiKeyMethod = '${config['set_google_maps_api_key_method']}';
 }

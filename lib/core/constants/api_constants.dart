@@ -3,7 +3,7 @@
 class ApiConstants {
   /// Channel name for API key configuration between Flutter and native platforms
   static const String apiKeyChannelName = 'api_key_config';
-  
+
   /// Method name for setting Google Maps API key
   static const String setGoogleMapsApiKeyMethod = 'setGoogleMapsApiKey';
 }
