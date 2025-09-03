@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:multitec_app/core/local_storage/local_storage.dart';
 import 'package:multitec_app/core/local_storage/shared_preferences.dart';
-import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';
@@ -31,36 +31,28 @@ Future<void> serviceLocatorSetUp() async {
 
   locator
     ..enableRegisteringMultipleInstancesOfOneType()
-    ..registerSingletonAsync<NetworkServiceClient>(
+    ..registerSingletonAsync<NetworkService>(
       Square1ApiClient.create,
-      instanceName: 'Square1ApiClient',
+      instanceName: 'Square1Api',
     )
-    ..registerSingletonAsync<NetworkServiceClient>(
+    ..registerSingletonAsync<NetworkService>(
       GoogleMapsApiClient.create,
-      instanceName: 'GoogleMapsApiClient',
+      instanceName: 'GoogleMapsApi',
     )
-    ..registerSingletonAsync<NetworkServiceClient>(
+    ..registerSingletonAsync<NetworkService>(
       MultitecApiClient.create,
-      instanceName: 'MultitecApiClient',
+      instanceName: 'MultitecApi',
     )
     ..registerSingletonWithDependencies<CitySearchRepository>(
       () => ApiCitySearchRepository(
-        square1Client: locator.get<NetworkServiceClient>(
-          instanceName: 'Square1ApiClient',
-        ) as Square1ApiClient,
-        googleMapsApiClient: locator.get<NetworkServiceClient>(
-          instanceName: 'GoogleMapsApiClient',
-        ) as GoogleMapsApiClient,
+        square1Api:
+            locator<NetworkService>(instanceName: 'Square1Api') as Square1Api,
+        googleMapsApi: locator<NetworkService>(instanceName: 'GoogleMapsApi')
+            as GoogleMapsApi,
       ),
       dependsOn: [
-        InitDependency(
-          NetworkServiceClient,
-          instanceName: 'Square1ApiClient',
-        ),
-        InitDependency(
-          NetworkServiceClient,
-          instanceName: 'GoogleMapsApiClient',
-        ),
+        Square1Api,
+        GoogleMapsApi,
       ],
     );
 
@@ -70,7 +62,7 @@ Future<void> serviceLocatorSetUp() async {
     () => useMocks
         ? ExampleMockDataSource()
         : ExampleRemoteDataSourceImpl(
-            locator<NetworkServiceClient>(instanceName: 'MultitecApiClient'),
+            locator<NetworkService>(instanceName: 'MultitecApi'),
           ),
   );
 

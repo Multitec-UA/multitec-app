@@ -1,19 +1,16 @@
 import 'package:multiple_result/multiple_result.dart';
-import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 
 class ApiCitySearchRepository implements CitySearchRepository {
   ApiCitySearchRepository({
-    required Square1ApiClient square1Client,
-    required GoogleMapsApiClient googleMapsApiClient,
-  })  : _square1Client = square1Client,
-        _googleMapsApiClient = googleMapsApiClient;
+    required Square1Api square1Api,
+    required GoogleMapsApi googleMapsApi,
+  })  : _square1Api = square1Api,
+        _googleMapsApi = googleMapsApi;
 
-  final Square1ApiClient _square1Client;
-  final GoogleMapsApiClient _googleMapsApiClient;
-
-  CityResource get _cityResource => _square1Client.cityResource;
-  GeocodeResource get _geocodeResource => _googleMapsApiClient.geocodeResource;
+  final Square1Api _square1Api;
+  final GoogleMapsApi _googleMapsApi;
 
   @override
   Future<Result<PaginatedData<City>, String>> getCitiesByName({
@@ -21,7 +18,7 @@ class ApiCitySearchRepository implements CitySearchRepository {
     int? page,
   }) async {
     try {
-      final response = await _cityResource.getCities<Map<String, dynamic>>(
+      final response = await _square1Api.getCities<Map<String, dynamic>>(
         name: name,
         page: page,
         include: 'country',
@@ -33,7 +30,7 @@ class ApiCitySearchRepository implements CitySearchRepository {
           .map((e) => City.fromJson(e as Map<String, dynamic>))
           .toList();
 
-      final paginationMeta = _square1Client.paginationMetaFromJson(
+      final paginationMeta = _square1Api.paginationMetaFromJson(
         dataContent['pagination'] as Map<String, dynamic>,
       );
 
@@ -69,8 +66,8 @@ class ApiCitySearchRepository implements CitySearchRepository {
   @override
   Future<Result<Location, String>> getCityLocation(City city) async {
     try {
-      final response = await _geocodeResource
-          .getCoordinatesFromAddress<Map<String, dynamic>>(
+      final response =
+          await _googleMapsApi.getCoordinatesFromAddress<Map<String, dynamic>>(
         address: '${city.name}, ${city.country.name}',
       );
 

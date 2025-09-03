@@ -1,4 +1,4 @@
-import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/network/network.dart';
 
 class PaginatedData<T> {
   const PaginatedData({

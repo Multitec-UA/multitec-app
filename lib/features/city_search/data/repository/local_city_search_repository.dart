@@ -1,5 +1,5 @@
 import 'package:multiple_result/multiple_result.dart';
-import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 
 class LocalCitySearchRepository implements CitySearchRepository {

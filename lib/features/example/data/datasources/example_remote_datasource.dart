@@ -1,4 +1,4 @@
-import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/features/example/data/dtos/example_item_dto.dart';
 
 abstract class ExampleRemoteDataSource {
@@ -9,15 +9,14 @@ abstract class ExampleRemoteDataSource {
 class ExampleRemoteDataSourceImpl implements ExampleRemoteDataSource {
   ExampleRemoteDataSourceImpl(this._client);
 
-  final NetworkServiceClient _client;
+  final NetworkService _client;
 
   @override
   Future<List<ExampleItemDto>> fetchItems() async {
-    final raw = await _client.get<List<dynamic>>('/example/items');
+    final response = await _client.get<List<dynamic>>('/example/items');
 
-    final list = raw
-        .cast<Map<String, dynamic>>()
-        .map(ExampleItemDto.fromJson)
+    final list = response.data!
+        .map((e) => ExampleItemDto.fromJson(e as Map<String, dynamic>))
         .toList(growable: false);
 
     return list;
