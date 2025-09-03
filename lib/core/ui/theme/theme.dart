@@ -95,15 +95,23 @@ final themeLight = _baseTheme.copyWith(
     ),
   ),
 
-  // AppBar theme
   appBarTheme: AppBarTheme(
     backgroundColor: lightColors.background,
     elevation: 0,
-    titleTextStyle: TextStyle(
-      color: lightColors.textPrimary,
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-    ),
+    scrolledUnderElevation: 0,
+    centerTitle: false,
+  ),
+
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: lightColors.background,
+    elevation: 0,
+    selectedItemColor: lightColors.primaryBase,
+    unselectedItemColor: lightColors.secondary,
+    selectedIconTheme: const IconThemeData(size: 24),
+    unselectedIconTheme: const IconThemeData(size: 24),
+    showUnselectedLabels: false,
+    showSelectedLabels: false,
   ),
 );
 
@@ -199,14 +207,22 @@ final themeDark = _baseTheme.copyWith(
     ),
   ),
 
-  // AppBar theme
   appBarTheme: AppBarTheme(
     backgroundColor: darkColors.background,
     elevation: 0,
-    titleTextStyle: TextStyle(
-      color: darkColors.textPrimary,
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-    ),
+    scrolledUnderElevation: 0,
+    centerTitle: false,
+  ),
+
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: darkColors.background,
+    elevation: 0,
+    selectedItemColor: darkColors.primaryBase,
+    unselectedItemColor: darkColors.secondary,
+    selectedIconTheme: const IconThemeData(size: 24),
+    unselectedIconTheme: const IconThemeData(size: 24),
+    showUnselectedLabels: false,
+    showSelectedLabels: false,
   ),
 );
