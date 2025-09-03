@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:multitec_app/core/network/network_service.dart';
+import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 
 part 'city_search_cubit.freezed.dart';

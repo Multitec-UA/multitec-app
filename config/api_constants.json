@@ -1,0 +1,4 @@
+{
+  "api_key_channel_name": "api_key_config",
+  "set_google_maps_api_key_method": "setGoogleMapsApiKey"
+}
