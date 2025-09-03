@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart' as dio_cache;
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
-import 'package:dio_cache_interceptor_isar_store/dio_cache_interceptor_isar_store.dart';
 import 'package:multitec_app/core/network/network.dart';
 
 class DioCacheInterceptorService implements CacheService {
@@ -33,8 +32,6 @@ class DioCacheInterceptorService implements CacheService {
     switch (type) {
       case CacheStoreType.hive:
         return HiveCacheStore(await CacheService.getCacheDir());
-      case CacheStoreType.isar:
-        return IsarCacheStore(await CacheService.getCacheDir());
       case CacheStoreType.memory:
         return dio_cache.MemCacheStore();
     }

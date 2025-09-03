@@ -31,13 +31,11 @@ Future<void> serviceLocatorSetUp() async {
 
   locator
     ..enableRegisteringMultipleInstancesOfOneType()
-    ..registerSingletonAsync<NetworkService>(
+    ..registerSingletonAsync<Square1Api>(
       Square1ApiClient.create,
-      instanceName: 'Square1Api',
     )
-    ..registerSingletonAsync<NetworkService>(
+    ..registerSingletonAsync<GoogleMapsApi>(
       GoogleMapsApiClient.create,
-      instanceName: 'GoogleMapsApi',
     )
     ..registerSingletonAsync<NetworkService>(
       MultitecApiClient.create,
@@ -45,10 +43,8 @@ Future<void> serviceLocatorSetUp() async {
     )
     ..registerSingletonWithDependencies<CitySearchRepository>(
       () => ApiCitySearchRepository(
-        square1Api:
-            locator<NetworkService>(instanceName: 'Square1Api') as Square1Api,
-        googleMapsApi: locator<NetworkService>(instanceName: 'GoogleMapsApi')
-            as GoogleMapsApi,
+        square1Api: locator<Square1Api>(),
+        googleMapsApi: locator<GoogleMapsApi>(),
       ),
       dependsOn: [
         Square1Api,

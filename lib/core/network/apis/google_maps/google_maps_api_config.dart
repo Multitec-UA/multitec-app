@@ -18,7 +18,7 @@ class GoogleMapsApiConfig {
       ];
 
   static final CacheOptions _cacheOptions = CacheOptions(
-    storeType: CacheStoreType.isar,
+    storeType: CacheStoreType.hive,
     policy: CachePolicy.forceCache,
     hitCacheOnErrorExcept: [401, 403],
     maxStale: const Duration(days: 10),
