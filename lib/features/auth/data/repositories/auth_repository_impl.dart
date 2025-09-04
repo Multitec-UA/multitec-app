@@ -4,7 +4,7 @@ import 'package:multitec_app/core/exceptions/guard.dart';
 import 'package:multitec_app/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:multitec_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:multitec_app/features/user/data/datasources/local_user_datasource.dart';
-import 'package:multitec_app/features/user/models/user.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._authRemoteDataSource, this._localUserDataSource);

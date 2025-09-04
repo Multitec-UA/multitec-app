@@ -1,5 +1,5 @@
 import 'package:multitec_app/features/user/data/datasources/local_user_datasource.dart';
-import 'package:multitec_app/features/user/models/user.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class MockUserDatasource implements LocalUserDataSource {
   @override

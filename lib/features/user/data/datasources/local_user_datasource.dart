@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:multitec_app/core/local_storage/local_storage.dart';
-import 'package:multitec_app/features/user/models/user.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class LocalUserDataSource {
   LocalUserDataSource(this._localStorage);
