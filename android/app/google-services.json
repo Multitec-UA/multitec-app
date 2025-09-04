@@ -12,7 +12,20 @@
           "package_name": "com.multitec.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "579200226559-morld3316mcdv789dqdaa0sfukafihv1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.multitec.app",
+            "certificate_hash": "4b1d1b0f90bb71e70f29ff83277e4fce85a4d9f8"
+          }
+        },
+        {
+          "client_id": "579200226559-co676gl1pbj2eda1nhrlh3481j39hphu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBxgw62rZ1rDTfUFpEIzmR135-59QfqU20"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579200226559-co676gl1pbj2eda1nhrlh3481j39hphu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "579200226559-had8sl28qbain6bbhob9nogv2qt3pgep.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.multitec.app"
+              }
+            }
+          ]
         }
       }
     }

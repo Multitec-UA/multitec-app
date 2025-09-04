@@ -1,5 +1,5 @@
 abstract class LocalStorageService {
-  Future<void> setLanguage(String language);
-  Future<String?> getLanguage();
-  Future<void> removeLanguage();
+  Future<void> saveData(String key, String data);
+  Future<String?> getData(String key);
+  Future<void> removeData(String key);
 }

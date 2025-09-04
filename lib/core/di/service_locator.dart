@@ -2,6 +2,14 @@ import 'package:get_it/get_it.dart';
 import 'package:multitec_app/core/local_storage/local_storage.dart';
 import 'package:multitec_app/core/local_storage/shared_preferences.dart';
 import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/features/auth/data/datasources/auth_remote_datasource.dart';
+import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
+import 'package:multitec_app/features/auth/data/datasources/mock_auth_datasource.dart';
+import 'package:multitec_app/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:multitec_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:multitec_app/features/auth/domain/usecases/get_current_user_usecase.dart';
+import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
+import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';
@@ -10,10 +18,11 @@ import 'package:multitec_app/features/example/data/repositories/example_reposito
 import 'package:multitec_app/features/example/domain/repositories/example_repository.dart';
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
 import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
+import 'package:multitec_app/features/user/data/datasources/local_user_datasource.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final locator = GetIt.instance;
-const useMocks = true;
+const useMocks = false;
 
 Future<void> serviceLocatorSetUp() async {
   //TODO: Alternativa a useMocks
@@ -74,6 +83,25 @@ Future<void> serviceLocatorSetUp() async {
   // UseCases
   locator.registerFactory(() => FetchExampleItemsUseCase(locator()));
   locator.registerFactory(() => SendReportUseCase(locator()));
+
+  /// Auth Feature
+  // Datasources
+  locator.registerFactory<AuthRemoteDataSource>(
+    () => useMocks ? MockAuthDataSource() : FirebaseAuthDataSource(),
+  );
+
+  // Repository
+  locator.registerFactory<AuthRepository>(
+    () => AuthRepositoryImpl(
+      locator<AuthRemoteDataSource>(),
+      locator<LocalUserDataSource>(),
+    ),
+  );
+
+  // UseCases
+  locator.registerFactory(() => SignInWithGoogleUseCase(locator()));
+  locator.registerFactory(() => SignOutUseCase(locator()));
+  locator.registerFactory(() => GetCurrentUserUseCase(locator()));
 
   await locator.allReady();
 }
