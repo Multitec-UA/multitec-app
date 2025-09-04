@@ -19,6 +19,10 @@ import 'package:multitec_app/features/example/domain/repositories/example_reposi
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
 import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
 import 'package:multitec_app/features/user/data/datasources/local_user_datasource.dart';
+import 'package:multitec_app/features/user/data/datasources/mock_user_datasource.dart';
+import 'package:multitec_app/features/user/data/repositories/user_repository_impl.dart';
+import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
+import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final locator = GetIt.instance;
@@ -102,6 +106,24 @@ Future<void> serviceLocatorSetUp() async {
   locator.registerFactory(() => SignInWithGoogleUseCase(locator()));
   locator.registerFactory(() => SignOutUseCase(locator()));
   locator.registerFactory(() => GetCurrentUserUseCase(locator()));
+
+  /// User Feature
+  // Datasources
+  locator.registerFactory<LocalUserDataSource>(
+    () => useMocks
+        ? MockUserDatasource()
+        : LocalUserDataSource(locator<LocalStorageService>()),
+  );
+
+  // Repository
+  locator.registerFactory<UserRepository>(
+    () => UserRepositoryImpl(locator<LocalUserDataSource>()),
+  );
+
+  // Cubits
+  locator.registerLazySingleton<UserCubit>(
+    () => UserCubit(locator<UserRepository>()),
+  );
 
   await locator.allReady();
 }

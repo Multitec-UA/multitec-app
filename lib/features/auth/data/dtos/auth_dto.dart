@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' hide User;
-import 'package:multitec_app/features/user/models/user.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class AuthDTO {
   const AuthDTO({

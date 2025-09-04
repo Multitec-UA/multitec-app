@@ -2,11 +2,11 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/guard.dart';
 import 'package:multitec_app/features/user/data/datasources/local_user_datasource.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
-import 'package:multitec_app/features/user/models/user.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl({required this.localUserDataSource});
+  UserRepositoryImpl(this.localUserDataSource);
   final LocalUserDataSource localUserDataSource;
 
   @override
