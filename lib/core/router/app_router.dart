@@ -3,13 +3,15 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/scaffold_with_nested_navigation.dart';
 import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
 import 'package:multitec_app/features/activities/presentation/activities_screen.dart';
+import 'package:multitec_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/profile_screen.dart';
 
 enum AppRoute {
-  home('/'),
+  login('/login'),
+  home('/home'),
   activities('/activities'),
   map('/map'),
   profile('/profile'),
@@ -31,8 +33,13 @@ final GlobalKey<NavigatorState> _shellNavigatorProfileKey =
 
 final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
+  initialLocation: '/login',
   routes: [
+    GoRoute(
+      name: AppRoute.login.name,
+      path: AppRoute.login.path,
+      builder: (context, state) => const LoginScreen(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, shell) =>
           ScaffoldWithNestedNavigation(navigationShell: shell),

@@ -1,5 +1,4 @@
 import 'package:multitec_app/core/local_storage/local_storage.dart';
-import 'package:multitec_app/core/local_storage/local_storage_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService implements LocalStorageService {
@@ -7,17 +6,17 @@ class SharedPreferencesService implements LocalStorageService {
   final SharedPreferences preferences;
 
   @override
-  Future<void> setLanguage(String language) async {
-    await preferences.setString(LocalStorageKeys.language, language);
+  Future<void> saveData(String key, String data) async {
+    await preferences.setString(key, data);
   }
 
   @override
-  Future<String?> getLanguage() async {
-    return preferences.getString(LocalStorageKeys.language);
+  Future<String?> getData(String key) async {
+    return preferences.getString(key);
   }
 
   @override
-  Future<void> removeLanguage() async {
-    await preferences.remove(LocalStorageKeys.language);
+  Future<void> removeData(String key) async {
+    await preferences.remove(key);
   }
 }
