@@ -10,6 +10,7 @@ import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -63,6 +64,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   );
 
   await serviceLocatorSetUp();
+  await locator<AuthService>().initialize();
 
   await GetIt.I.isReady<SharedPreferences>().then((_) async {
     await runZonedGuarded(

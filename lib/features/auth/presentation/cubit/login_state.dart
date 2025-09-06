@@ -9,7 +9,6 @@ part 'login_state.freezed.dart';
 sealed class LoginState with _$LoginState {
   const factory LoginState({
     @Default(StateStatus.initial) StateStatus status,
-    User? user,
     Failure? failure,
   }) = _LoginState;
 }

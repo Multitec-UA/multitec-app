@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/router/scaffold_with_nested_navigation.dart';
 import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
 import 'package:multitec_app/features/activities/presentation/activities_screen.dart';
+import 'package:multitec_app/features/auth/domain/enums/autentication_status.dart';
+import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/presentation/screens/login_screen.dart';
 import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/profile_screen.dart';
+import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
 
 enum AppRoute {
   login('/login'),
+  splash('/splash'),
   home('/home'),
   activities('/activities'),
   map('/map'),
@@ -31,14 +36,21 @@ final GlobalKey<NavigatorState> _shellNavigatorMapKey =
 final GlobalKey<NavigatorState> _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Profile');
 
+final authService = locator<AuthService>();
+
 final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/login',
+  initialLocation: AppRoute.login.path,
   routes: [
     GoRoute(
       name: AppRoute.login.name,
       path: AppRoute.login.path,
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      name: AppRoute.splash.name,
+      path: AppRoute.splash.path,
+      builder: (context, state) => const SplashScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, shell) =>

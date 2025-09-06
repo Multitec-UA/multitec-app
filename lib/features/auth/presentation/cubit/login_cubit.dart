@@ -19,7 +19,6 @@ class LoginCubit extends Cubit<LoginState> {
       (user) => emit(
         state.copyWith(
           status: StateStatus.loaded,
-          user: user,
           failure: null,
         ),
       ),
