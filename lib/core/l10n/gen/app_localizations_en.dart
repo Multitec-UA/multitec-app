@@ -28,6 +28,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLocationGeneric => 'Location service is unavailable.';
 
   @override
+  String get errorAuthenticationGeneric =>
+      'There was an authentication problem.';
+
+  @override
   String get errorEmailAlreadyInUse => 'Email is already in use.';
 
   @override

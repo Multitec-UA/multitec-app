@@ -30,6 +30,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'El servicio de ubicación no está disponible.';
 
   @override
+  String get errorAuthenticationGeneric =>
+      'Ha habido un problema de autentificación';
+
+  @override
   String get errorEmailAlreadyInUse => 'El correo electrónico ya está en uso.';
 
   @override

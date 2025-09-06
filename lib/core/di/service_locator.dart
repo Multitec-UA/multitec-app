@@ -26,16 +26,13 @@ final locator = GetIt.instance;
 const useMocks = false;
 
 Future<void> serviceLocatorSetUp() async {
-  //TODO: Alternativa a useMocks
-  //const useMocks = bool.fromEnvironment('USE_MOCK_DS', defaultValue: false);
-
   locator.registerLazySingletonAsync<SharedPreferences>(
     SharedPreferences.getInstance,
   );
 
-  locator.registerLazySingleton<LocalStorageService>(
-    () => SharedPreferencesService(
-      preferences: locator<SharedPreferences>(),
+  locator.registerLazySingletonAsync<LocalStorageService>(
+    () async => SharedPreferencesService(
+      preferences: await locator.getAsync<SharedPreferences>(),
     ),
   );
 

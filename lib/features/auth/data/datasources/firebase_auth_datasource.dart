@@ -9,15 +9,9 @@ class FirebaseAuthDataSource {
   final firebase_auth.FirebaseAuth _firebaseAuth;
 
   Future<void> signInWithGoogle() async {
-    final userCredential = await _firebaseAuth.signInWithProvider(
+    await _firebaseAuth.signInWithProvider(
       firebase_auth.GoogleAuthProvider(),
     );
-
-    final user = userCredential.user;
-    if (user == null) {
-      //TODO: User not found (chequear si lanzarla o se lanza sola)
-      throw Exception('Failed to sign in with Google');
-    }
   }
 
   Future<void> signOut() async {
