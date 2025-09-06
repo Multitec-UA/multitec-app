@@ -136,7 +136,6 @@ class _ListSection extends StatelessWidget {
 }
 
 // Mapper especifico de la vista para failures
-//TODO: Ver si moverlo a un archivo aparte (presentation/l10n/example_failure_mapper.dart)
 extension _ExampleListFailureL10nX on Failure? {
   String toExampleListMessage(BuildContext context) {
     final l10n = context.l10n;

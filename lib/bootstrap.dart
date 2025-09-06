@@ -5,14 +5,12 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/firebase_options.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -31,20 +29,23 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   FlutterError.onError = (details) {
     if (kDebugMode) FlutterError.presentError(details);
-    //TODO: Ver si dejarlo asi o reportar el error aqui directamente
-    Zone.current.handleUncaughtError(
+    ErrorReporter().report(
       details.exception,
-      details.stack ?? StackTrace.current,
+      stackTrace: details.stack ?? StackTrace.current,
+      hint: 'FlutterError',
+      fatal: true,
     );
   };
 
   PlatformDispatcher.instance.onError = (error, stack) {
-    //TODO: Ver si dejarlo asi o reportar el error aqui directamente
-    Zone.current.handleUncaughtError(error, stack);
+    ErrorReporter().report(
+      error,
+      stackTrace: stack,
+      hint: 'PlatformDispatcher',
+      fatal: true,
+    );
     return true;
   };
 
@@ -52,33 +53,35 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
 
-  if (Platform.isIOS) {
-    await ApiKeyChannel.provideKey(
-      apiKey: GoogleMapsApiConfig.apiKey,
-      method: GoogleMapsApiConfig.apiKeyChannelMethod,
-    );
-  }
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  await serviceLocatorSetUp();
-  await locator<AuthService>().initialize();
-
-  await GetIt.I.isReady<SharedPreferences>().then((_) async {
-    await runZonedGuarded(
-      () async => runApp(await builder()),
-      (error, stackTrace) {
-        ErrorReporter().report(
-          error,
-          stackTrace: stackTrace,
-          hint: 'zoneGuarded',
-          fatal: true,
+      if (Platform.isIOS) {
+        await ApiKeyChannel.provideKey(
+          apiKey: GoogleMapsApiConfig.apiKey,
+          method: GoogleMapsApiConfig.apiKeyChannelMethod,
         );
-      },
-    );
-  });
+      }
+
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+
+      await serviceLocatorSetUp();
+      await locator<AuthService>().initialize();
+
+      runApp(await builder());
+    },
+    (error, stackTrace) {
+      ErrorReporter().report(
+        error,
+        stackTrace: stackTrace,
+        hint: 'ZoneGuarded',
+        fatal: true,
+      );
+    },
+  );
 }
 
 Widget errorBuilderWidget(FlutterErrorDetails details) {

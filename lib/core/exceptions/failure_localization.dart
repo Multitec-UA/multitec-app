@@ -12,7 +12,8 @@ extension FailureLocalizationX on Failure {
       TimeoutFailure _ => l10n.errorTimeoutGeneric,
       PermissionFailure _ => l10n.errorPermissionGeneric,
       LocationFailure _ => l10n.errorLocationGeneric,
-      GenericFailure(code: 'firebase_error') => l10n.genericError,
+      GenericFailure(code: 'firebase_auth_error_') =>
+        l10n.errorAuthenticationGeneric,
       GenericFailure(code: final String httpCode)
           when httpCode.startsWith('http_') =>
         _httpCodeMessage(l10n, httpCode),

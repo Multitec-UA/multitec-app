@@ -134,6 +134,12 @@ abstract class AppLocalizations {
   /// **'Location service is unavailable.'**
   String get errorLocationGeneric;
 
+  /// No description provided for @errorAuthenticationGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'There was an authentication problem.'**
+  String get errorAuthenticationGeneric;
+
   /// No description provided for @errorEmailAlreadyInUse.
   ///
   /// In en, this message translates to:

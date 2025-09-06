@@ -9,6 +9,7 @@
   "errorTimeoutGeneric": "The request timed out. Please try again.",
   "errorPermissionGeneric": "Permission denied.",
   "errorLocationGeneric": "Location service is unavailable.",
+  "errorAuthenticationGeneric": "There was an authentication problem.",
   "errorEmailAlreadyInUse": "Email is already in use.",
   "errorInvalidCredentials": "Invalid credentials.",
   "errorWeakPassword": "The password is too weak.",

@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
-import 'package:multitec_app/features/user/domain/models/user.dart';
 
 part 'login_state.freezed.dart';
 

@@ -9,6 +9,7 @@
   "errorTimeoutGeneric": "La solicitud ha superado el tiempo de espera. Inténtalo de nuevo.",
   "errorPermissionGeneric": "Permiso denegado.",
   "errorLocationGeneric": "El servicio de ubicación no está disponible.",
+  "errorAuthenticationGeneric": "Ha habido un problema de autentificación",
   "errorEmailAlreadyInUse": "El correo electrónico ya está en uso.",
   "errorInvalidCredentials": "Credenciales inválidas.",
   "errorWeakPassword": "La contraseña es demasiado débil.",
