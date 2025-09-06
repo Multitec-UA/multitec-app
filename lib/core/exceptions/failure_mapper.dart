@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:multitec_app/core/exceptions/app_exception.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
@@ -11,11 +12,11 @@ class FailureMapper {
   Failure map(Object error) {
     if (error is DioException) return _fromDioException(error);
 
-    // if (error is FirebaseAuthException) return _fromFirebaseAuth(error);
+    if (error is FirebaseAuthException) return _fromFirebaseAuth(error);
 
-    // if (error is FirebaseException) {
-    //   return GenericFailure(message: error.message ?? 'Error de Firebase');
-    // }
+    if (error is FirebaseException) {
+      return const GenericFailure(code: 'firebase_error');
+    }
 
     if (error is SocketException ||
         error is HttpException ||
@@ -93,27 +94,27 @@ class FailureMapper {
     }
   }
 
-  // Failure _fromFirebaseAuth(FirebaseAuthException e) {
-  //   switch (e.code) {
-  //     case 'email-already-in-use':
-  //       return const EmailAlreadyInUseFailure(code: 'email_already_in_use');
-  //     case 'invalid-credential':
-  //     case 'invalid-email':
-  //     case 'missing-password':
-  //     case 'user-disabled':
-  //     case 'operation-not-allowed':
-  //       return const InvalidCredentialsFailure(code: 'invalid_credentials');
-  //     case 'weak-password':
-  //       return const WeakPasswordFailure(code: 'weak_password');
-  //     case 'user-not-found':
-  //       return const UserNotFoundFailure(code: 'user_not_found');
-  //     case 'wrong-password':
-  //       return const WrongPasswordFailure(code: 'wrong_password');
-  //     default:
-  //       return GenericFailure(
-  //         code: 'firebase_auth_error_${e.code}',
-  //         debugMessage: e.message,
-  //       );
-  //   }
-  // }
+  Failure _fromFirebaseAuth(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'email-already-in-use':
+        return const EmailAlreadyInUseFailure(code: 'email_already_in_use');
+      case 'invalid-credential':
+      case 'invalid-email':
+      case 'missing-password':
+      case 'user-disabled':
+      case 'operation-not-allowed':
+        return const InvalidCredentialsFailure(code: 'invalid_credentials');
+      case 'weak-password':
+        return const WeakPasswordFailure(code: 'weak_password');
+      case 'user-not-found':
+        return const UserNotFoundFailure(code: 'user_not_found');
+      case 'wrong-password':
+        return const WrongPasswordFailure(code: 'wrong_password');
+      default:
+        return GenericFailure(
+          code: 'firebase_auth_error_${e.code}',
+          debugMessage: e.message,
+        );
+    }
+  }
 }

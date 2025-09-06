@@ -34,12 +34,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state.status.isLoaded && state.user != null) {
-          context.showSnackBar(
-            AppSnackBar.success(
-              content: Text('Bienvenido, ${state.user!.name}'),
-            ),
-          );
+        if (state.status.isLoaded) {
           context.goNamed(AppRoute.home.name);
         } else if (state.status.isError) {
           context.showSnackBar(

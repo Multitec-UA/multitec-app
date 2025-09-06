@@ -15,7 +15,6 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LoginState {
   StateStatus get status;
-  User? get user;
   Failure? get failure;
 
   /// Create a copy of LoginState
@@ -31,16 +30,15 @@ mixin _$LoginState {
         (other.runtimeType == runtimeType &&
             other is LoginState &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.user, user) || other.user == user) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, user, failure);
+  int get hashCode => Object.hash(runtimeType, status, failure);
 
   @override
   String toString() {
-    return 'LoginState(status: $status, user: $user, failure: $failure)';
+    return 'LoginState(status: $status, failure: $failure)';
   }
 }
 
@@ -50,7 +48,7 @@ abstract mixin class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) _then) =
       _$LoginStateCopyWithImpl;
   @useResult
-  $Res call({StateStatus status, User? user, Failure? failure});
+  $Res call({StateStatus status, Failure? failure});
 }
 
 /// @nodoc
@@ -66,7 +64,6 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   @override
   $Res call({
     Object? status = null,
-    Object? user = freezed,
     Object? failure = freezed,
   }) {
     return _then(_self.copyWith(
@@ -74,10 +71,6 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as StateStatus,
-      user: freezed == user
-          ? _self.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User?,
       failure: freezed == failure
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -177,14 +170,13 @@ extension LoginStatePatterns on LoginState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(StateStatus status, User? user, Failure? failure)?
-        $default, {
+    TResult Function(StateStatus status, Failure? failure)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _LoginState() when $default != null:
-        return $default(_that.status, _that.user, _that.failure);
+        return $default(_that.status, _that.failure);
       case _:
         return orElse();
     }
@@ -205,12 +197,12 @@ extension LoginStatePatterns on LoginState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(StateStatus status, User? user, Failure? failure) $default,
+    TResult Function(StateStatus status, Failure? failure) $default,
   ) {
     final _that = this;
     switch (_that) {
       case _LoginState():
-        return $default(_that.status, _that.user, _that.failure);
+        return $default(_that.status, _that.failure);
     }
   }
 
@@ -228,13 +220,12 @@ extension LoginStatePatterns on LoginState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(StateStatus status, User? user, Failure? failure)?
-        $default,
+    TResult? Function(StateStatus status, Failure? failure)? $default,
   ) {
     final _that = this;
     switch (_that) {
       case _LoginState() when $default != null:
-        return $default(_that.status, _that.user, _that.failure);
+        return $default(_that.status, _that.failure);
       case _:
         return null;
     }
@@ -244,14 +235,11 @@ extension LoginStatePatterns on LoginState {
 /// @nodoc
 
 class _LoginState implements LoginState {
-  const _LoginState(
-      {this.status = StateStatus.initial, this.user, this.failure});
+  const _LoginState({this.status = StateStatus.initial, this.failure});
 
   @override
   @JsonKey()
   final StateStatus status;
-  @override
-  final User? user;
   @override
   final Failure? failure;
 
@@ -269,16 +257,15 @@ class _LoginState implements LoginState {
         (other.runtimeType == runtimeType &&
             other is _LoginState &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.user, user) || other.user == user) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, user, failure);
+  int get hashCode => Object.hash(runtimeType, status, failure);
 
   @override
   String toString() {
-    return 'LoginState(status: $status, user: $user, failure: $failure)';
+    return 'LoginState(status: $status, failure: $failure)';
   }
 }
 
@@ -290,7 +277,7 @@ abstract mixin class _$LoginStateCopyWith<$Res>
       __$LoginStateCopyWithImpl;
   @override
   @useResult
-  $Res call({StateStatus status, User? user, Failure? failure});
+  $Res call({StateStatus status, Failure? failure});
 }
 
 /// @nodoc
@@ -306,7 +293,6 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? status = null,
-    Object? user = freezed,
     Object? failure = freezed,
   }) {
     return _then(_LoginState(
@@ -314,10 +300,6 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as StateStatus,
-      user: freezed == user
-          ? _self.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User?,
       failure: freezed == failure
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable

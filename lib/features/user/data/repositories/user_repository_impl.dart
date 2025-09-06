@@ -1,66 +1,23 @@
 import 'package:multiple_result/multiple_result.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/guard.dart';
-import 'package:multitec_app/features/user/data/datasources/local_user_datasource.dart';
+import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
 import 'package:multitec_app/features/user/domain/models/user.dart';
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl(this.localUserDataSource);
-  final LocalUserDataSource localUserDataSource;
+  UserRepositoryImpl(this._authRemoteDataSource);
+  final FirebaseAuthDataSource _authRemoteDataSource;
 
   @override
-  Future<Result<User, Failure>> getUser() async {
-    return guardAsync<User>(
-      () async {
-        final user = await localUserDataSource.getUser();
+  Result<User?, Failure> getUser() {
+    return guardSync<User?>(
+      () {
+        final userDto = _authRemoteDataSource.getCurrentUser();
+        final user = userDto?.toDomain();
         return user;
       },
       hint: 'UserRepository.getUser',
-    );
-  }
-
-  @override
-  Future<Result<Unit, Failure>> updateUser(User user) async {
-    return guardAsync<Unit>(
-      () async {
-        await localUserDataSource.updateUser(user);
-        return unit;
-      },
-      hint: 'UserRepository.updateUser',
-    );
-  }
-
-  @override
-  Future<Result<String, Failure>> getToken() async {
-    return guardAsync<String>(
-      () async {
-        final token = await localUserDataSource.getToken();
-        return token;
-      },
-      hint: 'UserRepository.getToken',
-    );
-  }
-
-  @override
-  Future<Result<Unit, Failure>> removeToken() async {
-    return guardAsync<Unit>(
-      () async {
-        await localUserDataSource.removeToken();
-        return unit;
-      },
-      hint: 'UserRepository.removeToken',
-    );
-  }
-
-  @override
-  Future<Result<Unit, Failure>> saveToken(String token) async {
-    return guardAsync<Unit>(
-      () async {
-        await localUserDataSource.saveToken(token);
-        return unit;
-      },
-      hint: 'UserRepository.saveToken',
     );
   }
 }
