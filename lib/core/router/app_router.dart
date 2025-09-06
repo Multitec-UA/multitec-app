@@ -41,6 +41,20 @@ final authService = locator<AuthService>();
 final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: AppRoute.login.path,
+  redirect: (context, state) {
+    final path = state.matchedLocation;
+    switch (authService.status) {
+      case AuthenticationStatus.unauthenticated:
+        return path == AppRoute.login.path ? null : AppRoute.login.path;
+
+      case AuthenticationStatus.authenticated:
+        if (path == AppRoute.login.path) return AppRoute.home.path;
+        return null;
+
+      case AuthenticationStatus.unknown:
+        return AppRoute.login.path;
+    }
+  },
   routes: [
     GoRoute(
       name: AppRoute.login.name,
