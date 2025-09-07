@@ -5,9 +5,13 @@ import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/theme_provider.dart';
 import 'package:multitec_app/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:multitec_app/features/profile/presentation/cubits/profile_state.dart';
+import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
+import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -30,7 +34,7 @@ class _ProfileView extends StatelessWidget {
       appBar: const MultitecAppBar(),
       body: BlocListener<ProfileCubit, ProfileState>(
         listener: (context, state) {
-          if (state.status.isError) {
+          if (state.failure != null) {
             context.showSnackBar(
               AppSnackBar.error(
                 content: Text(
@@ -40,37 +44,250 @@ class _ProfileView extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<ProfileCubit, ProfileState>(
-          builder: (context, profileState) {
-            return Padding(
-              padding: paddings.x.s16,
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: profileState.status.isLoading
-                      ? null
-                      : () => context.read<ProfileCubit>().signOut(),
-                  icon: profileState.status.isLoading
-                      ? const SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        )
-                      : const Icon(Icons.logout),
-                  label: Text(
-                    profileState.status.isLoading
-                        ? 'Cerrando sesión...'
-                        : 'Cerrar sesión',
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.error,
-                    foregroundColor: Theme.of(context).colorScheme.onError,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
+        child: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            final user = state.user;
+            return SafeArea(
+              child: SingleChildScrollView(
+                padding: paddings.y.s16 + paddings.bottom.s32,
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    /// [Header - User Info]
+                    /// User avatar
+                    Padding(
+                      padding: paddings.x.s24,
+                      child: Column(
+                        children: [
+                          spacings.y.s16,
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: context.colors.primaryBase,
+                                width: 3,
+                              ),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: context.colors.background,
+                                  width: 2,
+                                ),
+                              ),
+                              child: CircleAvatar(
+                                radius: 45,
+                                backgroundImage: user?.photoUrl != null
+                                    ? NetworkImage(user!.photoUrl!)
+                                    : null,
+                                child: user?.photoUrl == null
+                                    ? Icon(
+                                        Icons.person,
+                                        size: 45,
+                                        color: context.colors.gray20,
+                                      )
+                                    : null,
+                              ),
+                            ),
+                          ),
+                          spacings.y.s16,
+
+                          /// User name
+                          Text(
+                            user?.name ?? 'Usuario',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: context.colors.primaryBase,
+                                ),
+                          ),
+                          spacings.y.s8,
+
+                          /// User email
+                          Container(
+                            padding: paddings.x.s12 + paddings.y.s6,
+                            decoration: BoxDecoration(
+                              color: context.colors.gray20,
+                              borderRadius: borderRadius.br8,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.email_outlined,
+                                  size: 16,
+                                  color: context.colors.gray40,
+                                ),
+                                spacings.x.s8,
+                                Text(
+                                  user?.email ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                        color: context.colors.gray40,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    spacings.y.s32,
+
+                    /// [Settings options]
+                    Padding(
+                      padding: paddings.x.s24,
+                      child: Column(
+                        children: [
+                          _SettingsTile(
+                            icon: Icons.language,
+                            title: 'Idioma',
+                            subtitle: 'Español',
+                            onTap: () {
+                              // TODO: Implement language change
+                            },
+                          ),
+                          spacings.y.s8,
+                          _SettingsTile(
+                            icon: Icons.palette_outlined,
+                            title: 'Tema',
+                            subtitle: 'Sistema',
+                            onTap: () {
+                              // TODO: Implement theme change
+                            },
+                          ),
+                          spacings.y.s8,
+                          _SettingsTile(
+                            icon: Icons.help_outline,
+                            title: 'Ayuda y Feedback',
+                            subtitle: 'Sistema',
+                            onTap: () {
+                              // TODO: Implement theme change
+                            },
+                          ),
+                          spacings.y.s16,
+                          const _SignOutButton(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _SignOutButton extends StatelessWidget {
+  const _SignOutButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, profileState) {
+        return SizedBox(
+          width: double.infinity,
+          child: ElevatedButton.icon(
+            onPressed: profileState.status.isLoading
+                ? null
+                : () => context.read<ProfileCubit>().signOut(),
+            icon: profileState.status.isLoading
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                    ),
+                  )
+                : const Icon(Icons.logout),
+            label: Text(
+              profileState.status.isLoading
+                  ? 'Cerrando sesión...'
+                  : 'Cerrar sesión',
+            ),
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              backgroundColor: context.colors.error,
+              padding: paddings.y.s16,
+              shape: RoundedRectangleBorder(
+                borderRadius: borderRadius.br8,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _SettingsTile extends StatelessWidget {
+  const _SettingsTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: borderRadius.br8,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: context.colors.gray20,
+          ),
+          borderRadius: borderRadius.br8,
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 24,
+              color: context.colors.gray40,
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: context.colors.gray30,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right,
+              color: context.colors.gray40,
+            ),
+          ],
         ),
       ),
     );
