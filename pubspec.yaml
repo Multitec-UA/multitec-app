@@ -10,7 +10,7 @@ environment:
 dependencies:
   bloc: ^9.0.0
   collection: ^1.19.1
-  dio: ^5.7.0
+  dio: ^5.9.0
   dio_cache_interceptor: ^3.5.1
   dio_cache_interceptor_hive_store: ^4.0.0
   firebase_auth: ^6.0.2
