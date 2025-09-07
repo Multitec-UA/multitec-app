@@ -57,7 +57,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      if (Platform.isIOS) {
+      if (!kIsWeb && Platform.isIOS) {
         await ApiKeyChannel.provideKey(
           apiKey: GoogleMapsApiConfig.apiKey,
           method: GoogleMapsApiConfig.apiKeyChannelMethod,

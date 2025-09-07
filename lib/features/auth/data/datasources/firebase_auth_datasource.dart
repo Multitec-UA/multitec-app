@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/foundation.dart';
 import 'package:multitec_app/features/user/data/dtos/user_dto.dart';
 
 class FirebaseAuthDataSource {
@@ -9,9 +10,16 @@ class FirebaseAuthDataSource {
   final firebase_auth.FirebaseAuth _firebaseAuth;
 
   Future<void> signInWithGoogle() async {
-    await _firebaseAuth.signInWithProvider(
-      firebase_auth.GoogleAuthProvider(),
-    );
+    final provider = firebase_auth.GoogleAuthProvider();
+    if (kIsWeb) {
+      try {
+        await _firebaseAuth.signInWithPopup(provider);
+      } on Object {
+        await _firebaseAuth.signInWithRedirect(provider);
+      }
+      return;
+    }
+    await _firebaseAuth.signInWithProvider(provider);
   }
 
   Future<void> signOut() async {
