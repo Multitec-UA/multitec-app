@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
-import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
@@ -34,9 +32,7 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state.status.isLoaded) {
-          context.goNamed(AppRoute.home.name);
-        } else if (state.status.isError) {
+        if (state.status.isError) {
           context.showSnackBar(
             AppSnackBar.error(
               content: Text(
@@ -102,7 +98,7 @@ class _WelcomeText extends StatelessWidget {
         Text(
           'Inicia sesión para acceder a la comunidad estudiantil',
           style: theme.textTheme.bodyLarge?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           textAlign: TextAlign.center,
         ),

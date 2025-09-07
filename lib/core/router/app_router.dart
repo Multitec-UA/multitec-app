@@ -10,7 +10,7 @@ import 'package:multitec_app/features/auth/presentation/screens/login_screen.dar
 import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
-import 'package:multitec_app/features/user/presentation/screens/profile_screen.dart';
+import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
 
 enum AppRoute {
@@ -41,6 +41,7 @@ final authService = locator<AuthService>();
 final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: AppRoute.login.path,
+  refreshListenable: authService.statusListenable,
   redirect: (context, state) {
     final path = state.matchedLocation;
     switch (authService.status) {

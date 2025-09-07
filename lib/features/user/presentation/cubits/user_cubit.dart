@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/features/auth/domain/enums/autentication_status.dart';
@@ -8,21 +9,21 @@ import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
 class UserCubit extends Cubit<UserState> {
   UserCubit(this._userRepository, this._authService)
       : super(const UserState()) {
-    _listenToAuth();
+    _onAuthStatusChanged = () {
+      final status = _authService.status;
+      if (status == AuthenticationStatus.authenticated) {
+        getUser();
+      } else {
+        emit(const UserState());
+      }
+    };
+    _authService.statusListenable.addListener(_onAuthStatusChanged!);
+    _onAuthStatusChanged!();
   }
 
   final UserRepository _userRepository;
   final AuthService _authService;
-
-  void _listenToAuth() {
-    _authService.statusStream.listen((status) {
-      if (status == AuthenticationStatus.authenticated) {
-        getUser();
-      } else {
-        emit(state.copyWith(user: null, status: StateStatus.initial));
-      }
-    });
-  }
+  VoidCallback? _onAuthStatusChanged;
 
   Future<void> getUser() async {
     if (state.status.isLoading) return;
@@ -46,5 +47,13 @@ class UserCubit extends Cubit<UserState> {
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> close() {
+    if (_onAuthStatusChanged != null) {
+      _authService.statusListenable.removeListener(_onAuthStatusChanged!);
+    }
+    return super.close();
   }
 }

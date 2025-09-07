@@ -17,6 +17,7 @@ import 'package:multitec_app/features/example/data/repositories/example_reposito
 import 'package:multitec_app/features/example/domain/repositories/example_repository.dart';
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
 import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
+import 'package:multitec_app/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:multitec_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
@@ -127,6 +128,12 @@ Future<void> serviceLocatorSetUp() async {
     () => UserCubit(
       locator<UserRepository>(),
       locator<AuthService>(),
+    ),
+  );
+
+  locator.registerFactory(
+    () => ProfileCubit(
+      locator<SignOutUseCase>(),
     ),
   );
 
