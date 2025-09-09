@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/router/scaffold_with_nested_navigation.dart';
 import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
-import 'package:multitec_app/features/activities/presentation/activities_screen.dart';
 import 'package:multitec_app/features/auth/domain/enums/autentication_status.dart';
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/presentation/screens/login_screen.dart';
@@ -11,13 +10,14 @@ import 'package:multitec_app/features/example/presentation/screens/example_scree
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
+import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
 
 enum AppRoute {
   login('/login'),
   splash('/splash'),
   home('/home'),
-  activities('/activities'),
+  schedule('/schedule'),
   map('/map'),
   profile('/profile'),
   example('/example');
@@ -95,10 +95,10 @@ final goRouter = GoRouter(
           navigatorKey: _shellNavigatorActivitiesKey,
           routes: [
             GoRoute(
-              name: AppRoute.activities.name,
-              path: AppRoute.activities.path,
+              name: AppRoute.schedule.name,
+              path: AppRoute.schedule.path,
               pageBuilder: (context, state) => const NoTransitionPage(
-                child: ActivitiesScreen(),
+                child: ScheduleScreen(),
               ),
             ),
           ],

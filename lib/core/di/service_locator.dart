@@ -21,6 +21,14 @@ import 'package:multitec_app/features/profile/presentation/cubits/profile_cubit.
 import 'package:multitec_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
+import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
+import 'package:multitec_app/features/schedule/data/datasources/schedule_mock_datasource.dart';
+import 'package:multitec_app/features/schedule/data/repositories/schedule_repository_impl.dart';
+import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/join_item_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/leave_item_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final locator = GetIt.instance;
@@ -136,6 +144,25 @@ Future<void> serviceLocatorSetUp() async {
       locator<SignOutUseCase>(),
     ),
   );
+
+  /// Schedule Feature
+  // Datasources
+  locator.registerFactory<ScheduleRemoteDataSource>(
+    () => useMocks
+        ? ScheduleMockDataSource()
+        : ScheduleRemoteDataSourceImpl(),
+  );
+
+  // Repository
+  locator.registerFactory<ScheduleRepository>(
+    () => ScheduleRepositoryImpl(locator<ScheduleRemoteDataSource>()),
+  );
+
+  // UseCases
+  locator.registerFactory(() => GetScheduleItemsUseCase(locator()));
+  locator.registerFactory(() => JoinItemUseCase(locator()));
+  locator.registerFactory(() => LeaveItemUseCase(locator()));
+  locator.registerFactory(() => IsJoinedUseCase(locator()));
 
   await locator.allReady();
 }

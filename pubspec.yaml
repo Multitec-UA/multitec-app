@@ -9,6 +9,7 @@ environment:
 
 dependencies:
   bloc: ^9.0.0
+  cloud_firestore: ^6.0.1
   collection: ^1.19.1
   dio: ^5.7.0
   dio_cache_interceptor: ^3.5.1

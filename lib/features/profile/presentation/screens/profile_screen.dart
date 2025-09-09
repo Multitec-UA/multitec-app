@@ -10,6 +10,7 @@ import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
 import 'package:multitec_app/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:multitec_app/features/profile/presentation/cubits/profile_state.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
 
@@ -46,137 +47,16 @@ class _ProfileView extends StatelessWidget {
         },
         child: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
-            final user = state.user;
             return SafeArea(
               child: SingleChildScrollView(
-                padding: paddings.y.s16 + paddings.bottom.s32,
+                padding: paddings.all.s24,
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    /// [Header - User Info]
-                    /// User avatar
-                    Padding(
-                      padding: paddings.x.s24,
-                      child: Column(
-                        children: [
-                          spacings.y.s16,
-                          Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: context.colors.primaryBase,
-                                width: 3,
-                              ),
-                            ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: context.colors.background,
-                                  width: 2,
-                                ),
-                              ),
-                              child: CircleAvatar(
-                                radius: 45,
-                                backgroundImage: user?.photoUrl != null
-                                    ? NetworkImage(user!.photoUrl!)
-                                    : null,
-                                child: user?.photoUrl == null
-                                    ? Icon(
-                                        Icons.person,
-                                        size: 45,
-                                        color: context.colors.gray20,
-                                      )
-                                    : null,
-                              ),
-                            ),
-                          ),
-                          spacings.y.s16,
-
-                          /// User name
-                          Text(
-                            user?.name ?? 'Usuario',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: context.colors.primaryBase,
-                                ),
-                          ),
-                          spacings.y.s8,
-
-                          /// User email
-                          Container(
-                            padding: paddings.x.s12 + paddings.y.s6,
-                            decoration: BoxDecoration(
-                              color: context.colors.gray20,
-                              borderRadius: borderRadius.br8,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.email_outlined,
-                                  size: 16,
-                                  color: context.colors.gray40,
-                                ),
-                                spacings.x.s8,
-                                Text(
-                                  user?.email ?? '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                        color: context.colors.gray40,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
+                    _ProfileHeader(user: state.user),
                     spacings.y.s32,
-
-                    /// [Settings options]
-                    Padding(
-                      padding: paddings.x.s24,
-                      child: Column(
-                        children: [
-                          _SettingsTile(
-                            icon: Icons.language,
-                            title: 'Idioma',
-                            subtitle: 'Español',
-                            onTap: () {
-                              // TODO: Implement language change
-                            },
-                          ),
-                          spacings.y.s8,
-                          _SettingsTile(
-                            icon: Icons.palette_outlined,
-                            title: 'Tema',
-                            subtitle: 'Sistema',
-                            onTap: () {
-                              // TODO: Implement theme change
-                            },
-                          ),
-                          spacings.y.s8,
-                          _SettingsTile(
-                            icon: Icons.help_outline,
-                            title: 'Ayuda y Feedback',
-                            subtitle: 'Sistema',
-                            onTap: () {
-                              // TODO: Implement theme change
-                            },
-                          ),
-                          spacings.y.s16,
-                          const _SignOutButton(),
-                        ],
-                      ),
-                    ),
+                    const _SettingsGroup(),
                   ],
                 ),
               ),
@@ -188,20 +68,170 @@ class _ProfileView extends StatelessWidget {
   }
 }
 
+class _ProfileHeader extends StatelessWidget {
+  const _ProfileHeader({required this.user});
+
+  final User? user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        spacings.y.s16,
+        _ProfileAvatar(photoUrl: user?.photoUrl),
+        spacings.y.s16,
+        _UserName(name: user?.name),
+        spacings.y.s8,
+        _EmailBadge(email: user?.email ?? ''),
+      ],
+    );
+  }
+}
+
+class _ProfileAvatar extends StatelessWidget {
+  const _ProfileAvatar({required this.photoUrl});
+
+  final String? photoUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: context.colors.primaryBase,
+          width: 3,
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: context.colors.background,
+            width: 2,
+          ),
+        ),
+        child: CircleAvatar(
+          radius: 45,
+          backgroundImage: photoUrl != null ? NetworkImage(photoUrl!) : null,
+          child: photoUrl == null
+              ? Icon(
+                  Icons.person,
+                  size: 45,
+                  color: context.colors.gray20,
+                )
+              : null,
+        ),
+      ),
+    );
+  }
+}
+
+class _UserName extends StatelessWidget {
+  const _UserName({required this.name});
+
+  final String? name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      name ?? 'Usuario',
+      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+            color: context.colors.primaryBase,
+          ),
+    );
+  }
+}
+
+class _EmailBadge extends StatelessWidget {
+  const _EmailBadge({required this.email});
+
+  final String email;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: paddings.x.s12 + paddings.y.s6,
+      decoration: BoxDecoration(
+        color: context.colors.gray20,
+        borderRadius: borderRadius.br8,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.email_outlined,
+            size: 16,
+            color: context.colors.gray40,
+          ),
+          spacings.x.s8,
+          Text(
+            email,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: context.colors.gray40,
+                ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SettingsGroup extends StatelessWidget {
+  const _SettingsGroup();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        _SettingsTile(
+          icon: Icons.language,
+          title: 'Idioma',
+          subtitle: 'Español',
+          onTap: () {
+            // TODO: Implement language change
+          },
+        ),
+        spacings.y.s8,
+        _SettingsTile(
+          icon: Icons.palette_outlined,
+          title: 'Tema',
+          subtitle: 'Sistema',
+          onTap: () {
+            // TODO: Implement theme change
+          },
+        ),
+        spacings.y.s8,
+        _SettingsTile(
+          icon: Icons.help_outline,
+          title: 'Ayuda y Feedback',
+          subtitle: 'Sistema',
+          onTap: () {
+            // TODO: Implement theme change
+          },
+        ),
+        spacings.y.s16,
+        const _SignOutButton(),
+      ],
+    );
+  }
+}
+
 class _SignOutButton extends StatelessWidget {
   const _SignOutButton();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
-      builder: (context, profileState) {
+      builder: (context, state) {
         return SizedBox(
           width: double.infinity,
           child: ElevatedButton.icon(
-            onPressed: profileState.status.isLoading
+            onPressed: state.status.isLoading
                 ? null
                 : () => context.read<ProfileCubit>().signOut(),
-            icon: profileState.status.isLoading
+            icon: state.status.isLoading
                 ? const SizedBox(
                     width: 16,
                     height: 16,
@@ -211,9 +241,7 @@ class _SignOutButton extends StatelessWidget {
                   )
                 : const Icon(Icons.logout),
             label: Text(
-              profileState.status.isLoading
-                  ? 'Cerrando sesión...'
-                  : 'Cerrar sesión',
+              state.status.isLoading ? 'Cerrando sesión...' : 'Cerrar sesión',
             ),
             style: ElevatedButton.styleFrom(
               elevation: 0,

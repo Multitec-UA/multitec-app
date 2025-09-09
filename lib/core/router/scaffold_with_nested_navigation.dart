@@ -13,47 +13,44 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       body: navigationShell,
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: context.colors.gray20,
-              ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: context.colors.gray20,
             ),
           ),
-          child: BottomNavigationBar(
-            currentIndex: navigationShell.currentIndex,
-            onTap: (index) => navigationShell.goBranch(
-              index,
-              initialLocation: index == navigationShell.currentIndex,
-            ),
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                activeIcon: _ActiveIcon(icon: Icons.home_rounded),
-                label: 'Inicio',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.event_outlined),
-                activeIcon: _ActiveIcon(icon: Icons.event_rounded),
-                label: 'Actividades',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.map_outlined),
-                activeIcon: _ActiveIcon(icon: Icons.map_rounded),
-                label: 'Mapa',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                activeIcon: _ActiveIcon(icon: Icons.person_rounded),
-                label: 'Perfil',
-              ),
-            ],
+        ),
+        child: BottomNavigationBar(
+          currentIndex: navigationShell.currentIndex,
+          onTap: (index) => navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
           ),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: _ActiveIcon(icon: Icons.home_rounded),
+              label: 'Inicio',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.event_outlined),
+              activeIcon: _ActiveIcon(icon: Icons.event_rounded),
+              label: 'Actividades',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map_outlined),
+              activeIcon: _ActiveIcon(icon: Icons.map_rounded),
+              label: 'Mapa',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: _ActiveIcon(icon: Icons.person_rounded),
+              label: 'Perfil',
+            ),
+          ],
         ),
       ),
     );
