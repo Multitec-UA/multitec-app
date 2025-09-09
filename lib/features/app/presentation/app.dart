@@ -17,7 +17,6 @@ class App extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final appTheme = AppTheme.of(context);
-
           return MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => locator<UserCubit>()),
