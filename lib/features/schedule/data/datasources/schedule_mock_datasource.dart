@@ -79,22 +79,22 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
 
     for (final item in baseItems) {
       final data = <String, dynamic>{
-        'id': item['id'] as String,
+        'id': item['id']! as String,
         'type': type.value,
-        'title': item['title'] as String,
-        'description': item['description'] as String,
-        'startsAt': now.add(Duration(days: item['daysFromNow'] as int)),
+        'title': item['title']! as String,
+        'description': item['description']! as String,
+        'startsAt': now.add(Duration(days: item['daysFromNow']! as int)),
         'endsAt': item['endsAt'] != null
-            ? now.add(Duration(days: item['daysFromNow'] as int, hours: 2))
+            ? now.add(Duration(days: item['daysFromNow']! as int, hours: 2))
             : null,
         'location': item['location'] as String?,
         'category': item['category'] as String?,
         'published': true,
-        'attendeesCount': item['attendeesCount'] as int,
+        'attendeesCount': item['attendeesCount']! as int,
         'createdAt':
-            now.subtract(Duration(days: (item['daysFromNow'] as int) + 1)),
+            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
         'updatedAt':
-            now.subtract(Duration(days: (item['daysFromNow'] as int) + 1)),
+            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
       };
 
       items.add(ScheduleItemDto.fromMap(data));

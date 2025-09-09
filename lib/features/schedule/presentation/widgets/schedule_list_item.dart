@@ -131,4 +131,3 @@ class ScheduleListItem extends StatelessWidget {
     );
   }
 }
-
