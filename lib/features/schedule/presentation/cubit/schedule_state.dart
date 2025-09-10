@@ -9,7 +9,8 @@ part 'schedule_state.freezed.dart';
 sealed class ScheduleState with _$ScheduleState {
   const factory ScheduleState({
     @Default(<ScheduleItem>[]) List<ScheduleItem> items,
-    @Default(StateStatus.initial) StateStatus listStatus,
-    Failure? listFailure,
+    @Default(StateStatus.initial) StateStatus status,
+    @Default(true) bool hasMore,
+    Failure? failure,
   }) = _ScheduleState;
 }

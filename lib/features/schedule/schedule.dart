@@ -1,6 +1,8 @@
 export 'data/datasources/schedule_mock_datasource.dart';
 export 'data/datasources/schedule_remote_datasource.dart';
 export 'data/repositories/schedule_repository_impl.dart';
+export 'domain/models/paginated_result.dart';
+export 'domain/models/pagination_params.dart';
 export 'domain/models/schedule_item.dart';
 export 'domain/models/schedule_type.dart';
 export 'domain/repositories/schedule_repository.dart';

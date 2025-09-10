@@ -1,7 +1,7 @@
 import 'package:multiple_result/multiple_result.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
-import 'package:multitec_app/features/schedule/domain/events/schedule_domain_events.dart';
+import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
 
 class LeaveItemUseCase {
