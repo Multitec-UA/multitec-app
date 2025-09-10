@@ -60,11 +60,15 @@ class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
 
     result.when(
       (_) {
+        final updatedItem = state.item!.copyWith(
+          attendeesCount: state.item!.attendeesCount + 1,
+        );
         emit(
           state.copyWith(
             joinStatus: StateStatus.loaded,
             isJoined: true,
             joinFailure: null,
+            item: updatedItem,
           ),
         );
       },
@@ -87,11 +91,15 @@ class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
 
     result.when(
       (_) {
+        final updatedItem = state.item!.copyWith(
+          attendeesCount: state.item!.attendeesCount - 1,
+        );
         emit(
           state.copyWith(
             joinStatus: StateStatus.loaded,
             isJoined: false,
             joinFailure: null,
+            item: updatedItem,
           ),
         );
       },
