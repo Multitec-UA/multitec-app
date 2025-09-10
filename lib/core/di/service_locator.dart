@@ -30,6 +30,7 @@ import 'package:multitec_app/features/user/data/repositories/user_repository_imp
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:multitec_app/core/events/event_bus_adapter.dart';
 
 final locator = GetIt.instance;
 const useMocks = false;
@@ -156,10 +157,13 @@ Future<void> serviceLocatorSetUp() async {
     () => ScheduleRepositoryImpl(locator<ScheduleRemoteDataSource>()),
   );
 
+  // Event Bus
+  locator.registerLazySingleton<EventBus>(EventBusImpl.new);
+
   // UseCases
   locator.registerFactory(() => GetScheduleItemsUseCase(locator()));
-  locator.registerFactory(() => JoinItemUseCase(locator()));
-  locator.registerFactory(() => LeaveItemUseCase(locator()));
+  locator.registerFactory(() => JoinItemUseCase(locator(), locator()));
+  locator.registerFactory(() => LeaveItemUseCase(locator(), locator()));
   locator.registerFactory(() => IsJoinedUseCase(locator()));
 
   await locator.allReady();
