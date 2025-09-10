@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
+import 'package:multitec_app/features/schedule/data/dtos/paginated_result_dto.dart';
 import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
+import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 
 class ScheduleMockDataSource implements ScheduleRemoteDataSource {
@@ -68,7 +70,69 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   ];
 
   @override
-  Future<List<ScheduleItemDto>> getScheduleItems(ScheduleType type) async {
+  Future<PaginatedResultDto<ScheduleItemDto>> getScheduleItems(
+    ScheduleType type,
+    PaginationParams params,
+  ) async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+
+    final now = DateTime.now();
+    final baseItems =
+        type == ScheduleType.event ? _mockEvents : _mockActivities;
+
+    final allItems = <ScheduleItemDto>[];
+
+    for (final item in baseItems) {
+      final data = <String, dynamic>{
+        'id': item['id']! as String,
+        'type': type.value,
+        'title': item['title']! as String,
+        'description': item['description']! as String,
+        'startsAt': now.add(Duration(days: item['daysFromNow']! as int)),
+        'endsAt': item['endsAt'] != null
+            ? now.add(Duration(days: item['daysFromNow']! as int, hours: 2))
+            : null,
+        'location': item['location'] as String?,
+        'category': item['category'] as String?,
+        'published': true,
+        'attendeesCount': item['attendeesCount']! as int,
+        'createdAt':
+            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+        'updatedAt':
+            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+      };
+
+      allItems.add(ScheduleItemDto.fromMap(data));
+    }
+
+    var startIndex = 0;
+    if (params.cursor != null) {
+      startIndex = allItems.indexWhere((item) => item.id == params.cursor);
+      if (startIndex != -1) {
+        startIndex += 1;
+      } else {
+        startIndex = 0;
+      }
+    }
+
+    final endIndex = (startIndex + params.limit).clamp(0, allItems.length);
+    final paginatedItems = allItems.sublist(startIndex, endIndex);
+    final hasMore = endIndex < allItems.length;
+    final nextCursor =
+        hasMore && paginatedItems.isNotEmpty ? paginatedItems.last.id : null;
+
+    return PaginatedResultDto<ScheduleItemDto>(
+      items: paginatedItems,
+      nextCursor: nextCursor,
+      hasMore: hasMore,
+      totalCount: allItems.length,
+    );
+  }
+
+  @override
+  Future<List<ScheduleItemDto>> getScheduleItemsLegacy(
+    ScheduleType type,
+  ) async {
     await Future<void>.delayed(const Duration(seconds: 2));
 
     final now = DateTime.now();
@@ -102,7 +166,6 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
 
     return items;
   }
-
 
   @override
   Future<void> joinScheduleItem(String itemId) async {

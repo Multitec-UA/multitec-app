@@ -15,8 +15,9 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ScheduleState {
   List<ScheduleItem> get items;
-  StateStatus get listStatus;
-  Failure? get listFailure;
+  StateStatus get status;
+  bool get hasMore;
+  Failure? get failure;
 
   /// Create a copy of ScheduleState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,19 +33,18 @@ mixin _$ScheduleState {
         (other.runtimeType == runtimeType &&
             other is ScheduleState &&
             const DeepCollectionEquality().equals(other.items, items) &&
-            (identical(other.listStatus, listStatus) ||
-                other.listStatus == listStatus) &&
-            (identical(other.listFailure, listFailure) ||
-                other.listFailure == listFailure));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(items), listStatus, listFailure);
+      const DeepCollectionEquality().hash(items), status, hasMore, failure);
 
   @override
   String toString() {
-    return 'ScheduleState(items: $items, listStatus: $listStatus, listFailure: $listFailure)';
+    return 'ScheduleState(items: $items, status: $status, hasMore: $hasMore, failure: $failure)';
   }
 }
 
@@ -55,7 +55,10 @@ abstract mixin class $ScheduleStateCopyWith<$Res> {
       _$ScheduleStateCopyWithImpl;
   @useResult
   $Res call(
-      {List<ScheduleItem> items, StateStatus listStatus, Failure? listFailure});
+      {List<ScheduleItem> items,
+      StateStatus status,
+      bool hasMore,
+      Failure? failure});
 }
 
 /// @nodoc
@@ -72,21 +75,26 @@ class _$ScheduleStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? items = null,
-    Object? listStatus = null,
-    Object? listFailure = freezed,
+    Object? status = null,
+    Object? hasMore = null,
+    Object? failure = freezed,
   }) {
     return _then(_self.copyWith(
       items: null == items
           ? _self.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<ScheduleItem>,
-      listStatus: null == listStatus
-          ? _self.listStatus
-          : listStatus // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
               as StateStatus,
-      listFailure: freezed == listFailure
-          ? _self.listFailure
-          : listFailure // ignore: cast_nullable_to_non_nullable
+      hasMore: null == hasMore
+          ? _self.hasMore
+          : hasMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      failure: freezed == failure
+          ? _self.failure
+          : failure // ignore: cast_nullable_to_non_nullable
               as Failure?,
     ));
   }
@@ -183,15 +191,16 @@ extension ScheduleStatePatterns on ScheduleState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(List<ScheduleItem> items, StateStatus listStatus,
-            Failure? listFailure)?
+    TResult Function(List<ScheduleItem> items, StateStatus status, bool hasMore,
+            Failure? failure)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _ScheduleState() when $default != null:
-        return $default(_that.items, _that.listStatus, _that.listFailure);
+        return $default(
+            _that.items, _that.status, _that.hasMore, _that.failure);
       case _:
         return orElse();
     }
@@ -212,14 +221,15 @@ extension ScheduleStatePatterns on ScheduleState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(List<ScheduleItem> items, StateStatus listStatus,
-            Failure? listFailure)
+    TResult Function(List<ScheduleItem> items, StateStatus status, bool hasMore,
+            Failure? failure)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScheduleState():
-        return $default(_that.items, _that.listStatus, _that.listFailure);
+        return $default(
+            _that.items, _that.status, _that.hasMore, _that.failure);
     }
   }
 
@@ -237,14 +247,15 @@ extension ScheduleStatePatterns on ScheduleState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(List<ScheduleItem> items, StateStatus listStatus,
-            Failure? listFailure)?
+    TResult? Function(List<ScheduleItem> items, StateStatus status,
+            bool hasMore, Failure? failure)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScheduleState() when $default != null:
-        return $default(_that.items, _that.listStatus, _that.listFailure);
+        return $default(
+            _that.items, _that.status, _that.hasMore, _that.failure);
       case _:
         return null;
     }
@@ -256,8 +267,9 @@ extension ScheduleStatePatterns on ScheduleState {
 class _ScheduleState implements ScheduleState {
   const _ScheduleState(
       {final List<ScheduleItem> items = const <ScheduleItem>[],
-      this.listStatus = StateStatus.initial,
-      this.listFailure})
+      this.status = StateStatus.initial,
+      this.hasMore = true,
+      this.failure})
       : _items = items;
 
   final List<ScheduleItem> _items;
@@ -271,9 +283,12 @@ class _ScheduleState implements ScheduleState {
 
   @override
   @JsonKey()
-  final StateStatus listStatus;
+  final StateStatus status;
   @override
-  final Failure? listFailure;
+  @JsonKey()
+  final bool hasMore;
+  @override
+  final Failure? failure;
 
   /// Create a copy of ScheduleState
   /// with the given fields replaced by the non-null parameter values.
@@ -289,19 +304,18 @@ class _ScheduleState implements ScheduleState {
         (other.runtimeType == runtimeType &&
             other is _ScheduleState &&
             const DeepCollectionEquality().equals(other._items, _items) &&
-            (identical(other.listStatus, listStatus) ||
-                other.listStatus == listStatus) &&
-            (identical(other.listFailure, listFailure) ||
-                other.listFailure == listFailure));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.hasMore, hasMore) || other.hasMore == hasMore) &&
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_items), listStatus, listFailure);
+      const DeepCollectionEquality().hash(_items), status, hasMore, failure);
 
   @override
   String toString() {
-    return 'ScheduleState(items: $items, listStatus: $listStatus, listFailure: $listFailure)';
+    return 'ScheduleState(items: $items, status: $status, hasMore: $hasMore, failure: $failure)';
   }
 }
 
@@ -314,7 +328,10 @@ abstract mixin class _$ScheduleStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<ScheduleItem> items, StateStatus listStatus, Failure? listFailure});
+      {List<ScheduleItem> items,
+      StateStatus status,
+      bool hasMore,
+      Failure? failure});
 }
 
 /// @nodoc
@@ -331,21 +348,26 @@ class __$ScheduleStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? items = null,
-    Object? listStatus = null,
-    Object? listFailure = freezed,
+    Object? status = null,
+    Object? hasMore = null,
+    Object? failure = freezed,
   }) {
     return _then(_ScheduleState(
       items: null == items
           ? _self._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<ScheduleItem>,
-      listStatus: null == listStatus
-          ? _self.listStatus
-          : listStatus // ignore: cast_nullable_to_non_nullable
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
               as StateStatus,
-      listFailure: freezed == listFailure
-          ? _self.listFailure
-          : listFailure // ignore: cast_nullable_to_non_nullable
+      hasMore: null == hasMore
+          ? _self.hasMore
+          : hasMore // ignore: cast_nullable_to_non_nullable
+              as bool,
+      failure: freezed == failure
+          ? _self.failure
+          : failure // ignore: cast_nullable_to_non_nullable
               as Failure?,
     ));
   }

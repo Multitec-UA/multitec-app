@@ -5,7 +5,7 @@ import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
@@ -23,7 +23,8 @@ class ScheduleScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Schedule'),
+          title: const MultitecAppBar(),
+          titleSpacing: 0,
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Events', icon: Icon(Icons.event)),
@@ -79,45 +80,136 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _ListSection extends StatelessWidget {
+class _ListSection extends StatefulWidget {
   const _ListSection();
+
+  @override
+  State<_ListSection> createState() => _ListSectionState();
+}
+
+class _ListSectionState extends State<_ListSection> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_isBottom) {
+      context.read<ScheduleCubit>().loadScheduleItems();
+    }
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ScheduleCubit, ScheduleState>(
       buildWhen: (p, c) =>
-          p.listStatus != c.listStatus ||
+          p.status != c.status ||
           p.items != c.items ||
-          p.listFailure != c.listFailure,
+          p.failure != c.failure ||
+          p.hasMore != c.hasMore,
       builder: (context, state) {
-        if (state.listStatus.isInitial || state.listStatus.isLoading) {
+        if ((state.status.isInitial || state.status.isLoading) &&
+            state.items.isEmpty) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state.listStatus.isError) {
+        if (state.status.isError && state.items.isEmpty) {
           return ScheduleListErrorPlaceholder(
-            message: state.listFailure.toScheduleListMessage(context),
-            onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
+            message: state.failure.toScheduleListMessage(context),
+            onRetry: () =>
+                context.read<ScheduleCubit>().loadScheduleItems(refresh: true),
           );
         }
 
-        if (state.listStatus.isLoaded && state.items.isEmpty) {
+        if (state.status.isLoaded && state.items.isEmpty) {
           return const Center(
             child: Text('No hay elementos disponibles'),
           );
         }
 
+        final itemCount = state.items.length + (state.hasMore ? 1 : 0);
+
         return RefreshIndicator(
-          onRefresh: () => context.read<ScheduleCubit>().loadScheduleItems(),
-          child: ListView.separated(
+          onRefresh: () =>
+              context.read<ScheduleCubit>().loadScheduleItems(refresh: true),
+          child: ListView.builder(
+            controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: state.items.length,
-            itemBuilder: (_, i) => ScheduleListItem(item: state.items[i]),
-            separatorBuilder: (_, __) => const Divider(height: 1),
+            itemCount: itemCount,
+            itemBuilder: (context, index) {
+              if (index >= state.items.length) {
+                return _LoadMoreIndicator(
+                  isLoading: state.status.isLoading && state.items.isNotEmpty,
+                  hasError: state.status.isError && state.items.isNotEmpty,
+                  onRetry: () =>
+                      context.read<ScheduleCubit>().loadScheduleItems(),
+                );
+              }
+              return ScheduleListItem(item: state.items[index]);
+            },
           ),
         );
       },
     );
+  }
+}
+
+class _LoadMoreIndicator extends StatelessWidget {
+  const _LoadMoreIndicator({
+    required this.isLoading,
+    required this.hasError,
+    required this.onRetry,
+  });
+
+  final bool isLoading;
+  final bool hasError;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return Padding(
+        padding: paddings.all.s16,
+        child: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (hasError) {
+      return Padding(
+        padding: paddings.all.s16,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Error al cargar más elementos'),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: onRetry,
+                child: const Text('Reintentar'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return const SizedBox.shrink();
   }
 }
 
