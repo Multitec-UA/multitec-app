@@ -22,5 +22,33 @@
   "errorHttp404NotFound": "Resource not found.",
   "errorHttp409Conflict": "Conflict while processing the request.",
   "errorHttp429TooManyRequests": "Too many requests. Please try again later.",
-  "errorHttp5xxServer": "Server error. Please try again later."
+  "errorHttp5xxServer": "Server error. Please try again later.",
+  "details": "Details",
+  "@details": {
+    "description": "Details section title"
+  },
+  "date": "Date",
+  "@date": {
+    "description": "Date label"
+  },
+  "time": "Time",
+  "@time": {
+    "description": "Time label"
+  },
+  "location": "Location",
+  "@location": {
+    "description": "Location label"
+  },
+  "attendees": "Attendees",
+  "@attendees": {
+    "description": "Attendees label"
+  },
+  "joinEvent": "Join Event",
+  "@joinEvent": {
+    "description": "Join event button text"
+  },
+  "leaveEvent": "Leave Event",
+  "@leaveEvent": {
+    "description": "Leave event button text"
+  }
 }

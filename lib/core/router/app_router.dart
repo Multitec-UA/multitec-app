@@ -10,6 +10,8 @@ import 'package:multitec_app/features/example/presentation/screens/example_scree
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
+import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/presentation/screens/schedule_detail_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
 
@@ -18,6 +20,7 @@ enum AppRoute {
   splash('/splash'),
   home('/home'),
   schedule('/schedule'),
+  scheduleDetail('/schedule/detail'),
   map('/map'),
   profile('/profile'),
   example('/example');
@@ -100,6 +103,22 @@ final goRouter = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: ScheduleScreen(),
               ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorActivitiesKey,
+                  path: '/detail/:itemId',
+                  name: AppRoute.scheduleDetail.name,
+                  builder: (context, state) {
+                    final item = state.extra as ScheduleItem?;
+                    if (item != null) {
+                      return ScheduleDetailScreen(
+                        item: item,
+                      );
+                    }
+                    return const NotFoundScreen();
+                  },
+                ),
+              ],
             ),
           ],
         ),

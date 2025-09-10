@@ -74,4 +74,25 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get errorHttp5xxServer =>
       'Error del servidor. Inténtalo de nuevo más tarde.';
+
+  @override
+  String get details => 'Detalles';
+
+  @override
+  String get date => 'Fecha';
+
+  @override
+  String get time => 'Hora';
+
+  @override
+  String get location => 'Ubicación';
+
+  @override
+  String get attendees => 'Asistentes';
+
+  @override
+  String get joinEvent => 'Unirse al Evento';
+
+  @override
+  String get leaveEvent => 'Salir del Evento';
 }

@@ -18,11 +18,12 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     return guardAsync<List<ScheduleItem>>(
       () async {
         final dtos = await _remote.getScheduleItems(type);
-        return dtos.map((e) => e.toDomain()).toList(growable: false);
+        return dtos.map((dto) => dto.toDomain()).toList();
       },
       hint: 'ScheduleRepository.getScheduleItems',
     );
   }
+
 
   @override
   Future<Result<Unit, Failure>> joinScheduleItem(String itemId) {
