@@ -22,5 +22,33 @@
   "errorHttp404NotFound": "Recurso no encontrado.",
   "errorHttp409Conflict": "Conflicto al procesar la solicitud.",
   "errorHttp429TooManyRequests": "Demasiadas solicitudes. Inténtalo de nuevo más tarde.",
-  "errorHttp5xxServer": "Error del servidor. Inténtalo de nuevo más tarde."
+  "errorHttp5xxServer": "Error del servidor. Inténtalo de nuevo más tarde.",
+  "details": "Detalles",
+  "@details": {
+    "description": "Título de la sección de detalles"
+  },
+  "date": "Fecha",
+  "@date": {
+    "description": "Etiqueta de fecha"
+  },
+  "time": "Hora",
+  "@time": {
+    "description": "Etiqueta de hora"
+  },
+  "location": "Ubicación",
+  "@location": {
+    "description": "Etiqueta de ubicación"
+  },
+  "attendees": "Asistentes",
+  "@attendees": {
+    "description": "Etiqueta de asistentes"
+  },
+  "joinEvent": "Unirse al Evento",
+  "@joinEvent": {
+    "description": "Texto del botón para unirse al evento"
+  },
+  "leaveEvent": "Salir del Evento",
+  "@leaveEvent": {
+    "description": "Texto del botón para salir del evento"
+  }
 }

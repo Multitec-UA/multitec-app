@@ -42,6 +42,7 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
     return items;
   }
 
+
   @override
   Future<void> joinScheduleItem(String itemId) async {
     final currentUser = _auth.currentUser;

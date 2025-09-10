@@ -103,6 +103,7 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
     return items;
   }
 
+
   @override
   Future<void> joinScheduleItem(String itemId) async {
     await Future<void>.delayed(const Duration(seconds: 1));

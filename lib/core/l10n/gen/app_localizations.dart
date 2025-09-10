@@ -217,6 +217,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Server error. Please try again later.'**
   String get errorHttp5xxServer;
+
+  /// Details section title
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
+  /// Date label
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// Time label
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// Location label
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// Attendees label
+  ///
+  /// In en, this message translates to:
+  /// **'Attendees'**
+  String get attendees;
+
+  /// Join event button text
+  ///
+  /// In en, this message translates to:
+  /// **'Join Event'**
+  String get joinEvent;
+
+  /// Leave event button text
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Event'**
+  String get leaveEvent;
 }
 
 class _AppLocalizationsDelegate
