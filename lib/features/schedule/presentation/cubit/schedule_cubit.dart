@@ -36,10 +36,10 @@ class ScheduleCubit extends Cubit<ScheduleState> {
 
     emit(state.copyWith(status: StateStatus.loading));
 
-    final params = PaginationParams(
+    final result = await _getScheduleItems(
+      type: _type,
       cursor: isRefreshing ? null : _nextCursor,
     );
-    final result = await _getScheduleItems(_type, params);
 
     result.when(
       (paginatedResult) {

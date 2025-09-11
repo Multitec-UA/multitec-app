@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_item_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
 
 class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {

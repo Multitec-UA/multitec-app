@@ -4,6 +4,7 @@ import 'package:multitec_app/features/schedule/data/dtos/paginated_result_dto.da
 import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
 import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   ScheduleMockDataSource();
@@ -168,17 +169,17 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   }
 
   @override
-  Future<void> joinScheduleItem(String itemId) async {
+  Future<void> joinScheduleItem(String itemId, User user) async {
     await Future<void>.delayed(const Duration(seconds: 1));
   }
 
   @override
-  Future<void> leaveScheduleItem(String itemId) async {
+  Future<void> leaveScheduleItem(String itemId, User user) async {
     await Future<void>.delayed(const Duration(seconds: 1));
   }
 
   @override
-  Future<bool> isJoined(String itemId) async {
+  Future<bool> isJoined(String itemId, User user) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     return false;
   }

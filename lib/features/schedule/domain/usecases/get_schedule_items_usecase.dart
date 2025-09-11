@@ -10,9 +10,13 @@ class GetScheduleItemsUseCase {
   GetScheduleItemsUseCase(this._repository);
   final ScheduleRepository _repository;
 
-  Future<Result<PaginatedResult<ScheduleItem>, Failure>> call(
-    ScheduleType type,
-    PaginationParams params,
-  ) =>
-      _repository.getScheduleItems(type, params);
+  Future<Result<PaginatedResult<ScheduleItem>, Failure>> call({
+    required ScheduleType type,
+    String? cursor,
+    int? limit,
+  }) =>
+      _repository.getScheduleItems(
+        type,
+        PaginationParams(cursor: cursor, limit: limit),
+      );
 }
