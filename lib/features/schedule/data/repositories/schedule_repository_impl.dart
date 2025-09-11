@@ -28,20 +28,6 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<Result<List<ScheduleItem>, Failure>> getScheduleItemsLegacy(
-    ScheduleType type,
-  ) {
-    return guardAsync<List<ScheduleItem>>(
-      () async {
-        final dtos = await _remote.getScheduleItemsLegacy(type);
-        return dtos.map((dto) => dto.toDomain()).toList();
-      },
-      hint: 'ScheduleRepository.getScheduleItemsLegacy',
-    );
-  }
-
-
-  @override
   Future<Result<Unit, Failure>> joinScheduleItem(String itemId) {
     return guardAsync<Unit>(
       () async {

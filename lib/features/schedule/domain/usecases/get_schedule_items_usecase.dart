@@ -15,8 +15,4 @@ class GetScheduleItemsUseCase {
     PaginationParams params,
   ) =>
       _repository.getScheduleItems(type, params);
-
-  @Deprecated('Use call with PaginationParams instead')
-  Future<Result<List<ScheduleItem>, Failure>> callLegacy(ScheduleType type) =>
-      _repository.getScheduleItemsLegacy(type);
 }

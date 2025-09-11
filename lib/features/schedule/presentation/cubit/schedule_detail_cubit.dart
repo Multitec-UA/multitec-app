@@ -2,111 +2,71 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/join_item_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/leave_item_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
 
 class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
   ScheduleDetailCubit({
     required ScheduleItem item,
     required IsJoinedUseCase isJoinedUseCase,
-    required JoinItemUseCase joinItemUseCase,
-    required LeaveItemUseCase leaveItemUseCase,
+    required ToggleJoinScheduleItemUseCase toggleJoinUseCase,
   })  : _isJoinedUseCase = isJoinedUseCase,
-        _joinItemUseCase = joinItemUseCase,
-        _leaveItemUseCase = leaveItemUseCase,
+        _toggleJoinUseCase = toggleJoinUseCase,
         super(
-          ScheduleDetailState(
-            status: StateStatus.loaded,
-            item: item,
-          ),
+          ScheduleDetailState(item: item),
         ) {
     _checkJoinStatus(item.id);
   }
 
   final IsJoinedUseCase _isJoinedUseCase;
-  final JoinItemUseCase _joinItemUseCase;
-  final LeaveItemUseCase _leaveItemUseCase;
+  final ToggleJoinScheduleItemUseCase _toggleJoinUseCase;
 
   Future<void> _checkJoinStatus(String itemId) async {
-    emit(state.copyWith(isJoinedStatus: StateStatus.loading));
-
     final result = await _isJoinedUseCase(itemId);
 
     result.when(
       (isJoined) => emit(
         state.copyWith(
-          isJoinedStatus: StateStatus.loaded,
           isJoined: isJoined,
-          isJoinedFailure: null,
+          toggleJoinStatus: StateStatus.loaded,
+          failure: null,
         ),
       ),
       (failure) => emit(
         state.copyWith(
-          isJoinedStatus: StateStatus.error,
-          isJoinedFailure: failure,
+          toggleJoinStatus: StateStatus.error,
+          failure: failure,
         ),
       ),
     );
   }
 
-  Future<void> joinItem() async {
-    final itemId = state.item?.id;
-    if (itemId == null) return;
+  Future<void> toggleJoin() async {
+    final itemId = state.item.id;
 
-    emit(state.copyWith(joinStatus: StateStatus.loading));
+    emit(state.copyWith(toggleJoinStatus: StateStatus.loading));
 
-    final result = await _joinItemUseCase(itemId);
+    final result = await _toggleJoinUseCase(itemId, isJoined: state.isJoined);
 
     result.when(
       (_) {
-        final updatedItem = state.item!.copyWith(
-          attendeesCount: state.item!.attendeesCount + 1,
+        final delta = state.isJoined ? -1 : 1;
+        final updatedItem = state.item.copyWith(
+          attendeesCount: state.item.attendeesCount + delta,
         );
         emit(
           state.copyWith(
-            joinStatus: StateStatus.loaded,
-            isJoined: true,
-            joinFailure: null,
+            toggleJoinStatus: StateStatus.loaded,
+            isJoined: !state.isJoined,
+            failure: null,
             item: updatedItem,
           ),
         );
       },
       (failure) => emit(
         state.copyWith(
-          joinStatus: StateStatus.error,
-          joinFailure: failure,
-        ),
-      ),
-    );
-  }
-
-  Future<void> leaveItem() async {
-    final itemId = state.item?.id;
-    if (itemId == null) return;
-
-    emit(state.copyWith(joinStatus: StateStatus.loading));
-
-    final result = await _leaveItemUseCase(itemId);
-
-    result.when(
-      (_) {
-        final updatedItem = state.item!.copyWith(
-          attendeesCount: state.item!.attendeesCount - 1,
-        );
-        emit(
-          state.copyWith(
-            joinStatus: StateStatus.loaded,
-            isJoined: false,
-            joinFailure: null,
-            item: updatedItem,
-          ),
-        );
-      },
-      (failure) => emit(
-        state.copyWith(
-          joinStatus: StateStatus.error,
-          joinFailure: failure,
+          toggleJoinStatus: StateStatus.error,
+          failure: failure,
         ),
       ),
     );

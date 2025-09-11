@@ -14,14 +14,10 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$ScheduleDetailState {
-  StateStatus get status;
-  StateStatus get joinStatus;
-  StateStatus get isJoinedStatus;
-  ScheduleItem? get item;
+  ScheduleItem get item;
+  StateStatus get toggleJoinStatus;
   bool get isJoined;
   Failure? get failure;
-  Failure? get joinFailure;
-  Failure? get isJoinedFailure;
 
   /// Create a copy of ScheduleDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -36,28 +32,21 @@ mixin _$ScheduleDetailState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ScheduleDetailState &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.joinStatus, joinStatus) ||
-                other.joinStatus == joinStatus) &&
-            (identical(other.isJoinedStatus, isJoinedStatus) ||
-                other.isJoinedStatus == isJoinedStatus) &&
             (identical(other.item, item) || other.item == item) &&
+            (identical(other.toggleJoinStatus, toggleJoinStatus) ||
+                other.toggleJoinStatus == toggleJoinStatus) &&
             (identical(other.isJoined, isJoined) ||
                 other.isJoined == isJoined) &&
-            (identical(other.failure, failure) || other.failure == failure) &&
-            (identical(other.joinFailure, joinFailure) ||
-                other.joinFailure == joinFailure) &&
-            (identical(other.isJoinedFailure, isJoinedFailure) ||
-                other.isJoinedFailure == isJoinedFailure));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, joinStatus,
-      isJoinedStatus, item, isJoined, failure, joinFailure, isJoinedFailure);
+  int get hashCode =>
+      Object.hash(runtimeType, item, toggleJoinStatus, isJoined, failure);
 
   @override
   String toString() {
-    return 'ScheduleDetailState(status: $status, joinStatus: $joinStatus, isJoinedStatus: $isJoinedStatus, item: $item, isJoined: $isJoined, failure: $failure, joinFailure: $joinFailure, isJoinedFailure: $isJoinedFailure)';
+    return 'ScheduleDetailState(item: $item, toggleJoinStatus: $toggleJoinStatus, isJoined: $isJoined, failure: $failure)';
   }
 }
 
@@ -68,14 +57,10 @@ abstract mixin class $ScheduleDetailStateCopyWith<$Res> {
       _$ScheduleDetailStateCopyWithImpl;
   @useResult
   $Res call(
-      {StateStatus status,
-      StateStatus joinStatus,
-      StateStatus isJoinedStatus,
-      ScheduleItem? item,
+      {ScheduleItem item,
+      StateStatus toggleJoinStatus,
       bool isJoined,
-      Failure? failure,
-      Failure? joinFailure,
-      Failure? isJoinedFailure});
+      Failure? failure});
 }
 
 /// @nodoc
@@ -91,32 +76,20 @@ class _$ScheduleDetailStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
-    Object? joinStatus = null,
-    Object? isJoinedStatus = null,
-    Object? item = freezed,
+    Object? item = null,
+    Object? toggleJoinStatus = null,
     Object? isJoined = null,
     Object? failure = freezed,
-    Object? joinFailure = freezed,
-    Object? isJoinedFailure = freezed,
   }) {
     return _then(_self.copyWith(
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as StateStatus,
-      joinStatus: null == joinStatus
-          ? _self.joinStatus
-          : joinStatus // ignore: cast_nullable_to_non_nullable
-              as StateStatus,
-      isJoinedStatus: null == isJoinedStatus
-          ? _self.isJoinedStatus
-          : isJoinedStatus // ignore: cast_nullable_to_non_nullable
-              as StateStatus,
-      item: freezed == item
+      item: null == item
           ? _self.item
           : item // ignore: cast_nullable_to_non_nullable
-              as ScheduleItem?,
+              as ScheduleItem,
+      toggleJoinStatus: null == toggleJoinStatus
+          ? _self.toggleJoinStatus
+          : toggleJoinStatus // ignore: cast_nullable_to_non_nullable
+              as StateStatus,
       isJoined: null == isJoined
           ? _self.isJoined
           : isJoined // ignore: cast_nullable_to_non_nullable
@@ -124,14 +97,6 @@ class _$ScheduleDetailStateCopyWithImpl<$Res>
       failure: freezed == failure
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
-      joinFailure: freezed == joinFailure
-          ? _self.joinFailure
-          : joinFailure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
-      isJoinedFailure: freezed == isJoinedFailure
-          ? _self.isJoinedFailure
-          : isJoinedFailure // ignore: cast_nullable_to_non_nullable
               as Failure?,
     ));
   }
@@ -228,15 +193,8 @@ extension ScheduleDetailStatePatterns on ScheduleDetailState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            StateStatus status,
-            StateStatus joinStatus,
-            StateStatus isJoinedStatus,
-            ScheduleItem? item,
-            bool isJoined,
-            Failure? failure,
-            Failure? joinFailure,
-            Failure? isJoinedFailure)?
+    TResult Function(ScheduleItem item, StateStatus toggleJoinStatus,
+            bool isJoined, Failure? failure)?
         $default, {
     required TResult orElse(),
   }) {
@@ -244,14 +202,7 @@ extension ScheduleDetailStatePatterns on ScheduleDetailState {
     switch (_that) {
       case _ScheduleDetailState() when $default != null:
         return $default(
-            _that.status,
-            _that.joinStatus,
-            _that.isJoinedStatus,
-            _that.item,
-            _that.isJoined,
-            _that.failure,
-            _that.joinFailure,
-            _that.isJoinedFailure);
+            _that.item, _that.toggleJoinStatus, _that.isJoined, _that.failure);
       case _:
         return orElse();
     }
@@ -272,29 +223,15 @@ extension ScheduleDetailStatePatterns on ScheduleDetailState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(
-            StateStatus status,
-            StateStatus joinStatus,
-            StateStatus isJoinedStatus,
-            ScheduleItem? item,
-            bool isJoined,
-            Failure? failure,
-            Failure? joinFailure,
-            Failure? isJoinedFailure)
+    TResult Function(ScheduleItem item, StateStatus toggleJoinStatus,
+            bool isJoined, Failure? failure)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScheduleDetailState():
         return $default(
-            _that.status,
-            _that.joinStatus,
-            _that.isJoinedStatus,
-            _that.item,
-            _that.isJoined,
-            _that.failure,
-            _that.joinFailure,
-            _that.isJoinedFailure);
+            _that.item, _that.toggleJoinStatus, _that.isJoined, _that.failure);
     }
   }
 
@@ -312,29 +249,15 @@ extension ScheduleDetailStatePatterns on ScheduleDetailState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            StateStatus status,
-            StateStatus joinStatus,
-            StateStatus isJoinedStatus,
-            ScheduleItem? item,
-            bool isJoined,
-            Failure? failure,
-            Failure? joinFailure,
-            Failure? isJoinedFailure)?
+    TResult? Function(ScheduleItem item, StateStatus toggleJoinStatus,
+            bool isJoined, Failure? failure)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ScheduleDetailState() when $default != null:
         return $default(
-            _that.status,
-            _that.joinStatus,
-            _that.isJoinedStatus,
-            _that.item,
-            _that.isJoined,
-            _that.failure,
-            _that.joinFailure,
-            _that.isJoinedFailure);
+            _that.item, _that.toggleJoinStatus, _that.isJoined, _that.failure);
       case _:
         return null;
     }
@@ -345,35 +268,21 @@ extension ScheduleDetailStatePatterns on ScheduleDetailState {
 
 class _ScheduleDetailState implements ScheduleDetailState {
   const _ScheduleDetailState(
-      {this.status = StateStatus.initial,
-      this.joinStatus = StateStatus.initial,
-      this.isJoinedStatus = StateStatus.initial,
-      this.item,
+      {required this.item,
+      this.toggleJoinStatus = StateStatus.initial,
       this.isJoined = false,
-      this.failure,
-      this.joinFailure,
-      this.isJoinedFailure});
+      this.failure});
 
   @override
-  @JsonKey()
-  final StateStatus status;
+  final ScheduleItem item;
   @override
   @JsonKey()
-  final StateStatus joinStatus;
-  @override
-  @JsonKey()
-  final StateStatus isJoinedStatus;
-  @override
-  final ScheduleItem? item;
+  final StateStatus toggleJoinStatus;
   @override
   @JsonKey()
   final bool isJoined;
   @override
   final Failure? failure;
-  @override
-  final Failure? joinFailure;
-  @override
-  final Failure? isJoinedFailure;
 
   /// Create a copy of ScheduleDetailState
   /// with the given fields replaced by the non-null parameter values.
@@ -389,28 +298,21 @@ class _ScheduleDetailState implements ScheduleDetailState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScheduleDetailState &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.joinStatus, joinStatus) ||
-                other.joinStatus == joinStatus) &&
-            (identical(other.isJoinedStatus, isJoinedStatus) ||
-                other.isJoinedStatus == isJoinedStatus) &&
             (identical(other.item, item) || other.item == item) &&
+            (identical(other.toggleJoinStatus, toggleJoinStatus) ||
+                other.toggleJoinStatus == toggleJoinStatus) &&
             (identical(other.isJoined, isJoined) ||
                 other.isJoined == isJoined) &&
-            (identical(other.failure, failure) || other.failure == failure) &&
-            (identical(other.joinFailure, joinFailure) ||
-                other.joinFailure == joinFailure) &&
-            (identical(other.isJoinedFailure, isJoinedFailure) ||
-                other.isJoinedFailure == isJoinedFailure));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, joinStatus,
-      isJoinedStatus, item, isJoined, failure, joinFailure, isJoinedFailure);
+  int get hashCode =>
+      Object.hash(runtimeType, item, toggleJoinStatus, isJoined, failure);
 
   @override
   String toString() {
-    return 'ScheduleDetailState(status: $status, joinStatus: $joinStatus, isJoinedStatus: $isJoinedStatus, item: $item, isJoined: $isJoined, failure: $failure, joinFailure: $joinFailure, isJoinedFailure: $isJoinedFailure)';
+    return 'ScheduleDetailState(item: $item, toggleJoinStatus: $toggleJoinStatus, isJoined: $isJoined, failure: $failure)';
   }
 }
 
@@ -423,14 +325,10 @@ abstract mixin class _$ScheduleDetailStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {StateStatus status,
-      StateStatus joinStatus,
-      StateStatus isJoinedStatus,
-      ScheduleItem? item,
+      {ScheduleItem item,
+      StateStatus toggleJoinStatus,
       bool isJoined,
-      Failure? failure,
-      Failure? joinFailure,
-      Failure? isJoinedFailure});
+      Failure? failure});
 }
 
 /// @nodoc
@@ -446,32 +344,20 @@ class __$ScheduleDetailStateCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? status = null,
-    Object? joinStatus = null,
-    Object? isJoinedStatus = null,
-    Object? item = freezed,
+    Object? item = null,
+    Object? toggleJoinStatus = null,
     Object? isJoined = null,
     Object? failure = freezed,
-    Object? joinFailure = freezed,
-    Object? isJoinedFailure = freezed,
   }) {
     return _then(_ScheduleDetailState(
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as StateStatus,
-      joinStatus: null == joinStatus
-          ? _self.joinStatus
-          : joinStatus // ignore: cast_nullable_to_non_nullable
-              as StateStatus,
-      isJoinedStatus: null == isJoinedStatus
-          ? _self.isJoinedStatus
-          : isJoinedStatus // ignore: cast_nullable_to_non_nullable
-              as StateStatus,
-      item: freezed == item
+      item: null == item
           ? _self.item
           : item // ignore: cast_nullable_to_non_nullable
-              as ScheduleItem?,
+              as ScheduleItem,
+      toggleJoinStatus: null == toggleJoinStatus
+          ? _self.toggleJoinStatus
+          : toggleJoinStatus // ignore: cast_nullable_to_non_nullable
+              as StateStatus,
       isJoined: null == isJoined
           ? _self.isJoined
           : isJoined // ignore: cast_nullable_to_non_nullable
@@ -479,14 +365,6 @@ class __$ScheduleDetailStateCopyWithImpl<$Res>
       failure: freezed == failure
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
-      joinFailure: freezed == joinFailure
-          ? _self.joinFailure
-          : joinFailure // ignore: cast_nullable_to_non_nullable
-              as Failure?,
-      isJoinedFailure: freezed == isJoinedFailure
-          ? _self.isJoinedFailure
-          : isJoinedFailure // ignore: cast_nullable_to_non_nullable
               as Failure?,
     ));
   }

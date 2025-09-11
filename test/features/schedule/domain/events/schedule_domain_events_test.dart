@@ -3,36 +3,14 @@ import 'package:multitec_app/features/schedule/domain/events/schedule_events.dar
 
 void main() {
   group('ScheduleDomainEvents', () {
-    test('AttendeeCountChangedEvent creates correctly', () {
-      const event = AttendeeCountChangedEvent(
+    test('ScheduleItemAttendanceToggledEvent creates correctly', () {
+      const event = ScheduleItemAttendanceToggledEvent(
         itemId: 'test_id',
-        newCount: 5,
         delta: 1,
       );
 
       expect(event.itemId, 'test_id');
-      expect(event.newCount, 5);
       expect(event.delta, 1);
-    });
-
-    test('UserJoinedScheduleItemEvent creates correctly', () {
-      const event = UserJoinedScheduleItemEvent(
-        itemId: 'test_id',
-        userId: 'user_123',
-      );
-
-      expect(event.itemId, 'test_id');
-      expect(event.userId, 'user_123');
-    });
-
-    test('UserLeftScheduleItemEvent creates correctly', () {
-      const event = UserLeftScheduleItemEvent(
-        itemId: 'test_id',
-        userId: 'user_123',
-      );
-
-      expect(event.itemId, 'test_id');
-      expect(event.userId, 'user_123');
     });
   });
 }

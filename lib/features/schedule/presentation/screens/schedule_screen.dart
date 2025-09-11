@@ -76,12 +76,43 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _ListSection();
+    return BlocBuilder<ScheduleCubit, ScheduleState>(
+      buildWhen: (p, c) =>
+          p.status != c.status ||
+          p.items != c.items ||
+          p.failure != c.failure ||
+          p.hasMore != c.hasMore,
+      builder: (context, state) {
+        if (state.status.isInitial ||
+            (state.status.isLoading && state.items.isEmpty)) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state.status.isError && state.items.isEmpty) {
+          return ScheduleListErrorPlaceholder(
+            message: state.failure.toScheduleListMessage(context),
+            onRetry: () => context
+                .read<ScheduleCubit>()
+                .loadScheduleItems(isRefreshing: true),
+          );
+        }
+
+        if (state.items.isNotEmpty) {
+          return _ListSection(state: state);
+        }
+
+        return const Center(
+          child: Text('No hay elementos disponibles'),
+        );
+      },
+    );
   }
 }
 
 class _ListSection extends StatefulWidget {
-  const _ListSection();
+  const _ListSection({required this.state});
+
+  final ScheduleState state;
 
   @override
   State<_ListSection> createState() => _ListSectionState();
@@ -117,55 +148,28 @@ class _ListSectionState extends State<_ListSection> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScheduleCubit, ScheduleState>(
-      buildWhen: (p, c) =>
-          p.status != c.status ||
-          p.items != c.items ||
-          p.failure != c.failure ||
-          p.hasMore != c.hasMore,
-      builder: (context, state) {
-        if ((state.status.isInitial || state.status.isLoading) &&
-            state.items.isEmpty) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (state.status.isError && state.items.isEmpty) {
-          return ScheduleListErrorPlaceholder(
-            message: state.failure.toScheduleListMessage(context),
-            onRetry: () =>
-                context.read<ScheduleCubit>().loadScheduleItems(refresh: true),
-          );
-        }
-
-        if (state.status.isLoaded && state.items.isEmpty) {
-          return const Center(
-            child: Text('No hay elementos disponibles'),
-          );
-        }
-
-        final itemCount = state.items.length + (state.hasMore ? 1 : 0);
-
-        return RefreshIndicator(
-          onRefresh: () =>
-              context.read<ScheduleCubit>().loadScheduleItems(refresh: true),
-          child: ListView.builder(
-            controller: _scrollController,
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: itemCount,
-            itemBuilder: (context, index) {
-              if (index >= state.items.length) {
-                return _LoadMoreIndicator(
-                  isLoading: state.status.isLoading && state.items.isNotEmpty,
-                  hasError: state.status.isError && state.items.isNotEmpty,
-                  onRetry: () =>
-                      context.read<ScheduleCubit>().loadScheduleItems(),
-                );
-              }
-              return ScheduleListItem(item: state.items[index]);
-            },
-          ),
-        );
-      },
+    final itemCount =
+        widget.state.items.length + (widget.state.hasMore ? 1 : 0);
+    return RefreshIndicator(
+      onRefresh: () =>
+          context.read<ScheduleCubit>().loadScheduleItems(isRefreshing: true),
+      child: ListView.builder(
+        controller: _scrollController,
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: itemCount,
+        itemBuilder: (context, index) {
+          if (index >= widget.state.items.length) {
+            return _LoadMoreIndicator(
+              isLoading: widget.state.status.isLoading &&
+                  widget.state.items.isNotEmpty,
+              hasError:
+                  widget.state.status.isError && widget.state.items.isNotEmpty,
+              onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
+            );
+          }
+          return ScheduleListItem(item: widget.state.items[index]);
+        },
+      ),
     );
   }
 }

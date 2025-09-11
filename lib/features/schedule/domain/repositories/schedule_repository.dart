@@ -10,12 +10,6 @@ abstract class ScheduleRepository {
     ScheduleType type,
     PaginationParams params,
   );
-  
-  @Deprecated('Use getScheduleItems with PaginationParams instead')
-  Future<Result<List<ScheduleItem>, Failure>> getScheduleItemsLegacy(
-    ScheduleType type,
-  );
-  
   Future<Result<Unit, Failure>> joinScheduleItem(String itemId);
   Future<Result<Unit, Failure>> leaveScheduleItem(String itemId);
   Future<Result<bool, Failure>> isJoined(String itemId);

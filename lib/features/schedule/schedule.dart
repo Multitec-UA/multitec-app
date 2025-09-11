@@ -8,8 +8,6 @@ export 'domain/models/schedule_type.dart';
 export 'domain/repositories/schedule_repository.dart';
 export 'domain/usecases/get_schedule_items_usecase.dart';
 export 'domain/usecases/is_joined_usecase.dart';
-export 'domain/usecases/join_item_usecase.dart';
-export 'domain/usecases/leave_item_usecase.dart';
 export 'presentation/cubit/schedule_cubit.dart';
 export 'presentation/cubit/schedule_state.dart';
 export 'presentation/screens/schedule_screen.dart';
