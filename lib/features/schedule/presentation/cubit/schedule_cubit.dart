@@ -15,7 +15,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     this._eventBus,
   ) : super(const ScheduleState()) {
     _eventBus
-        .listen<AttendeeCountChangedEvent>()
+        .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
   }
 
@@ -24,28 +24,20 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   final EventBus _eventBus;
   String? _nextCursor;
 
-  Future<void> loadScheduleItems({bool refresh = false}) async {
-    if (refresh) {
+  Future<void> loadScheduleItems({bool isRefreshing = false}) async {
+    if (isRefreshing) {
       _nextCursor = null;
-      emit(
-        state.copyWith(
-          status: StateStatus.initial,
-          items: [],
-          hasMore: true,
-          failure: null,
-        ),
-      );
+      emit(state.copyWith(status: StateStatus.initial));
     }
 
-    if ((state.status == StateStatus.loaded && !state.hasMore) ||
-        state.status == StateStatus.loading) {
+    if ((state.status.isLoaded && !state.hasMore) || state.status.isLoading) {
       return;
     }
 
     emit(state.copyWith(status: StateStatus.loading));
 
     final params = PaginationParams(
-      cursor: refresh ? null : _nextCursor,
+      cursor: isRefreshing ? null : _nextCursor,
     );
     final result = await _getScheduleItems(_type, params);
 
@@ -55,7 +47,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
         return emit(
           state.copyWith(
             status: StateStatus.loaded,
-            items: refresh
+            items: isRefreshing
                 ? paginatedResult.items
                 : [...state.items, ...paginatedResult.items],
             hasMore: paginatedResult.hasMore,
@@ -72,7 +64,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
     );
   }
 
-  void _handleAttendeeCountChanged(AttendeeCountChangedEvent event) {
+  void _handleAttendeeCountChanged(ScheduleItemAttendanceToggledEvent event) {
     final updatedItems = state.items.map((item) {
       if (item.id == event.itemId) {
         return item.copyWith(

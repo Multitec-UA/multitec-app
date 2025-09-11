@@ -4,25 +4,31 @@ import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
 
-class LeaveItemUseCase {
-  LeaveItemUseCase(this._repository, this._eventBus);
+class ToggleJoinScheduleItemUseCase {
+  ToggleJoinScheduleItemUseCase(this._repository, this._eventBus);
 
   final ScheduleRepository _repository;
   final EventBus _eventBus;
 
-  Future<Result<Unit, Failure>> call(String itemId) async {
-    final result = await _repository.leaveScheduleItem(itemId);
+  Future<Result<Unit, Failure>> call(
+    String itemId, {
+    required bool isJoined,
+  }) async {
+    final result = isJoined
+        ? await _repository.leaveScheduleItem(itemId)
+        : await _repository.joinScheduleItem(itemId);
 
     return result.when(
       (success) {
-        _eventBus.emit(AttendeeCountChangedEvent(
-          itemId: itemId,
-          newCount: 0, // Will be updated by cubit
-          delta: -1,
-        ));
+        _eventBus.emit(
+          ScheduleItemAttendanceToggledEvent(
+            itemId: itemId,
+            delta: isJoined ? -1 : 1,
+          ),
+        );
         return Success(success);
       },
-      (failure) => Error(failure),
+      Error.new,
     );
   }
 }

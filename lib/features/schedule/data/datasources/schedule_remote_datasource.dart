@@ -5,22 +5,8 @@ import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart'
 import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 
-abstract class ScheduleRemoteDataSource {
-  Future<PaginatedResultDto<ScheduleItemDto>> getScheduleItems(
-    ScheduleType type,
-    PaginationParams params,
-  );
-
-  @Deprecated('Use getScheduleItems with PaginationParams instead')
-  Future<List<ScheduleItemDto>> getScheduleItemsLegacy(ScheduleType type);
-
-  Future<void> joinScheduleItem(String itemId);
-  Future<void> leaveScheduleItem(String itemId);
-  Future<bool> isJoined(String itemId);
-}
-
-class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
-  ScheduleRemoteDataSourceImpl({
+class ScheduleRemoteDataSource {
+  ScheduleRemoteDataSource({
     FirebaseFirestore? firestore,
     FirebaseAuth? auth,
   })  : _firestore = firestore ?? FirebaseFirestore.instance,
@@ -29,7 +15,6 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
 
-  @override
   Future<PaginatedResultDto<ScheduleItemDto>> getScheduleItems(
     ScheduleType type,
     PaginationParams params,
@@ -72,31 +57,6 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
     );
   }
 
-  @override
-  Future<List<ScheduleItemDto>> getScheduleItemsLegacy(
-    ScheduleType type,
-  ) async {
-    final query = _firestore
-        .collection('schedule')
-        .where('published', isEqualTo: true)
-        .where('type', isEqualTo: type.value)
-        .orderBy('createdAt', descending: true)
-        .limit(20);
-
-    final snapshot = await query.get();
-    final items = <ScheduleItemDto>[];
-
-    for (final doc in snapshot.docs) {
-      final data = doc.data();
-      data.addEntries({'id': doc.id}.entries);
-
-      items.add(ScheduleItemDto.fromMap(data));
-    }
-
-    return items;
-  }
-
-  @override
   Future<void> joinScheduleItem(String itemId) async {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
@@ -120,7 +80,6 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
     await batch.commit();
   }
 
-  @override
   Future<void> leaveScheduleItem(String itemId) async {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
@@ -141,7 +100,6 @@ class ScheduleRemoteDataSourceImpl implements ScheduleRemoteDataSource {
     await batch.commit();
   }
 
-  @override
   Future<bool> isJoined(String itemId) async {
     final currentUser = _auth.currentUser;
     if (currentUser == null) return false;

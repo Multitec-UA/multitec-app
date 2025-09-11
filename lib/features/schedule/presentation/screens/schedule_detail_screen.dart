@@ -9,8 +9,7 @@ import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/join_item_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/leave_item_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
 
@@ -28,8 +27,7 @@ class ScheduleDetailScreen extends StatelessWidget {
       create: (context) => ScheduleDetailCubit(
         item: item,
         isJoinedUseCase: locator<IsJoinedUseCase>(),
-        joinItemUseCase: locator<JoinItemUseCase>(),
-        leaveItemUseCase: locator<LeaveItemUseCase>(),
+        toggleJoinUseCase: locator<ToggleJoinScheduleItemUseCase>(),
       ),
       child: const _ScheduleDetailView(),
     );
@@ -51,65 +49,32 @@ class _ScheduleDetailView extends StatelessWidget {
       ),
       body: BlocConsumer<ScheduleDetailCubit, ScheduleDetailState>(
         listener: (context, state) {
-          if (state.joinStatus == StateStatus.error &&
-              state.joinFailure != null) {
+          if (state.toggleJoinStatus == StateStatus.error &&
+              state.failure != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.joinFailure.toLocalizedMessage(context)),
+                content: Text(state.failure.toLocalizedMessage(context)),
                 backgroundColor: Theme.of(context).colorScheme.error,
               ),
             );
           }
         },
-        builder: (context, state) {
-          if (state.status == StateStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (state.status == StateStatus.error) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.error_outline,
-                    size: 64,
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                  spacings.y.s16,
-                  Text(
-                    state.failure.toLocalizedMessage(context),
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+        builder: (context, state) => SingleChildScrollView(
+          padding: paddings.all.s16,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _HeaderSection(item: state.item),
+              spacings.y.s24,
+              _DetailsSection(item: state.item),
+              spacings.y.s24,
+              _JoinSection(
+                isJoined: state.isJoined,
+                isInitial: state.toggleJoinStatus.isInitial,
               ),
-            );
-          }
-
-          final item = state.item;
-          if (item == null) {
-            return const Center(child: Text('Schedule item not found'));
-          }
-
-          return SingleChildScrollView(
-            padding: paddings.all.s16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _HeaderSection(item: item),
-                spacings.y.s24,
-                _DetailsSection(item: item),
-                spacings.y.s24,
-                _JoinSection(
-                  isJoined: state.isJoined,
-                  isLoading: state.joinStatus == StateStatus.loading,
-                  isJoinedLoading: state.isJoinedStatus == StateStatus.loading,
-                ),
-              ],
-            ),
-          );
-        },
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -256,34 +221,28 @@ class _DetailRow extends StatelessWidget {
 class _JoinSection extends StatelessWidget {
   const _JoinSection({
     required this.isJoined,
-    required this.isLoading,
-    required this.isJoinedLoading,
+    required this.isInitial,
   });
 
   final bool isJoined;
-  final bool isLoading;
-  final bool isJoinedLoading;
+  final bool isInitial;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    if (isJoinedLoading) {
+    if (isInitial) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: isLoading
+        onPressed: isInitial
             ? null
             : () {
                 final cubit = context.read<ScheduleDetailCubit>();
-                if (isJoined) {
-                  cubit.leaveItem();
-                } else {
-                  cubit.joinItem();
-                }
+                cubit.toggleJoin();
               },
         style: ElevatedButton.styleFrom(
           backgroundColor: isJoined
@@ -294,7 +253,7 @@ class _JoinSection extends StatelessWidget {
               : Theme.of(context).colorScheme.onPrimary,
           padding: const EdgeInsets.symmetric(vertical: 16),
         ),
-        child: isLoading
+        child: isInitial
             ? const SizedBox(
                 height: 20,
                 width: 20,

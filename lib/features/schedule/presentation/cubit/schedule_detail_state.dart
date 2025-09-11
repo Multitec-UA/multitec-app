@@ -8,13 +8,9 @@ part 'schedule_detail_state.freezed.dart';
 @freezed
 sealed class ScheduleDetailState with _$ScheduleDetailState {
   const factory ScheduleDetailState({
-    @Default(StateStatus.initial) StateStatus status,
-    @Default(StateStatus.initial) StateStatus joinStatus,
-    @Default(StateStatus.initial) StateStatus isJoinedStatus,
-    ScheduleItem? item,
+    required ScheduleItem item,
+    @Default(StateStatus.initial) StateStatus toggleJoinStatus,
     @Default(false) bool isJoined,
     Failure? failure,
-    Failure? joinFailure,
-    Failure? isJoinedFailure,
   }) = _ScheduleDetailState;
 }
