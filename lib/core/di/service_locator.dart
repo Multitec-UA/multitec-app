@@ -25,7 +25,7 @@ import 'package:multitec_app/features/schedule/data/repositories/schedule_reposi
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_item_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
@@ -68,6 +68,9 @@ Future<void> serviceLocatorSetUp() async {
       ],
     );
 
+  /// User Feature
+  locator.registerFactory<EventBus>(EventBusImpl.new);
+
   /// Example Feature
   // Datasources
   locator.registerFactory<ExampleRemoteDataSource>(
@@ -88,8 +91,12 @@ Future<void> serviceLocatorSetUp() async {
   );
 
   // UseCases
-  locator.registerFactory(() => FetchExampleItemsUseCase(locator()));
-  locator.registerFactory(() => SendReportUseCase(locator()));
+  locator.registerFactory(
+    () => FetchExampleItemsUseCase(locator<ExampleRepository>()),
+  );
+  locator.registerFactory(
+    () => SendReportUseCase(locator<ExampleRepository>()),
+  );
 
   /// Auth Feature
   // Datasources
@@ -156,16 +163,18 @@ Future<void> serviceLocatorSetUp() async {
     () => ScheduleRepositoryImpl(locator<ScheduleRemoteDataSource>()),
   );
 
-  // Event Bus
-  locator.registerLazySingleton<EventBus>(EventBusImpl.new);
-
   // UseCases
   locator.registerFactory(() => GetScheduleItemsUseCase(locator()));
-  locator.registerFactory(() => IsJoinedUseCase(locator()));
+  locator.registerFactory(
+    () => IsJoinedUseCase(
+      locator<ScheduleRepository>(),
+      locator<UserRepository>(),
+    ),
+  );
   locator.registerFactory(
     () => ToggleJoinScheduleItemUseCase(
       locator<ScheduleRepository>(),
-      locator<EventBus>(),
+      locator<UserRepository>(),
     ),
   );
 

@@ -2,11 +2,12 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/guard.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
-import 'package:multitec_app/features/schedule/domain/models/paginated_result.dart';
 import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
+import 'package:multitec_app/features/schedule/domain/models/paginated_result.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class ScheduleRepositoryImpl implements ScheduleRepository {
   ScheduleRepositoryImpl(this._remote);
@@ -28,10 +29,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<Result<Unit, Failure>> joinScheduleItem(String itemId) {
+  Future<Result<Unit, Failure>> joinScheduleItem(String itemId, User user) {
     return guardAsync<Unit>(
       () async {
-        await _remote.joinScheduleItem(itemId);
+        await _remote.joinScheduleItem(itemId, user);
         return unit;
       },
       hint: 'ScheduleRepository.joinScheduleItem',
@@ -39,10 +40,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<Result<Unit, Failure>> leaveScheduleItem(String itemId) {
+  Future<Result<Unit, Failure>> leaveScheduleItem(String itemId, User user) {
     return guardAsync<Unit>(
       () async {
-        await _remote.leaveScheduleItem(itemId);
+        await _remote.leaveScheduleItem(itemId, user);
         return unit;
       },
       hint: 'ScheduleRepository.leaveScheduleItem',
@@ -50,10 +51,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<Result<bool, Failure>> isJoined(String itemId) {
+  Future<Result<bool, Failure>> isJoined(String itemId, User user) {
     return guardAsync<bool>(
       () async {
-        return _remote.isJoined(itemId);
+        return _remote.isJoined(itemId, user);
       },
       hint: 'ScheduleRepository.isJoined',
     );

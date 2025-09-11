@@ -1,19 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:multitec_app/features/schedule/data/dtos/paginated_result_dto.dart';
 import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
 import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/user/domain/models/user.dart';
 
 class ScheduleRemoteDataSource {
   ScheduleRemoteDataSource({
     FirebaseFirestore? firestore,
-    FirebaseAuth? auth,
-  })  : _firestore = firestore ?? FirebaseFirestore.instance,
-        _auth = auth ?? FirebaseAuth.instance;
+  }) : _firestore = firestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestore;
-  final FirebaseAuth _auth;
 
   Future<PaginatedResultDto<ScheduleItemDto>> getScheduleItems(
     ScheduleType type,
@@ -57,20 +55,15 @@ class ScheduleRemoteDataSource {
     );
   }
 
-  Future<void> joinScheduleItem(String itemId) async {
-    final currentUser = _auth.currentUser;
-    if (currentUser == null) {
-      throw Exception('User not authenticated');
-    }
-
+  Future<void> joinScheduleItem(String itemId, User user) async {
     final batch = _firestore.batch();
 
     final itemRef = _firestore.collection('schedule').doc(itemId);
-    final attendeeRef = itemRef.collection('attendees').doc(currentUser.uid);
+    final attendeeRef = itemRef.collection('attendees').doc(user.id);
 
     batch.set(attendeeRef, {
       'joinedAt': FieldValue.serverTimestamp(),
-      'displayName': currentUser.displayName,
+      'displayName': user.name,
     });
 
     batch.update(itemRef, {
@@ -80,16 +73,11 @@ class ScheduleRemoteDataSource {
     await batch.commit();
   }
 
-  Future<void> leaveScheduleItem(String itemId) async {
-    final currentUser = _auth.currentUser;
-    if (currentUser == null) {
-      throw Exception('User not authenticated');
-    }
-
+  Future<void> leaveScheduleItem(String itemId, User user) async {
     final batch = _firestore.batch();
 
     final itemRef = _firestore.collection('schedule').doc(itemId);
-    final attendeeRef = itemRef.collection('attendees').doc(currentUser.uid);
+    final attendeeRef = itemRef.collection('attendees').doc(user.id);
 
     batch.delete(attendeeRef);
 
@@ -100,15 +88,12 @@ class ScheduleRemoteDataSource {
     await batch.commit();
   }
 
-  Future<bool> isJoined(String itemId) async {
-    final currentUser = _auth.currentUser;
-    if (currentUser == null) return false;
-
+  Future<bool> isJoined(String itemId, User user) async {
     final attendeeDoc = await _firestore
         .collection('schedule')
         .doc(itemId)
         .collection('attendees')
-        .doc(currentUser.uid)
+        .doc(user.id)
         .get();
 
     return attendeeDoc.exists;

@@ -1,8 +1,10 @@
 class PaginationParams {
   const PaginationParams({
     this.cursor,
-    this.limit = 20,
-  });
+    int? limit,
+  }) : limit = limit ?? defaultLimit;
+
+  static const int defaultLimit = 20;
 
   final String? cursor;
   final int limit;
