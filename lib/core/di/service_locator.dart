@@ -25,7 +25,7 @@ import 'package:multitec_app/features/schedule/data/repositories/schedule_reposi
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_cubit.dart';
@@ -167,26 +167,26 @@ Future<void> serviceLocatorSetUp() async {
   );
 
   // UseCases
-  locator.registerFactory(
+  locator.registerFactory<GetScheduleItemsByTypeUseCase>(
     () => GetScheduleItemsByTypeUseCase(locator<ScheduleRepository>()),
   );
-  locator.registerFactory(
+  locator.registerFactory<GetLatestScheduleItemsUseCase>(
     () => GetLatestScheduleItemsUseCase(locator<ScheduleRepository>()),
   );
-  locator.registerFactory(
+  locator.registerFactory<IsJoinedUseCase>(
     () => IsJoinedUseCase(
       locator<ScheduleRepository>(),
       locator<UserRepository>(),
     ),
   );
-  locator.registerFactory(
+  locator.registerFactory<ToggleJoinScheduleItemUseCase>(
     () => ToggleJoinScheduleItemUseCase(
       locator<ScheduleRepository>(),
       locator<UserRepository>(),
       locator<EventBus>(),
     ),
   );
-  locator.registerFactory(
+  locator.registerFactory<GetJoinedScheduleItemsUseCase>(
     () => GetJoinedScheduleItemsUseCase(
       locator<ScheduleRepository>(),
       locator<UserRepository>(),

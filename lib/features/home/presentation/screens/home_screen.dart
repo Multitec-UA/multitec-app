@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_carousel.dart';
+import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
+import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,6 +22,21 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: paddings.x.s16,
+              child: BlocBuilder<UserCubit, UserState>(
+                buildWhen: (p, c) => p.user != c.user || p.status != c.status,
+                builder: (context, state) {
+                  final name = state.user?.name ?? 'Multitec';
+                  return Text(
+                    '¡Bienvenido, $name!',
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
+              ),
+            ),
             spacings.y.s24,
             Padding(
               padding: paddings.x.s16,
@@ -29,37 +47,54 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            spacings.y.s16,
             const ScheduleCarousel(),
-            spacings.y.s24,
+            spacings.y.s16,
             Padding(
               padding: paddings.x.s16,
-              child: Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
+                  SizedBox(
+                    width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () => context.pushNamed(
+                      onPressed: () => context.goNamed(
                         AppRoute.schedule.name,
-                        pathParameters: {'type': ScheduleType.event.value},
+                        extra: ScheduleType.event,
                       ),
                       icon: const Icon(Icons.event),
                       label: const Text('Ver todos los eventos'),
                       style: ElevatedButton.styleFrom(
-                        padding: paddings.all.s16,
+                        padding: paddings.all.s20,
                       ),
                     ),
                   ),
-                  spacings.x.s12,
-                  Expanded(
+                  spacings.y.s12,
+                  SizedBox(
+                    width: double.infinity,
                     child: ElevatedButton.icon(
-                      onPressed: () => context.pushNamed(
+                      onPressed: () => context.goNamed(
                         AppRoute.schedule.name,
-                        pathParameters: {'type': ScheduleType.activity.value},
+                        extra: ScheduleType.activity,
                       ),
                       icon: const Icon(Icons.local_activity),
                       label: const Text('Ver todas las actividades'),
                       style: ElevatedButton.styleFrom(
-                        padding: paddings.all.s16,
+                        padding: paddings.all.s20,
+                      ),
+                    ),
+                  ),
+                  spacings.y.s12,
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      onPressed: () => context.goNamed(
+                        AppRoute.joinedSchedules.name,
+                        extra: ScheduleType.activity,
+                      ),
+                      icon: const Icon(Icons.local_activity),
+                      label: const Text('Ver mis eventos y actividades'),
+                      style: ElevatedButton.styleFrom(
+                        padding: paddings.all.s20,
                       ),
                     ),
                   ),

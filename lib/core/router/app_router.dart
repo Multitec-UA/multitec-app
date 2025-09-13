@@ -11,6 +11,7 @@ import 'package:multitec_app/features/home/presentation/screens/home_screen.dart
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/joined_schedules_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_detail_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
@@ -102,8 +103,13 @@ final goRouter = GoRouter(
             GoRoute(
               name: AppRoute.schedule.name,
               path: AppRoute.schedule.path,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: ScheduleScreen(),
+              pageBuilder: (context, state) => NoTransitionPage(
+                key: ValueKey(
+                  'schedule-${(state.extra as ScheduleType?)?.name ?? 'default'}',
+                ),
+                child: ScheduleScreen(
+                  initialTab: state.extra as ScheduleType?,
+                ),
               ),
               routes: [
                 GoRoute(
