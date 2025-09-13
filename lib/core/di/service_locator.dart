@@ -23,9 +23,12 @@ import 'package:multitec_app/features/schedule/data/datasources/schedule_mock_da
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
 import 'package:multitec_app/features/schedule/data/repositories/schedule_repository_impl.dart';
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_cubit.dart';
 import 'package:multitec_app/features/user/data/repositories/user_repository_impl.dart';
 import 'package:multitec_app/features/user/domain/repositories/user_repository.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
@@ -69,7 +72,7 @@ Future<void> serviceLocatorSetUp() async {
     );
 
   /// User Feature
-  locator.registerFactory<EventBus>(EventBusImpl.new);
+  locator.registerLazySingleton<EventBus>(EventBusImpl.new);
 
   /// Example Feature
   // Datasources
@@ -164,7 +167,12 @@ Future<void> serviceLocatorSetUp() async {
   );
 
   // UseCases
-  locator.registerFactory(() => GetScheduleItemsUseCase(locator()));
+  locator.registerFactory(
+    () => GetScheduleItemsByTypeUseCase(locator<ScheduleRepository>()),
+  );
+  locator.registerFactory(
+    () => GetLatestScheduleItemsUseCase(locator<ScheduleRepository>()),
+  );
   locator.registerFactory(
     () => IsJoinedUseCase(
       locator<ScheduleRepository>(),
@@ -175,6 +183,19 @@ Future<void> serviceLocatorSetUp() async {
     () => ToggleJoinScheduleItemUseCase(
       locator<ScheduleRepository>(),
       locator<UserRepository>(),
+      locator<EventBus>(),
+    ),
+  );
+  locator.registerFactory(
+    () => GetJoinedScheduleItemsUseCase(
+      locator<ScheduleRepository>(),
+      locator<UserRepository>(),
+    ),
+  );
+  locator.registerFactory(
+    () => JoinedSchedulesCubit(
+      locator<GetJoinedScheduleItemsUseCase>(),
+      locator<EventBus>(),
     ),
   );
 

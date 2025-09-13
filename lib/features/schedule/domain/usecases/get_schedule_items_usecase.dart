@@ -6,8 +6,8 @@ import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart'
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
 
-class GetScheduleItemsUseCase {
-  GetScheduleItemsUseCase(this._repository);
+class GetScheduleItemsByTypeUseCase {
+  GetScheduleItemsByTypeUseCase(this._repository);
   final ScheduleRepository _repository;
 
   Future<Result<PaginatedResult<ScheduleItem>, Failure>> call({
@@ -15,7 +15,7 @@ class GetScheduleItemsUseCase {
     String? cursor,
     int? limit,
   }) =>
-      _repository.getScheduleItems(
+      _repository.getScheduleItemsByType(
         type,
         PaginationParams(cursor: cursor, limit: limit),
       );

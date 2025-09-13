@@ -3,27 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_state.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_state.dart';
 
-class ScheduleCubit extends Cubit<ScheduleState> {
-  ScheduleCubit(
-    this._type,
-    this._getScheduleItems,
+class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
+  JoinedSchedulesCubit(
+    this._getJoinedScheduleItems,
     this._eventBus,
-  ) : super(const ScheduleState()) {
+  ) : super(const JoinedSchedulesState()) {
     _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
   }
 
-  final ScheduleType _type;
-  final GetScheduleItemsByTypeUseCase _getScheduleItems;
+  final GetJoinedScheduleItemsUseCase _getJoinedScheduleItems;
   final EventBus _eventBus;
   String? _nextCursor;
 
-  Future<void> loadScheduleItems({bool isRefreshing = false}) async {
+  Future<void> loadJoinedSchedules({bool isRefreshing = false}) async {
     if (isRefreshing) {
       _nextCursor = null;
       emit(state.copyWith(status: StateStatus.initial));
@@ -35,8 +32,7 @@ class ScheduleCubit extends Cubit<ScheduleState> {
 
     emit(state.copyWith(status: StateStatus.loading));
 
-    final result = await _getScheduleItems(
-      type: _type,
+    final result = await _getJoinedScheduleItems(
       cursor: isRefreshing ? null : _nextCursor,
     );
 
@@ -64,16 +60,30 @@ class ScheduleCubit extends Cubit<ScheduleState> {
   }
 
   void _handleAttendeeCountChanged(ScheduleItemAttendanceToggledEvent event) {
-    final updatedItems = state.items.map((item) {
-      if (item.id == event.scheduleItem.id) {
-        final delta = event.join ? 1 : -1;
-        return item.copyWith(
-          attendeesCount: item.attendeesCount + delta,
+    if (!event.join) {
+      final updatedItems =
+          state.items.where((item) => item.id != event.scheduleItem.id).toList();
+      emit(state.copyWith(items: updatedItems));
+    } else {
+      final existingItemIndex = state.items.indexWhere((item) => item.id == event.scheduleItem.id);
+      
+      if (existingItemIndex != -1) {
+        final updatedItems = state.items.map((item) {
+          if (item.id == event.scheduleItem.id) {
+            return item.copyWith(
+              attendeesCount: item.attendeesCount + 1,
+            );
+          }
+          return item;
+        }).toList();
+        emit(state.copyWith(items: updatedItems));
+      } else {
+        final newItem = event.scheduleItem.copyWith(
+          attendeesCount: event.scheduleItem.attendeesCount + 1,
         );
+        final updatedItems = [newItem, ...state.items];
+        emit(state.copyWith(items: updatedItems));
       }
-      return item;
-    }).toList();
-
-    emit(state.copyWith(items: updatedItems));
+    }
   }
 }

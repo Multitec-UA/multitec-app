@@ -1,16 +1,30 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
+import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 
 void main() {
   group('ScheduleDomainEvents', () {
     test('ScheduleItemAttendanceToggledEvent creates correctly', () {
-      const event = ScheduleItemAttendanceToggledEvent(
-        itemId: 'test_id',
-        delta: 1,
+      final scheduleItem = ScheduleItem(
+        id: 'test_id',
+        type: 'event',
+        title: 'Test Event',
+        description: 'Test Description',
+        startsAt: DateTime(2024, 1, 1),
+        published: true,
+        attendeesCount: 5,
+        createdAt: DateTime(2024, 1, 1),
+        updatedAt: DateTime(2024, 1, 1),
+        location: 'Test Location',
       );
 
-      expect(event.itemId, 'test_id');
-      expect(event.delta, 1);
+      final event = ScheduleItemAttendanceToggledEvent(
+        scheduleItem: scheduleItem,
+        join: true,
+      );
+
+      expect(event.scheduleItem.id, 'test_id');
+      expect(event.join, true);
     });
   });
 }

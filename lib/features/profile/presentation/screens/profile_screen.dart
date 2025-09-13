@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
+import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
@@ -185,6 +187,12 @@ class _SettingsGroup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        _SettingsTile(
+          icon: Icons.event_available,
+          title: 'Mis eventos y actividades',
+          subtitle: 'Ver',
+          onTap: () => context.pushNamed(AppRoute.joinedSchedules.name),
+        ),
         _SettingsTile(
           icon: Icons.language,
           title: 'Idioma',

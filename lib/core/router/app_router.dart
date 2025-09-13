@@ -11,6 +11,7 @@ import 'package:multitec_app/features/home/presentation/screens/home_screen.dart
 import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/presentation/screens/joined_schedules_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_detail_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
@@ -20,7 +21,8 @@ enum AppRoute {
   splash('/splash'),
   home('/home'),
   schedule('/schedule'),
-  scheduleDetail('/schedule/detail'),
+  scheduleDetail('/detail'),
+  joinedSchedules('/joinedschedules'),
   map('/map'),
   profile('/profile'),
   example('/example');
@@ -143,6 +145,14 @@ final goRouter = GoRouter(
               pageBuilder: (context, state) => const NoTransitionPage(
                 child: ProfileScreen(),
               ),
+              routes: [
+                GoRoute(
+                  parentNavigatorKey: _shellNavigatorProfileKey,
+                  path: AppRoute.joinedSchedules.path,
+                  name: AppRoute.joinedSchedules.name,
+                  builder: (context, state) => const JoinedSchedulesScreen(),
+                ),
+              ],
             ),
           ],
         ),
