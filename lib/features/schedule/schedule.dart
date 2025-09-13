@@ -6,7 +6,7 @@ export 'domain/models/pagination_params.dart';
 export 'domain/models/schedule_item.dart';
 export 'domain/models/schedule_type.dart';
 export 'domain/repositories/schedule_repository.dart';
-export 'domain/usecases/get_schedule_items_usecase.dart';
+export 'domain/usecases/get_schedule_items_bytype_usecase.dart';
 export 'domain/usecases/is_joined_usecase.dart';
 export 'presentation/cubit/schedule_cubit.dart';
 export 'presentation/cubit/schedule_state.dart';

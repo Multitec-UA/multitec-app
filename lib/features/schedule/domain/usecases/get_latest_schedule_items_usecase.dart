@@ -7,7 +7,7 @@ class GetLatestScheduleItemsUseCase {
   GetLatestScheduleItemsUseCase(this._repository);
   final ScheduleRepository _repository;
 
-  final int limit = 5;
+  final int limit = 7;
 
   Future<Result<List<ScheduleItem>, Failure>> call() {
     return _repository.getLatestScheduleItems(limit: limit);

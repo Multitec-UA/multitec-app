@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/events/event_bus_adapter.dart';
+import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
@@ -19,7 +22,8 @@ class ScheduleCarousel extends StatelessWidget {
     return BlocProvider(
       create: (_) => ScheduleCarouselCubit(
         locator<GetLatestScheduleItemsUseCase>(),
-      )..loadLatestItems(),
+        locator<EventBus>(),
+      )..loadLatestScheduleItems(),
       child: const _CarouselBody(),
     );
   }
@@ -37,8 +41,9 @@ class _CarouselBody extends StatelessWidget {
           StateStatus.initial || StateStatus.loading => const _LoadingState(),
           StateStatus.loaded => _LoadedState(items: state.items),
           StateStatus.error => _ErrorState(
-              onRetry: () =>
-                  context.read<ScheduleCarouselCubit>().loadLatestItems(),
+              onRetry: () => context
+                  .read<ScheduleCarouselCubit>()
+                  .loadLatestScheduleItems(),
             ),
         };
       },
@@ -127,8 +132,12 @@ class _LoadedState extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: paddings.x.s16,
-        itemCount: items.length,
+        itemCount: items.length + 1,
         itemBuilder: (context, index) {
+          if (index == items.length) {
+            return const _SeeMoreButton();
+          }
+
           final item = items[index];
           return SizedBox(
             width: 290,
@@ -223,6 +232,51 @@ class _ErrorState extends StatelessWidget {
               child: const Text('Reintentar'),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SeeMoreButton extends StatelessWidget {
+  const _SeeMoreButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      width: 150,
+      margin: paddings.right.s12,
+      child: Card(
+        child: InkWell(
+          onTap: () => context.pushNamed(
+            AppRoute.schedule.name,
+            pathParameters: {'type': 'event'},
+          ),
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: paddings.all.s16,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.arrow_forward,
+                  size: 32,
+                  color: theme.colorScheme.primary,
+                ),
+                spacings.y.s8,
+                Text(
+                  'Ver más',
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

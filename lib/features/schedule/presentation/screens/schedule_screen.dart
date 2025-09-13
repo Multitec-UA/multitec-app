@@ -8,19 +8,22 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
-import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_usecase.dart';
+import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_state.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_error_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
 
 class ScheduleScreen extends StatelessWidget {
-  const ScheduleScreen({super.key});
+  const ScheduleScreen({super.key, this.initialTab});
+
+  final ScheduleType? initialTab;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
+      initialIndex: initialTab == ScheduleType.activity ? 1 : 0,
       child: Scaffold(
         appBar: AppBar(
           title: const MultitecAppBar(),
