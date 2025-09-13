@@ -1,98 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
-import 'package:multitec_app/core/ui/components/snack_bar.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/schedule_carousel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: const MultitecAppBar(),
-      body: Center(
-        child: Padding(
-          padding: paddings.all.s16,
-          child: Column(
-            children: [
-              Text(context.l10n.home),
-              const Divider(height: 50),
-              ElevatedButton(
-                onPressed: () {
-                  context.showSnackBar(
-                    AppSnackBar.success(
-                      content: const Text('Texto de ejemplo'),
-                    ),
-                  );
-                },
-                child: const Text('Show success snackbar'),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            spacings.y.s24,
+            Padding(
+              padding: paddings.x.s16,
+              child: Text(
+                'Próximos eventos y actividades',
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              spacings.y.s16,
-              ElevatedButton(
-                onPressed: () {
-                  context.showSnackBar(
-                    AppSnackBar.error(
-                      content: const Text('Texto de ejemplo'),
-                    ),
-                  );
-                },
-                child: const Text('Show error snackbar'),
-              ),
-              spacings.y.s16,
-              ElevatedButton(
-                onPressed: () {
-                  context.pushNamed(AppRoute.example.name);
-                },
-                child: const Text('Ir a Feature Example'),
-              ),
-              const Divider(height: 50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            spacings.y.s16,
+            const ScheduleCarousel(),
+            spacings.y.s24,
+            Padding(
+              padding: paddings.x.s16,
+              child: Row(
                 children: [
-                  Container(
-                    width: 30,
-                    height: 30,
-                    color: context.colors.primaryBase,
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () => context.pushNamed(
+                        AppRoute.schedule.name,
+                        pathParameters: {'type': ScheduleType.event.value},
+                      ),
+                      icon: const Icon(Icons.event),
+                      label: const Text('Ver todos los eventos'),
+                      style: ElevatedButton.styleFrom(
+                        padding: paddings.all.s16,
+                      ),
+                    ),
                   ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    color: context.colors.gray10,
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    color: context.colors.gray20,
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    color: context.colors.gray30,
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    color: context.colors.gray40,
-                  ),
-                  Container(
-                    width: 30,
-                    height: 30,
-                    color: context.colors.gray50,
+                  spacings.x.s12,
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () => context.pushNamed(
+                        AppRoute.schedule.name,
+                        pathParameters: {'type': ScheduleType.activity.value},
+                      ),
+                      icon: const Icon(Icons.local_activity),
+                      label: const Text('Ver todas las actividades'),
+                      style: ElevatedButton.styleFrom(
+                        padding: paddings.all.s16,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              spacings.y.s16,
-              Text(
-                'Estilo de texto de prueba',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ],
-          ),
+            ),
+            spacings.y.s24,
+          ],
         ),
       ),
     );

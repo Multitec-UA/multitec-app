@@ -71,7 +71,7 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   ];
 
   @override
-  Future<PaginatedResultDto<ScheduleItemDto>> getScheduleItems(
+  Future<PaginatedResultDto<ScheduleItemDto>> getScheduleItemsByType(
     ScheduleType type,
     PaginationParams params,
   ) async {
@@ -131,18 +131,13 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   }
 
   @override
-  Future<List<ScheduleItemDto>> getScheduleItemsLegacy(
-    ScheduleType type,
-  ) async {
-    await Future<void>.delayed(const Duration(seconds: 2));
-
+  Future<List<ScheduleItemDto>> getLatestScheduleItems({int limit = 5}) async {
+    await Future<void>.delayed(const Duration(milliseconds: 200));
     final now = DateTime.now();
-    final baseItems =
-        type == ScheduleType.event ? _mockEvents : _mockActivities;
-
-    final items = <ScheduleItemDto>[];
-
-    for (final item in baseItems) {
+    final base = [..._mockEvents, ..._mockActivities];
+    final items = base.map((item) {
+      final isEvent = _mockEvents.contains(item);
+      final type = isEvent ? ScheduleType.event : ScheduleType.activity;
       final data = <String, dynamic>{
         'id': item['id']! as String,
         'type': type.value,
@@ -161,11 +156,10 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
         'updatedAt':
             now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
       };
-
-      items.add(ScheduleItemDto.fromMap(data));
-    }
-
-    return items;
+      return ScheduleItemDto.fromMap(data);
+    }).toList()
+      ..sort((a, b) => a.startsAt.compareTo(b.startsAt));
+    return items.take(limit).toList();
   }
 
   @override
@@ -182,5 +176,72 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   Future<bool> isJoined(String itemId, User user) async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     return false;
+  }
+
+  @override
+  Future<PaginatedResultDto<ScheduleItemDto>> getJoinedScheduleItems(
+    String userId,
+    PaginationParams params,
+  ) async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+
+    final allItems = [..._mockEvents, ..._mockActivities];
+    final joinedItems = allItems
+        .where((item) {
+          return userId == 'mock_user_id';
+        })
+        .take(3)
+        .toList();
+
+    final startIndex = params.cursor != null
+        ? joinedItems.indexWhere((item) => item['id'] == params.cursor) + 1
+        : 0;
+
+    if (startIndex < 0) {
+      return PaginatedResultDto<ScheduleItemDto>(
+        items: const [],
+        nextCursor: null,
+        hasMore: false,
+      );
+    }
+
+    final endIndex = (startIndex + params.limit).clamp(0, joinedItems.length);
+    final pageItems = joinedItems.sublist(startIndex, endIndex);
+    final hasMore = endIndex < joinedItems.length;
+    final nextCursor = hasMore && pageItems.isNotEmpty
+        ? pageItems.last['id'] as String?
+        : null;
+
+    final now = DateTime.now();
+    final items = <ScheduleItemDto>[];
+    for (final item in pageItems) {
+      final isEvent = _mockEvents.contains(item);
+      final type = isEvent ? ScheduleType.event : ScheduleType.activity;
+      final data = <String, dynamic>{
+        'id': (item['id']! as String),
+        'type': type.value,
+        'title': (item['title']! as String),
+        'description': (item['description']! as String),
+        'startsAt': now.add(Duration(days: item['daysFromNow']! as int)),
+        'endsAt': item['endsAt'] != null
+            ? now.add(Duration(days: item['daysFromNow']! as int, hours: 2))
+            : null,
+        'location': item['location'] as String?,
+        'category': item['category'] as String?,
+        'published': true,
+        'attendeesCount': item['attendeesCount']! as int,
+        'createdAt':
+            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+        'updatedAt':
+            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+      };
+      items.add(ScheduleItemDto.fromMap(data));
+    }
+
+    return PaginatedResultDto<ScheduleItemDto>(
+      items: items,
+      nextCursor: nextCursor,
+      hasMore: hasMore,
+    );
   }
 }

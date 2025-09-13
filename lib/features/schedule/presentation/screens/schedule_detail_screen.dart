@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
@@ -28,6 +29,7 @@ class ScheduleDetailScreen extends StatelessWidget {
         item: item,
         isJoinedUseCase: locator<IsJoinedUseCase>(),
         toggleJoinUseCase: locator<ToggleJoinScheduleItemUseCase>(),
+        eventBus: locator<EventBus>(),
       ),
       child: const _ScheduleDetailView(),
     );

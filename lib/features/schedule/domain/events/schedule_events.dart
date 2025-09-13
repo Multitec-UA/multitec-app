@@ -1,12 +1,14 @@
+import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+
 sealed class ScheduleEvent {
   const ScheduleEvent();
 }
 class ScheduleItemAttendanceToggledEvent extends ScheduleEvent {
   const ScheduleItemAttendanceToggledEvent({
-    required this.itemId,
-    required this.delta,
+    required this.scheduleItem,
+    required this.join,
   });
 
-  final String itemId;
-  final int delta;
+  final ScheduleItem scheduleItem;
+  final bool join;
 }
