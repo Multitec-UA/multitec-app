@@ -5,10 +5,9 @@ import 'package:multitec_app/core/router/scaffold_with_nested_navigation.dart';
 import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
 import 'package:multitec_app/features/auth/domain/enums/autentication_status.dart';
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
-import 'package:multitec_app/features/auth/presentation/screens/login_screen.dart';
+import 'package:multitec_app/features/auth/presentation/screens/sign_in_screen.dart';
 import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
-import 'package:multitec_app/features/map/presentation/map_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
@@ -41,8 +40,8 @@ final GlobalKey<NavigatorState> _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Home');
 final GlobalKey<NavigatorState> _shellNavigatorActivitiesKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Activities');
-final GlobalKey<NavigatorState> _shellNavigatorMapKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shell Map');
+// final GlobalKey<NavigatorState> _shellNavigatorMapKey =
+//     GlobalKey<NavigatorState>(debugLabel: 'shell Map');
 final GlobalKey<NavigatorState> _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Profile');
 

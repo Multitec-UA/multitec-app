@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
-import 'package:multitec_app/features/auth/presentation/widgets/log_out_button.dart';
+import 'package:multitec_app/features/auth/presentation/widgets/sign_out_button.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

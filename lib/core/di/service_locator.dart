@@ -10,7 +10,6 @@ import 'package:multitec_app/features/auth/domain/repositories/auth_repository.d
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_out_cubit.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';

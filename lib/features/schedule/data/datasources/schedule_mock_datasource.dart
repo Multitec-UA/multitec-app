@@ -198,9 +198,8 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
         : 0;
 
     if (startIndex < 0) {
-      return PaginatedResultDto<ScheduleItemDto>(
-        items: const [],
-        nextCursor: null,
+      return const PaginatedResultDto<ScheduleItemDto>(
+        items: [],
         hasMore: false,
       );
     }
