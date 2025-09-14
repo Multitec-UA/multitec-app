@@ -61,12 +61,15 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
 
   void _handleAttendeeCountChanged(ScheduleItemAttendanceToggledEvent event) {
     if (!event.join) {
-      final updatedItems =
-          state.items.where((item) => item.id != event.scheduleItem.id).toList();
+      final updatedItems = state.items
+          .where((item) => item.id != event.scheduleItem.id)
+          .toList();
       emit(state.copyWith(items: updatedItems));
     } else {
-      final existingItemIndex = state.items.indexWhere((item) => item.id == event.scheduleItem.id);
-      
+      final existingItemIndex = state.items.indexWhere(
+        (item) => item.id == event.scheduleItem.id,
+      );
+
       if (existingItemIndex != -1) {
         final updatedItems = state.items.map((item) {
           if (item.id == event.scheduleItem.id) {
