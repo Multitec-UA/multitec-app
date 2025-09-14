@@ -17,7 +17,9 @@ class HomeScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const MultitecAppBar(),
+      appBar: const MultitecAppBar(
+        action: MultitecAppBarAction.profileShortcut,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

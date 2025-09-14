@@ -40,11 +40,11 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
               activeIcon: _ActiveIcon(icon: Icons.event_rounded),
               label: 'Actividades',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map_outlined),
-              activeIcon: _ActiveIcon(icon: Icons.map_rounded),
-              label: 'Mapa',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.map_outlined),
+            //   activeIcon: _ActiveIcon(icon: Icons.map_rounded),
+            //   label: 'Mapa',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline),
               activeIcon: _ActiveIcon(icon: Icons.person_rounded),

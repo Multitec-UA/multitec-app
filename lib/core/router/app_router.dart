@@ -15,6 +15,8 @@ import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart'
 import 'package:multitec_app/features/schedule/presentation/screens/joined_schedules_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_detail_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
+import 'package:multitec_app/features/settings/presentation/screens/help_and_feedback_screen.dart';
+import 'package:multitec_app/features/settings/presentation/screens/settings_screen.dart';
 import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
 
 enum AppRoute {
@@ -26,6 +28,8 @@ enum AppRoute {
   joinedSchedules('/joinedschedules'),
   map('/map'),
   profile('/profile'),
+  settings('/settings'),
+  helpAndFeedback('/help-feedback'),
   example('/example');
 
   const AppRoute(this.path);
@@ -66,7 +70,7 @@ final goRouter = GoRouter(
     GoRoute(
       name: AppRoute.login.name,
       path: AppRoute.login.path,
-      builder: (context, state) => const LoginScreen(),
+      builder: (context, state) => const SignInScreen(),
     ),
     GoRoute(
       name: AppRoute.splash.name,
@@ -130,18 +134,18 @@ final goRouter = GoRouter(
             ),
           ],
         ),
-        StatefulShellBranch(
-          navigatorKey: _shellNavigatorMapKey,
-          routes: [
-            GoRoute(
-              name: AppRoute.map.name,
-              path: AppRoute.map.path,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: MapScreen(),
-              ),
-            ),
-          ],
-        ),
+        // StatefulShellBranch(
+        //   navigatorKey: _shellNavigatorMapKey,
+        //   routes: [
+        //     GoRoute(
+        //       name: AppRoute.map.name,
+        //       path: AppRoute.map.path,
+        //       pageBuilder: (context, state) => const NoTransitionPage(
+        //         child: MapScreen(),
+        //       ),
+        //     ),
+        //   ],
+        // ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorProfileKey,
           routes: [
@@ -157,6 +161,21 @@ final goRouter = GoRouter(
                   path: AppRoute.joinedSchedules.path,
                   name: AppRoute.joinedSchedules.name,
                   builder: (context, state) => const JoinedSchedulesScreen(),
+                ),
+                GoRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  path: AppRoute.settings.path,
+                  name: AppRoute.settings.name,
+                  builder: (context, state) => const SettingsScreen(),
+                  routes: [
+                    GoRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      path: AppRoute.helpAndFeedback.path,
+                      name: AppRoute.helpAndFeedback.name,
+                      builder: (context, state) =>
+                          const HelpAndFeedbackScreen(),
+                    ),
+                  ],
                 ),
               ],
             ),

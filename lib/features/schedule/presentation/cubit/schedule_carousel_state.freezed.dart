@@ -138,8 +138,6 @@ extension ScheduleCarouselStatePatterns on ScheduleCarouselState {
     switch (_that) {
       case _ScheduleCarouselState():
         return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
     }
   }
 
@@ -219,8 +217,6 @@ extension ScheduleCarouselStatePatterns on ScheduleCarouselState {
     switch (_that) {
       case _ScheduleCarouselState():
         return $default(_that.status, _that.items, _that.failure);
-      case _:
-        throw StateError('Unexpected subclass');
     }
   }
 

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'login_state.dart';
+part of 'sign_in_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'login_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$LoginState {
+mixin _$SignInState {
   StateStatus get status;
   Failure? get failure;
 
-  /// Create a copy of LoginState
+  /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $LoginStateCopyWith<LoginState> get copyWith =>
-      _$LoginStateCopyWithImpl<LoginState>(this as LoginState, _$identity);
+  $SignInStateCopyWith<SignInState> get copyWith =>
+      _$SignInStateCopyWithImpl<SignInState>(this as SignInState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LoginState &&
+            other is SignInState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
@@ -38,27 +38,27 @@ mixin _$LoginState {
 
   @override
   String toString() {
-    return 'LoginState(status: $status, failure: $failure)';
+    return 'SignInState(status: $status, failure: $failure)';
   }
 }
 
 /// @nodoc
-abstract mixin class $LoginStateCopyWith<$Res> {
-  factory $LoginStateCopyWith(
-          LoginState value, $Res Function(LoginState) _then) =
-      _$LoginStateCopyWithImpl;
+abstract mixin class $SignInStateCopyWith<$Res> {
+  factory $SignInStateCopyWith(
+          SignInState value, $Res Function(SignInState) _then) =
+      _$SignInStateCopyWithImpl;
   @useResult
   $Res call({StateStatus status, Failure? failure});
 }
 
 /// @nodoc
-class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
-  _$LoginStateCopyWithImpl(this._self, this._then);
+class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
+  _$SignInStateCopyWithImpl(this._self, this._then);
 
-  final LoginState _self;
-  final $Res Function(LoginState) _then;
+  final SignInState _self;
+  final $Res Function(SignInState) _then;
 
-  /// Create a copy of LoginState
+  /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -79,8 +79,8 @@ class _$LoginStateCopyWithImpl<$Res> implements $LoginStateCopyWith<$Res> {
   }
 }
 
-/// Adds pattern-matching-related methods to [LoginState].
-extension LoginStatePatterns on LoginState {
+/// Adds pattern-matching-related methods to [SignInState].
+extension SignInStatePatterns on SignInState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -95,12 +95,12 @@ extension LoginStatePatterns on LoginState {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_LoginState value)? $default, {
+    TResult Function(_SignInState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginState() when $default != null:
+      case _SignInState() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -122,11 +122,11 @@ extension LoginStatePatterns on LoginState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_LoginState value) $default,
+    TResult Function(_SignInState value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginState():
+      case _SignInState():
         return $default(_that);
     }
   }
@@ -145,11 +145,11 @@ extension LoginStatePatterns on LoginState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_LoginState value)? $default,
+    TResult? Function(_SignInState value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginState() when $default != null:
+      case _SignInState() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -175,7 +175,7 @@ extension LoginStatePatterns on LoginState {
   }) {
     final _that = this;
     switch (_that) {
-      case _LoginState() when $default != null:
+      case _SignInState() when $default != null:
         return $default(_that.status, _that.failure);
       case _:
         return orElse();
@@ -201,7 +201,7 @@ extension LoginStatePatterns on LoginState {
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginState():
+      case _SignInState():
         return $default(_that.status, _that.failure);
     }
   }
@@ -224,7 +224,7 @@ extension LoginStatePatterns on LoginState {
   ) {
     final _that = this;
     switch (_that) {
-      case _LoginState() when $default != null:
+      case _SignInState() when $default != null:
         return $default(_that.status, _that.failure);
       case _:
         return null;
@@ -234,8 +234,8 @@ extension LoginStatePatterns on LoginState {
 
 /// @nodoc
 
-class _LoginState implements LoginState {
-  const _LoginState({this.status = StateStatus.initial, this.failure});
+class _SignInState implements SignInState {
+  const _SignInState({this.status = StateStatus.initial, this.failure});
 
   @override
   @JsonKey()
@@ -243,19 +243,19 @@ class _LoginState implements LoginState {
   @override
   final Failure? failure;
 
-  /// Create a copy of LoginState
+  /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$LoginStateCopyWith<_LoginState> get copyWith =>
-      __$LoginStateCopyWithImpl<_LoginState>(this, _$identity);
+  _$SignInStateCopyWith<_SignInState> get copyWith =>
+      __$SignInStateCopyWithImpl<_SignInState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _LoginState &&
+            other is _SignInState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
@@ -265,29 +265,29 @@ class _LoginState implements LoginState {
 
   @override
   String toString() {
-    return 'LoginState(status: $status, failure: $failure)';
+    return 'SignInState(status: $status, failure: $failure)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$LoginStateCopyWith<$Res>
-    implements $LoginStateCopyWith<$Res> {
-  factory _$LoginStateCopyWith(
-          _LoginState value, $Res Function(_LoginState) _then) =
-      __$LoginStateCopyWithImpl;
+abstract mixin class _$SignInStateCopyWith<$Res>
+    implements $SignInStateCopyWith<$Res> {
+  factory _$SignInStateCopyWith(
+          _SignInState value, $Res Function(_SignInState) _then) =
+      __$SignInStateCopyWithImpl;
   @override
   @useResult
   $Res call({StateStatus status, Failure? failure});
 }
 
 /// @nodoc
-class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
-  __$LoginStateCopyWithImpl(this._self, this._then);
+class __$SignInStateCopyWithImpl<$Res> implements _$SignInStateCopyWith<$Res> {
+  __$SignInStateCopyWithImpl(this._self, this._then);
 
-  final _LoginState _self;
-  final $Res Function(_LoginState) _then;
+  final _SignInState _self;
+  final $Res Function(_SignInState) _then;
 
-  /// Create a copy of LoginState
+  /// Create a copy of SignInState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -295,7 +295,7 @@ class __$LoginStateCopyWithImpl<$Res> implements _$LoginStateCopyWith<$Res> {
     Object? status = null,
     Object? failure = freezed,
   }) {
-    return _then(_LoginState(
+    return _then(_SignInState(
       status: null == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable

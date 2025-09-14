@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multitec_app/core/di/service_locator.dart';
-import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
-import 'package:multitec_app/core/ui/components/snack_bar.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
-import 'package:multitec_app/features/profile/presentation/cubits/profile_cubit.dart';
-import 'package:multitec_app/features/profile/presentation/cubits/profile_state.dart';
 import 'package:multitec_app/features/user/domain/models/user.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
@@ -21,50 +15,27 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => locator<ProfileCubit>(),
-      child: const _ProfileView(),
-    );
-  }
-}
-
-class _ProfileView extends StatelessWidget {
-  const _ProfileView();
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MultitecAppBar(),
-      body: BlocListener<ProfileCubit, ProfileState>(
-        listener: (context, state) {
-          if (state.failure != null) {
-            context.showSnackBar(
-              AppSnackBar.error(
-                content: Text(
-                  state.failure.toLocalizedMessage(context),
-                ),
+      appBar: const MultitecAppBar(
+        action: MultitecAppBarAction.settingsShortcut,
+      ),
+      body: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          return SafeArea(
+            child: SingleChildScrollView(
+              padding: paddings.all.s24,
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _ProfileHeader(user: state.user),
+                  spacings.y.s32,
+                  const _SettingsGroup(),
+                ],
               ),
-            );
-          }
+            ),
+          );
         },
-        child: BlocBuilder<UserCubit, UserState>(
-          builder: (context, state) {
-            return SafeArea(
-              child: SingleChildScrollView(
-                padding: paddings.all.s24,
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    _ProfileHeader(user: state.user),
-                    spacings.y.s32,
-                    const _SettingsGroup(),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
       ),
     );
   }
@@ -193,75 +164,14 @@ class _SettingsGroup extends StatelessWidget {
           subtitle: 'Ver',
           onTap: () => context.pushNamed(AppRoute.joinedSchedules.name),
         ),
-        _SettingsTile(
-          icon: Icons.language,
-          title: 'Idioma',
-          subtitle: 'Español',
-          onTap: () {
-            // TODO: Implement language change
-          },
-        ),
         spacings.y.s8,
         _SettingsTile(
-          icon: Icons.palette_outlined,
-          title: 'Tema',
-          subtitle: 'Sistema',
-          onTap: () {
-            // TODO: Implement theme change
-          },
+          icon: Icons.settings,
+          title: 'Ajustes',
+          subtitle: 'Tema, idioma y más',
+          onTap: () => context.pushNamed(AppRoute.settings.name),
         ),
-        spacings.y.s8,
-        _SettingsTile(
-          icon: Icons.help_outline,
-          title: 'Ayuda y Feedback',
-          subtitle: 'Sistema',
-          onTap: () {
-            // TODO: Implement theme change
-          },
-        ),
-        spacings.y.s16,
-        const _SignOutButton(),
       ],
-    );
-  }
-}
-
-class _SignOutButton extends StatelessWidget {
-  const _SignOutButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ProfileCubit, ProfileState>(
-      builder: (context, state) {
-        return SizedBox(
-          width: double.infinity,
-          child: ElevatedButton.icon(
-            onPressed: state.status.isLoading
-                ? null
-                : () => context.read<ProfileCubit>().signOut(),
-            icon: state.status.isLoading
-                ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
-                  )
-                : const Icon(Icons.logout),
-            label: Text(
-              state.status.isLoading ? 'Cerrando sesión...' : 'Cerrar sesión',
-            ),
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              backgroundColor: context.colors.error,
-              padding: paddings.y.s16,
-              shape: RoundedRectangleBorder(
-                borderRadius: borderRadius.br8,
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }
