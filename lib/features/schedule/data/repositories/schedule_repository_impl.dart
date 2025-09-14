@@ -29,7 +29,8 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   }
 
   @override
-  Future<Result<List<ScheduleItem>, Failure>> getLatestScheduleItems({int limit = 5}) {
+  Future<Result<List<ScheduleItem>, Failure>> getLatestScheduleItems(
+      {int limit = 5}) {
     return guardAsync<List<ScheduleItem>>(
       () async {
         final dtos = await _remote.getLatestScheduleItems(limit: limit);
