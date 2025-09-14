@@ -6,17 +6,17 @@ import 'package:multitec_app/core/ui/components/snack_bar.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/login_cubit.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/login_state.dart';
+import 'package:multitec_app/features/auth/presentation/cubit/sign_in_cubit.dart';
+import 'package:multitec_app/features/auth/presentation/cubit/sign_in_state.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => LoginCubit(
+        create: (_) => SignInCubit(
           locator<SignInWithGoogleUseCase>(),
         ),
         child: const _Body(),
@@ -30,7 +30,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginState>(
+    return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state.status.isError) {
           context.showSnackBar(
@@ -112,14 +112,14 @@ class _GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.select<LoginCubit, bool>(
+    final isLoading = context.select<SignInCubit, bool>(
       (c) => c.state.status.isLoading,
     );
 
     return ElevatedButton.icon(
       onPressed: isLoading
           ? null
-          : () => context.read<LoginCubit>().signInWithGoogle(),
+          : () => context.read<SignInCubit>().signInWithGoogle(),
       icon: isLoading
           ? const SizedBox(
               width: 20,

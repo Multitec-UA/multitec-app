@@ -1,22 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
-import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/profile/presentation/cubits/profile_state.dart';
+import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
+import 'package:multitec_app/features/auth/presentation/cubit/sign_in_state.dart';
 
-class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit(this._signOutUseCase) : super(const ProfileState());
+class SignInCubit extends Cubit<SignInState> {
+  SignInCubit(this._signInWithGoogle) : super(const SignInState());
 
-  final SignOutUseCase _signOutUseCase;
+  final SignInWithGoogleUseCase _signInWithGoogle;
 
-  Future<void> signOut() async {
+  Future<void> signInWithGoogle() async {
     if (state.status.isLoading) return;
 
     emit(state.copyWith(status: StateStatus.loading));
 
-    final result = await _signOutUseCase();
+    final result = await _signInWithGoogle.call();
 
     result.when(
-      (success) => emit(
+      (user) => emit(
         state.copyWith(
           status: StateStatus.loaded,
           failure: null,
