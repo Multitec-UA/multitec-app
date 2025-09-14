@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+
+@immutable
 class PaginatedResult<T> {
   const PaginatedResult({
     required this.items,

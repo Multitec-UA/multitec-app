@@ -57,7 +57,6 @@ class _OptionListTile extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.onPress,
-    super.key,
   });
 
   final String title;

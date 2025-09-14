@@ -10,11 +10,11 @@ void main() {
         type: 'event',
         title: 'Test Event',
         description: 'Test Description',
-        startsAt: DateTime(2024, 1, 1),
+        startsAt: DateTime(2024),
         published: true,
         attendeesCount: 5,
-        createdAt: DateTime(2024, 1, 1),
-        updatedAt: DateTime(2024, 1, 1),
+        createdAt: DateTime(2024),
+        updatedAt: DateTime(2024),
         location: 'Test Location',
       );
 

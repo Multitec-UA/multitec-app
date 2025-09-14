@@ -56,7 +56,7 @@ class ScheduleRemoteDataSource {
 
   Future<List<ScheduleItemDto>> getLatestScheduleItems({int limit = 5}) async {
     final now = DateTime.now();
-    var query = _firestore
+    final query = _firestore
         .collection('schedule')
         .where('published', isEqualTo: true)
         .where('startsAt', isGreaterThanOrEqualTo: Timestamp.fromDate(now))
@@ -165,7 +165,6 @@ class ScheduleRemoteDataSource {
     if (joinedDocs.isEmpty) {
       return const PaginatedResultDto<ScheduleItemDto>(
         items: [],
-        nextCursor: null,
         hasMore: false,
       );
     }

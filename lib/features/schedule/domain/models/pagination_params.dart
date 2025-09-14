@@ -1,3 +1,6 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 class PaginationParams {
   const PaginationParams({
     this.cursor,
