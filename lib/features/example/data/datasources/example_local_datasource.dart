@@ -1,37 +1,41 @@
-import 'dart:async';
+import 'package:multitec_app/core/database/base_local_datasource.dart';
+import 'package:multitec_app/core/database/database_service.dart';
 import 'package:multitec_app/features/example/data/dtos/example_item_dto.dart';
 
-abstract class ExampleLocalDataSource {
-  Future<List<ExampleItemDto>> fetchItems();
-  Future<void> sendReport();
-}
+class ExampleLocalDataSource extends BaseLocalDataSource<ExampleItemDto> {
+  ExampleLocalDataSource(DatabaseService databaseService)
+      : super(databaseService, 'example_items');
 
-// Implementacion de ejemplo (_cache equivale a un Hive, SQLite, etc.)
-class ExampleLocalDataSourceImpl implements ExampleLocalDataSource {
-  ExampleLocalDataSourceImpl();
-
-  final List<ExampleItemDto> _cache = [];
-
-  @override
   Future<List<ExampleItemDto>> fetchItems() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    return List.unmodifiable(_cache);
+    final data = await getAll();
+    return data.map((json) => ExampleItemDto.fromJson(json)).toList();
   }
 
-  @override
   Future<void> sendReport() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    _cache.add(
-      ExampleItemDto(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        title: 'Reporte local',
-        description: 'Guardado en cache local a ${DateTime.now()}',
-      ),
+    final newItem = ExampleItemDto(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      title: 'Reporte local',
+      description: 'Guardado en Sembast DB a ${DateTime.now()}',
     );
+
+    await save(newItem.id, newItem.toJson());
   }
 
-  void seed(List<ExampleItemDto> initial) {
-    _cache.clear();
-    _cache.addAll(initial);
+  Future<void> saveItem(ExampleItemDto item) async {
+    await save(item.id, item.toJson());
+  }
+
+  Future<ExampleItemDto?> getItem(String id) async {
+    final data = await get(id);
+    if (data == null) return null;
+    return ExampleItemDto.fromJson(data);
+  }
+
+  Future<void> deleteItem(String id) async {
+    await delete(id);
+  }
+
+  Future<void> clearAll() async {
+    await clear();
   }
 }
