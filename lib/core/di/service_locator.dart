@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:multitec_app/core/database/database_service.dart';
+import 'package:multitec_app/core/database/sembast_service.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/local_storage/local_storage.dart';
 import 'package:multitec_app/core/local_storage/shared_preferences.dart';
@@ -47,6 +49,10 @@ Future<void> serviceLocatorSetUp() async {
     ),
   );
 
+  locator.registerLazySingletonAsync<DatabaseService>(
+    SembastService.create,
+  );
+
   locator
     ..enableRegisteringMultipleInstancesOfOneType()
     ..registerSingletonAsync<Square1Api>(
@@ -84,7 +90,7 @@ Future<void> serviceLocatorSetUp() async {
   );
 
   locator.registerFactory<ExampleLocalDataSource>(
-    ExampleLocalDataSourceImpl.new,
+    () => ExampleLocalDataSource(locator<DatabaseService>()),
   );
 
   // Repository
