@@ -3,6 +3,7 @@ import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/local_storage/local_storage.dart';
 import 'package:multitec_app/core/local_storage/shared_preferences.dart';
 import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/ui/theme/theme_service.dart';
 import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/datasources/mock_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -46,6 +47,11 @@ Future<void> serviceLocatorSetUp() async {
       preferences: await locator.getAsync<SharedPreferences>(),
     ),
   );
+
+  locator.registerSingletonAsync<ThemeService>(() async {
+    final storage = await locator.getAsync<LocalStorageService>();
+    return ThemeService(storage);
+  });
 
   locator
     ..enableRegisteringMultipleInstancesOfOneType()

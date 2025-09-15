@@ -13,7 +13,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppThemeProvider(
-      defaultThemeMode: ThemeMode.light,
       child: Builder(
         builder: (context) {
           final appTheme = AppTheme.of(context);

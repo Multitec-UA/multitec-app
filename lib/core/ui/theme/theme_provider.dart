@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/ui/theme/colors.dart';
+import 'package:multitec_app/core/ui/theme/theme_service.dart';
 
 extension AppStylingContext on BuildContext {
   AppColors get colors => AppTheme.of(this).colors;
@@ -18,36 +20,35 @@ class AppThemeConfig {
 class AppThemeProvider extends StatefulWidget {
   const AppThemeProvider({
     required this.child,
-    this.defaultThemeMode = ThemeMode.dark,
     super.key,
   });
 
   final Widget child;
-  final ThemeMode defaultThemeMode;
 
   @override
   State<AppThemeProvider> createState() => AppThemeProviderState();
 }
 
 class AppThemeProviderState extends State<AppThemeProvider> {
-  late final ThemeMode defaultThemeMode = widget.defaultThemeMode;
-  ThemeMode? _forcedThemeMode;
+  late final ThemeService _themeService;
 
-  void _toggle() {
-    setState(() {
-      _forcedThemeMode =
-          _forcedThemeMode == null || _forcedThemeMode == ThemeMode.light
-              ? ThemeMode.dark
-              : ThemeMode.light;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _themeService = locator<ThemeService>();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppTheme(
-      theme: AppThemeConfig(themeMode: _forcedThemeMode ?? defaultThemeMode),
-      toggle: _toggle,
-      child: widget.child,
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: _themeService.modeListenable,
+      builder: (context, mode, child) {
+        return AppTheme(
+          theme: AppThemeConfig(themeMode: mode),
+          toggle: _themeService.toggle,
+          child: widget.child,
+        );
+      },
     );
   }
 }
