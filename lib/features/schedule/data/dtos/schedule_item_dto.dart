@@ -81,6 +81,42 @@ class ScheduleItemDto {
         'updatedAt': FieldValue.serverTimestamp(),
       };
 
+  Map<String, Object?> toJson() => {
+        'id': id,
+        'type': type,
+        'title': title,
+        'description': description,
+        'startsAt': startsAt.millisecondsSinceEpoch,
+        if (endsAt != null) 'endsAt': endsAt!.millisecondsSinceEpoch,
+        if (location != null) 'location': location,
+        if (imageUrl != null) 'imageUrl': imageUrl,
+        if (category != null) 'category': category,
+        'published': published,
+        'attendeesCount': attendeesCount,
+        'createdAt': createdAt.millisecondsSinceEpoch,
+        'updatedAt': updatedAt.millisecondsSinceEpoch,
+      };
+
+  factory ScheduleItemDto.fromJson(Map<String, Object?> json) {
+    return ScheduleItemDto(
+      id: json['id'] as String,
+      type: json['type'] as String,
+      title: json['title'] as String,
+      description: json['description'] as String,
+      startsAt: DateTime.fromMillisecondsSinceEpoch(json['startsAt'] as int),
+      endsAt: json['endsAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(json['endsAt'] as int)
+          : null,
+      location: json['location'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      category: json['category'] as String?,
+      published: json['published'] as bool,
+      attendeesCount: json['attendeesCount'] as int,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt'] as int),
+    );
+  }
+
   static DateTime _toDate(dynamic value) => (value as Timestamp).toDate();
   static DateTime? _toDateOrNull(dynamic value) =>
       value == null ? null : (value as Timestamp).toDate();

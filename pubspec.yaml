@@ -34,6 +34,7 @@ dependencies:
   path: ^1.9.0
   path_provider: ^2.1.5
   sembast: ^3.7.4
+  sembast_web: ^2.3.0
   shared_preferences: ^2.5.3
   url_launcher: ^6.3.2
 
