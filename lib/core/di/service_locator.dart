@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:get_it/get_it.dart';
-import 'package:multitec_app/core/database/database_service.dart';
-import 'package:multitec_app/core/database/sembast_service.dart';
+import 'package:multitec_app/core/database/local_database.dart';
+import 'package:multitec_app/core/database/openers/sembast_io_opener.dart';
+import 'package:multitec_app/core/database/openers/sembast_web_opener.dart';
+import 'package:multitec_app/core/database/sembast_database.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
-import 'package:multitec_app/core/local_storage/local_storage.dart';
-import 'package:multitec_app/core/local_storage/shared_preferences.dart';
 import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/preferences/local_storage.dart';
+import 'package:multitec_app/core/preferences/shared_preferences.dart';
 import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/datasources/mock_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -12,6 +15,7 @@ import 'package:multitec_app/features/auth/domain/repositories/auth_repository.d
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
+import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';
@@ -49,9 +53,16 @@ Future<void> serviceLocatorSetUp() async {
     ),
   );
 
-  locator.registerLazySingletonAsync<DatabaseService>(
-    SembastService.create,
-  );
+  // Local database by platform (unified SembastDatabase with openers)
+  if (kIsWeb) {
+    locator.registerLazySingleton<LocalDatabase>(
+      () => SembastDatabase(opener: SembastWebOpener()),
+    );
+  } else {
+    locator.registerLazySingleton<LocalDatabase>(
+      () => SembastDatabase(opener: SembastIoOpener()),
+    );
+  }
 
   locator
     ..enableRegisteringMultipleInstancesOfOneType()
@@ -81,21 +92,24 @@ Future<void> serviceLocatorSetUp() async {
 
   /// Example Feature
   // Datasources
-  locator.registerFactory<ExampleRemoteDataSource>(
-    () => useMocks
+  locator.registerLazySingleton<ExampleRemoteDataSource>(
+    () => true
         ? ExampleMockDataSource()
         : ExampleRemoteDataSourceImpl(
             locator<NetworkService>(instanceName: 'MultitecApi'),
           ),
   );
 
-  locator.registerFactory<ExampleLocalDataSource>(
-    () => ExampleLocalDataSource(locator<DatabaseService>()),
+  locator.registerLazySingleton<ExampleLocalDataSource>(
+    () => ExampleLocalDataSource(locator<LocalDatabase>()),
   );
 
   // Repository
-  locator.registerFactory<ExampleRepository>(
-    () => ExampleRepositoryImpl(locator<ExampleRemoteDataSource>()),
+  locator.registerLazySingleton<ExampleRepository>(
+    () => ExampleRepositoryImpl(
+      locator<ExampleRemoteDataSource>(),
+      locator<ExampleLocalDataSource>(),
+    ),
   );
 
   // UseCases
@@ -160,9 +174,16 @@ Future<void> serviceLocatorSetUp() async {
     () => useMocks ? ScheduleMockDataSource() : ScheduleRemoteDataSource(),
   );
 
+  locator.registerLazySingleton<ScheduleLocalDataSource>(
+    () => ScheduleLocalDataSource(locator<LocalDatabase>()),
+  );
+
   // Repository
   locator.registerFactory<ScheduleRepository>(
-    () => ScheduleRepositoryImpl(locator<ScheduleRemoteDataSource>()),
+    () => ScheduleRepositoryImpl(
+      locator<ScheduleRemoteDataSource>(),
+      locator<ScheduleLocalDataSource>(),
+    ),
   );
 
   // UseCases

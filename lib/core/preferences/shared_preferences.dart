@@ -1,4 +1,4 @@
-import 'package:multitec_app/core/local_storage/local_storage.dart';
+import 'package:multitec_app/core/preferences/local_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService implements LocalStorageService {

@@ -56,6 +56,12 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  ElevatedButton(
+                    onPressed: () => context.pushNamed(
+                      AppRoute.example.name,
+                    ),
+                    child: const Text('Ir a Example Feature'),
+                  ),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
