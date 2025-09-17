@@ -5,7 +5,11 @@ abstract class LocalDatabase {
     Map<String, Map<String, Object?>> items,
   );
   Future<Map<String, Object?>?> get(String storeName, String key);
-  Future<List<Map<String, Object?>>> getAll(String storeName);
+  Future<List<Map<String, Object?>>> getAll(
+    String storeName, {
+    String? sortField,
+    bool descending = false,
+  });
   Future<void> delete(String storeName, String key);
   Future<void> clear(String storeName);
   Future<int> count(String storeName);

@@ -11,13 +11,14 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
     this._getJoinedScheduleItems,
     this._eventBus,
   ) : super(const JoinedSchedulesState()) {
-    _eventBus
+    eventSuscription = _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
   }
 
   final GetJoinedScheduleItemsUseCase _getJoinedScheduleItems;
   final EventBus _eventBus;
+  late StreamSubscription<void> eventSuscription;
   String? _nextCursor;
 
   Future<void> loadJoinedSchedules({bool isRefreshing = false}) async {
@@ -88,5 +89,11 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
         emit(state.copyWith(items: updatedItems));
       }
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await eventSuscription.cancel();
+    return super.close();
   }
 }

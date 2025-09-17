@@ -22,7 +22,7 @@ class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
           ScheduleDetailState(item: item),
         ) {
     _checkJoinStatus(item.id);
-    _eventBus
+    eventSuscription = _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
   }
@@ -30,6 +30,7 @@ class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
   final IsJoinedUseCase _isJoinedUseCase;
   final ToggleJoinScheduleItemUseCase _toggleJoinUseCase;
   final EventBus _eventBus;
+  late StreamSubscription<void> eventSuscription;
 
   Future<void> _checkJoinStatus(String itemId) async {
     final result = await _isJoinedUseCase(itemId);
@@ -85,5 +86,11 @@ class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
       );
       emit(state.copyWith(item: updatedItem, isJoined: event.join));
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await eventSuscription.cancel();
+    return super.close();
   }
 }
