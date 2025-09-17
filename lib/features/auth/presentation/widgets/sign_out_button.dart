@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
-import 'package:multitec_app/core/exceptions/failure_localization.dart';
-import 'package:multitec_app/core/ui/components/snack_bar.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_out_cubit.dart';
@@ -29,18 +26,7 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignOutCubit, SignOutState>(
-      listener: (context, state) {
-        if (state.status.isError && state.failure != null) {
-          context.showSnackBar(
-            AppSnackBar.error(
-              content: Text(
-                state.failure.toLocalizedMessage(context),
-              ),
-            ),
-          );
-        }
-      },
+    return BlocBuilder<SignOutCubit, SignOutState>(
       builder: (context, state) {
         return SizedBox(
           width: double.infinity,

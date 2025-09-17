@@ -15,7 +15,6 @@ import 'package:multitec_app/features/auth/domain/repositories/auth_repository.d
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';
@@ -24,6 +23,7 @@ import 'package:multitec_app/features/example/data/repositories/example_reposito
 import 'package:multitec_app/features/example/domain/repositories/example_repository.dart';
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
 import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
+import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_mock_datasource.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
 import 'package:multitec_app/features/schedule/data/repositories/schedule_repository_impl.dart';
@@ -150,6 +150,7 @@ Future<void> serviceLocatorSetUp() async {
   locator.registerFactory(
     () => SignOutUseCase(
       locator<AuthRepository>(),
+      locator<ScheduleRepository>(),
     ),
   );
 
@@ -174,7 +175,7 @@ Future<void> serviceLocatorSetUp() async {
     () => useMocks ? ScheduleMockDataSource() : ScheduleRemoteDataSource(),
   );
 
-  locator.registerLazySingleton<ScheduleLocalDataSource>(
+  locator.registerFactory<ScheduleLocalDataSource>(
     () => ScheduleLocalDataSource(locator<LocalDatabase>()),
   );
 

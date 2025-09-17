@@ -42,34 +42,12 @@ class SembastDatabase implements LocalDatabase {
 
   @override
   Future<void> save(
-      String storeName, String key, Map<String, Object?> data) async {
+    String storeName,
+    String key,
+    Map<String, Object?> data,
+  ) async {
     final db = await _database;
     await _store(storeName).record(key).put(db, data);
-  }
-
-  @override
-  Future<Map<String, Object?>?> get(String storeName, String key) async {
-    final db = await _database;
-    return _store(storeName).record(key).get(db);
-  }
-
-  @override
-  Future<List<Map<String, Object?>>> getAll(String storeName) async {
-    final db = await _database;
-    final records = await _store(storeName).find(db);
-    return records.map((e) => e.value).toList();
-  }
-
-  @override
-  Future<void> delete(String storeName, String key) async {
-    final db = await _database;
-    await _store(storeName).record(key).delete(db);
-  }
-
-  @override
-  Future<void> clear(String storeName) async {
-    final db = await _database;
-    await _store(storeName).delete(db);
   }
 
   @override
@@ -84,6 +62,38 @@ class SembastDatabase implements LocalDatabase {
         await store.record(entry.key).put(txn, entry.value);
       }
     });
+  }
+
+  @override
+  Future<Map<String, Object?>?> get(String storeName, String key) async {
+    final db = await _database;
+    return _store(storeName).record(key).get(db);
+  }
+
+  @override
+  Future<List<Map<String, Object?>>> getAll(
+    String storeName, {
+    String? sortField,
+    bool descending = false,
+  }) async {
+    final db = await _database;
+    final finder = sortField == null
+        ? null
+        : Finder(sortOrders: [SortOrder(sortField, !descending)]);
+    final records = await _store(storeName).find(db, finder: finder);
+    return records.map((e) => e.value).toList();
+  }
+
+  @override
+  Future<void> delete(String storeName, String key) async {
+    final db = await _database;
+    await _store(storeName).record(key).delete(db);
+  }
+
+  @override
+  Future<void> clear(String storeName) async {
+    final db = await _database;
+    await _store(storeName).delete(db);
   }
 
   @override

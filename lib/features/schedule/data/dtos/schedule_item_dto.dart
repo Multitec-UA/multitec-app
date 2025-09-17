@@ -16,6 +16,7 @@ class ScheduleItemDto {
     this.location,
     this.imageUrl,
     this.category,
+    this.joinedAt,
   });
 
   factory ScheduleItemDto.fromMap(Map<String, dynamic> map) {
@@ -33,8 +34,72 @@ class ScheduleItemDto {
       attendeesCount: map['attendeesCount'] as int,
       createdAt: _toDate(map['createdAt']),
       updatedAt: _toDate(map['updatedAt']),
+      joinedAt: _toDateOrNull(map['joinedAt']),
     );
   }
+
+  factory ScheduleItemDto.fromJson(Map<String, dynamic> json) {
+    final id = json['id'] as String?;
+    final type = json['type'] as String?;
+    final title = json['title'] as String?;
+    final description = json['description'] as String?;
+    final startsAtMs = json['startsAt'] as int?;
+    final published = json['published'] as bool?;
+    final attendeesCount = json['attendeesCount'] as int?;
+    final createdAtMs = json['createdAt'] as int?;
+    final updatedAtMs = json['updatedAt'] as int?;
+
+    if (id == null ||
+        type == null ||
+        title == null ||
+        description == null ||
+        startsAtMs == null ||
+        published == null ||
+        attendeesCount == null ||
+        createdAtMs == null ||
+        updatedAtMs == null) {
+      throw ArgumentError(
+        'Missing required fields for ScheduleItemDto.fromJson',
+      );
+    }
+
+    return ScheduleItemDto(
+      id: id,
+      type: type,
+      title: title,
+      description: description,
+      startsAt: DateTime.fromMillisecondsSinceEpoch(startsAtMs),
+      endsAt: json['endsAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch((json['endsAt'] as int?)!)
+          : null,
+      location: json['location'] as String?,
+      imageUrl: json['imageUrl'] as String?,
+      category: json['category'] as String?,
+      published: published,
+      attendeesCount: attendeesCount,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(createdAtMs),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(updatedAtMs),
+      joinedAt: json['joinedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch((json['joinedAt'] as int?)!)
+          : null,
+    );
+  }
+
+  factory ScheduleItemDto.fromDomain(ScheduleItem i) => ScheduleItemDto(
+        id: i.id,
+        type: i.type,
+        title: i.title,
+        description: i.description,
+        startsAt: i.startsAt,
+        endsAt: i.endsAt,
+        location: i.location,
+        imageUrl: i.imageUrl,
+        category: i.category,
+        published: i.published,
+        attendeesCount: i.attendeesCount,
+        createdAt: i.createdAt,
+        updatedAt: i.updatedAt,
+      );
 
   final String id;
   final String type;
@@ -49,6 +114,7 @@ class ScheduleItemDto {
   final int attendeesCount;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final DateTime? joinedAt;
 
   ScheduleItem toDomain() => ScheduleItem(
         id: id,
@@ -66,6 +132,23 @@ class ScheduleItemDto {
         updatedAt: updatedAt,
       );
 
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'type': type,
+        'title': title,
+        'description': description,
+        'startsAt': startsAt.millisecondsSinceEpoch,
+        if (endsAt != null) 'endsAt': endsAt!.millisecondsSinceEpoch,
+        if (location != null) 'location': location,
+        if (imageUrl != null) 'imageUrl': imageUrl,
+        if (category != null) 'category': category,
+        'published': published,
+        'attendeesCount': attendeesCount,
+        'createdAt': createdAt.millisecondsSinceEpoch,
+        'updatedAt': updatedAt.millisecondsSinceEpoch,
+        if (joinedAt != null) 'joinedAt': joinedAt!.millisecondsSinceEpoch,
+      };
+
   Map<String, dynamic> toFirestore() => {
         'type': type,
         'title': title,
@@ -81,43 +164,41 @@ class ScheduleItemDto {
         'updatedAt': FieldValue.serverTimestamp(),
       };
 
-  Map<String, Object?> toJson() => {
-        'id': id,
-        'type': type,
-        'title': title,
-        'description': description,
-        'startsAt': startsAt.millisecondsSinceEpoch,
-        if (endsAt != null) 'endsAt': endsAt!.millisecondsSinceEpoch,
-        if (location != null) 'location': location,
-        if (imageUrl != null) 'imageUrl': imageUrl,
-        if (category != null) 'category': category,
-        'published': published,
-        'attendeesCount': attendeesCount,
-        'createdAt': createdAt.millisecondsSinceEpoch,
-        'updatedAt': updatedAt.millisecondsSinceEpoch,
-      };
-
-  factory ScheduleItemDto.fromJson(Map<String, Object?> json) {
-    return ScheduleItemDto(
-      id: json['id'] as String,
-      type: json['type'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
-      startsAt: DateTime.fromMillisecondsSinceEpoch(json['startsAt'] as int),
-      endsAt: json['endsAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(json['endsAt'] as int)
-          : null,
-      location: json['location'] as String?,
-      imageUrl: json['imageUrl'] as String?,
-      category: json['category'] as String?,
-      published: json['published'] as bool,
-      attendeesCount: json['attendeesCount'] as int,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt'] as int),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt'] as int),
-    );
-  }
-
   static DateTime _toDate(dynamic value) => (value as Timestamp).toDate();
   static DateTime? _toDateOrNull(dynamic value) =>
       value == null ? null : (value as Timestamp).toDate();
+
+  ScheduleItemDto copyWith({
+    String? id,
+    String? type,
+    String? title,
+    String? description,
+    DateTime? startsAt,
+    DateTime? endsAt,
+    String? location,
+    String? imageUrl,
+    String? category,
+    bool? published,
+    int? attendeesCount,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? joinedAt,
+  }) {
+    return ScheduleItemDto(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      startsAt: startsAt ?? this.startsAt,
+      endsAt: endsAt ?? this.endsAt,
+      location: location ?? this.location,
+      imageUrl: imageUrl ?? this.imageUrl,
+      category: category ?? this.category,
+      published: published ?? this.published,
+      attendeesCount: attendeesCount ?? this.attendeesCount,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      joinedAt: joinedAt ?? this.joinedAt,
+    );
+  }
 }

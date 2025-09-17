@@ -11,12 +11,15 @@ abstract class ScheduleRepository {
     ScheduleType type,
     PaginationParams params,
   );
-  Future<Result<List<ScheduleItem>, Failure>> getLatestScheduleItems({int limit});
-  Future<Result<Unit, Failure>> joinScheduleItem(String itemId, User user);
-  Future<Result<Unit, Failure>> leaveScheduleItem(String itemId, User user);
+  Future<Result<List<ScheduleItem>, Failure>> getLatestScheduleItems({
+    int limit,
+  });
+  Future<Result<Unit, Failure>> joinScheduleItem(ScheduleItem item, User user);
+  Future<Result<Unit, Failure>> leaveScheduleItem(ScheduleItem item, User user);
   Future<Result<bool, Failure>> isJoined(String itemId, User user);
   Future<Result<PaginatedResult<ScheduleItem>, Failure>> getJoinedScheduleItems(
     String userId,
     PaginationParams params,
   );
+  Future<Result<Unit, Failure>> clearJoinedScheduleLocal();
 }

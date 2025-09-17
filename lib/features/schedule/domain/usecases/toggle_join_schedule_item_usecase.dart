@@ -28,8 +28,8 @@ class ToggleJoinScheduleItemUseCase {
         if (user == null) return const Result.error(GenericFailure());
 
         final result = isJoined
-            ? await _scheduleRepository.leaveScheduleItem(scheduleItem.id, user)
-            : await _scheduleRepository.joinScheduleItem(scheduleItem.id, user);
+            ? await _scheduleRepository.leaveScheduleItem(scheduleItem, user)
+            : await _scheduleRepository.joinScheduleItem(scheduleItem, user);
 
         return result.when(
           (success) {

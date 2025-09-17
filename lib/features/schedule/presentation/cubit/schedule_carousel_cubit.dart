@@ -9,13 +9,14 @@ import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carou
 class ScheduleCarouselCubit extends Cubit<ScheduleCarouselState> {
   ScheduleCarouselCubit(this._getLatestScheduleItems, this._eventBus)
       : super(const ScheduleCarouselState()) {
-    _eventBus
+    eventSuscription = _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
   }
 
   final GetLatestScheduleItemsUseCase _getLatestScheduleItems;
   final EventBus _eventBus;
+  late StreamSubscription<void> eventSuscription;
 
   Future<void> loadLatestScheduleItems() async {
     emit(state.copyWith(status: StateStatus.loading));
@@ -51,5 +52,11 @@ class ScheduleCarouselCubit extends Cubit<ScheduleCarouselState> {
     }).toList();
 
     emit(state.copyWith(items: updatedItems));
+  }
+
+  @override
+  Future<void> close() async {
+    await eventSuscription.cancel();
+    return super.close();
   }
 }

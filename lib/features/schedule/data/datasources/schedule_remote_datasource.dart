@@ -176,6 +176,12 @@ class ScheduleRemoteDataSource {
     final ids = itemDocs.map((d) => d.id).toList();
     final items = <ScheduleItemDto>[];
 
+    final joinedAtById = {
+      for (final d in itemDocs)
+        d.id: (d.data()['joinedAt'] as Timestamp?)?.toDate() ??
+            DateTime.fromMillisecondsSinceEpoch(0),
+    };
+
     const chunkSize = 10;
     for (var i = 0; i < ids.length; i += chunkSize) {
       final chunk = ids.sublist(i, (i + chunkSize).clamp(0, ids.length));
@@ -187,16 +193,17 @@ class ScheduleRemoteDataSource {
       for (final doc in scheduleQuery.docs) {
         final data = doc.data();
         data.addEntries({'id': doc.id}.entries);
-        items.add(ScheduleItemDto.fromMap(data));
+        final dto = ScheduleItemDto.fromMap(data)
+            .copyWith(joinedAt: joinedAtById[doc.id]);
+        items.add(dto);
       }
     }
 
-    final joinedAtById = {
-      for (final d in itemDocs)
-        d.id: (d.data()['joinedAt'] as Timestamp?)?.toDate() ??
-            DateTime.fromMillisecondsSinceEpoch(0),
-    };
-    items.sort((a, b) => (joinedAtById[b.id]!).compareTo(joinedAtById[a.id]!));
+    items.sort((a, b) {
+      final aj = a.joinedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final bj = b.joinedAt ?? DateTime.fromMillisecondsSinceEpoch(0);
+      return bj.compareTo(aj);
+    });
 
     final nextCursor = hasMore && itemDocs.isNotEmpty ? itemDocs.last.id : null;
 
