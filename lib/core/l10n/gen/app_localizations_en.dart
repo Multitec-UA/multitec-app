@@ -92,4 +92,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get leaveEvent => 'Leave Event';
+
+  @override
+  String welcomeUser(Object name) {
+    return 'Welcome, $name!';
+  }
 }

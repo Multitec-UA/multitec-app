@@ -19,19 +19,16 @@ class AppThemeProvider extends StatelessWidget {
   const AppThemeProvider({
     required this.child,
     required this.themeMode,
-    required this.onToggle,
     super.key,
   });
 
   final Widget child;
   final ThemeMode themeMode;
-  final VoidCallback onToggle;
 
   @override
   Widget build(BuildContext context) {
     return AppTheme(
       theme: AppThemeConfig(themeMode: themeMode),
-      toggle: onToggle,
       child: child,
     );
   }
@@ -40,13 +37,11 @@ class AppThemeProvider extends StatelessWidget {
 class AppTheme extends InheritedWidget {
   const AppTheme({
     required AppThemeConfig theme,
-    required this.toggle,
     required super.child,
     super.key,
   }) : _themeConfig = theme;
 
   final AppThemeConfig _themeConfig;
-  final VoidCallback toggle;
 
   AppColors get colors => _themeConfig.colors;
   bool get isLight => _themeConfig.isLight;

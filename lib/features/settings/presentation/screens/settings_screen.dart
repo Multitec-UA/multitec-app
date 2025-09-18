@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/features/app_settings/presentation/cubits/locale_cubit.dart';
+import 'package:multitec_app/features/app_settings/presentation/cubits/theme_cubit.dart';
 import 'package:multitec_app/features/auth/presentation/widgets/sign_out_button.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -110,7 +113,7 @@ class _LanguageDropdown extends StatelessWidget {
           }).toList();
         },
         onSelected: (value) {
-          // TODO: Implement language change
+          context.read<LocaleCubit>().setLocale(value);
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -216,7 +219,7 @@ class _ThemeSelector extends StatelessWidget {
                 final chosen = selection.first;
                 final willBeLight = chosen == ThemeMode.light;
                 if (willBeLight != isLight) {
-                  appTheme.toggle();
+                  context.read<ThemeCubit>().toggleThemeMode();
                 }
               },
             ),

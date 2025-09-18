@@ -50,5 +50,6 @@
   "leaveEvent": "Leave Event",
   "@leaveEvent": {
     "description": "Leave event button text"
-  }
+  },
+  "welcomeUser": "Welcome, {name}!"
 }
