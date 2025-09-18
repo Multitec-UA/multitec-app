@@ -5,10 +5,10 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/theme_provider.dart';
-import 'package:multitec_app/features/app_settings/presentation/cubits/locale_cubit.dart';
-import 'package:multitec_app/features/app_settings/presentation/cubits/theme_cubit.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/auth/presentation/widgets/sign_out_button.dart';
+import 'package:multitec_app/features/settings/presentation/cubits/locale_cubit.dart';
+import 'package:multitec_app/features/settings/presentation/cubits/theme_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -58,7 +58,7 @@ class _PreferencesSection extends StatelessWidget {
           spacings.y.s16,
           _LanguageDropdown(),
           spacings.y.s16,
-          _ThemeSelector(),
+          const _ThemeSelector(),
         ],
       ),
     );
@@ -160,35 +160,60 @@ class _LanguageDropdown extends StatelessWidget {
 }
 
 class _ThemeSelector extends StatelessWidget {
+  const _ThemeSelector();
+
   @override
   Widget build(BuildContext context) {
+    final currentThemeMode = context.select((ThemeCubit c) => c.state);
+    final colors = context.colors;
     final theme = Theme.of(context);
-    final appTheme = AppTheme.of(context);
-    final isLight = appTheme.isLight;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade300),
-        borderRadius: borderRadius.br8,
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Tema',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: theme.textTheme.bodyLarge
+                ?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
             child: SegmentedButton<ThemeMode>(
+              segments: const [
+                ButtonSegment(
+                  value: ThemeMode.system,
+                  label: Text('Sistema'),
+                ),
+                ButtonSegment(
+                  value: ThemeMode.light,
+                  label: Text('Claro'),
+                  icon: Icon(
+                    Icons.light_mode,
+                    size: 14,
+                  ),
+                ),
+                ButtonSegment(
+                  value: ThemeMode.dark,
+                  label: Text('Oscuro'),
+                  icon: Icon(
+                    Icons.dark_mode,
+                    size: 14,
+                  ),
+                ),
+              ],
+              selected: {currentThemeMode},
+              showSelectedIcon: false,
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states) {
                   if (states.contains(WidgetState.selected)) {
-                    return context.colors.primaryBase;
+                    return colors.primaryBase;
                   }
                   return null;
                 }),
@@ -199,31 +224,21 @@ class _ThemeSelector extends StatelessWidget {
                   return null;
                 }),
               ),
-              segments: const [
-                ButtonSegment(
-                  value: ThemeMode.light,
-                  label: Text('Claro'),
-                  icon: Icon(Icons.light_mode),
-                ),
-                ButtonSegment(
-                  value: ThemeMode.dark,
-                  label: Text('Oscuro'),
-                  icon: Icon(Icons.dark_mode),
-                ),
-              ],
-              selected: {
-                if (isLight) ThemeMode.light else ThemeMode.dark,
-              },
-              showSelectedIcon: false,
               onSelectionChanged: (selection) {
                 final chosen = selection.first;
-                final willBeLight = chosen == ThemeMode.light;
-                if (willBeLight != isLight) {
-                  context.read<ThemeCubit>().toggleThemeMode();
+                if (chosen != currentThemeMode) {
+                  context.read<ThemeCubit>().setThemeMode(chosen);
                 }
               },
             ),
           ),
+          if (currentThemeMode == ThemeMode.system) ...[
+            const SizedBox(height: 8),
+            Text(
+              'Siguiendo el tema del sistema',
+              style: theme.textTheme.bodySmall,
+            ),
+          ],
         ],
       ),
     );

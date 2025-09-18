@@ -8,11 +8,11 @@ import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/core/preferences/local_storage.dart';
 import 'package:multitec_app/core/preferences/shared_preferences.dart';
-import 'package:multitec_app/features/app_settings/data/datasources/app_settings_local_datasources.dart';
-import 'package:multitec_app/features/app_settings/data/repositories/app_settings_repository_impl.dart';
-import 'package:multitec_app/features/app_settings/domain/repositories/app_settings_repository.dart';
-import 'package:multitec_app/features/app_settings/presentation/cubits/locale_cubit.dart';
-import 'package:multitec_app/features/app_settings/presentation/cubits/theme_cubit.dart';
+import 'package:multitec_app/features/settings/data/datasources/settings_local_datasource.dart';
+import 'package:multitec_app/features/settings/data/repositories/settings_repository_impl.dart';
+import 'package:multitec_app/features/settings/domain/repositories/settings_repository.dart';
+import 'package:multitec_app/features/settings/presentation/cubits/locale_cubit.dart';
+import 'package:multitec_app/features/settings/presentation/cubits/theme_cubit.dart';
 import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/datasources/mock_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -98,21 +98,21 @@ Future<void> serviceLocatorSetUp() async {
 
   /// App Settings ///
   /// DataSource
-  locator.registerLazySingleton<AppSettingsLocalDataSource>(
-    () => AppSettingsLocalDataSource(locator<LocalStorageService>()),
+  locator.registerLazySingleton<SettingsLocalDataSource>(
+    () => SettingsLocalDataSource(locator<LocalStorageService>()),
   );
 
   // Repository
-  locator.registerLazySingleton<AppSettingsRepository>(
-    () => AppSettingsRepositoryImpl(locator<AppSettingsLocalDataSource>()),
+  locator.registerLazySingleton<SettingsRepository>(
+    () => SettingsRepositoryImpl(locator<SettingsLocalDataSource>()),
   );
 
   // Cubit
   locator.registerLazySingleton<ThemeCubit>(
-    () => ThemeCubit(locator<AppSettingsRepository>()),
+    () => ThemeCubit(locator<SettingsRepository>()),
   );
   locator.registerLazySingleton<LocaleCubit>(
-    () => LocaleCubit(locator<AppSettingsRepository>()),
+    () => LocaleCubit(locator<SettingsRepository>()),
   );
 
   /// Example Feature ///

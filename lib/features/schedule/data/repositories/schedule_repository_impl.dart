@@ -93,11 +93,12 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   ) async {
     return guardAsync<PaginatedResult<ScheduleItem>>(
       () async {
+        //TODO: Revisarlo y ordenarlo
         if (params.cursor == null) {
           final localItems = await _local.getJoinedScheduleItems();
           if (localItems.isNotEmpty) {
             // Actualizamos la caché en segundo plano
-            _refreshJoinedSchedulesInBackground(userId);
+            await _refreshJoinedSchedulesInBackground(userId);
             final domainItems =
                 localItems.map((dto) => dto.toDomain()).toList();
             return PaginatedResult<ScheduleItem>(
