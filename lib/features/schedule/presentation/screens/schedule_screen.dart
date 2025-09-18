@@ -26,9 +26,7 @@ class ScheduleScreen extends StatelessWidget {
       initialIndex: initialTab == ScheduleType.activity ? 1 : 0,
       child: Scaffold(
         appBar: AppBar(
-          title: const MultitecAppBar(
-            action: MultitecAppBarAction.profileShortcut,
-          ),
+          title: const MultitecAppBar(),
           titleSpacing: 0,
           bottom: const TabBar(
             tabs: [

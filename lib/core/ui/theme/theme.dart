@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/core/ui/theme/colors.dart';
 
 final _baseTheme = ThemeData(useMaterial3: true);
-final LightColors lightColors = LightColors();
-final DarkColors darkColors = DarkColors();
+const lightColors = LightColors();
+const darkColors = DarkColors();
 
 final themeLight = _baseTheme.copyWith(
+  extensions: const <ThemeExtension<dynamic>>[
+    AppColorsTheme.light,
+  ],
+
   // General theme colors
   scaffoldBackgroundColor: lightColors.background,
   colorScheme: ColorScheme.light(
@@ -116,6 +121,10 @@ final themeLight = _baseTheme.copyWith(
 );
 
 final themeDark = _baseTheme.copyWith(
+  extensions: const <ThemeExtension<dynamic>>[
+    AppColorsTheme.dark,
+  ],
+
   // General theme colors
   scaffoldBackgroundColor: darkColors.background,
   colorScheme: ColorScheme.dark(

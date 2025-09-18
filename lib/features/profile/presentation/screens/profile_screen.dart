@@ -6,7 +6,7 @@ import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/user/domain/models/user.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';

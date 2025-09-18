@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HelpAndFeedbackScreen extends StatelessWidget {

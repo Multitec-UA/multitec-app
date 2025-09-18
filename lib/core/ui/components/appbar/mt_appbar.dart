@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
 enum MultitecAppBarAction {
   none,
