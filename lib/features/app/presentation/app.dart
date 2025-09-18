@@ -5,6 +5,7 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/theme/theme.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
+import 'package:multitec_app/features/app_settings/presentation/cubits/theme_cubit.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 
 class App extends StatelessWidget {
@@ -12,15 +13,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppThemeProvider(
-      defaultThemeMode: ThemeMode.light,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => locator<UserCubit>()),
+        BlocProvider(create: (_) => locator<ThemeCubit>()..init()),
+      ],
       child: Builder(
         builder: (context) {
-          final appTheme = AppTheme.of(context);
-          return MultiBlocProvider(
-            providers: [
-              BlocProvider(create: (context) => locator<UserCubit>()),
-            ],
+          final themeMode = context.select((ThemeCubit c) => c.state);
+
+          return AppThemeProvider(
+            themeMode: themeMode,
+            onToggle: () => context.read<ThemeCubit>().toggle(),
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
               routerConfig: goRouter,
@@ -28,7 +32,7 @@ class App extends StatelessWidget {
               supportedLocales: AppLocalizations.supportedLocales,
               theme: themeLight,
               darkTheme: themeDark,
-              themeMode: appTheme.isLight ? ThemeMode.light : ThemeMode.dark,
+              themeMode: themeMode,
             ),
           );
         },
