@@ -1,47 +1,46 @@
-# name: multitec_app
+name: multitec_app
 
-# concurrency:
-#   group: $-$
-#   cancel-in-progress: true
+concurrency:
+  group: $-$
+  cancel-in-progress: true
 
-# on:
-#   push:
-#     branches:
-#       - main
-#       - development
-#   pull_request:
-#     branches:
-#       - main
-#       - development
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
 
-# jobs:
-#   semantic-pull-request:
-#     uses: victorcovi/very_good_workflows/.github/workflows/semantic_pull_request.yml@main
+jobs:
+  semantic-pull-request:
+    uses: victorcovi/very_good_workflows/.github/workflows/semantic_pull_request.yml@main
 
-#   read-version:
-#     runs-on: ubuntu-latest
-#     outputs:
-#       flutter_version: ${{ steps.read_version.outputs.flutter_version }}
-#     steps:
-#       - name: Checkout repo
-#         uses: actions/checkout@v4
+  read-version:
+    runs-on: ubuntu-latest
+    outputs:
+      flutter_version: ${{ steps.read_version.outputs.flutter_version }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
-#       - id: read_version
-#         name: Parse Flutter version from .fvmrc
-#         run: |
-#           version=$(jq -r '.flutter' .fvmrc)
-#           echo "flutter_version=$version" >> $GITHUB_OUTPUT
+      - id: read_version
+        name: Parse Flutter version from .fvmrc
+        run: |
+          version=$(jq -r '.flutter' .fvmrc)
+          echo "flutter_version=$version" >> $GITHUB_OUTPUT
 
-#   build:
-#     needs: read-version
-#     uses: victorcovi/very_good_workflows/.github/workflows/flutter_package.yml@main
-#     with:
-#       flutter_version: ${{ needs.read-version.outputs.flutter_version }}
-#       min_coverage: 5
+  build:
+    needs: read-version
+    uses: victorcovi/very_good_workflows/.github/workflows/flutter_package.yml@main
+    with:
+      flutter_version: ${{ needs.read-version.outputs.flutter_version }}
+      min_coverage: 5
 
-#   spell-check:
-#     uses: victorcovi/very_good_workflows/.github/workflows/spell_check.yml@main
-#     with:
-#       includes: |
-#         **/*.md
-#       modified_files_only: false
+  spell-check:
+    with:
+      includes: |
+        **/*.md
+      modified_files_only: false
