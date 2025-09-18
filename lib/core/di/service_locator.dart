@@ -8,6 +8,10 @@ import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/network/network.dart';
 import 'package:multitec_app/core/preferences/local_storage.dart';
 import 'package:multitec_app/core/preferences/shared_preferences.dart';
+import 'package:multitec_app/features/app_settings/data/datasources/app_settings_local_datasources.dart';
+import 'package:multitec_app/features/app_settings/data/repositories/app_settings_repository_impl.dart';
+import 'package:multitec_app/features/app_settings/domain/repositories/app_settings_repository.dart';
+import 'package:multitec_app/features/app_settings/presentation/cubits/theme_cubit.dart';
 import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/datasources/mock_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/repositories/auth_repository_impl.dart';
@@ -43,17 +47,17 @@ final locator = GetIt.instance;
 const useMocks = false;
 
 Future<void> serviceLocatorSetUp() async {
-  locator.registerLazySingletonAsync<SharedPreferences>(
+  /// Preferences ///
+  locator.registerSingletonAsync<SharedPreferences>(
     SharedPreferences.getInstance,
   );
-
-  locator.registerLazySingletonAsync<LocalStorageService>(
+  locator.registerSingletonAsync<LocalStorageService>(
     () async => SharedPreferencesService(
       preferences: await locator.getAsync<SharedPreferences>(),
     ),
   );
 
-  // Local database by platform (unified SembastDatabase with openers)
+  /// Local database ///
   if (kIsWeb) {
     locator.registerLazySingleton<LocalDatabase>(
       () => SembastDatabase(opener: SembastWebOpener()),
@@ -64,6 +68,7 @@ Future<void> serviceLocatorSetUp() async {
     );
   }
 
+  /// Network ///
   locator
     ..enableRegisteringMultipleInstancesOfOneType()
     ..registerSingletonAsync<Square1Api>(
@@ -87,19 +92,34 @@ Future<void> serviceLocatorSetUp() async {
       ],
     );
 
-  /// User Feature
+  /// EventBus ///
   locator.registerLazySingleton<EventBus>(EventBusImpl.new);
 
-  /// Example Feature
+  /// App Settings ///
+  /// DataSource
+  locator.registerLazySingleton<AppSettingsLocalDataSource>(
+    () => AppSettingsLocalDataSource(locator<LocalStorageService>()),
+  );
+
+  // Repository
+  locator.registerLazySingleton<AppSettingsRepository>(
+    () => AppSettingsRepositoryImpl(locator<AppSettingsLocalDataSource>()),
+  );
+
+  // Cubit
+  locator.registerLazySingleton<ThemeCubit>(
+    () => ThemeCubit(locator<AppSettingsRepository>()),
+  );
+
+  /// Example Feature ///
   // Datasources
   locator.registerLazySingleton<ExampleRemoteDataSource>(
-    () => true
+    () => useMocks
         ? ExampleMockDataSource()
         : ExampleRemoteDataSourceImpl(
             locator<NetworkService>(instanceName: 'MultitecApi'),
           ),
   );
-
   locator.registerLazySingleton<ExampleLocalDataSource>(
     () => ExampleLocalDataSource(locator<LocalDatabase>()),
   );
@@ -120,7 +140,7 @@ Future<void> serviceLocatorSetUp() async {
     () => SendReportUseCase(locator<ExampleRepository>()),
   );
 
-  /// Auth Feature
+  /// Auth Feature ///
   // Datasources
   locator.registerFactory<FirebaseAuthDataSource>(
     () => useMocks ? MockAuthDataSource() : FirebaseAuthDataSource(),
@@ -146,7 +166,6 @@ Future<void> serviceLocatorSetUp() async {
       locator<AuthRepository>(),
     ),
   );
-
   locator.registerFactory(
     () => SignOutUseCase(
       locator<AuthRepository>(),
@@ -154,8 +173,7 @@ Future<void> serviceLocatorSetUp() async {
     ),
   );
 
-  /// User Feature
-
+  /// User Feature ///
   // Repository
   locator.registerFactory<UserRepository>(
     () => UserRepositoryImpl(locator<FirebaseAuthDataSource>()),
@@ -169,12 +187,11 @@ Future<void> serviceLocatorSetUp() async {
     ),
   );
 
-  /// Schedule Feature
+  /// Schedule Feature ///
   // Datasources
   locator.registerFactory<ScheduleRemoteDataSource>(
     () => useMocks ? ScheduleMockDataSource() : ScheduleRemoteDataSource(),
   );
-
   locator.registerFactory<ScheduleLocalDataSource>(
     () => ScheduleLocalDataSource(locator<LocalDatabase>()),
   );

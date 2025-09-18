@@ -15,39 +15,24 @@ class AppThemeConfig {
   bool get isLight => themeMode == ThemeMode.light;
 }
 
-class AppThemeProvider extends StatefulWidget {
+class AppThemeProvider extends StatelessWidget {
   const AppThemeProvider({
     required this.child,
-    this.defaultThemeMode = ThemeMode.dark,
+    required this.themeMode,
+    required this.onToggle,
     super.key,
   });
 
   final Widget child;
-  final ThemeMode defaultThemeMode;
-
-  @override
-  State<AppThemeProvider> createState() => AppThemeProviderState();
-}
-
-class AppThemeProviderState extends State<AppThemeProvider> {
-  late final ThemeMode defaultThemeMode = widget.defaultThemeMode;
-  ThemeMode? _forcedThemeMode;
-
-  void _toggle() {
-    setState(() {
-      _forcedThemeMode =
-          _forcedThemeMode == null || _forcedThemeMode == ThemeMode.light
-              ? ThemeMode.dark
-              : ThemeMode.light;
-    });
-  }
+  final ThemeMode themeMode;
+  final VoidCallback onToggle;
 
   @override
   Widget build(BuildContext context) {
     return AppTheme(
-      theme: AppThemeConfig(themeMode: _forcedThemeMode ?? defaultThemeMode),
-      toggle: _toggle,
-      child: widget.child,
+      theme: AppThemeConfig(themeMode: themeMode),
+      toggle: onToggle,
+      child: child,
     );
   }
 }
@@ -61,11 +46,9 @@ class AppTheme extends InheritedWidget {
   }) : _themeConfig = theme;
 
   final AppThemeConfig _themeConfig;
-
-  final void Function() toggle;
+  final VoidCallback toggle;
 
   AppColors get colors => _themeConfig.colors;
-
   bool get isLight => _themeConfig.isLight;
 
   static AppTheme of(BuildContext context) {
@@ -76,5 +59,5 @@ class AppTheme extends InheritedWidget {
 
   @override
   bool updateShouldNotify(AppTheme oldWidget) =>
-      _themeConfig != oldWidget._themeConfig;
+      _themeConfig.themeMode != oldWidget._themeConfig.themeMode;
 }
