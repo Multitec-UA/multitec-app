@@ -11,6 +11,7 @@ import 'package:multitec_app/core/preferences/shared_preferences.dart';
 import 'package:multitec_app/features/app_settings/data/datasources/app_settings_local_datasources.dart';
 import 'package:multitec_app/features/app_settings/data/repositories/app_settings_repository_impl.dart';
 import 'package:multitec_app/features/app_settings/domain/repositories/app_settings_repository.dart';
+import 'package:multitec_app/features/app_settings/presentation/cubits/locale_cubit.dart';
 import 'package:multitec_app/features/app_settings/presentation/cubits/theme_cubit.dart';
 import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
 import 'package:multitec_app/features/auth/data/datasources/mock_auth_datasource.dart';
@@ -109,6 +110,9 @@ Future<void> serviceLocatorSetUp() async {
   // Cubit
   locator.registerLazySingleton<ThemeCubit>(
     () => ThemeCubit(locator<AppSettingsRepository>()),
+  );
+  locator.registerLazySingleton<LocaleCubit>(
+    () => LocaleCubit(locator<AppSettingsRepository>()),
   );
 
   /// Example Feature ///

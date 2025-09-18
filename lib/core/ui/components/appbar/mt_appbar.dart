@@ -4,13 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/theme/theme_provider.dart';
-import 'package:multitec_app/core/ui/theme/theme_toggle_button.dart';
 
 enum MultitecAppBarAction {
   none,
   profileShortcut,
   settingsShortcut,
-  themeToggle
 }
 
 class MultitecAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,7 +16,7 @@ class MultitecAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.showLogo = true,
     this.actions,
-    this.action = MultitecAppBarAction.themeToggle,
+    this.action = MultitecAppBarAction.profileShortcut,
     this.bottom,
   });
 
@@ -65,8 +63,6 @@ class MultitecAppBar extends StatelessWidget implements PreferredSizeWidget {
     switch (action) {
       case MultitecAppBarAction.none:
         return const [];
-      case MultitecAppBarAction.themeToggle:
-        return const [ThemeToggleButton()];
       case MultitecAppBarAction.profileShortcut:
         return [
           _AppBarActionButton(

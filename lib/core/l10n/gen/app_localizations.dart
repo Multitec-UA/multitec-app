@@ -259,6 +259,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave Event'**
   String get leaveEvent;
+
+  /// No description provided for @welcomeUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, {name}!'**
+  String welcomeUser(Object name);
 }
 
 class _AppLocalizationsDelegate

@@ -12,13 +12,13 @@ class AppSettingsLocalDataSource {
   Future<String?> getThemeMode() =>
       _storage.getData(LocalStorageKeys.themeMode);
 
-  Future<void> saveLocale(String? raw) async {
-    if (raw == null || raw.isEmpty) {
-      await _storage.removeData(LocalStorageKeys.language);
+  Future<void> saveLocale(String? locale) async {
+    if (locale == null || locale.isEmpty) {
+      await _storage.removeData(LocalStorageKeys.locale);
     } else {
-      await _storage.saveData(LocalStorageKeys.language, raw);
+      await _storage.saveData(LocalStorageKeys.locale, locale);
     }
   }
 
-  Future<String?> getLocale() => _storage.getData(LocalStorageKeys.language);
+  Future<String?> getLocale() => _storage.getData(LocalStorageKeys.locale);
 }

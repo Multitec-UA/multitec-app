@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
@@ -31,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
                   final name = state.user?.name ?? 'Multitec';
                   return Text(
-                    '¡Bienvenido, $name!',
+                    context.l10n.welcomeUser(name),
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

@@ -12,12 +12,12 @@ class ThemeCubit extends Cubit<ThemeMode> {
     emit(saved);
   }
 
-  Future<void> toggle() async {
+  Future<void> toggleThemeMode() async {
     final next = state == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-    await _setMode(next);
+    await setThemeMode(next);
   }
 
-  Future<void> _setMode(ThemeMode mode) async {
+  Future<void> setThemeMode(ThemeMode mode) async {
     emit(mode);
     await _repo.saveThemeMode(mode);
   }

@@ -50,5 +50,6 @@
   "leaveEvent": "Salir del Evento",
   "@leaveEvent": {
     "description": "Texto del botón para salir del evento"
-  }
+  },
+  "welcomeUser": "¡Bienvenido, {name}!"
 }
