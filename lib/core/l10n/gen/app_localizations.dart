@@ -170,6 +170,12 @@ abstract class AppLocalizations {
   /// **'Incorrect password.'**
   String get errorWrongPassword;
 
+  /// No description provided for @errorDomainNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Only accounts @multitecua.com can access.'**
+  String get errorDomainNotAllowed;
+
   /// No description provided for @errorNetworkBadCertificate.
   ///
   /// In en, this message translates to:

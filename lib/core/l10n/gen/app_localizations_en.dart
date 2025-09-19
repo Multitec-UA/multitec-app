@@ -47,6 +47,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorWrongPassword => 'Incorrect password.';
 
   @override
+  String get errorDomainNotAllowed =>
+      'Only accounts @multitecua.com can access.';
+
+  @override
   String get errorNetworkBadCertificate =>
       'Secure connection failed (SSL certificate error).';
 

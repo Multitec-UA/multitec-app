@@ -15,6 +15,7 @@
   "errorWeakPassword": "La contraseña es demasiado débil.",
   "errorUserNotFound": "Usuario no encontrado.",
   "errorWrongPassword": "Contraseña incorrecta.",
+  "errorDomainNotAllowed": "Solo cuentas @multitecua.com pueden acceder.",
   "errorNetworkBadCertificate": "Fallo de conexión segura (error de certificado SSL).",
   "errorHttp400BadRequest": "Solicitud incorrecta.",
   "errorHttp401Unauthorized": "No autorizado.",

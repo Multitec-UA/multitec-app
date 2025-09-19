@@ -12,6 +12,16 @@ class MockAuthDataSource implements FirebaseAuthDataSource {
   }
 
   @override
+  Future<void> consumeRedirectIfPresent() async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+  }
+
+  @override
+  Future<void> validateSession() async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+  }
+
+  @override
   Future<void> signOut() async {
     await Future<void>.delayed(const Duration(seconds: 1));
   }

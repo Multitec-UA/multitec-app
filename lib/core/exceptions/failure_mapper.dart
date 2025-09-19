@@ -48,7 +48,7 @@ class FailureMapper {
       return const GenericFailure(code: 'filesystem_error');
     }
 
-    if (error is AppException) {
+    if (error is AuthDomainNotAllowedException) {
       return AppFailure(code: error.code, debugMessage: error.message);
     }
 

@@ -1,26 +1,46 @@
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:multitec_app/core/exceptions/app_exception.dart';
 import 'package:multitec_app/features/user/data/dtos/user_dto.dart';
 
 class FirebaseAuthDataSource {
   FirebaseAuthDataSource({
-    firebase_auth.FirebaseAuth? firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
+    FirebaseAuth? firebaseAuth,
+  }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
-  final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseAuth _firebaseAuth;
 
   Future<void> signInWithGoogle() async {
-    final provider = firebase_auth.GoogleAuthProvider();
+    final provider = GoogleAuthProvider();
     if (kIsWeb) {
       try {
-        await _firebaseAuth.signInWithPopup(provider);
+        final cred = await _firebaseAuth.signInWithPopup(provider);
+        await _enforceAllowedDomainOrSignOut(cred.user);
       } on Object {
         await _firebaseAuth.signInWithRedirect(provider);
       }
       return;
     }
-    await _firebaseAuth.signInWithProvider(provider);
+
+    final cred = await _firebaseAuth.signInWithProvider(provider);
+    //await _enforceAllowedDomainOrSignOut(cred.user);
   }
+
+  Future<void> _enforceAllowedDomainOrSignOut(User? user) async {
+    final email = user?.email?.toLowerCase() ?? '';
+    final valid = email.isNotEmpty && email.endsWith('@multitecua.com');
+
+    if (!valid) {
+      await _firebaseAuth.signOut();
+      throw AuthDomainNotAllowedException();
+    }
+  }
+
+  // Future<void> validateSession() async {
+  //   final user = _firebaseAuth.currentUser;
+  //   if (user == null) return;
+  //   await _enforceAllowedDomainOrSignOut(user);
+  // }
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
@@ -39,8 +59,7 @@ class FirebaseAuthDataSource {
   }
 
   // Streams to observe authentication and token changes
-  Stream<firebase_auth.User?> authStateChanges() =>
-      _firebaseAuth.authStateChanges();
+  Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
   Stream<String?> idTokenChanges() => _firebaseAuth
       .idTokenChanges()

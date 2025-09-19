@@ -19,6 +19,7 @@ extension FailureLocalizationX on Failure {
         _httpCodeMessage(l10n, httpCode),
       GenericFailure _ => l10n.genericError,
       UnknownFailure _ => l10n.genericError,
+      AppFailure(code: 'domain-not-allowed') => l10n.errorDomainNotAllowed,
       AppFailure _ => l10n.genericError,
       EmailAlreadyInUseFailure _ => l10n.errorEmailAlreadyInUse,
       InvalidCredentialsFailure _ => l10n.errorInvalidCredentials,

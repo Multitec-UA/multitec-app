@@ -8,6 +8,15 @@ sealed class AppException implements Exception {
   String toString() => message;
 }
 
+class AuthDomainNotAllowedException extends AppException {
+  AuthDomainNotAllowedException()
+      : super(
+          'domain-not-allowed',
+          'Solo cuentas @multitecua.com pueden acceder.',
+        );
+}
+
+// Examples
 class ExampleException extends AppException {
   ExampleException() : super('example', 'Example');
 }
