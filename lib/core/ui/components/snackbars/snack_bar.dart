@@ -25,6 +25,7 @@ class AppSnackBar extends SnackBar {
               shape ?? RoundedRectangleBorder(borderRadius: borderRadius.br10),
           behavior: behavior ?? SnackBarBehavior.floating,
         );
+
   AppSnackBar.success({
     required super.content,
     super.key,

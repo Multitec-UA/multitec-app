@@ -8,5 +8,7 @@ class AppBorderRadius {
   final br10 = BorderRadius.circular(10);
   final br12 = BorderRadius.circular(12);
   final br16 = BorderRadius.circular(16);
+  final br24 = BorderRadius.circular(24);
+  final br32 = BorderRadius.circular(32);
   final brMax = BorderRadius.circular(99999);
 }
