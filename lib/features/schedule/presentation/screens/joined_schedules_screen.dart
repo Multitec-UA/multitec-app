@@ -7,6 +7,7 @@ import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_state.dart';
@@ -79,17 +80,17 @@ class _Body extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 'No te has unido a ningún evento o actividad',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                style: context.textTheme.titleMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
               Text(
                 'Explora los eventos y actividades disponibles para unirte',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                    ),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
                 textAlign: TextAlign.center,
               ),
             ],

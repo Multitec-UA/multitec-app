@@ -6,6 +6,7 @@ import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/auth/presentation/widgets/sign_out_button.dart';
 import 'package:multitec_app/features/settings/presentation/cubits/locale_cubit.dart';
 import 'package:multitec_app/features/settings/presentation/cubits/theme_cubit.dart';
@@ -104,7 +105,7 @@ class _LanguageDropdown extends StatelessWidget {
                   style: TextStyle(
                     color: isSelected
                         ? Colors.white
-                        : Theme.of(context).textTheme.bodyMedium?.color,
+                        : context.textTheme.bodyMedium?.color,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -125,16 +126,16 @@ class _LanguageDropdown extends StatelessWidget {
                   children: [
                     Text(
                       'Idioma',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       _getLanguageDisplayName(currentLocale),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.grey.shade600,
-                          ),
+                      style: context.textTheme.bodySmall?.copyWith(
+                        color: Colors.grey.shade600,
+                      ),
                     ),
                   ],
                 ),
@@ -283,9 +284,9 @@ class _AccountSection extends StatelessWidget {
           spacings.y.s16,
           Text(
             'Cuenta',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+            style: context.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           spacings.y.s16,
           const SignOutButton(),

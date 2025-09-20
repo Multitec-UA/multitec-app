@@ -8,6 +8,7 @@ import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
@@ -94,9 +95,9 @@ class _HeaderSection extends StatelessWidget {
       children: [
         Text(
           item.title,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: context.textTheme.headlineMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         spacings.y.s8,
         if (item.category != null) ...[
@@ -108,17 +109,17 @@ class _HeaderSection extends StatelessWidget {
             ),
             child: Text(
               item.category!,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    fontWeight: FontWeight.w500,
-                  ),
+              style: context.textTheme.bodySmall?.copyWith(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           spacings.y.s16,
         ],
         Text(
           item.description,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: context.textTheme.bodyLarge,
         ),
       ],
     );
@@ -141,9 +142,9 @@ class _DetailsSection extends StatelessWidget {
       children: [
         Text(
           l10n.details,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          style: context.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         spacings.y.s16,
         _DetailRow(
@@ -202,14 +203,14 @@ class _DetailRow extends StatelessWidget {
             children: [
               Text(
                 '$label: ',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
+                style: context.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               Expanded(
                 child: Text(
                   value,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: context.textTheme.bodyMedium,
                 ),
               ),
             ],

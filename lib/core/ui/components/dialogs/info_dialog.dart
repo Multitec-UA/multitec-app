@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 
 Future<void> showInfoDialog({
   required BuildContext context,
@@ -46,9 +47,9 @@ Future<void> showInfoDialog({
               builder: (context) {
                 return Text(
                   actionButtonText ?? 'OK',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: context.colors.background,
-                      ),
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: context.colors.background,
+                  ),
                 );
               },
             ),

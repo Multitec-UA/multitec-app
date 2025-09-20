@@ -7,6 +7,7 @@ import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/user/domain/models/user.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
@@ -118,10 +119,10 @@ class _UserName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       name ?? 'Usuario',
-      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-            fontWeight: FontWeight.w700,
-            color: context.colors.primaryBase,
-          ),
+      style: context.textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.w700,
+        color: context.colors.primaryBase,
+      ),
     );
   }
 }
@@ -150,9 +151,9 @@ class _EmailBadge extends StatelessWidget {
           spacings.x.s8,
           Text(
             email,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: context.colors.gray40,
-                ),
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: context.colors.gray40,
+            ),
           ),
         ],
       ),
@@ -225,15 +226,15 @@ class _SettingsTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   Text(
                     subtitle,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: context.colors.gray30,
-                        ),
+                    style: context.textTheme.bodySmall?.copyWith(
+                      color: context.colors.gray30,
+                    ),
                   ),
                 ],
               ),

@@ -146,12 +146,12 @@ Future<void> serviceLocatorSetUp() async {
 
   /// Auth Feature ///
   // Datasources
-  locator.registerFactory<FirebaseAuthDataSource>(
+  locator.registerLazySingleton<FirebaseAuthDataSource>(
     () => useMocks ? MockAuthDataSource() : FirebaseAuthDataSource(),
   );
 
   // Repository
-  locator.registerFactory<AuthRepository>(
+  locator.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       locator<FirebaseAuthDataSource>(),
     ),
@@ -179,7 +179,7 @@ Future<void> serviceLocatorSetUp() async {
 
   /// User Feature ///
   // Repository
-  locator.registerFactory<UserRepository>(
+  locator.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(locator<FirebaseAuthDataSource>()),
   );
 
@@ -193,15 +193,15 @@ Future<void> serviceLocatorSetUp() async {
 
   /// Schedule Feature ///
   // Datasources
-  locator.registerFactory<ScheduleRemoteDataSource>(
+  locator.registerLazySingleton<ScheduleRemoteDataSource>(
     () => useMocks ? ScheduleMockDataSource() : ScheduleRemoteDataSource(),
   );
-  locator.registerFactory<ScheduleLocalDataSource>(
+  locator.registerLazySingleton<ScheduleLocalDataSource>(
     () => ScheduleLocalDataSource(locator<LocalDatabase>()),
   );
 
   // Repository
-  locator.registerFactory<ScheduleRepository>(
+  locator.registerLazySingleton<ScheduleRepository>(
     () => ScheduleRepositoryImpl(
       locator<ScheduleRemoteDataSource>(),
       locator<ScheduleLocalDataSource>(),

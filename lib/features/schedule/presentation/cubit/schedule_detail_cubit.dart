@@ -1,15 +1,14 @@
 import 'dart:async';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/utils/safe_cubit.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
 
-class ScheduleDetailCubit extends Cubit<ScheduleDetailState> {
+class ScheduleDetailCubit extends SafeCubit<ScheduleDetailState> {
   ScheduleDetailCubit({
     required ScheduleItem item,
     required IsJoinedUseCase isJoinedUseCase,
