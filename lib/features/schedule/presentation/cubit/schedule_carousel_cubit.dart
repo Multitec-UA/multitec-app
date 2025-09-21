@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/utils/safe_cubit.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
@@ -8,7 +8,7 @@ import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carou
 
 class ScheduleCarouselCubit extends SafeCubit<ScheduleCarouselState> {
   ScheduleCarouselCubit(this._getLatestScheduleItems, this._eventBus)
-      : super(const ScheduleCarouselState()) {
+    : super(const ScheduleCarouselState()) {
     eventSuscription = _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
@@ -19,30 +19,24 @@ class ScheduleCarouselCubit extends SafeCubit<ScheduleCarouselState> {
   late StreamSubscription<void> eventSuscription;
 
   Future<void> loadLatestScheduleItems() async {
-    emit(state.copyWith(status: StateStatus.loading));
+    emit(state.copyWith(status: RequestStatus.loading));
 
     final result = await _getLatestScheduleItems();
 
     result.when(
       (items) => emit(
         state.copyWith(
-          status: StateStatus.loaded,
+          status: RequestStatus.success,
           items: items,
           failure: null,
         ),
       ),
-      (failure) => emit(
-        state.copyWith(
-          status: StateStatus.error,
-          failure: failure,
-        ),
-      ),
+      (failure) =>
+          emit(state.copyWith(status: RequestStatus.failure, failure: failure)),
     );
   }
 
-  void _handleAttendeeCountChanged(
-    ScheduleItemAttendanceToggledEvent event,
-  ) {
+  void _handleAttendeeCountChanged(ScheduleItemAttendanceToggledEvent event) {
     final updatedItems = state.items.map((item) {
       if (item.id == event.scheduleItem.id) {
         final delta = event.join ? 1 : -1;

@@ -41,18 +41,16 @@ class _Body extends StatelessWidget {
     return BlocListener<ExampleCubit, ExampleState>(
       listenWhen: (prev, curr) => prev.reportStatus != curr.reportStatus,
       listener: (context, state) {
-        if (state.reportStatus.isLoaded) {
+        if (state.reportStatus.isSuccess) {
           context.showSnackBar(
             AppSnackBar.success(
               content: const Text('Informe enviado correctamente'),
             ),
           );
-        } else if (state.reportStatus.isError) {
+        } else if (state.reportStatus.isFailure) {
           context.showSnackBar(
             AppSnackBar.error(
-              content: Text(
-                state.reportFailure.toLocalizedMessage(context),
-              ),
+              content: Text(state.reportFailure.toLocalizedMessage(context)),
             ),
           );
         }
@@ -108,17 +106,15 @@ class _ListSection extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state.listStatus.isError) {
+        if (state.listStatus.isFailure) {
           return ExampleListErrorPlaceholder(
             message: state.listFailure.toExampleListMessage(context),
             onRetry: () => context.read<ExampleCubit>().loadExampleItems(),
           );
         }
 
-        if (state.listStatus.isLoaded && state.items.isEmpty) {
-          return const Center(
-            child: Text('No hay elementos disponibles'),
-          );
+        if (state.listStatus.isSuccess && state.items.isEmpty) {
+          return const Center(child: Text('No hay elementos disponibles'));
         }
 
         return RefreshIndicator(
@@ -146,7 +142,7 @@ extension _ExampleListFailureL10nX on Failure? {
         'No se ha podido obtener la lista debido a un fallo de conexión',
       TimeoutFailure _ =>
         'No se ha podido obtener la lista porque ha tardado demasiado',
-      _ => toLocalizedMessage(context)
+      _ => toLocalizedMessage(context),
     };
   }
 }

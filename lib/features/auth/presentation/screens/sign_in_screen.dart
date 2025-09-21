@@ -21,9 +21,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => SignInCubit(
-          locator<SignInWithGoogleUseCase>(),
-        ),
+        create: (_) => SignInCubit(locator<SignInWithGoogleUseCase>()),
         child: const _Body(),
       ),
     );
@@ -37,12 +35,10 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignInCubit, SignInState>(
       listener: (context, state) {
-        if (state.status.isError) {
+        if (state.status.isFailure) {
           context.showSnackBar(
             AppSnackBar.error(
-              content: Text(
-                state.failure.toLocalizedMessage(context),
-              ),
+              content: Text(state.failure.toLocalizedMessage(context)),
             ),
           );
         }
@@ -64,8 +60,9 @@ class _SignInContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final isLoading =
-        context.select<SignInCubit, bool>((c) => c.state.status.isLoading);
+    final isLoading = context.select<SignInCubit, bool>(
+      (c) => c.state.status.isLoading,
+    );
 
     return Column(
       children: [
@@ -74,8 +71,9 @@ class _SignInContent extends StatelessWidget {
         Text(
           'Bienvenido a Multitec',
           textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.w700),
+          style: theme.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
         ),
         spacings.y.s8,
         Text(
@@ -136,13 +134,8 @@ class _SignInContent extends StatelessWidget {
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () async {
-                    final uri = Uri.parse(
-                      'https://www.google.com',
-                    );
-                    await launchUrl(
-                      uri,
-                      mode: LaunchMode.externalApplication,
-                    );
+                    final uri = Uri.parse('https://www.google.com');
+                    await launchUrl(uri, mode: LaunchMode.externalApplication);
                   },
               ),
               TextSpan(
@@ -182,8 +175,9 @@ class _GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLoading =
-        context.select<SignInCubit, bool>((c) => c.state.status.isLoading);
+    final isLoading = context.select<SignInCubit, bool>(
+      (c) => c.state.status.isLoading,
+    );
 
     return SizedBox(
       height: 52,
@@ -214,8 +208,10 @@ class _GoogleSignInButton extends StatelessWidget {
                 isLoading ? 'Iniciando sesión...' : 'Iniciar sesión con Google',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
           ],

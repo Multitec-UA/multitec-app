@@ -1,4 +1,4 @@
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 
 sealed class ScheduleEvent {
   const ScheduleEvent();

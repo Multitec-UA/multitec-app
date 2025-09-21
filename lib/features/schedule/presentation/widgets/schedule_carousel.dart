@@ -4,18 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/router/app_router.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_state.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
 
 class ScheduleCarousel extends StatelessWidget {
-  const ScheduleCarousel({
-    super.key,
-  });
+  const ScheduleCarousel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +36,13 @@ class _CarouselBody extends StatelessWidget {
       builder: (context, state) {
         //TODO: Ver si esto es pattern matching y si usar en otras partes de la app
         return switch (state.status) {
-          StateStatus.initial || StateStatus.loading => const _LoadingState(),
-          StateStatus.loaded => _LoadedState(items: state.items),
-          StateStatus.error => _ErrorState(
-              onRetry: () => context
-                  .read<ScheduleCarouselCubit>()
-                  .loadLatestScheduleItems(),
-            ),
+          RequestStatus.initial ||
+          RequestStatus.loading => const _LoadingState(),
+          RequestStatus.success => _LoadedState(items: state.items),
+          RequestStatus.failure => _ErrorState(
+            onRetry: () =>
+                context.read<ScheduleCarouselCubit>().loadLatestScheduleItems(),
+          ),
         };
       },
     );
@@ -139,10 +137,7 @@ class _LoadedState extends StatelessWidget {
           }
 
           final item = items[index];
-          return SizedBox(
-            width: 290,
-            child: ScheduleListItem(item: item),
-          );
+          return SizedBox(width: 290, child: ScheduleListItem(item: item));
         },
       ),
     );
@@ -206,11 +201,7 @@ class _ErrorState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 48,
-              color: theme.colorScheme.error,
-            ),
+            Icon(Icons.error_outline, size: 48, color: theme.colorScheme.error),
             const SizedBox(height: 16),
             Text(
               'Error al cargar eventos',
@@ -227,10 +218,7 @@ class _ErrorState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: onRetry,
-              child: const Text('Reintentar'),
-            ),
+            ElevatedButton(onPressed: onRetry, child: const Text('Reintentar')),
           ],
         ),
       ),

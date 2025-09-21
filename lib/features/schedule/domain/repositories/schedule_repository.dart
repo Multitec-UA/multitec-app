@@ -1,10 +1,10 @@
 import 'package:multiple_result/multiple_result.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
-import 'package:multitec_app/features/schedule/domain/models/paginated_result.dart';
-import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
-import 'package:multitec_app/features/user/domain/models/user.dart';
+import 'package:multitec_app/features/schedule/domain/entities/paginated_result.dart';
+import 'package:multitec_app/features/schedule/domain/entities/pagination_params.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
+import 'package:multitec_app/features/user/domain/entities/user.dart';
 
 abstract class ScheduleRepository {
   Future<Result<PaginatedResult<ScheduleItem>, Failure>> getScheduleItemsByType(

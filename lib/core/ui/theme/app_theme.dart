@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/ui/theme/app_colors.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
-import 'package:multitec_app/core/ui/theme/colors.dart';
 
 final _baseTheme = ThemeData(useMaterial3: true);
 const lightColors = LightColors();
 const darkColors = DarkColors();
 
 final themeLight = _baseTheme.copyWith(
-  extensions: const <ThemeExtension<dynamic>>[
-    AppColorsTheme.light,
-  ],
+  extensions: const <ThemeExtension<dynamic>>[AppColorsTheme.light],
 
   // General theme colors
   scaffoldBackgroundColor: lightColors.background,
@@ -71,18 +69,9 @@ final themeLight = _baseTheme.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w600,
     ),
-    bodyLarge: TextStyle(
-      color: lightColors.textPrimary,
-      fontSize: 16,
-    ),
-    bodyMedium: TextStyle(
-      color: lightColors.textPrimary,
-      fontSize: 14,
-    ),
-    bodySmall: TextStyle(
-      color: lightColors.textPrimary,
-      fontSize: 12,
-    ),
+    bodyLarge: TextStyle(color: lightColors.textPrimary, fontSize: 16),
+    bodyMedium: TextStyle(color: lightColors.textPrimary, fontSize: 14),
+    bodySmall: TextStyle(color: lightColors.textPrimary, fontSize: 12),
     labelLarge: TextStyle(
       color: lightColors.textPrimary,
       fontSize: 14,
@@ -121,9 +110,7 @@ final themeLight = _baseTheme.copyWith(
 );
 
 final themeDark = _baseTheme.copyWith(
-  extensions: const <ThemeExtension<dynamic>>[
-    AppColorsTheme.dark,
-  ],
+  extensions: const <ThemeExtension<dynamic>>[AppColorsTheme.dark],
 
   // General theme colors
   scaffoldBackgroundColor: darkColors.background,
@@ -187,18 +174,9 @@ final themeDark = _baseTheme.copyWith(
       fontSize: 14,
       fontWeight: FontWeight.w600,
     ),
-    bodyLarge: TextStyle(
-      color: darkColors.textPrimary,
-      fontSize: 16,
-    ),
-    bodyMedium: TextStyle(
-      color: darkColors.textPrimary,
-      fontSize: 14,
-    ),
-    bodySmall: TextStyle(
-      color: darkColors.textPrimary,
-      fontSize: 12,
-    ),
+    bodyLarge: TextStyle(color: darkColors.textPrimary, fontSize: 16),
+    bodyMedium: TextStyle(color: darkColors.textPrimary, fontSize: 14),
+    bodySmall: TextStyle(color: darkColors.textPrimary, fontSize: 12),
     labelLarge: TextStyle(
       color: darkColors.textPrimary,
       fontSize: 14,

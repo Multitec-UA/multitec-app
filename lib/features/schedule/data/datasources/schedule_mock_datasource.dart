@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
 import 'package:multitec_app/features/schedule/data/dtos/paginated_result_dto.dart';
 import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
-import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
-import 'package:multitec_app/features/user/domain/models/user.dart';
+import 'package:multitec_app/features/schedule/domain/entities/pagination_params.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
+import 'package:multitec_app/features/user/domain/entities/user.dart';
 
 class ScheduleMockDataSource implements ScheduleRemoteDataSource {
   ScheduleMockDataSource();
@@ -78,8 +78,9 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
     await Future<void>.delayed(const Duration(seconds: 2));
 
     final now = DateTime.now();
-    final baseItems =
-        type == ScheduleType.event ? _mockEvents : _mockActivities;
+    final baseItems = type == ScheduleType.event
+        ? _mockEvents
+        : _mockActivities;
 
     final allItems = <ScheduleItemDto>[];
 
@@ -97,10 +98,12 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
         'category': item['category'] as String?,
         'published': true,
         'attendeesCount': item['attendeesCount']! as int,
-        'createdAt':
-            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
-        'updatedAt':
-            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+        'createdAt': now.subtract(
+          Duration(days: (item['daysFromNow']! as int) + 1),
+        ),
+        'updatedAt': now.subtract(
+          Duration(days: (item['daysFromNow']! as int) + 1),
+        ),
       };
 
       allItems.add(ScheduleItemDto.fromMap(data));
@@ -119,8 +122,9 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
     final endIndex = (startIndex + params.limit).clamp(0, allItems.length);
     final paginatedItems = allItems.sublist(startIndex, endIndex);
     final hasMore = endIndex < allItems.length;
-    final nextCursor =
-        hasMore && paginatedItems.isNotEmpty ? paginatedItems.last.id : null;
+    final nextCursor = hasMore && paginatedItems.isNotEmpty
+        ? paginatedItems.last.id
+        : null;
 
     return PaginatedResultDto<ScheduleItemDto>(
       items: paginatedItems,
@@ -151,14 +155,15 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
         'category': item['category'] as String?,
         'published': true,
         'attendeesCount': item['attendeesCount']! as int,
-        'createdAt':
-            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
-        'updatedAt':
-            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+        'createdAt': now.subtract(
+          Duration(days: (item['daysFromNow']! as int) + 1),
+        ),
+        'updatedAt': now.subtract(
+          Duration(days: (item['daysFromNow']! as int) + 1),
+        ),
       };
       return ScheduleItemDto.fromMap(data);
-    }).toList()
-      ..sort((a, b) => a.startsAt.compareTo(b.startsAt));
+    }).toList()..sort((a, b) => a.startsAt.compareTo(b.startsAt));
     return items.take(limit).toList();
   }
 
@@ -229,10 +234,12 @@ class ScheduleMockDataSource implements ScheduleRemoteDataSource {
         'category': item['category'] as String?,
         'published': true,
         'attendeesCount': item['attendeesCount']! as int,
-        'createdAt':
-            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
-        'updatedAt':
-            now.subtract(Duration(days: (item['daysFromNow']! as int) + 1)),
+        'createdAt': now.subtract(
+          Duration(days: (item['daysFromNow']! as int) + 1),
+        ),
+        'updatedAt': now.subtract(
+          Duration(days: (item['daysFromNow']! as int) + 1),
+        ),
       };
       items.add(ScheduleItemDto.fromMap(data));
     }

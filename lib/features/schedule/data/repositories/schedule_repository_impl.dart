@@ -4,12 +4,12 @@ import 'package:multitec_app/core/exceptions/guard.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
 import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
-import 'package:multitec_app/features/schedule/domain/models/paginated_result.dart';
-import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/schedule/domain/entities/paginated_result.dart';
+import 'package:multitec_app/features/schedule/domain/entities/pagination_params.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
-import 'package:multitec_app/features/user/domain/models/user.dart';
+import 'package:multitec_app/features/user/domain/entities/user.dart';
 
 class ScheduleRepositoryImpl implements ScheduleRepository {
   ScheduleRepositoryImpl(this._remote, this._local);
@@ -22,41 +22,32 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     ScheduleType type,
     PaginationParams params,
   ) {
-    return guardAsync<PaginatedResult<ScheduleItem>>(
-      () async {
-        final paginatedDto = await _remote.getScheduleItemsByType(type, params);
-        return paginatedDto.toDomain((dto) => dto.toDomain());
-      },
-      hint: 'ScheduleRepository.getScheduleItemsByType',
-    );
+    return guardAsync<PaginatedResult<ScheduleItem>>(() async {
+      final paginatedDto = await _remote.getScheduleItemsByType(type, params);
+      return paginatedDto.toDomain((dto) => dto.toDomain());
+    }, hint: 'ScheduleRepository.getScheduleItemsByType');
   }
 
   @override
   Future<Result<List<ScheduleItem>, Failure>> getLatestScheduleItems({
     int limit = 5,
   }) {
-    return guardAsync<List<ScheduleItem>>(
-      () async {
-        final dtos = await _remote.getLatestScheduleItems(limit: limit);
-        return dtos.map((e) => e.toDomain()).toList();
-      },
-      hint: 'ScheduleRepository.getLatestScheduleItems',
-    );
+    return guardAsync<List<ScheduleItem>>(() async {
+      final dtos = await _remote.getLatestScheduleItems(limit: limit);
+      return dtos.map((e) => e.toDomain()).toList();
+    }, hint: 'ScheduleRepository.getLatestScheduleItems');
   }
 
   @override
   Future<Result<Unit, Failure>> joinScheduleItem(ScheduleItem item, User user) {
-    return guardAsync<Unit>(
-      () async {
-        await _remote.joinScheduleItem(item.id, user);
-        final dto = ScheduleItemDto.fromDomain(item).copyWith(
-          joinedAt: DateTime.now(),
-        );
-        await _local.saveJoinedScheduleItem(dto);
-        return unit;
-      },
-      hint: 'ScheduleRepository.joinScheduleItem',
-    );
+    return guardAsync<Unit>(() async {
+      await _remote.joinScheduleItem(item.id, user);
+      final dto = ScheduleItemDto.fromDomain(
+        item,
+      ).copyWith(joinedAt: DateTime.now());
+      await _local.saveJoinedScheduleItem(dto);
+      return unit;
+    }, hint: 'ScheduleRepository.joinScheduleItem');
   }
 
   @override
@@ -64,26 +55,20 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     ScheduleItem item,
     User user,
   ) {
-    return guardAsync<Unit>(
-      () async {
-        await _remote.leaveScheduleItem(item.id, user);
-        await _local.removeJoinedScheduleItem(item.id);
-        return unit;
-      },
-      hint: 'ScheduleRepository.leaveScheduleItem',
-    );
+    return guardAsync<Unit>(() async {
+      await _remote.leaveScheduleItem(item.id, user);
+      await _local.removeJoinedScheduleItem(item.id);
+      return unit;
+    }, hint: 'ScheduleRepository.leaveScheduleItem');
   }
 
   @override
   Future<Result<bool, Failure>> isJoined(String itemId, User user) {
-    return guardAsync<bool>(
-      () async {
-        final existsLocalJoined = await _local.existsJoinedScheduleItem(itemId);
-        if (existsLocalJoined) return true;
-        return _remote.isJoined(itemId, user);
-      },
-      hint: 'ScheduleRepository.isJoined',
-    );
+    return guardAsync<bool>(() async {
+      final existsLocalJoined = await _local.existsJoinedScheduleItem(itemId);
+      if (existsLocalJoined) return true;
+      return _remote.isJoined(itemId, user);
+    }, hint: 'ScheduleRepository.isJoined');
   }
 
   @override
@@ -91,35 +76,30 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     String userId,
     PaginationParams params,
   ) async {
-    return guardAsync<PaginatedResult<ScheduleItem>>(
-      () async {
-        //TODO: Revisarlo y ordenarlo
-        if (params.cursor == null) {
-          final localItems = await _local.getJoinedScheduleItems();
-          if (localItems.isNotEmpty) {
-            // Actualizamos la caché en segundo plano
-            await _refreshJoinedSchedulesInBackground(userId);
-            final domainItems =
-                localItems.map((dto) => dto.toDomain()).toList();
-            return PaginatedResult<ScheduleItem>(
-              items: domainItems,
-              nextCursor: domainItems.isNotEmpty ? domainItems.last.id : null,
-              hasMore: true,
-            );
-          }
+    return guardAsync<PaginatedResult<ScheduleItem>>(() async {
+      //TODO: Revisarlo y ordenarlo
+      if (params.cursor == null) {
+        final localItems = await _local.getJoinedScheduleItems();
+        if (localItems.isNotEmpty) {
+          // Actualizamos la caché en segundo plano
+          await _refreshJoinedSchedulesInBackground(userId);
+          final domainItems = localItems.map((dto) => dto.toDomain()).toList();
+          return PaginatedResult<ScheduleItem>(
+            items: domainItems,
+            nextCursor: domainItems.isNotEmpty ? domainItems.last.id : null,
+            hasMore: true,
+          );
         }
+      }
 
-        // Para páginas siguientes o si no hay caché local, vamos a red
-        final paginatedDto =
-            await _remote.getJoinedScheduleItems(userId, params);
+      // Para páginas siguientes o si no hay caché local, vamos a red
+      final paginatedDto = await _remote.getJoinedScheduleItems(userId, params);
 
-        // Guardamos los resultados en caché (hace merge automático)
-        await _local.saveJoinedScheduleItems(paginatedDto.items);
+      // Guardamos los resultados en caché (hace merge automático)
+      await _local.saveJoinedScheduleItems(paginatedDto.items);
 
-        return paginatedDto.toDomain((dto) => dto.toDomain());
-      },
-      hint: 'ScheduleRepository.getJoinedScheduleItems',
-    );
+      return paginatedDto.toDomain((dto) => dto.toDomain());
+    }, hint: 'ScheduleRepository.getJoinedScheduleItems');
   }
 
   Future<void> _refreshJoinedSchedulesInBackground(String userId) async {
@@ -136,12 +116,9 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
 
   @override
   Future<Result<Unit, Failure>> clearJoinedScheduleLocal() {
-    return guardAsync<Unit>(
-      () async {
-        await _local.clearJoinedScheduleItems();
-        return unit;
-      },
-      hint: 'ScheduleRepository.clearJoinedScheduleLocal',
-    );
+    return guardAsync<Unit>(() async {
+      await _local.clearJoinedScheduleItems();
+      return unit;
+    }, hint: 'ScheduleRepository.clearJoinedScheduleLocal');
   }
 }

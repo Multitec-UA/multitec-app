@@ -9,8 +9,8 @@ import 'package:multitec_app/features/auth/presentation/screens/sign_in_screen.d
 import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/joined_schedules_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_detail_screen.dart';
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
@@ -86,9 +86,8 @@ final goRouter = GoRouter(
             GoRoute(
               name: AppRoute.home.name,
               path: AppRoute.home.path,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: HomeScreen(),
-              ),
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: HomeScreen()),
               routes: [
                 GoRoute(
                   parentNavigatorKey: _shellNavigatorHomeKey,
@@ -110,9 +109,7 @@ final goRouter = GoRouter(
                 key: ValueKey(
                   'schedule-${(state.extra as ScheduleType?)?.name ?? 'default'}',
                 ),
-                child: ScheduleScreen(
-                  initialTab: state.extra as ScheduleType?,
-                ),
+                child: ScheduleScreen(initialTab: state.extra as ScheduleType?),
               ),
               routes: [
                 GoRoute(
@@ -122,9 +119,7 @@ final goRouter = GoRouter(
                   builder: (context, state) {
                     final item = state.extra as ScheduleItem?;
                     if (item != null) {
-                      return ScheduleDetailScreen(
-                        item: item,
-                      );
+                      return ScheduleDetailScreen(item: item);
                     }
                     return const NotFoundScreen();
                   },
@@ -151,9 +146,8 @@ final goRouter = GoRouter(
             GoRoute(
               name: AppRoute.profile.name,
               path: AppRoute.profile.path,
-              pageBuilder: (context, state) => const NoTransitionPage(
-                child: ProfileScreen(),
-              ),
+              pageBuilder: (context, state) =>
+                  const NoTransitionPage(child: ProfileScreen()),
               routes: [
                 GoRoute(
                   parentNavigatorKey: _shellNavigatorProfileKey,

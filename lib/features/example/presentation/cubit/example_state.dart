@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
-import 'package:multitec_app/features/example/domain/models/example_item.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/features/example/domain/entities/example_item.dart';
 
 part 'example_state.freezed.dart';
 
@@ -9,8 +9,8 @@ part 'example_state.freezed.dart';
 sealed class ExampleState with _$ExampleState {
   const factory ExampleState({
     @Default(<ExampleItem>[]) List<ExampleItem> items,
-    @Default(StateStatus.initial) StateStatus listStatus,
-    @Default(StateStatus.initial) StateStatus reportStatus,
+    @Default(RequestStatus.initial) RequestStatus listStatus,
+    @Default(RequestStatus.initial) RequestStatus reportStatus,
     Failure? listFailure,
     Failure? reportFailure,
   }) = _ExampleState;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multitec_app/core/ui/theme/colors.dart';
+import 'package:multitec_app/core/ui/theme/app_colors.dart';
 
 @immutable
 class AppColorsTheme extends ThemeExtension<AppColorsTheme> {

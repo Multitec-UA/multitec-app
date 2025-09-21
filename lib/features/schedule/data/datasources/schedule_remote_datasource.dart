@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:multitec_app/features/schedule/data/dtos/paginated_result_dto.dart';
 import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
-import 'package:multitec_app/features/schedule/domain/models/pagination_params.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
-import 'package:multitec_app/features/user/domain/models/user.dart';
+import 'package:multitec_app/features/schedule/domain/entities/pagination_params.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
+import 'package:multitec_app/features/user/domain/entities/user.dart';
 
 class ScheduleRemoteDataSource {
-  ScheduleRemoteDataSource({
-    FirebaseFirestore? firestore,
-  }) : _firestore = firestore ?? FirebaseFirestore.instance;
+  ScheduleRemoteDataSource({FirebaseFirestore? firestore})
+    : _firestore = firestore ?? FirebaseFirestore.instance;
 
   final FirebaseFirestore _firestore;
 
@@ -23,8 +22,10 @@ class ScheduleRemoteDataSource {
         .orderBy('createdAt', descending: true);
 
     if (params.cursor != null) {
-      final cursorDoc =
-          await _firestore.collection('schedule').doc(params.cursor).get();
+      final cursorDoc = await _firestore
+          .collection('schedule')
+          .doc(params.cursor)
+          .get();
       if (cursorDoc.exists) {
         query = query.startAfterDocument(cursorDoc);
       }
@@ -92,13 +93,9 @@ class ScheduleRemoteDataSource {
         'displayName': user.name,
       });
 
-      tx.set(userAttendRef, {
-        'joinedAt': FieldValue.serverTimestamp(),
-      });
+      tx.set(userAttendRef, {'joinedAt': FieldValue.serverTimestamp()});
 
-      tx.update(itemRef, {
-        'attendeesCount': FieldValue.increment(1),
-      });
+      tx.update(itemRef, {'attendeesCount': FieldValue.increment(1)});
     });
   }
 
@@ -118,9 +115,7 @@ class ScheduleRemoteDataSource {
       tx.delete(attendeeRef);
       tx.delete(userAttendRef);
 
-      tx.update(itemRef, {
-        'attendeesCount': FieldValue.increment(-1),
-      });
+      tx.update(itemRef, {'attendeesCount': FieldValue.increment(-1)});
     });
   }
 
@@ -170,15 +165,17 @@ class ScheduleRemoteDataSource {
     }
 
     final hasMore = joinedDocs.length > params.limit;
-    final itemDocs =
-        hasMore ? joinedDocs.take(params.limit).toList() : joinedDocs;
+    final itemDocs = hasMore
+        ? joinedDocs.take(params.limit).toList()
+        : joinedDocs;
 
     final ids = itemDocs.map((d) => d.id).toList();
     final items = <ScheduleItemDto>[];
 
     final joinedAtById = {
       for (final d in itemDocs)
-        d.id: (d.data()['joinedAt'] as Timestamp?)?.toDate() ??
+        d.id:
+            (d.data()['joinedAt'] as Timestamp?)?.toDate() ??
             DateTime.fromMillisecondsSinceEpoch(0),
     };
 
@@ -193,8 +190,9 @@ class ScheduleRemoteDataSource {
       for (final doc in scheduleQuery.docs) {
         final data = doc.data();
         data.addEntries({'id': doc.id}.entries);
-        final dto = ScheduleItemDto.fromMap(data)
-            .copyWith(joinedAt: joinedAtById[doc.id]);
+        final dto = ScheduleItemDto.fromMap(
+          data,
+        ).copyWith(joinedAt: joinedAtById[doc.id]);
         items.add(dto);
       }
     }

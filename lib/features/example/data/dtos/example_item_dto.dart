@@ -1,31 +1,22 @@
-import 'package:multitec_app/features/example/domain/models/example_item.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:multitec_app/features/example/domain/entities/example_item.dart';
 
-class ExampleItemDto {
-  const ExampleItemDto({
-    required this.id,
-    required this.title,
-    this.description,
-  });
+part 'example_item_dto.freezed.dart';
+part 'example_item_dto.g.dart';
 
-  factory ExampleItemDto.fromJson(Map<String, dynamic> json) => ExampleItemDto(
-        id: json['id'] as String,
-        title: json['title'] as String,
-        description: json['description'] as String?,
-      );
+@freezed
+abstract class ExampleItemDto with _$ExampleItemDto {
+  const factory ExampleItemDto({
+    required String id,
+    required String title,
+    String? description,
+  }) = _ExampleItemDto;
 
-  final String id;
-  final String title;
-  final String? description;
+  const ExampleItemDto._();
 
-  ExampleItem toDomain() => ExampleItem(
-        id: id,
-        title: title,
-        description: description,
-      );
+  factory ExampleItemDto.fromJson(Map<String, dynamic> json) =>
+      _$ExampleItemDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'title': title,
-        if (description != null) 'description': description,
-      };
+  ExampleItem toDomain() =>
+      ExampleItem(id: id, title: title, description: description);
 }

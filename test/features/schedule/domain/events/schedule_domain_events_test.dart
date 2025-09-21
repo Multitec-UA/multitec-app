@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 
 void main() {
   group('ScheduleDomainEvents', () {

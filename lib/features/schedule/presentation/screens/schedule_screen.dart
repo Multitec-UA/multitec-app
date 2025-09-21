@@ -7,7 +7,7 @@ import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_state.dart';
@@ -91,12 +91,12 @@ class _Body extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state.status.isError && state.items.isEmpty) {
+        if (state.status.isFailure && state.items.isEmpty) {
           return ScheduleListErrorPlaceholder(
             message: state.failure.toScheduleListMessage(context),
-            onRetry: () => context
-                .read<ScheduleCubit>()
-                .loadScheduleItems(isRefreshing: true),
+            onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(
+              isRefreshing: true,
+            ),
           );
         }
 
@@ -104,9 +104,7 @@ class _Body extends StatelessWidget {
           return _ListSection(state: state);
         }
 
-        return const Center(
-          child: Text('No hay elementos disponibles'),
-        );
+        return const Center(child: Text('No hay elementos disponibles'));
       },
     );
   }
@@ -163,10 +161,12 @@ class _ListSectionState extends State<_ListSection> {
         itemBuilder: (context, index) {
           if (index >= widget.state.items.length) {
             return _LoadMoreIndicator(
-              isLoading: widget.state.status.isLoading &&
+              isLoading:
+                  widget.state.status.isLoading &&
                   widget.state.items.isNotEmpty,
               hasError:
-                  widget.state.status.isError && widget.state.items.isNotEmpty,
+                  widget.state.status.isFailure &&
+                  widget.state.items.isNotEmpty,
               onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
             );
           }
@@ -230,7 +230,7 @@ extension _ScheduleListFailureL10nX on Failure? {
         'No se ha podido obtener la lista debido a un fallo de conexión',
       TimeoutFailure _ =>
         'No se ha podido obtener la lista porque ha tardado demasiado',
-      _ => toLocalizedMessage(context)
+      _ => toLocalizedMessage(context),
     };
   }
 }

@@ -6,20 +6,17 @@ import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
 
 class ScheduleDetailScreen extends StatelessWidget {
-  const ScheduleDetailScreen({
-    required this.item,
-    super.key,
-  });
+  const ScheduleDetailScreen({required this.item, super.key});
 
   final ScheduleItem item;
 
@@ -52,7 +49,7 @@ class _ScheduleDetailView extends StatelessWidget {
       ),
       body: BlocConsumer<ScheduleDetailCubit, ScheduleDetailState>(
         listener: (context, state) {
-          if (state.toggleJoinStatus == StateStatus.error &&
+          if (state.toggleJoinStatus == RequestStatus.failure &&
               state.failure != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -117,10 +114,7 @@ class _HeaderSection extends StatelessWidget {
           ),
           spacings.y.s16,
         ],
-        Text(
-          item.description,
-          style: context.textTheme.bodyLarge,
-        ),
+        Text(item.description, style: context.textTheme.bodyLarge),
       ],
     );
   }
@@ -207,12 +201,7 @@ class _DetailRow extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Expanded(
-                child: Text(
-                  value,
-                  style: context.textTheme.bodyMedium,
-                ),
-              ),
+              Expanded(child: Text(value, style: context.textTheme.bodyMedium)),
             ],
           ),
         ),
@@ -222,10 +211,7 @@ class _DetailRow extends StatelessWidget {
 }
 
 class _JoinSection extends StatelessWidget {
-  const _JoinSection({
-    required this.isJoined,
-    required this.isInitial,
-  });
+  const _JoinSection({required this.isJoined, required this.isInitial});
 
   final bool isJoined;
   final bool isInitial;

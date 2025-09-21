@@ -1,38 +1,22 @@
-import 'package:multitec_app/features/user/domain/models/user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:multitec_app/features/user/domain/entities/user.dart';
 
-class UserDTO {
-  const UserDTO({
-    required this.id,
-    required this.name,
-    required this.email,
-    this.photoUrl,
-  });
+part 'user_dto.freezed.dart';
+part 'user_dto.g.dart';
 
-  factory UserDTO.fromJson(Map<String, dynamic> json) {
-    return UserDTO(
-      id: json['id'] as String? ?? '',
-      name: json['name'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      photoUrl: json['photoUrl'] as String?,
-    );
-  }
+@freezed
+abstract class UserDTO with _$UserDTO {
+  const factory UserDTO({
+    required String id,
+    required String name,
+    required String email,
+    String? photoUrl,
+  }) = _UserDTO;
 
-  final String id;
-  final String name;
-  final String email;
-  final String? photoUrl;
+  const UserDTO._();
 
-  User toDomain() => User(
-        id: id,
-        name: name,
-        email: email,
-        photoUrl: photoUrl,
-      );
+  factory UserDTO.fromJson(Map<String, dynamic> json) =>
+      _$UserDTOFromJson(json);
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'id': id,
-        'name': name,
-        'email': email,
-        'photoUrl': photoUrl,
-      };
+  User toDomain() => User(id: id, name: name, email: email, photoUrl: photoUrl);
 }

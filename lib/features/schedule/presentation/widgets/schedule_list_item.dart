@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 
 class ScheduleListItem extends StatelessWidget {
   const ScheduleListItem({required this.item, super.key});
@@ -68,10 +68,7 @@ class ScheduleListItem extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
-                item.description,
-                style: theme.textTheme.bodyMedium,
-              ),
+              Text(item.description, style: theme.textTheme.bodyMedium),
               const SizedBox(height: 12),
               Row(
                 children: [

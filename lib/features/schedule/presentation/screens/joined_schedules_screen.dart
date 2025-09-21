@@ -55,7 +55,7 @@ class _Body extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (state.status.isError && state.items.isEmpty) {
+        if (state.status.isFailure && state.items.isEmpty) {
           return ScheduleListErrorPlaceholder(
             message: state.failure.toJoinedSchedulesMessage(context),
             onRetry: () => context
@@ -143,9 +143,9 @@ class _ListSectionState extends State<_ListSection> {
     final itemCount =
         widget.state.items.length + (widget.state.hasMore ? 1 : 0);
     return RefreshIndicator(
-      onRefresh: () => context
-          .read<JoinedSchedulesCubit>()
-          .loadJoinedSchedules(isRefreshing: true),
+      onRefresh: () => context.read<JoinedSchedulesCubit>().loadJoinedSchedules(
+        isRefreshing: true,
+      ),
       child: ListView.builder(
         controller: _scrollController,
         physics: const AlwaysScrollableScrollPhysics(),
@@ -153,10 +153,12 @@ class _ListSectionState extends State<_ListSection> {
         itemBuilder: (context, index) {
           if (index >= widget.state.items.length) {
             return _LoadMoreIndicator(
-              isLoading: widget.state.status.isLoading &&
+              isLoading:
+                  widget.state.status.isLoading &&
                   widget.state.items.isNotEmpty,
               hasError:
-                  widget.state.status.isError && widget.state.items.isNotEmpty,
+                  widget.state.status.isFailure &&
+                  widget.state.items.isNotEmpty,
               onRetry: () =>
                   context.read<JoinedSchedulesCubit>().loadJoinedSchedules(),
             );
@@ -221,7 +223,7 @@ extension _JoinedSchedulesFailureL10nX on Failure? {
         'No se han podido obtener tus eventos debido a un fallo de conexión',
       TimeoutFailure _ =>
         'No se han podido obtener tus eventos porque ha tardado demasiado',
-      _ => toLocalizedMessage(context)
+      _ => toLocalizedMessage(context),
     };
   }
 }

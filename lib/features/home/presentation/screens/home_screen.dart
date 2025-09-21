@@ -5,7 +5,7 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_type.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_carousel.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
@@ -56,9 +56,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () => context.pushNamed(
-                      AppRoute.example.name,
-                    ),
+                    onPressed: () => context.pushNamed(AppRoute.example.name),
                     child: const Text('Ir a Example Feature'),
                   ),
                   SizedBox(

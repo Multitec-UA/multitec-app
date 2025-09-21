@@ -1,9 +1,10 @@
 import 'dart:async';
+
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/utils/safe_cubit.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
@@ -14,12 +15,10 @@ class ScheduleDetailCubit extends SafeCubit<ScheduleDetailState> {
     required IsJoinedUseCase isJoinedUseCase,
     required ToggleJoinScheduleItemUseCase toggleJoinUseCase,
     required EventBus eventBus,
-  })  : _isJoinedUseCase = isJoinedUseCase,
-        _toggleJoinUseCase = toggleJoinUseCase,
-        _eventBus = eventBus,
-        super(
-          ScheduleDetailState(item: item),
-        ) {
+  }) : _isJoinedUseCase = isJoinedUseCase,
+       _toggleJoinUseCase = toggleJoinUseCase,
+       _eventBus = eventBus,
+       super(ScheduleDetailState(item: item)) {
     _checkJoinStatus(item.id);
     eventSuscription = _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
@@ -38,13 +37,13 @@ class ScheduleDetailCubit extends SafeCubit<ScheduleDetailState> {
       (isJoined) => emit(
         state.copyWith(
           isJoined: isJoined,
-          toggleJoinStatus: StateStatus.loaded,
+          toggleJoinStatus: RequestStatus.success,
           failure: null,
         ),
       ),
       (failure) => emit(
         state.copyWith(
-          toggleJoinStatus: StateStatus.error,
+          toggleJoinStatus: RequestStatus.failure,
           failure: failure,
         ),
       ),
@@ -52,7 +51,7 @@ class ScheduleDetailCubit extends SafeCubit<ScheduleDetailState> {
   }
 
   Future<void> toggleJoin() async {
-    emit(state.copyWith(toggleJoinStatus: StateStatus.loading));
+    emit(state.copyWith(toggleJoinStatus: RequestStatus.loading));
 
     final result = await _toggleJoinUseCase(
       state.item,
@@ -63,14 +62,14 @@ class ScheduleDetailCubit extends SafeCubit<ScheduleDetailState> {
       (_) {
         emit(
           state.copyWith(
-            toggleJoinStatus: StateStatus.loaded,
+            toggleJoinStatus: RequestStatus.success,
             failure: null,
           ),
         );
       },
       (failure) => emit(
         state.copyWith(
-          toggleJoinStatus: StateStatus.error,
+          toggleJoinStatus: RequestStatus.failure,
           failure: failure,
         ),
       ),

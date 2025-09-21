@@ -9,7 +9,7 @@ import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
-import 'package:multitec_app/features/user/domain/models/user.dart';
+import 'package:multitec_app/features/user/domain/entities/user.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_state.dart';
 
@@ -81,28 +81,18 @@ class _ProfileAvatar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(
-          color: context.colors.primaryBase,
-          width: 3,
-        ),
+        border: Border.all(color: context.colors.primaryBase, width: 3),
       ),
       child: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            color: context.colors.background,
-            width: 2,
-          ),
+          border: Border.all(color: context.colors.background, width: 2),
         ),
         child: CircleAvatar(
           radius: 45,
           backgroundImage: photoUrl != null ? NetworkImage(photoUrl!) : null,
           child: photoUrl == null
-              ? Icon(
-                  Icons.person,
-                  size: 45,
-                  color: context.colors.gray20,
-                )
+              ? Icon(Icons.person, size: 45, color: context.colors.gray20)
               : null,
         ),
       ),
@@ -143,11 +133,7 @@ class _EmailBadge extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.email_outlined,
-            size: 16,
-            color: context.colors.gray40,
-          ),
+          Icon(Icons.email_outlined, size: 16, color: context.colors.gray40),
           spacings.x.s8,
           Text(
             email,
@@ -207,18 +193,12 @@ class _SettingsTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: context.colors.gray20,
-          ),
+          border: Border.all(color: context.colors.gray20),
           borderRadius: borderRadius.br8,
         ),
         child: Row(
           children: [
-            Icon(
-              icon,
-              size: 24,
-              color: context.colors.gray40,
-            ),
+            Icon(icon, size: 24, color: context.colors.gray40),
             const SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -239,10 +219,7 @@ class _SettingsTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.chevron_right,
-              color: context.colors.gray40,
-            ),
+            Icon(Icons.chevron_right, color: context.colors.gray40),
           ],
         ),
       ),

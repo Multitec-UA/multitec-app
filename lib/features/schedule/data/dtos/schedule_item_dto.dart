@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:multitec_app/features/schedule/domain/models/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 
+//TODO: Convertir a freezed?
 class ScheduleItemDto {
   const ScheduleItemDto({
     required this.id,
@@ -86,20 +87,20 @@ class ScheduleItemDto {
   }
 
   factory ScheduleItemDto.fromDomain(ScheduleItem i) => ScheduleItemDto(
-        id: i.id,
-        type: i.type,
-        title: i.title,
-        description: i.description,
-        startsAt: i.startsAt,
-        endsAt: i.endsAt,
-        location: i.location,
-        imageUrl: i.imageUrl,
-        category: i.category,
-        published: i.published,
-        attendeesCount: i.attendeesCount,
-        createdAt: i.createdAt,
-        updatedAt: i.updatedAt,
-      );
+    id: i.id,
+    type: i.type,
+    title: i.title,
+    description: i.description,
+    startsAt: i.startsAt,
+    endsAt: i.endsAt,
+    location: i.location,
+    imageUrl: i.imageUrl,
+    category: i.category,
+    published: i.published,
+    attendeesCount: i.attendeesCount,
+    createdAt: i.createdAt,
+    updatedAt: i.updatedAt,
+  );
 
   final String id;
   final String type;
@@ -117,52 +118,52 @@ class ScheduleItemDto {
   final DateTime? joinedAt;
 
   ScheduleItem toDomain() => ScheduleItem(
-        id: id,
-        type: type,
-        title: title,
-        description: description,
-        startsAt: startsAt,
-        endsAt: endsAt,
-        location: location,
-        imageUrl: imageUrl,
-        category: category,
-        published: published,
-        attendeesCount: attendeesCount,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
-      );
+    id: id,
+    type: type,
+    title: title,
+    description: description,
+    startsAt: startsAt,
+    endsAt: endsAt,
+    location: location,
+    imageUrl: imageUrl,
+    category: category,
+    published: published,
+    attendeesCount: attendeesCount,
+    createdAt: createdAt,
+    updatedAt: updatedAt,
+  );
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'type': type,
-        'title': title,
-        'description': description,
-        'startsAt': startsAt.millisecondsSinceEpoch,
-        if (endsAt != null) 'endsAt': endsAt!.millisecondsSinceEpoch,
-        if (location != null) 'location': location,
-        if (imageUrl != null) 'imageUrl': imageUrl,
-        if (category != null) 'category': category,
-        'published': published,
-        'attendeesCount': attendeesCount,
-        'createdAt': createdAt.millisecondsSinceEpoch,
-        'updatedAt': updatedAt.millisecondsSinceEpoch,
-        if (joinedAt != null) 'joinedAt': joinedAt!.millisecondsSinceEpoch,
-      };
+    'id': id,
+    'type': type,
+    'title': title,
+    'description': description,
+    'startsAt': startsAt.millisecondsSinceEpoch,
+    if (endsAt != null) 'endsAt': endsAt!.millisecondsSinceEpoch,
+    if (location != null) 'location': location,
+    if (imageUrl != null) 'imageUrl': imageUrl,
+    if (category != null) 'category': category,
+    'published': published,
+    'attendeesCount': attendeesCount,
+    'createdAt': createdAt.millisecondsSinceEpoch,
+    'updatedAt': updatedAt.millisecondsSinceEpoch,
+    if (joinedAt != null) 'joinedAt': joinedAt!.millisecondsSinceEpoch,
+  };
 
   Map<String, dynamic> toFirestore() => {
-        'type': type,
-        'title': title,
-        'description': description,
-        'startsAt': Timestamp.fromDate(startsAt),
-        if (endsAt != null) 'endsAt': Timestamp.fromDate(endsAt!),
-        if (location != null) 'location': location,
-        if (imageUrl != null) 'imageUrl': imageUrl,
-        if (category != null) 'category': category,
-        'published': published,
-        'attendeesCount': attendeesCount,
-        'createdAt': FieldValue.serverTimestamp(),
-        'updatedAt': FieldValue.serverTimestamp(),
-      };
+    'type': type,
+    'title': title,
+    'description': description,
+    'startsAt': Timestamp.fromDate(startsAt),
+    if (endsAt != null) 'endsAt': Timestamp.fromDate(endsAt!),
+    if (location != null) 'location': location,
+    if (imageUrl != null) 'imageUrl': imageUrl,
+    if (category != null) 'category': category,
+    'published': published,
+    'attendeesCount': attendeesCount,
+    'createdAt': FieldValue.serverTimestamp(),
+    'updatedAt': FieldValue.serverTimestamp(),
+  };
 
   static DateTime _toDate(dynamic value) => (value as Timestamp).toDate();
   static DateTime? _toDateOrNull(dynamic value) =>

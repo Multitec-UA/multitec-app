@@ -72,12 +72,8 @@ Future<void> serviceLocatorSetUp() async {
   /// Network ///
   locator
     ..enableRegisteringMultipleInstancesOfOneType()
-    ..registerSingletonAsync<Square1Api>(
-      Square1ApiClient.create,
-    )
-    ..registerSingletonAsync<GoogleMapsApi>(
-      GoogleMapsApiClient.create,
-    )
+    ..registerSingletonAsync<Square1Api>(Square1ApiClient.create)
+    ..registerSingletonAsync<GoogleMapsApi>(GoogleMapsApiClient.create)
     ..registerSingletonAsync<NetworkService>(
       MultitecApiClient.create,
       instanceName: 'MultitecApi',
@@ -87,10 +83,7 @@ Future<void> serviceLocatorSetUp() async {
         square1Api: locator<Square1Api>(),
         googleMapsApi: locator<GoogleMapsApi>(),
       ),
-      dependsOn: [
-        Square1Api,
-        GoogleMapsApi,
-      ],
+      dependsOn: [Square1Api, GoogleMapsApi],
     );
 
   /// EventBus ///
@@ -118,7 +111,7 @@ Future<void> serviceLocatorSetUp() async {
   /// Example Feature ///
   // Datasources
   locator.registerLazySingleton<ExampleRemoteDataSource>(
-    () => useMocks
+    () => true
         ? ExampleMockDataSource()
         : ExampleRemoteDataSourceImpl(
             locator<NetworkService>(instanceName: 'MultitecApi'),
@@ -152,23 +145,17 @@ Future<void> serviceLocatorSetUp() async {
 
   // Repository
   locator.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(
-      locator<FirebaseAuthDataSource>(),
-    ),
+    () => AuthRepositoryImpl(locator<FirebaseAuthDataSource>()),
   );
 
   // Services
   locator.registerLazySingleton<AuthService>(
-    () => AuthService(
-      locator<FirebaseAuthDataSource>(),
-    ),
+    () => AuthService(locator<FirebaseAuthDataSource>()),
   );
 
   // UseCases
   locator.registerFactory(
-    () => SignInWithGoogleUseCase(
-      locator<AuthRepository>(),
-    ),
+    () => SignInWithGoogleUseCase(locator<AuthRepository>()),
   );
   locator.registerFactory(
     () => SignOutUseCase(
@@ -185,10 +172,7 @@ Future<void> serviceLocatorSetUp() async {
 
   // Cubits
   locator.registerLazySingleton<UserCubit>(
-    () => UserCubit(
-      locator<UserRepository>(),
-      locator<AuthService>(),
-    ),
+    () => UserCubit(locator<UserRepository>(), locator<AuthService>()),
   );
 
   /// Schedule Feature ///

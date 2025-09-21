@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
-import 'package:multitec_app/core/ui/cubit/state_status.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_state.dart';
 
 class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
-  JoinedSchedulesCubit(
-    this._getJoinedScheduleItems,
-    this._eventBus,
-  ) : super(const JoinedSchedulesState()) {
+  JoinedSchedulesCubit(this._getJoinedScheduleItems, this._eventBus)
+    : super(const JoinedSchedulesState()) {
     eventSuscription = _eventBus
         .listen<ScheduleItemAttendanceToggledEvent>()
         .listen(_handleAttendeeCountChanged);
@@ -24,14 +22,14 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
   Future<void> loadJoinedSchedules({bool isRefreshing = false}) async {
     if (isRefreshing) {
       _nextCursor = null;
-      emit(state.copyWith(status: StateStatus.initial));
+      emit(state.copyWith(status: RequestStatus.initial));
     }
 
-    if ((state.status.isLoaded && !state.hasMore) || state.status.isLoading) {
+    if ((state.status.isSuccess && !state.hasMore) || state.status.isLoading) {
       return;
     }
 
-    emit(state.copyWith(status: StateStatus.loading));
+    emit(state.copyWith(status: RequestStatus.loading));
 
     final result = await _getJoinedScheduleItems(
       cursor: isRefreshing ? null : _nextCursor,
@@ -42,7 +40,7 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
         _nextCursor = paginatedResult.nextCursor;
         return emit(
           state.copyWith(
-            status: StateStatus.loaded,
+            status: RequestStatus.success,
             items: isRefreshing
                 ? paginatedResult.items
                 : [...state.items, ...paginatedResult.items],
@@ -51,12 +49,8 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
           ),
         );
       },
-      (failure) => emit(
-        state.copyWith(
-          status: StateStatus.error,
-          failure: failure,
-        ),
-      ),
+      (failure) =>
+          emit(state.copyWith(status: RequestStatus.failure, failure: failure)),
     );
   }
 
@@ -74,9 +68,7 @@ class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
       if (existingItemIndex != -1) {
         final updatedItems = state.items.map((item) {
           if (item.id == event.scheduleItem.id) {
-            return item.copyWith(
-              attendeesCount: item.attendeesCount + 1,
-            );
+            return item.copyWith(attendeesCount: item.attendeesCount + 1);
           }
           return item;
         }).toList();
