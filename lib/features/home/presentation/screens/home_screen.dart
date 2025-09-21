@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final user = context.select<UserCubit, UserState>((c) => c.state).user;
 
     return Scaffold(
       appBar: const MultitecAppBar(),
@@ -25,17 +26,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             Padding(
               padding: paddings.x.s16,
-              child: BlocBuilder<UserCubit, UserState>(
-                buildWhen: (p, c) => p.user != c.user || p.status != c.status,
-                builder: (context, state) {
-                  final name = state.user?.name ?? 'Multitec';
-                  return Text(
-                    context.l10n.welcomeUser(name),
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                },
+              child: Text(
+                context.l10n.welcomeUser(user?.name ?? 'Multitec'),
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             spacings.y.s24,

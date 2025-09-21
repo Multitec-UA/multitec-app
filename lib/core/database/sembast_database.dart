@@ -6,8 +6,8 @@ class SembastDatabase implements LocalDatabase {
   SembastDatabase({
     required SembastOpener opener,
     String dbName = 'multitec_app.db',
-  })  : _opener = opener,
-        _dbName = dbName;
+  }) : _opener = opener,
+       _dbName = dbName;
 
   final SembastOpener _opener;
   final String _dbName;

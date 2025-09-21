@@ -6,6 +6,7 @@ import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
@@ -50,53 +51,61 @@ class _Body extends StatelessWidget {
           p.failure != c.failure ||
           p.hasMore != c.hasMore,
       builder: (context, state) {
-        if (state.status.isInitial ||
-            (state.status.isLoading && state.items.isEmpty)) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (state.status.isFailure && state.items.isEmpty) {
-          return ScheduleListErrorPlaceholder(
-            message: state.failure.toJoinedSchedulesMessage(context),
-            onRetry: () => context
-                .read<JoinedSchedulesCubit>()
-                .loadJoinedSchedules(isRefreshing: true),
-          );
-        }
-
         if (state.items.isNotEmpty) {
           return _ListSection(state: state);
         }
 
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.event_busy,
-                size: 64,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'No te has unido a ningún evento o actividad',
-                style: context.textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Explora los eventos y actividades disponibles para unirte',
-                style: context.textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ],
+        return switch (state.status) {
+          RequestStatus.initial || RequestStatus.loading => const Center(
+            child: CircularProgressIndicator(),
           ),
-        );
+
+          RequestStatus.failure => ScheduleListErrorPlaceholder(
+            message: state.failure.toJoinedSchedulesMessage(context),
+            onRetry: () => context
+                .read<JoinedSchedulesCubit>()
+                .loadJoinedSchedules(isRefreshing: true),
+          ),
+
+          RequestStatus.success => const _EmptyJoinedSchedules(),
+        };
       },
+    );
+  }
+}
+
+class _EmptyJoinedSchedules extends StatelessWidget {
+  const _EmptyJoinedSchedules();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.event_busy,
+            size: 64,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            'No te has unido a ningún evento o actividad',
+            style: context.textTheme.titleMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Explora los eventos y actividades disponibles para unirte',
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

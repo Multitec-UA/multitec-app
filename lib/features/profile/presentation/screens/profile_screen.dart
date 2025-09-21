@@ -22,8 +22,9 @@ class ProfileScreen extends StatelessWidget {
       appBar: const MultitecAppBar(
         action: MultitecAppBarAction.settingsShortcut,
       ),
-      body: BlocBuilder<UserCubit, UserState>(
-        builder: (context, state) {
+      body: BlocSelector<UserCubit, UserState, User?>(
+        selector: (state) => state.user,
+        builder: (context, user) {
           return SafeArea(
             child: SingleChildScrollView(
               padding: paddings.all.s24,
@@ -31,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _ProfileHeader(user: state.user),
+                  _ProfileHeader(user: user),
                   spacings.y.s32,
                   ElevatedButton(
                     onPressed: () async {

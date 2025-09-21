@@ -13,9 +13,7 @@ class SignOutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignOutCubit(
-        locator<SignOutUseCase>(),
-      ),
+      create: (context) => SignOutCubit(locator<SignOutUseCase>()),
       child: const _Button(),
     );
   }
@@ -26,15 +24,14 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignOutCubit, SignOutState>(
-      builder: (context, state) {
+    return BlocSelector<SignOutCubit, SignOutState, bool>(
+      selector: (state) => state.status.isLoading,
+      builder: (context, isLoading) {
         return SizedBox(
           width: double.infinity,
           child: OutlinedButton.icon(
-            onPressed: state.status.isLoading
-                ? null
-                : () => _showSignOutDialog(context),
-            icon: state.status.isLoading
+            onPressed: isLoading ? null : () => _showSignOutDialog(context),
+            icon: isLoading
                 ? const SizedBox(
                     width: 16,
                     height: 16,

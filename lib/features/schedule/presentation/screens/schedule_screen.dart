@@ -6,6 +6,7 @@ import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
@@ -86,25 +87,26 @@ class _Body extends StatelessWidget {
           p.failure != c.failure ||
           p.hasMore != c.hasMore,
       builder: (context, state) {
-        if (state.status.isInitial ||
-            (state.status.isLoading && state.items.isEmpty)) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (state.status.isFailure && state.items.isEmpty) {
-          return ScheduleListErrorPlaceholder(
-            message: state.failure.toScheduleListMessage(context),
-            onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(
-              isRefreshing: true,
-            ),
-          );
-        }
-
         if (state.items.isNotEmpty) {
           return _ListSection(state: state);
         }
 
-        return const Center(child: Text('No hay elementos disponibles'));
+        return switch (state.status) {
+          RequestStatus.initial || RequestStatus.loading => const Center(
+            child: CircularProgressIndicator(),
+          ),
+
+          RequestStatus.failure => ScheduleListErrorPlaceholder(
+            message: state.failure.toScheduleListMessage(context),
+            onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(
+              isRefreshing: true,
+            ),
+          ),
+
+          RequestStatus.success => const Center(
+            child: Text('No hay elementos disponibles'),
+          ),
+        };
       },
     );
   }

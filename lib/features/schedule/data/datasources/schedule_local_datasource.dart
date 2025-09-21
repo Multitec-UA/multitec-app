@@ -17,9 +17,7 @@ class ScheduleLocalDataSource {
     return data.map(ScheduleItemDto.fromJson).toList();
   }
 
-  Future<void> saveJoinedScheduleItems(
-    List<ScheduleItemDto> items,
-  ) async {
+  Future<void> saveJoinedScheduleItems(List<ScheduleItemDto> items) async {
     final itemsMap = <String, Map<String, Object?>>{};
     for (final item in items) {
       itemsMap[item.id] = item.toJson();
@@ -27,15 +25,11 @@ class ScheduleLocalDataSource {
     await _db.saveAll(_store, itemsMap);
   }
 
-  Future<void> saveJoinedScheduleItem(
-    ScheduleItemDto item,
-  ) async {
+  Future<void> saveJoinedScheduleItem(ScheduleItemDto item) async {
     await _db.save(_store, item.id, item.toJson());
   }
 
-  Future<void> removeJoinedScheduleItem(
-    String itemId,
-  ) async {
+  Future<void> removeJoinedScheduleItem(String itemId) async {
     await _db.delete(_store, itemId);
   }
 

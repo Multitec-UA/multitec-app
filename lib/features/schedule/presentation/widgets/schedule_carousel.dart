@@ -34,7 +34,6 @@ class _CarouselBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ScheduleCarouselCubit, ScheduleCarouselState>(
       builder: (context, state) {
-        //TODO: Ver si esto es pattern matching y si usar en otras partes de la app
         return switch (state.status) {
           RequestStatus.initial ||
           RequestStatus.loading => const _LoadingState(),

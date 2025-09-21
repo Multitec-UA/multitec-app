@@ -6,6 +6,7 @@ import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
+import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
@@ -102,30 +103,30 @@ class _ListSection extends StatelessWidget {
           p.items != c.items ||
           p.listFailure != c.listFailure,
       builder: (context, state) {
-        if (state.listStatus.isInitial || state.listStatus.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
+        return switch (state.listStatus) {
+          RequestStatus.initial || RequestStatus.loading => const Center(
+            child: CircularProgressIndicator(),
+          ),
 
-        if (state.listStatus.isFailure) {
-          return ExampleListErrorPlaceholder(
+          RequestStatus.failure => ExampleListErrorPlaceholder(
             message: state.listFailure.toExampleListMessage(context),
             onRetry: () => context.read<ExampleCubit>().loadExampleItems(),
-          );
-        }
-
-        if (state.listStatus.isSuccess && state.items.isEmpty) {
-          return const Center(child: Text('No hay elementos disponibles'));
-        }
-
-        return RefreshIndicator(
-          onRefresh: () => context.read<ExampleCubit>().loadExampleItems(),
-          child: ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: state.items.length,
-            itemBuilder: (_, i) => ExampleListItem(item: state.items[i]),
-            separatorBuilder: (_, __) => const Divider(height: 1),
           ),
-        );
+
+          RequestStatus.success when state.items.isEmpty => const Center(
+            child: Text('No hay elementos disponibles'),
+          ),
+
+          RequestStatus.success => RefreshIndicator(
+            onRefresh: () => context.read<ExampleCubit>().loadExampleItems(),
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: state.items.length,
+              itemBuilder: (_, i) => ExampleListItem(item: state.items[i]),
+              separatorBuilder: (_, __) => const Divider(height: 1),
+            ),
+          ),
+        };
       },
     );
   }
