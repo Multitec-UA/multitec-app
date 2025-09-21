@@ -48,7 +48,7 @@ dev_dependencies:
   husky: ^0.1.7
   json_serializable: ^6.9.0
   mockito: ^5.4.4
-  very_good_analysis: ^8.0.0
+  very_good_analysis: ^10.0.0
 
 flutter:
   uses-material-design: true
