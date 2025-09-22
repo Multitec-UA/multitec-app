@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
 class ScheduleListErrorPlaceholder extends StatelessWidget {
   const ScheduleListErrorPlaceholder({
@@ -13,7 +15,8 @@ class ScheduleListErrorPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
 
     return Center(
       child: Padding(
@@ -21,22 +24,27 @@ class ScheduleListErrorPlaceholder extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: theme.colorScheme.error,
+            Icon(Icons.error_outline, size: 64, color: colors.error),
+            spacings.y.s16,
+            Text(
+              'Error al cargar',
+              style: textTheme.headlineSmall?.copyWith(
+                color: colors.textPrimary,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            spacings.y.s8,
             Text(
               message,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyLarge,
+              style: textTheme.bodyLarge?.copyWith(color: colors.textSecondary),
             ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
+            spacings.y.s24,
+            MTButton(
+              variant: MTButtonVariant.secondary,
+              text: 'Reintentar',
               onPressed: onRetry,
-              icon: const Icon(Icons.refresh),
-              label: const Text('Reintentar'),
             ),
           ],
         ),

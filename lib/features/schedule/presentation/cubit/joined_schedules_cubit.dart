@@ -1,12 +1,12 @@
 import 'dart:async';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/core/utils/safe_cubit.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_state.dart';
 
-class JoinedSchedulesCubit extends Cubit<JoinedSchedulesState> {
+class JoinedSchedulesCubit extends SafeCubit<JoinedSchedulesState> {
   JoinedSchedulesCubit(this._getJoinedScheduleItems, this._eventBus)
     : super(const JoinedSchedulesState()) {
     eventSuscription = _eventBus

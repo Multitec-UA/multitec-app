@@ -3,59 +3,71 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
+import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
-enum MultitecAppBarAction {
-  none,
-  profileShortcut,
-  settingsShortcut,
-}
+enum MultitecAppBarAction { none, profileShortcut, settingsShortcut }
 
 class MultitecAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MultitecAppBar({
     super.key,
-    this.showLogo = true,
-    this.actions,
-    this.action = MultitecAppBarAction.profileShortcut,
-    this.bottom,
-  });
+    this.showTitleLogo = true,
+    this.title,
+    this.action = MultitecAppBarAction.none,
+  }) : assert(
+         !showTitleLogo || title == null,
+         'When showTitleLogo is true, title must be null',
+       );
 
-  final bool showLogo;
-  final List<Widget>? actions;
+  final bool showTitleLogo;
+  final String? title;
   final MultitecAppBarAction action;
-  final PreferredSizeWidget? bottom;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      toolbarHeight: kToolbarHeight,
-      systemOverlayStyle: SystemUiOverlayStyle.dark,
-      leading: context.canPop()
-          ? IconButton(
-              onPressed: context.pop,
-              icon: Icon(
-                Icons.arrow_back_ios_rounded,
-                size: 24,
-                color: context.colors.gray40,
-              ),
-            )
-          : null,
-      title: showLogo
-          ? Semantics(
-              label: 'Multitec',
-              image: true,
-              child: Image.asset(
-                'assets/pngs/multitec_logo.png',
-                height: 26,
-                fit: BoxFit.contain,
-              ),
-            )
-          : null,
-      actions: actions ?? _buildActions(context),
-      bottom: bottom,
+    return Container(
+      decoration: BoxDecoration(
+        color: context.colors.background,
+        border: Border(
+          bottom: BorderSide(
+            color: context.colors.gray20.withValues(alpha: 0.3),
+            width: 0.5,
+          ),
+        ),
+      ),
+      child: AppBar(
+        toolbarHeight: kToolbarHeight,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: context.canPop()
+            ? _AppBarBackButton(onPressed: context.pop)
+            : null,
+        title: showTitleLogo
+            ? Semantics(
+                label: 'Multitec',
+                image: true,
+                child: Image.asset(
+                  'assets/pngs/multitec_logo.png',
+                  height: 26,
+                  fit: BoxFit.contain,
+                ),
+              )
+            : title != null
+            ? Text(
+                title!,
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: context.colors.textPrimary,
+                ),
+              )
+            : null,
+        actions: _buildActions(context),
+      ),
     );
   }
 
@@ -83,6 +95,36 @@ class MultitecAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
+class _AppBarBackButton extends StatelessWidget {
+  const _AppBarBackButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(left: sizes.s16),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          borderRadius: borderRadius.br8,
+          child: Container(
+            width: 32,
+            height: 32,
+            alignment: Alignment.center,
+            child: Icon(
+              Icons.arrow_back_ios_rounded,
+              size: 20,
+              color: context.colors.primaryBase,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _AppBarActionButton extends StatelessWidget {
   const _AppBarActionButton({
     required this.tooltip,
@@ -96,27 +138,21 @@ class _AppBarActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = context.colors.primaryBase;
     return Padding(
-      padding: const EdgeInsets.only(left: 6, right: 16),
+      padding: EdgeInsets.only(left: sizes.s6, right: sizes.s16),
       child: Material(
-        color: context.colors.primary10.withValues(alpha: 0.3),
-        borderRadius: borderRadius.br12,
+        color: context.colors.primaryBase.withValues(alpha: 0.1),
+        borderRadius: borderRadius.br10,
         child: InkWell(
           onTap: onPressed,
-          borderRadius: borderRadius.br12,
+          borderRadius: borderRadius.br10,
           child: Tooltip(
             message: tooltip,
-            child: SizedBox(
+            child: Container(
               height: 36,
               width: 36,
-              child: Center(
-                child: Icon(
-                  icon,
-                  size: 20,
-                  color: color,
-                ),
-              ),
+              alignment: Alignment.center,
+              child: Icon(icon, size: 20, color: context.colors.primaryBase),
             ),
           ),
         ),

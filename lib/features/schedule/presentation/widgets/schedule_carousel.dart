@@ -4,8 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/router/app_router.dart';
+import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
+import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_cubit.dart';
@@ -53,6 +57,8 @@ class _LoadingState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return SizedBox(
       height: 200,
       child: ListView.builder(
@@ -62,53 +68,84 @@ class _LoadingState extends StatelessWidget {
         itemBuilder: (context, index) => Container(
           width: 280,
           margin: paddings.right.s12,
-          child: Card(
-            child: Container(
-              padding: paddings.all.s16,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 20,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
+          child: MTCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: colors.gray20,
+                        borderRadius: borderRadius.br2,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 16,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
+                    spacings.x.s12,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _ShimmerBox(
+                            height: 20,
+                            width: double.infinity,
+                            color: colors.gray20,
+                          ),
+                          spacings.y.s8,
+                          _ShimmerBox(
+                            height: 16,
+                            width: 100,
+                            color: colors.gray20,
+                          ),
+                        ],
+                      ),
                     ),
+                  ],
+                ),
+                spacings.y.s12,
+                Padding(
+                  padding: EdgeInsets.only(left: sizes.s16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _ShimmerBox(
+                        height: 14,
+                        width: double.infinity,
+                        color: colors.gray20,
+                      ),
+                      spacings.y.s4,
+                      _ShimmerBox(height: 14, width: 150, color: colors.gray20),
+                    ],
                   ),
-                  const SizedBox(height: 12),
-                  Container(
-                    height: 14,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(
-                    height: 14,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ShimmerBox extends StatelessWidget {
+  const _ShimmerBox({
+    required this.height,
+    required this.width,
+    required this.color,
+  });
+
+  final double height;
+  final double width;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(color: color, borderRadius: borderRadius.br4),
     );
   }
 }
@@ -148,7 +185,8 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       height: 200,
@@ -158,22 +196,23 @@ class _EmptyState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.event_busy,
+              Icons.calendar_today_outlined,
               size: 48,
-              color: theme.colorScheme.onSurfaceVariant,
+              color: colors.textSecondary,
             ),
-            const SizedBox(height: 16),
+            spacings.y.s16,
             Text(
               'No hay eventos próximos',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+              style: textTheme.titleMedium?.copyWith(
+                color: colors.textPrimary,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(height: 8),
+            spacings.y.s8,
             Text(
               'Vuelve pronto para ver nuevos eventos y actividades',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -191,7 +230,8 @@ class _ErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       height: 200,
@@ -200,24 +240,29 @@ class _ErrorState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: theme.colorScheme.error),
-            const SizedBox(height: 16),
+            Icon(Icons.error_outline, size: 48, color: colors.error),
+            spacings.y.s16,
             Text(
               'Error al cargar eventos',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.error,
+              style: textTheme.titleMedium?.copyWith(
+                color: colors.error,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(height: 8),
+            spacings.y.s8,
             Text(
               'No se pudieron cargar los eventos próximos',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(onPressed: onRetry, child: const Text('Reintentar')),
+            spacings.y.s16,
+            MTButton(
+              variant: MTButtonVariant.secondary,
+              text: 'Reintentar',
+              onPressed: onRetry,
+            ),
           ],
         ),
       ),
@@ -230,40 +275,49 @@ class _SeeMoreButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       width: 150,
       margin: paddings.right.s12,
-      child: Card(
-        child: InkWell(
-          onTap: () => context.pushNamed(
-            AppRoute.schedule.name,
-            pathParameters: {'type': 'event'},
-          ),
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: paddings.all.s16,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.arrow_forward,
-                  size: 32,
-                  color: theme.colorScheme.primary,
-                ),
-                spacings.y.s8,
-                Text(
-                  'Ver más',
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+      child: MTCard(
+        onTap: () => context.pushNamed(
+          AppRoute.schedule.name,
+          pathParameters: {'type': 'event'},
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: colors.primaryBase.withValues(alpha: 0.1),
+                borderRadius: borderRadius.br24,
+              ),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                size: 24,
+                color: colors.primaryBase,
+              ),
             ),
-          ),
+            spacings.y.s12,
+            Text(
+              'Ver más',
+              style: textTheme.titleSmall?.copyWith(
+                color: colors.primaryBase,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            spacings.y.s4,
+            Text(
+              'eventos',
+              style: textTheme.bodySmall?.copyWith(color: colors.textSecondary),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

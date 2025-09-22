@@ -17,28 +17,44 @@ Future<void> showStandardDialog({
       return Dialog(
         insetPadding: paddings.all.s32,
         backgroundColor: context.colors.surface,
-        shape: RoundedRectangleBorder(
-          borderRadius: borderRadius.br16,
-          side: BorderSide(
-            color: context.colors.gray20.withValues(alpha: 0.25),
-          ),
-        ),
-        child: Padding(
-          padding: paddings.x.s12 + paddings.bottom.s16,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (showCloseButton)
-                Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    icon: Icon(Icons.close, color: context.colors.textPrimary),
-                    onPressed: context.pop,
+        elevation: 8.0,
+        shadowColor: context.colors.gray20.withValues(alpha: 0.3),
+        shape: RoundedRectangleBorder(borderRadius: borderRadius.br16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showCloseButton)
+              Container(
+                padding: paddings.all.s8,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: context.colors.gray20.withValues(alpha: 0.3),
+                      width: 0.5,
+                    ),
                   ),
                 ),
-              child,
-            ],
-          ),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: context.pop,
+                      borderRadius: borderRadius.br8,
+                      child: Container(
+                        padding: paddings.all.s8,
+                        child: Icon(
+                          Icons.close,
+                          color: context.colors.textSecondary,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            Padding(padding: paddings.all.s24, child: child),
+          ],
         ),
       );
     },

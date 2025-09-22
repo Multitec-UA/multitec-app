@@ -6,8 +6,11 @@ import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
+import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
+import 'package:multitec_app/core/ui/components/lists/section_header.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_cubit.dart';
@@ -22,17 +25,29 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return DefaultTabController(
       length: 2,
       initialIndex: initialTab == ScheduleType.activity ? 1 : 0,
       child: Scaffold(
+        backgroundColor: colors.background,
         appBar: AppBar(
           title: const MultitecAppBar(),
           titleSpacing: 0,
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Events', icon: Icon(Icons.event)),
-              Tab(text: 'Activities', icon: Icon(Icons.local_activity)),
+          backgroundColor: colors.surface,
+          elevation: 0,
+          bottom: TabBar(
+            indicatorColor: colors.primaryBase,
+            labelColor: colors.primaryBase,
+            unselectedLabelColor: colors.textSecondary,
+            labelStyle: Theme.of(
+              context,
+            ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+            unselectedLabelStyle: Theme.of(context).textTheme.labelLarge,
+            tabs: const [
+              Tab(text: 'Eventos', icon: Icon(Icons.event)),
+              Tab(text: 'Actividades', icon: Icon(Icons.local_activity)),
             ],
           ),
         ),
@@ -80,6 +95,8 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return BlocBuilder<ScheduleCubit, ScheduleState>(
       buildWhen: (p, c) =>
           p.status != c.status ||
@@ -92,8 +109,8 @@ class _Body extends StatelessWidget {
         }
 
         return switch (state.status) {
-          RequestStatus.initial || RequestStatus.loading => const Center(
-            child: CircularProgressIndicator(),
+          RequestStatus.initial || RequestStatus.loading => Center(
+            child: CircularProgressIndicator(color: colors.primaryBase),
           ),
 
           RequestStatus.failure => ScheduleListErrorPlaceholder(
@@ -103,11 +120,50 @@ class _Body extends StatelessWidget {
             ),
           ),
 
-          RequestStatus.success => const Center(
-            child: Text('No hay elementos disponibles'),
-          ),
+          RequestStatus.success => _EmptyState(),
         };
       },
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Center(
+      child: Padding(
+        padding: paddings.all.s24,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.calendar_today_outlined,
+              size: 64,
+              color: colors.textSecondary,
+            ),
+            spacings.y.s16,
+            Text(
+              'No hay elementos disponibles',
+              style: textTheme.headlineSmall?.copyWith(
+                color: colors.textPrimary,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            spacings.y.s8,
+            Text(
+              'Los horarios aparecerán aquí cuando estén disponibles',
+              style: textTheme.bodyMedium?.copyWith(
+                color: colors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -151,29 +207,55 @@ class _ListSectionState extends State<_ListSection> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final itemCount =
         widget.state.items.length + (widget.state.hasMore ? 1 : 0);
+
     return RefreshIndicator(
+      color: colors.primaryBase,
+      backgroundColor: colors.surface,
       onRefresh: () =>
           context.read<ScheduleCubit>().loadScheduleItems(isRefreshing: true),
-      child: ListView.builder(
+      child: CustomScrollView(
         controller: _scrollController,
         physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: itemCount,
-        itemBuilder: (context, index) {
-          if (index >= widget.state.items.length) {
-            return _LoadMoreIndicator(
-              isLoading:
-                  widget.state.status.isLoading &&
-                  widget.state.items.isNotEmpty,
-              hasError:
-                  widget.state.status.isFailure &&
-                  widget.state.items.isNotEmpty,
-              onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
-            );
-          }
-          return ScheduleListItem(item: widget.state.items[index]);
-        },
+        slivers: [
+          SliverToBoxAdapter(
+            child: SectionHeader(
+              title: 'Horarios',
+              subtitle: '${widget.state.items.length} elementos',
+            ),
+          ),
+          SliverPadding(
+            padding: paddings.x.s16,
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                if (index >= widget.state.items.length) {
+                  return _LoadMoreIndicator(
+                    isLoading:
+                        widget.state.status.isLoading &&
+                        widget.state.items.isNotEmpty,
+                    hasError:
+                        widget.state.status.isFailure &&
+                        widget.state.items.isNotEmpty,
+                    onRetry: () =>
+                        context.read<ScheduleCubit>().loadScheduleItems(),
+                  );
+                }
+
+                final item = widget.state.items[index];
+                final isLast = index == widget.state.items.length - 1;
+
+                return Padding(
+                  padding: EdgeInsets.only(
+                    bottom: isLast ? sizes.s16 : sizes.s8,
+                  ),
+                  child: ScheduleListItem(item: item),
+                );
+              }, childCount: itemCount),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -192,10 +274,15 @@ class _LoadMoreIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
+
     if (isLoading) {
       return Padding(
         padding: paddings.all.s16,
-        child: const Center(child: CircularProgressIndicator()),
+        child: Center(
+          child: CircularProgressIndicator(color: colors.primaryBase),
+        ),
       );
     }
 
@@ -206,11 +293,17 @@ class _LoadMoreIndicator extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('Error al cargar más elementos'),
-              const SizedBox(height: 8),
-              ElevatedButton(
+              Text(
+                'Error al cargar más elementos',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colors.textSecondary,
+                ),
+              ),
+              spacings.y.s12,
+              MTButton(
+                variant: MTButtonVariant.secondary,
+                text: 'Reintentar',
                 onPressed: onRetry,
-                child: const Text('Reintentar'),
               ),
             ],
           ),

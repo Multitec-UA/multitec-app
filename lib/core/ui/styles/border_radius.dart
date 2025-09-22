@@ -4,6 +4,8 @@ AppBorderRadius borderRadius = AppBorderRadius();
 
 class AppBorderRadius {
   final none = BorderRadius.zero;
+  final br2 = BorderRadius.circular(2);
+  final br4 = BorderRadius.circular(4);
   final br8 = BorderRadius.circular(8);
   final br10 = BorderRadius.circular(10);
   final br12 = BorderRadius.circular(12);

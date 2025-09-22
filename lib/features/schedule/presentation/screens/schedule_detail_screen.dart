@@ -6,8 +6,15 @@ import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
+import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
+import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
+import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
+import 'package:multitec_app/core/ui/components/lists/section_header.dart';
+import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
@@ -39,11 +46,22 @@ class _ScheduleDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+
     return Scaffold(
+      backgroundColor: colors.background,
       appBar: AppBar(
-        title: const Text('Schedule Details'),
+        title: Text(
+          'Detalles del Evento',
+          style: context.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: colors.textPrimary,
+          ),
+        ),
+        backgroundColor: colors.surface,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back_ios, color: colors.primaryBase),
           onPressed: () => context.pop(),
         ),
       ),
@@ -51,29 +69,32 @@ class _ScheduleDetailView extends StatelessWidget {
         listener: (context, state) {
           if (state.toggleJoinStatus == RequestStatus.failure &&
               state.failure != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.failure.toLocalizedMessage(context)),
-                backgroundColor: Theme.of(context).colorScheme.error,
-              ),
+            showErrorSnackBar(
+              context,
+              state.failure.toLocalizedMessage(context),
             );
           }
         },
-        builder: (context, state) => SingleChildScrollView(
-          padding: paddings.all.s16,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _HeaderSection(item: state.item),
-              spacings.y.s24,
-              _DetailsSection(item: state.item),
-              spacings.y.s24,
-              _JoinSection(
-                isJoined: state.isJoined,
-                isInitial: state.toggleJoinStatus.isInitial,
+        builder: (context, state) => CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(child: _HeaderSection(item: state.item)),
+            SliverToBoxAdapter(child: _DetailsSection(item: state.item)),
+            SliverToBoxAdapter(child: _AttendeesSection(item: state.item)),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  const Spacer(),
+                  _JoinSection(
+                    isJoined: state.isJoined,
+                    isLoading: state.toggleJoinStatus.isLoading,
+                    isInitial: state.toggleJoinStatus.isInitial,
+                  ),
+                  spacings.y.s24,
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -87,35 +108,76 @@ class _HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          item.title,
-          style: context.textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        spacings.y.s8,
-        if (item.category != null) ...[
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(16),
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+
+    return Padding(
+      padding: paddings.all.s16,
+      child: MTCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 4,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: colors.primaryBase,
+                    borderRadius: borderRadius.br2,
+                  ),
+                ),
+                spacings.x.s16,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: colors.textPrimary,
+                        ),
+                      ),
+                      spacings.y.s8,
+                      if (item.category != null)
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: sizes.s12,
+                            vertical: sizes.s6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: colors.primaryBase.withValues(alpha: 0.1),
+                            borderRadius: borderRadius.br16,
+                          ),
+                          child: Text(
+                            item.category!,
+                            style: textTheme.labelSmall?.copyWith(
+                              color: colors.primaryBase,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            child: Text(
-              item.category!,
-              style: context.textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-                fontWeight: FontWeight.w500,
+            if (item.description.isNotEmpty) ...[
+              spacings.y.s16,
+              Text(
+                item.description,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colors.textSecondary,
+                  height: 1.5,
+                ),
               ),
-            ),
-          ),
-          spacings.y.s16,
-        ],
-        Text(item.description, style: context.textTheme.bodyLarge),
-      ],
+            ],
+          ],
+        ),
+      ),
     );
   }
 }
@@ -128,81 +190,165 @@ class _DetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final colors = context.colors;
     final dateFormat = DateFormat('EEEE, MMMM d, y', l10n.localeName);
     final timeFormat = DateFormat('HH:mm', l10n.localeName);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.details,
-          style: context.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
+        SectionHeader(title: 'Información del Evento'),
+        Padding(
+          padding: paddings.x.s16,
+          child: MTCard(
+            child: Column(
+              children: [
+                _DetailTile(
+                  icon: Icons.calendar_today_outlined,
+                  iconColor: colors.info,
+                  title: 'Fecha',
+                  subtitle: dateFormat.format(item.startsAt),
+                ),
+                _buildDivider(context),
+                _DetailTile(
+                  icon: Icons.access_time_outlined,
+                  iconColor: colors.warning,
+                  title: 'Hora',
+                  subtitle: timeFormat.format(item.startsAt),
+                ),
+                if (item.location != null) ...[
+                  _buildDivider(context),
+                  _DetailTile(
+                    icon: Icons.location_on_outlined,
+                    iconColor: colors.error,
+                    title: 'Ubicación',
+                    subtitle: item.location!,
+                  ),
+                ],
+              ],
+            ),
           ),
-        ),
-        spacings.y.s16,
-        _DetailRow(
-          icon: Icons.calendar_today,
-          label: l10n.date,
-          value: dateFormat.format(item.startsAt),
-        ),
-        spacings.y.s12,
-        _DetailRow(
-          icon: Icons.access_time,
-          label: l10n.time,
-          value: timeFormat.format(item.startsAt),
-        ),
-        if (item.location != null) ...[
-          spacings.y.s12,
-          _DetailRow(
-            icon: Icons.location_on,
-            label: l10n.location,
-            value: item.location!,
-          ),
-        ],
-        spacings.y.s12,
-        _DetailRow(
-          icon: Icons.people,
-          label: l10n.attendees,
-          value: '${item.attendeesCount}',
         ),
       ],
     );
   }
+
+  Widget _buildDivider(BuildContext context) {
+    final colors = context.colors;
+    return Padding(
+      padding: EdgeInsets.only(left: sizes.s52),
+      child: Divider(height: 1, thickness: 1, color: colors.gray20),
+    );
+  }
 }
 
-class _DetailRow extends StatelessWidget {
-  const _DetailRow({
+class _DetailTile extends StatelessWidget {
+  const _DetailTile({
     required this.icon,
-    required this.label,
-    required this.value,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
   });
 
   final IconData icon;
-  final String label;
-  final String value;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          icon,
-          size: 20,
-          color: Theme.of(context).colorScheme.onSurfaceVariant,
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+
+    return MTListTile(
+      leading: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: iconColor.withValues(alpha: 0.1),
+          borderRadius: borderRadius.br8,
         ),
-        spacings.y.s12,
-        Expanded(
-          child: Row(
-            children: [
-              Text(
-                '$label: ',
-                style: context.textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
+        child: Icon(icon, size: 20, color: iconColor),
+      ),
+      title: Text(
+        title,
+        style: textTheme.bodyLarge?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: colors.textPrimary,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: textTheme.bodyMedium?.copyWith(color: colors.textSecondary),
+      ),
+      contentPadding: paddings.all.s16,
+    );
+  }
+}
+
+class _AttendeesSection extends StatelessWidget {
+  const _AttendeesSection({required this.item});
+
+  final ScheduleItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final textTheme = context.textTheme;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SectionHeader(title: 'Participación'),
+        Padding(
+          padding: paddings.x.s16,
+          child: MTCard(
+            child: MTListTile(
+              leading: Container(
+                width: 36,
+                height: 36,
+                decoration: BoxDecoration(
+                  color: colors.success.withValues(alpha: 0.1),
+                  borderRadius: borderRadius.br8,
+                ),
+                child: Icon(
+                  Icons.people_outline,
+                  size: 20,
+                  color: colors.success,
                 ),
               ),
-              Expanded(child: Text(value, style: context.textTheme.bodyMedium)),
-            ],
+              title: Text(
+                'Asistentes',
+                style: textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: colors.textPrimary,
+                ),
+              ),
+              subtitle: Text(
+                '${item.attendeesCount} personas registradas',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colors.textSecondary,
+                ),
+              ),
+              trailing: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: sizes.s12,
+                  vertical: sizes.s6,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.success.withValues(alpha: 0.1),
+                  borderRadius: borderRadius.br12,
+                ),
+                child: Text(
+                  '${item.attendeesCount}',
+                  style: textTheme.labelMedium?.copyWith(
+                    color: colors.success,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              contentPadding: paddings.all.s16,
+            ),
           ),
         ),
       ],
@@ -211,50 +357,66 @@ class _DetailRow extends StatelessWidget {
 }
 
 class _JoinSection extends StatelessWidget {
-  const _JoinSection({required this.isJoined, required this.isInitial});
+  const _JoinSection({
+    required this.isJoined,
+    required this.isLoading,
+    required this.isInitial,
+  });
 
   final bool isJoined;
+  final bool isLoading;
   final bool isInitial;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final colors = context.colors;
 
     if (isInitial) {
-      return const Center(child: CircularProgressIndicator());
+      return Center(
+        child: CircularProgressIndicator(color: colors.primaryBase),
+      );
     }
 
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: isInitial
-            ? null
-            : () {
-                final cubit = context.read<ScheduleDetailCubit>();
-                cubit.toggleJoin();
-              },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isJoined
-              ? Theme.of(context).colorScheme.error
-              : Theme.of(context).colorScheme.primary,
-          foregroundColor: isJoined
-              ? Theme.of(context).colorScheme.onError
-              : Theme.of(context).colorScheme.onPrimary,
-          padding: const EdgeInsets.symmetric(vertical: 16),
-        ),
-        child: isInitial
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-            : Text(
-                isJoined ? l10n.leaveEvent : l10n.joinEvent,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+    return Padding(
+      padding: paddings.x.s16,
+      child: Column(
+        children: [
+          if (isJoined)
+            MTButton(
+              variant: MTButtonVariant.destructive,
+              text: l10n.leaveEvent,
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      final cubit = context.read<ScheduleDetailCubit>();
+                      cubit.toggleJoin();
+                    },
+              isLoading: isLoading,
+            )
+          else
+            MTButton(
+              variant: MTButtonVariant.primary,
+              text: l10n.joinEvent,
+              onPressed: isLoading
+                  ? null
+                  : () {
+                      final cubit = context.read<ScheduleDetailCubit>();
+                      cubit.toggleJoin();
+                    },
+              isLoading: isLoading,
+            ),
+          spacings.y.s12,
+          Text(
+            isJoined
+                ? 'Ya estás registrado en este evento'
+                : 'Únete para recibir notificaciones y actualizaciones',
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: colors.textSecondary),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

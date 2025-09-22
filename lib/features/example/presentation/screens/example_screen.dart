@@ -22,7 +22,7 @@ class ExampleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MultitecAppBar(showLogo: false),
+      appBar: const MultitecAppBar(showTitleLogo: false),
       body: BlocProvider(
         create: (_) => ExampleCubit(
           locator<FetchExampleItemsUseCase>(),

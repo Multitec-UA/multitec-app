@@ -16,16 +16,13 @@ import 'package:multitec_app/features/schedule/presentation/screens/schedule_det
 import 'package:multitec_app/features/schedule/presentation/screens/schedule_screen.dart';
 import 'package:multitec_app/features/settings/presentation/screens/help_and_feedback_screen.dart';
 import 'package:multitec_app/features/settings/presentation/screens/settings_screen.dart';
-import 'package:multitec_app/features/splash/presentation/splash_sreen.dart';
 
 enum AppRoute {
   login('/login'),
-  splash('/splash'),
   home('/home'),
   schedule('/schedule'),
   scheduleDetail('/detail'),
   joinedSchedules('/joinedschedules'),
-  map('/map'),
   profile('/profile'),
   settings('/settings'),
   helpAndFeedback('/help-feedback'),
@@ -40,8 +37,6 @@ final GlobalKey<NavigatorState> _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Home');
 final GlobalKey<NavigatorState> _shellNavigatorActivitiesKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Activities');
-// final GlobalKey<NavigatorState> _shellNavigatorMapKey =
-//     GlobalKey<NavigatorState>(debugLabel: 'shell Map');
 final GlobalKey<NavigatorState> _shellNavigatorProfileKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell Profile');
 
@@ -70,11 +65,6 @@ final goRouter = GoRouter(
       name: AppRoute.login.name,
       path: AppRoute.login.path,
       builder: (context, state) => const SignInScreen(),
-    ),
-    GoRoute(
-      name: AppRoute.splash.name,
-      path: AppRoute.splash.path,
-      builder: (context, state) => const SplashScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (_, __, shell) =>
@@ -128,18 +118,6 @@ final goRouter = GoRouter(
             ),
           ],
         ),
-        // StatefulShellBranch(
-        //   navigatorKey: _shellNavigatorMapKey,
-        //   routes: [
-        //     GoRoute(
-        //       name: AppRoute.map.name,
-        //       path: AppRoute.map.path,
-        //       pageBuilder: (context, state) => const NoTransitionPage(
-        //         child: MapScreen(),
-        //       ),
-        //     ),
-        //   ],
-        // ),
         StatefulShellBranch(
           navigatorKey: _shellNavigatorProfileKey,
           routes: [

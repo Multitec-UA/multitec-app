@@ -5,11 +5,11 @@ AppSpacings spacings = AppSpacings();
 AppPaddings paddings = AppPaddings();
 
 class AppSizes {
-  final double s1 = 1;
-  final double s3 = 3;
+  final double s2 = 2;
   final double s4 = 4;
   final double s6 = 6;
   final double s8 = 8;
+  final double s10 = 10;
   final double s12 = 12;
   final double s14 = 14;
   final double s16 = 16;
@@ -18,6 +18,7 @@ class AppSizes {
   final double s32 = 32;
   final double s40 = 40;
   final double s48 = 48;
+  final double s52 = 52;
   final double s56 = 56;
   final double s64 = 64;
   final double s80 = 80;
@@ -37,13 +38,13 @@ class _SpaceSize {
   final Axis axis;
 
   _SpaceBox _box(double size) => _SpaceBox(
-        axis == Axis.horizontal ? size : null,
-        axis == Axis.vertical ? size : null,
-      );
+    axis == Axis.horizontal ? size : null,
+    axis == Axis.vertical ? size : null,
+  );
 
-  SizedBox get s1 => _box(sizes.s1).sizedBox;
+  SizedBox get s2 => _box(sizes.s2).sizedBox;
 
-  SliverToBoxAdapter get sliver1 => _box(sizes.s1).sliverSizedBox;
+  SliverToBoxAdapter get sliver2 => _box(sizes.s2).sliverSizedBox;
 
   SizedBox get s4 => _box(sizes.s4).sizedBox;
 
@@ -56,6 +57,10 @@ class _SpaceSize {
   SizedBox get s8 => _box(sizes.s8).sizedBox;
 
   SliverToBoxAdapter get sliver8 => _box(sizes.s8).sliverSizedBox;
+
+  SizedBox get s10 => _box(sizes.s10).sizedBox;
+
+  SliverToBoxAdapter get sliver10 => _box(sizes.s10).sliverSizedBox;
 
   SizedBox get s12 => _box(sizes.s12).sizedBox;
 
@@ -89,6 +94,10 @@ class _SpaceSize {
 
   SliverToBoxAdapter get sliver48 => _box(sizes.s48).sliverSizedBox;
 
+  SizedBox get s52 => _box(sizes.s52).sizedBox;
+
+  SliverToBoxAdapter get sliver52 => _box(sizes.s52).sliverSizedBox;
+
   SizedBox get s56 => _box(sizes.s56).sizedBox;
 
   SliverToBoxAdapter get sliver56 => _box(sizes.s56).sliverSizedBox;
@@ -108,11 +117,11 @@ class _SpaceSize {
 
 class _SpaceBox {
   _SpaceBox(this._width, this._height)
-      : assert(
-          (_width != null || _height != null) ||
-              (_width != null && _height != null),
-          'You must provide one of width or height',
-        );
+    : assert(
+        (_width != null || _height != null) ||
+            (_width != null && _height != null),
+        'You must provide one of width or height',
+      );
 
   final double? _width;
   final double? _height;
@@ -137,15 +146,15 @@ class _PaddingSide {
 
   final _PaddingSidesFlags sidesFlag;
 
-  EdgeInsets get s1 => _PaddingSize(sidesFlag, sizes.s1).edgeInsets;
-
-  EdgeInsets get s3 => _PaddingSize(sidesFlag, sizes.s3).edgeInsets;
+  EdgeInsets get s2 => _PaddingSize(sidesFlag, sizes.s2).edgeInsets;
 
   EdgeInsets get s4 => _PaddingSize(sidesFlag, sizes.s4).edgeInsets;
 
   EdgeInsets get s6 => _PaddingSize(sidesFlag, sizes.s6).edgeInsets;
 
   EdgeInsets get s8 => _PaddingSize(sidesFlag, sizes.s8).edgeInsets;
+
+  EdgeInsets get s10 => _PaddingSize(sidesFlag, sizes.s10).edgeInsets;
 
   EdgeInsets get s12 => _PaddingSize(sidesFlag, sizes.s12).edgeInsets;
 
@@ -162,6 +171,8 @@ class _PaddingSide {
   EdgeInsets get s40 => _PaddingSize(sidesFlag, sizes.s40).edgeInsets;
 
   EdgeInsets get s48 => _PaddingSize(sidesFlag, sizes.s48).edgeInsets;
+
+  EdgeInsets get s52 => _PaddingSize(sidesFlag, sizes.s52).edgeInsets;
 
   EdgeInsets get s56 => _PaddingSize(sidesFlag, sizes.s56).edgeInsets;
 
@@ -215,9 +226,9 @@ class _PaddingSize {
   final double size;
 
   EdgeInsets get edgeInsets => EdgeInsets.fromLTRB(
-        sidesFlag.leftFlag ? size : 0,
-        sidesFlag.topFlag ? size : 0,
-        sidesFlag.rightFlag ? size : 0,
-        sidesFlag.bottomFlag ? size : 0,
-      );
+    sidesFlag.leftFlag ? size : 0,
+    sidesFlag.topFlag ? size : 0,
+    sidesFlag.rightFlag ? size : 0,
+    sidesFlag.bottomFlag ? size : 0,
+  );
 }
