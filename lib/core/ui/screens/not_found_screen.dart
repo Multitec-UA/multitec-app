@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
+import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
+import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({super.key});
@@ -8,23 +11,53 @@ class NotFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Página no encontrada')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.error_outline, size: 80, color: Colors.red),
-            const SizedBox(height: 20),
-            const Text(
-              '404 - No se encontró la página',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 12),
-            TextButton(
-              onPressed: () => context.goNamed(AppRoute.home.name),
-              child: const Text('Ir al inicio'),
-            ),
-          ],
+      backgroundColor: context.colors.background,
+      appBar: AppBar(
+        title: const Text('Página no encontrada'),
+        backgroundColor: context.colors.background,
+      ),
+      body: Padding(
+        padding: paddings.all.s24,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_outline_rounded,
+                size: 80,
+                color: context.colors.error,
+              ),
+              spacings.y.s24,
+              Text(
+                '404',
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  color: context.colors.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              spacings.y.s8,
+              Text(
+                'No se encontró la página',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: context.colors.textSecondary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              spacings.y.s16,
+              Text(
+                'La página que buscas no existe o ha sido movida.',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: context.colors.textSecondary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              spacings.y.s32,
+              MTButton(
+                text: 'Ir al inicio',
+                onPressed: () => context.goNamed(AppRoute.home.name),
+              ),
+            ],
+          ),
         ),
       ),
     );

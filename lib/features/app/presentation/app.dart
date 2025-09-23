@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/core/ui/theme/app_theme.dart';
 import 'package:multitec_app/features/settings/presentation/cubits/locale_cubit.dart';
 import 'package:multitec_app/features/settings/presentation/cubits/theme_cubit.dart';
@@ -41,6 +43,19 @@ class _AppView extends StatelessWidget {
       theme: themeLight,
       darkTheme: themeDark,
       themeMode: themeMode,
+      //TODO: Ver si dejar esto aqui
+      builder: (context, child) {
+        if (!kIsWeb) return child!;
+        return Center(
+          child: ColoredBox(
+            color: context.colors.background,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 600),
+              child: child,
+            ),
+          ),
+        );
+      },
     );
   }
 }

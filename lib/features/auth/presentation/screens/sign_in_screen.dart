@@ -1,18 +1,17 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
-import 'package:multitec_app/core/ui/components/dialogs/info_dialog.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_in_state.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:multitec_app/features/auth/presentation/widgets/privacy_policy_text.dart';
+import 'package:multitec_app/features/auth/presentation/widgets/sign_in_form.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -22,7 +21,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (_) => SignInCubit(locator<SignInWithGoogleUseCase>()),
-        child: const _Body(),
+        child: const SafeArea(child: _Body()),
       ),
     );
   }
@@ -34,120 +33,51 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInCubit, SignInState>(
+      listenWhen: (prev, curr) => prev.status != curr.status,
       listener: (context, state) {
         if (state.status.isFailure) {
-          context.showSnackBar(
-            AppSnackBar.error(
-              content: Text(state.failure.toLocalizedMessage(context)),
-            ),
+          showErrorSnackBar(
+            context,
+            message: state.failure.toLocalizedMessage(context),
           );
         }
       },
       child: Center(
         child: SingleChildScrollView(
-          padding: paddings.x.s48,
-          child: const _SignInContent(),
+          padding: paddings.x.s24,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 400),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const _SignInIntroSection(),
+                spacings.y.s32,
+                const SignInForm(),
+                spacings.y.s24,
+                const PrivacyPolicyText(),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
 
-class _SignInContent extends StatelessWidget {
-  const _SignInContent();
+class _SignInIntroSection extends StatelessWidget {
+  const _SignInIntroSection();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final isLoading = context.select<SignInCubit, bool>(
-      (c) => c.state.status.isLoading,
-    );
-
     return Column(
       children: [
         const _Logo(),
-        spacings.y.s24,
-        Text(
-          'Bienvenido a Multitec',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall?.copyWith(
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        spacings.y.s8,
-        Text(
-          'Inicia sesión para acceder a la comunidad de Multitec UA',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.bodyLarge?.copyWith(
-            color: context.colors.textSecondary,
-          ),
-        ),
-        spacings.y.s16,
-        Align(
-          child: Container(
-            padding: paddings.x.s12 + paddings.y.s6,
-            decoration: BoxDecoration(
-              color: context.colors.gray20,
-              borderRadius: borderRadius.br8,
-            ),
-            child: Text(
-              'Solo cuentas @multitecua.com',
-              style: theme.textTheme.labelLarge?.copyWith(
-                color: context.colors.gray40,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ),
-        spacings.y.s24,
-        const _GoogleSignInButton(),
+        spacings.y.s32,
+        _WelcomeTitle(),
         spacings.y.s12,
-        TextButton(
-          onPressed: isLoading
-              ? null
-              : () {
-                  showInfoDialog(
-                    context: context,
-                    content:
-                        'Debes usar una cuenta de Google con el dominio @multitecua.com.\n\nSi necesitas acceso, contacta con tu coordinador o soporte.',
-                    actionButtonText: 'Entendido',
-                  );
-                },
-          child: const Text('¿Necesitas ayuda?'),
-        ),
-        spacings.y.s8,
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'Al continuar aceptas nuestras condiciones y la ',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: context.colors.textSecondary,
-                ),
-              ),
-              TextSpan(
-                text: 'política de privacidad',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: context.colors.primaryBase,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () async {
-                    final uri = Uri.parse('https://www.google.com');
-                    await launchUrl(uri, mode: LaunchMode.externalApplication);
-                  },
-              ),
-              TextSpan(
-                text: '.',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: context.colors.textSecondary,
-                ),
-              ),
-            ],
-          ),
-          textAlign: TextAlign.center,
-        ),
+        _WelcomeDescription(),
+        spacings.y.s24,
+        const _DomainNotice(),
       ],
     );
   }
@@ -158,6 +88,7 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Cambiar tamaño del logo en esta screen
     return Container(
       height: 100,
       decoration: const BoxDecoration(
@@ -170,51 +101,48 @@ class _Logo extends StatelessWidget {
   }
 }
 
-class _GoogleSignInButton extends StatelessWidget {
-  const _GoogleSignInButton();
+class _WelcomeTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Bienvenido a Multitec',
+      textAlign: TextAlign.center,
+      style: context.textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.w700,
+      ),
+    );
+  }
+}
+
+class _WelcomeDescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Inicia sesión para acceder a la comunidad de Multitec UA',
+      textAlign: TextAlign.center,
+      style: context.textTheme.bodyLarge?.copyWith(
+        color: context.colors.textSecondary,
+      ),
+    );
+  }
+}
+
+class _DomainNotice extends StatelessWidget {
+  const _DomainNotice();
 
   @override
   Widget build(BuildContext context) {
-    final isLoading = context.select<SignInCubit, bool>(
-      (c) => c.state.status.isLoading,
-    );
-
-    return SizedBox(
-      height: 52,
-      child: ElevatedButton(
-        onPressed: isLoading
-            ? null
-            : () => context.read<SignInCubit>().signInWithGoogle(),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: context.colors.primaryBase,
-          foregroundColor: context.colors.background,
-          shape: RoundedRectangleBorder(borderRadius: borderRadius.br24),
-          padding: paddings.x.s16,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading)
-              const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(strokeWidth: 2),
-              )
-            else
-              const Icon(Icons.login),
-            spacings.x.s12,
-            Flexible(
-              child: Text(
-                isLoading ? 'Iniciando sesión...' : 'Iniciar sesión con Google',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
+    return Container(
+      padding: paddings.x.s16 + paddings.y.s8,
+      decoration: BoxDecoration(
+        color: context.colors.gray20,
+        borderRadius: AppBorderRadius.br10,
+      ),
+      child: Text(
+        'Solo cuentas @multitecua.com',
+        style: context.textTheme.labelMedium?.copyWith(
+          color: context.colors.textSecondary,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

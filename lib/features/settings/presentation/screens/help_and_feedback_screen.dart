@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
+import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
+import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -9,78 +11,47 @@ class HelpAndFeedbackScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ayuda y Feedback'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: context.pop,
-        ),
+      backgroundColor: context.colors.background,
+      appBar: const MultitecAppBar(
+        showTitleLogo: false,
+        title: 'Ayuda y Feedback',
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: paddings.all.s16,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16),
-            _OptionListTile(
+            spacings.y.s16,
+            MTSettingsTile(
               title: 'Contactar con el desarrollador',
-              icon: Icons.coffee,
-              onPress: () async {
+              subtitle: 'Invitar a un café virtual y ponerse en contacto',
+              leading: Icon(Icons.coffee, color: context.colors.primaryBase),
+              onTap: () async {
                 const email = 'davidgab08@gmail.com';
                 const subject = 'Te invito a un café';
                 const body =
-                    '¡Hola! \n\nMe gustaría invitarte a un café virtual para charlar sobre My Movie Hub y ponernos en contacto. \n\n¡Espero tu respuesta! \n\nSaludos, [ Tu Nombre ]';
+                    '¡Hola! \n\nMe gustaría invitarte a un café virtual para charlar sobre Multitec UA y ponernos en contacto. \n\n¡Espero tu respuesta! \n\nSaludos, [ Tu Nombre ]';
                 await _launchEmail(email: email, subject: subject, body: body);
               },
             ),
-            const SizedBox(height: 20),
-            _OptionListTile(
+            spacings.y.s20,
+            MTSettingsTile(
               title: 'Reportar un bug / Sugerir una funcionalidad',
-              icon: Icons.bug_report_rounded,
-              onPress: () async {
+              subtitle:
+                  'Enviar reporte de errores o solicitar nuevas características',
+              leading: Icon(
+                Icons.bug_report_rounded,
+                color: context.colors.primaryBase,
+              ),
+              onTap: () async {
                 const email = 'davidgab08@gmail.com';
                 const subject = 'Reporte de bug o solicitud de funcionalidad';
                 const body =
-                    'Hola, \n\nHe encontrado un problema en My Movie Hub que quiero reportar. Aquí están los detalles: \n[Descripción breve del bug o problema] \n\nDispositivo y versión del sistema operativo: \n[Información del dispositivo y versión del SO] \n\nO, \n\nTengo una idea para una nueva funcionalidad que podría ser genial para My Movie Hub: \n[Descripción de la funcionalidad sugerida] \n\nGracias por tu atención. \n\nSaludos, [ Tu Nombre ]';
+                    'Hola, \n\nHe encontrado un problema en Multitec UA que quiero reportar. Aquí están los detalles: \n[Descripción breve del bug o problema] \n\nDispositivo y versión del sistema operativo: \n[Información del dispositivo y versión del SO] \n\nO, \n\nTengo una idea para una nueva funcionalidad que podría ser genial para Multitec UA: \n[Descripción de la funcionalidad sugerida] \n\nGracias por tu atención. \n\nSaludos, [ Tu Nombre ]';
                 await _launchEmail(email: email, subject: subject, body: body);
               },
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _OptionListTile extends StatelessWidget {
-  const _OptionListTile({
-    required this.title,
-    required this.icon,
-    required this.onPress,
-  });
-
-  final String title;
-  final IconData icon;
-  final VoidCallback onPress;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return ListTile(
-      onTap: onPress,
-      title: Text(
-        title,
-        style:
-            theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-      ),
-      leading: CircleAvatar(
-        backgroundColor: context.colors.gray10,
-        child: Icon(icon, color: theme.colorScheme.secondary),
-      ),
-      trailing: Icon(
-        Icons.arrow_forward_ios_rounded,
-        size: 18,
-        color: theme.colorScheme.secondary,
       ),
     );
   }

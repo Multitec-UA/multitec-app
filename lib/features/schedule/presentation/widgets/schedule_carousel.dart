@@ -4,12 +4,18 @@ import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/router/app_router.dart';
+import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
+import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_state.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/empty_list_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/list_error_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
 
 class ScheduleCarousel extends StatelessWidget {
@@ -37,8 +43,16 @@ class _CarouselBody extends StatelessWidget {
         return switch (state.status) {
           RequestStatus.initial ||
           RequestStatus.loading => const _LoadingState(),
-          RequestStatus.success => _LoadedState(items: state.items),
-          RequestStatus.failure => _ErrorState(
+          RequestStatus.success =>
+            state.items.isEmpty
+                ? const EmptyListPlaceholder(
+                    title: 'No hay eventos próximos',
+                    subtitle:
+                        'Vuelve pronto para ver nuevos eventos y actividades',
+                  )
+                : _Carousel(items: state.items),
+          RequestStatus.failure => ListErrorPlaceholder(
+            message: 'Error al cargar eventos',
             onRetry: () =>
                 context.read<ScheduleCarouselCubit>().loadLatestScheduleItems(),
           ),
@@ -48,82 +62,13 @@ class _CarouselBody extends StatelessWidget {
   }
 }
 
-class _LoadingState extends StatelessWidget {
-  const _LoadingState();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: paddings.x.s16,
-        itemCount: 3,
-        itemBuilder: (context, index) => Container(
-          width: 280,
-          margin: paddings.right.s12,
-          child: Card(
-            child: Container(
-              padding: paddings.all.s16,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 20,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 16,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    height: 14,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Container(
-                    height: 14,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _LoadedState extends StatelessWidget {
-  const _LoadedState({required this.items});
+class _Carousel extends StatelessWidget {
+  const _Carousel({required this.items});
 
   final List<ScheduleItem> items;
 
   @override
   Widget build(BuildContext context) {
-    if (items.isEmpty) {
-      return const _EmptyState();
-    }
-
     return SizedBox(
       height: 200,
       child: ListView.builder(
@@ -132,139 +77,170 @@ class _LoadedState extends StatelessWidget {
         itemCount: items.length + 1,
         itemBuilder: (context, index) {
           if (index == items.length) {
-            return const _SeeMoreButton();
+            return const _SeeMoreSchedulesButton();
           }
 
           final item = items[index];
-          return SizedBox(width: 290, child: ScheduleListItem(item: item));
+          return Container(
+            width: 290,
+            margin: paddings.right.s8,
+            child: ScheduleListItem(item: item),
+          );
         },
       ),
     );
   }
 }
 
-class _EmptyState extends StatelessWidget {
-  const _EmptyState();
+class _SeeMoreSchedulesButton extends StatelessWidget {
+  const _SeeMoreSchedulesButton();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      height: 200,
-      padding: paddings.all.s24,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.event_busy,
-              size: 48,
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'No hay eventos próximos',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Vuelve pronto para ver nuevos eventos y actividades',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({required this.onRetry});
-
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Container(
-      height: 200,
-      padding: paddings.all.s24,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.error_outline, size: 48, color: theme.colorScheme.error),
-            const SizedBox(height: 16),
-            Text(
-              'Error al cargar eventos',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.error,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'No se pudieron cargar los eventos próximos',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(onPressed: onRetry, child: const Text('Reintentar')),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SeeMoreButton extends StatelessWidget {
-  const _SeeMoreButton();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = context.colors;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
       width: 150,
-      margin: paddings.right.s12,
-      child: Card(
-        child: InkWell(
-          onTap: () => context.pushNamed(
-            AppRoute.schedule.name,
-            pathParameters: {'type': 'event'},
-          ),
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            padding: paddings.all.s16,
+      margin: paddings.right.s8,
+      child: MTCard(
+        onTap: () =>
+            context.goNamed(AppRoute.schedule.name, extra: ScheduleType.event),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: colors.primaryBase.withValues(alpha: 0.1),
+                borderRadius: AppBorderRadius.br24,
+              ),
+              child: Icon(
+                Icons.arrow_forward_ios,
+                size: 24,
+                color: colors.primaryBase,
+              ),
+            ),
+            spacings.y.s12,
+            Text(
+              'Ver más',
+              style: textTheme.titleSmall?.copyWith(
+                color: colors.primaryBase,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            spacings.y.s4,
+            Text(
+              'eventos',
+              style: textTheme.bodySmall?.copyWith(color: colors.textSecondary),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//TODO: Quitar loadingstate y hacerlo con paquete shimmer
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+
+    return SizedBox(
+      height: 200,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: paddings.x.s16,
+        itemCount: 3,
+        itemBuilder: (context, index) => Container(
+          width: 280,
+          margin: paddings.right.s8,
+          child: MTCard(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.arrow_forward,
-                  size: 32,
-                  color: theme.colorScheme.primary,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 4,
+                      height: 48,
+                      decoration: BoxDecoration(
+                        color: colors.gray20,
+                        borderRadius: AppBorderRadius.br2,
+                      ),
+                    ),
+                    spacings.x.s12,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _ShimmerBox(
+                            height: 20,
+                            width: double.infinity,
+                            color: colors.gray20,
+                          ),
+                          spacings.y.s8,
+                          _ShimmerBox(
+                            height: 16,
+                            width: 100,
+                            color: colors.gray20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                spacings.y.s8,
-                Text(
-                  'Ver más',
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: theme.colorScheme.primary,
-                    fontWeight: FontWeight.bold,
+                spacings.y.s12,
+                Padding(
+                  padding: EdgeInsets.only(left: sizes.s16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _ShimmerBox(
+                        height: 14,
+                        width: double.infinity,
+                        color: colors.gray20,
+                      ),
+                      spacings.y.s4,
+                      _ShimmerBox(height: 14, width: 150, color: colors.gray20),
+                    ],
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ShimmerBox extends StatelessWidget {
+  const _ShimmerBox({
+    required this.height,
+    required this.width,
+    required this.color,
+  });
+
+  final double height;
+  final double width;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: AppBorderRadius.br4,
       ),
     );
   }

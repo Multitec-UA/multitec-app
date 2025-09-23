@@ -11,5 +11,5 @@ export 'domain/usecases/is_joined_usecase.dart';
 export 'presentation/cubit/schedule_cubit.dart';
 export 'presentation/cubit/schedule_state.dart';
 export 'presentation/screens/schedule_screen.dart';
-export 'presentation/widgets/schedule_list_error_placeholder.dart';
+export 'presentation/widgets/list_error_placeholder.dart';
 export 'presentation/widgets/schedule_list_item.dart';

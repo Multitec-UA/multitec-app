@@ -7,14 +7,20 @@ import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_state.dart';
-import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_error_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/empty_list_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/list_error_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/load_more_items_indicator.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
 
+//TODO: Ver si dejar los widgets privados aqui o en archivos diferentes
 class ScheduleScreen extends StatelessWidget {
   const ScheduleScreen({super.key, this.initialTab});
 
@@ -25,22 +31,55 @@ class ScheduleScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       initialIndex: initialTab == ScheduleType.activity ? 1 : 0,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const MultitecAppBar(),
-          titleSpacing: 0,
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Events', icon: Icon(Icons.event)),
-              Tab(text: 'Activities', icon: Icon(Icons.local_activity)),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: const MultitecAppBar(
+            action: MultitecAppBarAction.profileShortcut,
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: paddings.all.s12,
+                child: Container(
+                  padding: paddings.all.s4,
+                  decoration: BoxDecoration(
+                    color: context.colors.primaryBase.withValues(alpha: 0.06),
+                    borderRadius: AppBorderRadius.br16,
+                    border: Border.all(
+                      color: context.colors.gray20,
+                      width: 0.5,
+                    ),
+                  ),
+                  child: TabBar(
+                    dividerColor: Colors.transparent,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BoxDecoration(
+                      color: context.colors.primaryBase,
+                      borderRadius: AppBorderRadius.br12,
+                    ),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: context.colors.textSecondary,
+                    labelStyle: context.textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                    unselectedLabelStyle: context.textTheme.labelLarge,
+                    tabs: const [
+                      Tab(text: 'Eventos'),
+                      Tab(text: 'Actividades'),
+                    ],
+                  ),
+                ),
+              ),
+              const Expanded(
+                child: TabBarView(
+                  children: [
+                    _ScheduleTabView(type: ScheduleType.event),
+                    _ScheduleTabView(type: ScheduleType.activity),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-        body: const TabBarView(
-          children: [
-            _ScheduleTabView(type: ScheduleType.event),
-            _ScheduleTabView(type: ScheduleType.activity),
-          ],
         ),
       ),
     );
@@ -70,13 +109,15 @@ class _ScheduleTabViewState extends State<_ScheduleTabView>
         locator<GetScheduleItemsByTypeUseCase>(),
         locator<EventBus>(),
       )..loadScheduleItems(),
-      child: const _Body(),
+      child: _Body(type: widget.type),
     );
   }
 }
 
 class _Body extends StatelessWidget {
-  const _Body();
+  const _Body({required this.type});
+
+  final ScheduleType type;
 
   @override
   Widget build(BuildContext context) {
@@ -92,19 +133,23 @@ class _Body extends StatelessWidget {
         }
 
         return switch (state.status) {
-          RequestStatus.initial || RequestStatus.loading => const Center(
-            child: CircularProgressIndicator(),
+          RequestStatus.initial || RequestStatus.loading => Center(
+            child: CircularProgressIndicator(color: context.colors.primaryBase),
           ),
 
-          RequestStatus.failure => ScheduleListErrorPlaceholder(
+          RequestStatus.failure => ListErrorPlaceholder(
             message: state.failure.toScheduleListMessage(context),
             onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(
               isRefreshing: true,
             ),
           ),
 
-          RequestStatus.success => const Center(
-            child: Text('No hay elementos disponibles'),
+          RequestStatus.success => EmptyListPlaceholder(
+            title:
+                'No hay ${type == ScheduleType.event ? 'eventos' : 'actividades'} disponibles',
+            subtitle: type == ScheduleType.event
+                ? 'Los eventos aparecerán aquí cuando estén disponibles'
+                : 'Las actividades aparecerán aquí cuando estén disponibles',
           ),
         };
       },
@@ -153,75 +198,35 @@ class _ListSectionState extends State<_ListSection> {
   Widget build(BuildContext context) {
     final itemCount =
         widget.state.items.length + (widget.state.hasMore ? 1 : 0);
+
     return RefreshIndicator(
+      color: context.colors.primaryBase,
+      backgroundColor: context.colors.surface,
       onRefresh: () =>
           context.read<ScheduleCubit>().loadScheduleItems(isRefreshing: true),
       child: ListView.builder(
         controller: _scrollController,
-        physics: const AlwaysScrollableScrollPhysics(),
+        padding: paddings.x.s16,
         itemCount: itemCount,
         itemBuilder: (context, index) {
           if (index >= widget.state.items.length) {
-            return _LoadMoreIndicator(
-              isLoading:
-                  widget.state.status.isLoading &&
-                  widget.state.items.isNotEmpty,
-              hasError:
-                  widget.state.status.isFailure &&
-                  widget.state.items.isNotEmpty,
+            return LoadMoreItemsIndicator(
+              isLoading: widget.state.status.isLoading,
+              hasError: widget.state.status.isFailure,
               onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
             );
           }
-          return ScheduleListItem(item: widget.state.items[index]);
+
+          final item = widget.state.items[index];
+
+          return ScheduleListItem(item: item);
         },
       ),
     );
   }
 }
 
-class _LoadMoreIndicator extends StatelessWidget {
-  const _LoadMoreIndicator({
-    required this.isLoading,
-    required this.hasError,
-    required this.onRetry,
-  });
-
-  final bool isLoading;
-  final bool hasError;
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    if (isLoading) {
-      return Padding(
-        padding: paddings.all.s16,
-        child: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    if (hasError) {
-      return Padding(
-        padding: paddings.all.s16,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('Error al cargar más elementos'),
-              const SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: onRetry,
-                child: const Text('Reintentar'),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return const SizedBox.shrink();
-  }
-}
-
+//TODO: Check
 extension _ScheduleListFailureL10nX on Failure? {
   String toScheduleListMessage(BuildContext context) {
     final l10n = context.l10n;
