@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/styles/mt_style_config.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors.dart';
+import 'package:multitec_app/core/ui/styles/ui_constants.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 
-/// Custom list tile component with iOS-style design
 class MTListTile extends StatelessWidget {
   const MTListTile({
     this.leading,
@@ -13,7 +12,6 @@ class MTListTile extends StatelessWidget {
     this.subtitle,
     this.trailing,
     this.onTap,
-    this.selected = false,
     this.enabled = true,
     this.showChevron = false,
     this.backgroundColor,
@@ -26,7 +24,6 @@ class MTListTile extends StatelessWidget {
   final Widget? subtitle;
   final Widget? trailing;
   final VoidCallback? onTap;
-  final bool selected;
   final bool enabled;
   final bool showChevron;
   final Color? backgroundColor;
@@ -35,21 +32,23 @@ class MTListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final textTheme = Theme.of(context).textTheme;
+    final textTheme = context.textTheme;
+    final isLight = Theme.of(context).brightness == Brightness.light;
 
-    final effectiveTrailing = _buildTrailing(colors);
-    final effectiveBackgroundColor =
-        backgroundColor ??
-        (selected
-            ? colors.primaryBase.withValues(alpha: MTStyleConfig.overlayOpacity)
-            : colors.surface);
-
-    return Material(
-      color: effectiveBackgroundColor,
-      borderRadius: borderRadius.br12,
+    return Card(
+      elevation: UIConstants.cardElevation,
+      shadowColor: colors.gray20.withValues(alpha: UIConstants.shadowOpacity),
+      shape: RoundedRectangleBorder(
+        borderRadius: AppBorderRadius.br12,
+        side: isLight
+            ? BorderSide(color: colors.gray20, width: 0.5)
+            : BorderSide.none,
+      ),
+      color: backgroundColor ?? colors.surface,
+      margin: EdgeInsets.zero,
       child: InkWell(
         onTap: enabled ? onTap : null,
-        borderRadius: borderRadius.br12,
+        borderRadius: AppBorderRadius.br12,
         child: Padding(
           padding: contentPadding ?? paddings.all.s16,
           child: Row(
@@ -86,9 +85,14 @@ class MTListTile extends StatelessWidget {
                   ],
                 ),
               ),
-              if (effectiveTrailing != null) ...[
+              if (trailing != null || (showChevron && onTap != null)) ...[
                 spacings.x.s12,
-                effectiveTrailing,
+                trailing ??
+                    Icon(
+                      Icons.chevron_right,
+                      color: colors.textSecondary,
+                      size: 20,
+                    ),
               ],
             ],
           ),
@@ -96,21 +100,8 @@ class MTListTile extends StatelessWidget {
       ),
     );
   }
-
-  Widget? _buildTrailing(AppColors colors) {
-    if (trailing != null) {
-      return trailing;
-    }
-
-    if (showChevron && onTap != null) {
-      return Icon(Icons.chevron_right, color: colors.textSecondary, size: 20);
-    }
-
-    return null;
-  }
 }
 
-/// Specialized list tile for settings/configuration items
 class MTSettingsTile extends StatelessWidget {
   const MTSettingsTile({
     required this.title,
@@ -155,7 +146,6 @@ class MTSettingsTile extends StatelessWidget {
   }
 }
 
-/// Specialized list tile with switch control
 class MTSwitchTile extends StatelessWidget {
   const MTSwitchTile({
     required this.title,

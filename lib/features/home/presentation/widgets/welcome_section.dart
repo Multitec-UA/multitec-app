@@ -18,7 +18,7 @@ class WelcomeSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            context.l10n.welcomeUser(userName),
+            '${context.l10n.welcomeUser(userName)} 🌟',
             style: context.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: context.colors.textPrimary,

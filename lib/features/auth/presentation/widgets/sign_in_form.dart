@@ -31,15 +31,18 @@ class _GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: hacer borderradius mas redondo
     return Padding(
       padding: paddings.x.s32,
-      child: MTButton(
-        fullWidth: true,
-        onPressed: isLoading
-            ? null
-            : () => context.read<SignInCubit>().signInWithGoogle(),
-        isLoading: isLoading,
-        text: 'Iniciar sesión con Google',
+      child: SizedBox(
+        width: double.infinity,
+        child: MTButton(
+          onPressed: isLoading
+              ? null
+              : () => context.read<SignInCubit>().signInWithGoogle(),
+          isLoading: isLoading,
+          text: 'Iniciar sesión con Google',
+        ),
       ),
     );
   }
@@ -53,18 +56,15 @@ class _HelpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: isLoading ? null : () => _showHelpDialog(context),
+      onPressed: isLoading
+          ? null
+          : () => showInfoDialog(
+              context: context,
+              content:
+                  'Debes usar una cuenta de Google con el dominio @multitecua.com.\n\nSi necesitas acceso, contacta con tu coordinador o soporte.',
+              actionButtonText: 'Entendido',
+            ),
       child: const Text('¿Necesitas ayuda?'),
-    );
-  }
-
-  //TODO: Sacar a dialog comun
-  void _showHelpDialog(BuildContext context) {
-    showInfoDialog(
-      context: context,
-      content:
-          'Debes usar una cuenta de Google con el dominio @multitecua.com.\n\nSi necesitas acceso, contacta con tu coordinador o soporte.',
-      actionButtonText: 'Entendido',
     );
   }
 }

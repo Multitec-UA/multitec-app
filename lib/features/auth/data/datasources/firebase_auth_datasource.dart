@@ -4,9 +4,8 @@ import 'package:multitec_app/core/exceptions/app_exception.dart';
 import 'package:multitec_app/features/user/data/dtos/user_dto.dart';
 
 class FirebaseAuthDataSource {
-  FirebaseAuthDataSource({
-    FirebaseAuth? firebaseAuth,
-  }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+  FirebaseAuthDataSource({FirebaseAuth? firebaseAuth})
+    : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   final FirebaseAuth _firebaseAuth;
 
@@ -15,7 +14,8 @@ class FirebaseAuthDataSource {
     if (kIsWeb) {
       try {
         final cred = await _firebaseAuth.signInWithPopup(provider);
-        await _enforceAllowedDomainOrSignOut(cred.user);
+        //TODO: Borrar
+        //await _enforceAllowedDomainOrSignOut(cred.user);
       } on Object {
         await _firebaseAuth.signInWithRedirect(provider);
       }
@@ -23,6 +23,7 @@ class FirebaseAuthDataSource {
     }
 
     final cred = await _firebaseAuth.signInWithProvider(provider);
+    //TODO: Borrar
     //await _enforceAllowedDomainOrSignOut(cred.user);
   }
 
@@ -61,9 +62,9 @@ class FirebaseAuthDataSource {
   // Streams to observe authentication and token changes
   Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
 
-  Stream<String?> idTokenChanges() => _firebaseAuth
-      .idTokenChanges()
-      .asyncMap((u) async => u == null ? null : await u.getIdToken());
+  Stream<String?> idTokenChanges() => _firebaseAuth.idTokenChanges().asyncMap(
+    (u) async => u == null ? null : await u.getIdToken(),
+  );
 
   // Helper to fetch a fresh ID token once
   Future<String?> getIdTokenOnce({bool forceRefresh = false}) async {

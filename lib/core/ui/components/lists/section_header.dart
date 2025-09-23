@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
-/// Section header component with iOS-style design
 class SectionHeader extends StatelessWidget {
   const SectionHeader({
     required this.title,
@@ -27,9 +26,7 @@ class SectionHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: backgroundColor ?? colors.background,
-      padding:
-          padding ??
-          EdgeInsets.symmetric(horizontal: sizes.s16, vertical: sizes.s8),
+      padding: padding ?? paddings.x.s16 + paddings.y.s12,
       child: Row(
         children: [
           Expanded(
@@ -60,70 +57,6 @@ class SectionHeader extends StatelessWidget {
           if (action != null) ...[spacings.x.s12, action!],
         ],
       ),
-    );
-  }
-}
-
-/// Specialized section header for grouped lists
-class GroupedSectionHeader extends StatelessWidget {
-  const GroupedSectionHeader({
-    required this.title,
-    this.subtitle,
-    this.action,
-    this.topSpacing = true,
-    this.bottomSpacing = true,
-    super.key,
-  });
-
-  final String title;
-  final String? subtitle;
-  final Widget? action;
-  final bool topSpacing;
-  final bool bottomSpacing;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (topSpacing) spacings.y.s16,
-        SectionHeader(title: title, subtitle: subtitle, action: action),
-        if (bottomSpacing) spacings.y.s8,
-      ],
-    );
-  }
-}
-
-/// Specialized section header with divider
-class DividedSectionHeader extends StatelessWidget {
-  const DividedSectionHeader({
-    required this.title,
-    this.subtitle,
-    this.action,
-    this.showTopDivider = false,
-    this.showBottomDivider = true,
-    super.key,
-  });
-
-  final String title;
-  final String? subtitle;
-  final Widget? action;
-  final bool showTopDivider;
-  final bool showBottomDivider;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (showTopDivider)
-          Divider(height: 1, thickness: 1, color: colors.gray20),
-        SectionHeader(title: title, subtitle: subtitle, action: action),
-        if (showBottomDivider)
-          Divider(height: 1, thickness: 1, color: colors.gray20),
-      ],
     );
   }
 }

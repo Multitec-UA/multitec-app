@@ -111,7 +111,7 @@ Future<void> serviceLocatorSetUp() async {
   /// Example Feature ///
   // Datasources
   locator.registerLazySingleton<ExampleRemoteDataSource>(
-    () => true
+    () => useMocks
         ? ExampleMockDataSource()
         : ExampleRemoteDataSourceImpl(
             locator<NetworkService>(instanceName: 'MultitecApi'),

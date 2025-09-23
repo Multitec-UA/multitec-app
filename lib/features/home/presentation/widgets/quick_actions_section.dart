@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
@@ -54,6 +55,21 @@ class QuickActionsSection extends StatelessWidget {
               ),
             ],
           ),
+          if (kDebugMode) ...[
+            spacings.y.s12,
+            Row(
+              children: [
+                Expanded(
+                  child: QuickActionCard(
+                    icon: Icons.temple_hindu_rounded,
+                    title: 'Feature Example',
+                    subtitle: 'Ir a Feature Example',
+                    onTap: () => context.pushNamed(AppRoute.example.name),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );

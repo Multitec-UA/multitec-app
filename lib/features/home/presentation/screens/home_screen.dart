@@ -28,10 +28,14 @@ class HomeScreen extends StatelessWidget {
           children: [
             WelcomeSection(userName: user?.name ?? 'Multitec'),
 
-            const GroupedSectionHeader(title: 'Próximos eventos y actividades'),
+            spacings.y.s8,
+
+            const SectionHeader(title: 'Próximos eventos y actividades'),
             const ScheduleCarousel(),
 
-            const GroupedSectionHeader(title: 'Acciones rápidas'),
+            spacings.y.s16,
+
+            const SectionHeader(title: 'Acciones rápidas'),
             const QuickActionsSection(),
             spacings.y.s32,
           ],

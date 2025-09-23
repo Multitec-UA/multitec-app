@@ -7,7 +7,6 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
 import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
@@ -43,16 +42,14 @@ class _Body extends StatelessWidget {
       listenWhen: (prev, curr) => prev.reportStatus != curr.reportStatus,
       listener: (context, state) {
         if (state.reportStatus.isSuccess) {
-          context.showSnackBar(
-            AppSnackBar.success(
-              content: const Text('Informe enviado correctamente'),
-            ),
+          showSuccessSnackBar(
+            context,
+            message: 'Informe enviado correctamente',
           );
         } else if (state.reportStatus.isFailure) {
-          context.showSnackBar(
-            AppSnackBar.error(
-              content: Text(state.reportFailure.toLocalizedMessage(context)),
-            ),
+          showErrorSnackBar(
+            context,
+            message: state.reportFailure.toLocalizedMessage(context),
           );
         }
       },

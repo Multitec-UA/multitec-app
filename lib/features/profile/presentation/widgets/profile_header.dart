@@ -83,7 +83,7 @@ class _EmailBadge extends StatelessWidget {
       padding: paddings.x.s12 + paddings.y.s6,
       decoration: BoxDecoration(
         color: context.colors.gray20,
-        borderRadius: borderRadius.br8,
+        borderRadius: AppBorderRadius.br8,
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

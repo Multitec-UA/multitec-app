@@ -18,10 +18,17 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.colors.background,
       appBar: const MultitecAppBar(showTitleLogo: false, title: 'Ajustes'),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [_PreferencesSection(), _HelpSection(), _AccountSection()],
+          children: [
+            const _PreferencesSection(),
+            spacings.y.s24,
+            const _HelpSection(),
+            spacings.y.s24,
+            const _AccountSection(),
+            spacings.y.s16,
+          ],
         ),
       ),
     );

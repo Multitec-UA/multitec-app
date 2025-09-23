@@ -24,9 +24,9 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 ProfileHeader(user: user),
-                spacings.y.s8,
+                spacings.y.s4,
                 const ProfileOptionsSection(),
-                spacings.y.s24,
+                spacings.y.s20,
                 const DeveloperSection(),
               ],
             ),

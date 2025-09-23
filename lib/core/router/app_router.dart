@@ -104,7 +104,7 @@ final goRouter = GoRouter(
               routes: [
                 GoRoute(
                   parentNavigatorKey: _shellNavigatorActivitiesKey,
-                  path: '/detail/:itemId',
+                  path: AppRoute.scheduleDetail.path,
                   name: AppRoute.scheduleDetail.name,
                   builder: (context, state) {
                     final item = state.extra as ScheduleItem?;

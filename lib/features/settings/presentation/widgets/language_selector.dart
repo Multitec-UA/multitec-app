@@ -22,7 +22,7 @@ class LanguageSelector extends StatelessWidget {
       offset: const Offset(0, 4),
       padding: EdgeInsets.zero,
       elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+      shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
       itemBuilder: (context) {
         return supportedLocales.map((locale) {
           final isSelected = locale.languageCode == currentLocale.languageCode;
@@ -35,7 +35,7 @@ class LanguageSelector extends StatelessWidget {
                 color: isSelected
                     ? context.colors.primaryBase
                     : context.colors.surface,
-                borderRadius: borderRadius.br8,
+                borderRadius: AppBorderRadius.br8,
               ),
               padding: paddings.all.s12,
               child: Text(

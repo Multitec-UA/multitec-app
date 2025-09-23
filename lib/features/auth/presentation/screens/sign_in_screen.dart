@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
-import 'package:multitec_app/core/ui/extensions/context_extension.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_in_cubit.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_in_state.dart';
-import 'package:multitec_app/features/auth/presentation/widgets/sign_in_footer.dart';
+import 'package:multitec_app/features/auth/presentation/widgets/privacy_policy_text.dart';
 import 'package:multitec_app/features/auth/presentation/widgets/sign_in_form.dart';
-import 'package:multitec_app/features/auth/presentation/widgets/sign_in_header.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -35,10 +36,9 @@ class _Body extends StatelessWidget {
       listenWhen: (prev, curr) => prev.status != curr.status,
       listener: (context, state) {
         if (state.status.isFailure) {
-          context.showSnackBar(
-            AppSnackBar.error(
-              content: Text(state.failure.toLocalizedMessage(context)),
-            ),
+          showErrorSnackBar(
+            context,
+            message: state.failure.toLocalizedMessage(context),
           );
         }
       },
@@ -50,14 +50,99 @@ class _Body extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SignInHeader(),
+                const _SignInIntroSection(),
                 spacings.y.s32,
                 const SignInForm(),
                 spacings.y.s24,
-                const SignInFooter(),
+                const PrivacyPolicyText(),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SignInIntroSection extends StatelessWidget {
+  const _SignInIntroSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const _Logo(),
+        spacings.y.s32,
+        _WelcomeTitle(),
+        spacings.y.s12,
+        _WelcomeDescription(),
+        spacings.y.s24,
+        const _DomainNotice(),
+      ],
+    );
+  }
+}
+
+class _Logo extends StatelessWidget {
+  const _Logo();
+
+  @override
+  Widget build(BuildContext context) {
+    //TODO: Cambiar tamaño del logo en esta screen
+    return Container(
+      height: 100,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/pngs/multitec_logo.png'),
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+}
+
+class _WelcomeTitle extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Bienvenido a Multitec',
+      textAlign: TextAlign.center,
+      style: context.textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.w700,
+      ),
+    );
+  }
+}
+
+class _WelcomeDescription extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Inicia sesión para acceder a la comunidad de Multitec UA',
+      textAlign: TextAlign.center,
+      style: context.textTheme.bodyLarge?.copyWith(
+        color: context.colors.textSecondary,
+      ),
+    );
+  }
+}
+
+class _DomainNotice extends StatelessWidget {
+  const _DomainNotice();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: paddings.x.s16 + paddings.y.s8,
+      decoration: BoxDecoration(
+        color: context.colors.gray20,
+        borderRadius: AppBorderRadius.br10,
+      ),
+      child: Text(
+        'Solo cuentas @multitecua.com',
+        style: context.textTheme.labelMedium?.copyWith(
+          color: context.colors.textSecondary,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

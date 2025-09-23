@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 abstract class AppColors {
   const AppColors();
 
-  // Main colors
   Color get primary10;
   Color get primary20;
   Color get primary30;
@@ -14,19 +13,16 @@ abstract class AppColors {
 
   Color get secondary;
 
-  // Background and text
   Color get background;
   Color get surface;
   Color get textPrimary;
   Color get textSecondary;
 
-  // Semantic colors
   Color get error;
   Color get warning;
   Color get success;
   Color get info;
 
-  // Gray scale
   Color get gray10;
   Color get gray20;
   Color get gray30;
@@ -37,7 +33,6 @@ abstract class AppColors {
 class LightColors extends AppColors {
   const LightColors();
 
-  // Main colors
   @override
   Color get primary10 => const Color(0xFFFF9CA0);
   @override
@@ -56,9 +51,8 @@ class LightColors extends AppColors {
   @override
   Color get secondary => const Color(0xFFBCBFBE);
 
-  // Background and text
   @override
-  Color get background => const Color(0xFFFFFFFF);
+  Color get background => const Color(0xFFF6F6F6);
   @override
   Color get surface => const Color(0xFFFFFFFF);
   @override
@@ -66,7 +60,6 @@ class LightColors extends AppColors {
   @override
   Color get textSecondary => const Color(0xFF757575);
 
-  // Semantic colors
   @override
   Color get error => const Color(0xFFE74C3C);
   @override
@@ -76,7 +69,6 @@ class LightColors extends AppColors {
   @override
   Color get info => const Color(0xFF3498DB);
 
-  // Gray scale
   @override
   Color get gray10 => const Color(0xFFF6F6F6);
   @override
@@ -92,7 +84,6 @@ class LightColors extends AppColors {
 class DarkColors extends AppColors {
   const DarkColors();
 
-  // Main colors
   @override
   Color get primary10 => const Color(0xFFFF9CA0);
   @override
@@ -111,7 +102,6 @@ class DarkColors extends AppColors {
   @override
   Color get secondary => const Color(0xFFBCBFBE);
 
-  // Background and text
   @override
   Color get background => const Color(0xFF121212);
   @override
@@ -121,7 +111,6 @@ class DarkColors extends AppColors {
   @override
   Color get textSecondary => const Color(0xFFAAAAAA);
 
-  // Semantic colors
   @override
   Color get error => const Color(0xFFE57373);
   @override
@@ -131,7 +120,6 @@ class DarkColors extends AppColors {
   @override
   Color get info => const Color(0xFF64B5F6);
 
-  // Gray scale
   @override
   Color get gray10 => const Color(0xFF1E2121);
   @override

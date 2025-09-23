@@ -3,8 +3,8 @@ import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
-class ScheduleListErrorPlaceholder extends StatelessWidget {
-  const ScheduleListErrorPlaceholder({
+class ListErrorPlaceholder extends StatelessWidget {
+  const ListErrorPlaceholder({
     required this.message,
     required this.onRetry,
     super.key,
@@ -42,7 +42,8 @@ class ScheduleListErrorPlaceholder extends StatelessWidget {
             ),
             spacings.y.s24,
             MTButton(
-              variant: MTButtonVariant.secondary,
+              type: MTButtonType.secondary,
+              size: MTButtonSize.small,
               text: 'Reintentar',
               onPressed: onRetry,
             ),

@@ -31,7 +31,7 @@ class QuickActionCard extends StatelessWidget {
             padding: paddings.all.s12,
             decoration: BoxDecoration(
               color: context.colors.primaryBase.withValues(alpha: 0.1),
-              borderRadius: borderRadius.br12,
+              borderRadius: AppBorderRadius.br12,
             ),
             child: Icon(icon, color: context.colors.primaryBase, size: 24),
           ),

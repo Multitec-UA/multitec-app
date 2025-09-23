@@ -15,10 +15,7 @@ class DeveloperSection extends StatelessWidget {
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const GroupedSectionHeader(
-                title: 'Desarrollador',
-                topSpacing: false,
-              ),
+              const SectionHeader(title: 'Desarrollador'),
               MTSettingsTile(
                 leading: Icon(
                   Icons.delete_outline,

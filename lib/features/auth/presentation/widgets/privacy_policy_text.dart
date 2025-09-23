@@ -5,8 +5,8 @@ import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //TODO: Ver si dejar este nombre u otro
-class SignInFooter extends StatelessWidget {
-  const SignInFooter({super.key});
+class PrivacyPolicyText extends StatelessWidget {
+  const PrivacyPolicyText({super.key});
 
   @override
   Widget build(BuildContext context) {

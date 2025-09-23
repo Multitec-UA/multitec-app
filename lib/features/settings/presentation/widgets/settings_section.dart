@@ -6,26 +6,18 @@ class SettingsSection extends StatelessWidget {
   const SettingsSection({
     required this.title,
     required this.children,
-    this.topSpacing = true,
-    this.bottomSpacing = true,
     super.key,
   });
 
   final String title;
   final List<Widget> children;
-  final bool topSpacing;
-  final bool bottomSpacing;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GroupedSectionHeader(
-          title: title,
-          topSpacing: topSpacing,
-          bottomSpacing: bottomSpacing,
-        ),
+        SectionHeader(title: title),
         Padding(
           padding: paddings.x.s16,
           child: Column(children: children),

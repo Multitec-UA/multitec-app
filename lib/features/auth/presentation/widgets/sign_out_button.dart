@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/components/dialogs/confirmation_dialog.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_out_cubit.dart';
 import 'package:multitec_app/features/auth/presentation/cubit/sign_out_state.dart';
@@ -31,8 +30,10 @@ class _Button extends StatelessWidget {
         return SizedBox(
           width: double.infinity,
           child: MTButton(
-            variant: MTButtonVariant.destructive,
-            onPressed: isLoading ? null : () => _showSignOutDialog(context),
+            type: MTButtonType.destructive,
+            onPressed: isLoading
+                ? null
+                : () => _showSignOutConfirmationDialog(context),
             isLoading: isLoading,
             text: 'Cerrar sesión',
           ),
@@ -41,44 +42,13 @@ class _Button extends StatelessWidget {
     );
   }
 
-  //TODO: Sacar a dialog comun
-  void _showSignOutDialog(BuildContext context) {
-    showDialog<void>(
+  Future<void> _showSignOutConfirmationDialog(BuildContext context) async {
+    await showConfirmationDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Cerrar sesión'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('¿Estás seguro de que quieres cerrar sesión?'),
-            spacings.y.s20,
-            Row(
-              children: [
-                Expanded(
-                  child: MTButton(
-                    variant: MTButtonVariant.secondary,
-                    onPressed: context.pop,
-                    text: 'Cancelar',
-                  ),
-                ),
-                spacings.x.s12,
-                Expanded(
-                  child: MTButton(
-                    variant: MTButtonVariant.destructive,
-                    onPressed: () {
-                      context.pop();
-                      context.read<SignOutCubit>().signOut();
-                    },
-                    text: 'Salir',
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        alignment: Alignment.center,
-      ),
+      title: 'Cerrar sesión',
+      content: '¿Estás seguro de que quieres cerrar sesión?',
+      confirmText: 'Salir',
+      onConfirm: () => context.read<SignOutCubit>().signOut(),
     );
   }
 }

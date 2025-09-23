@@ -42,20 +42,20 @@ lib/core/ui/components/
 
 #### Botón Primario
 - **Estilo**: Fondo sólido con `context.colors.primaryBase`
-- **Forma**: Border radius `borderRadius.br12`
+- **Forma**: Border radius `AppBorderRadius.br12`
 - **Padding**: `paddings.y.s16` y `paddings.x.s24`
 - **Tipografía**: `context.textTheme.labelLarge` en color blanco
 - **Estados**: Normal, pressed, disabled con opacidades apropiadas
 
 #### Botón Secundario
 - **Estilo**: Borde con `context.colors.primaryBase`, fondo transparente
-- **Forma**: Border radius `borderRadius.br12`
+- **Forma**: Border radius `AppBorderRadius.br12`
 - **Padding**: `paddings.y.s16` y `paddings.x.s24`
 - **Tipografía**: `context.textTheme.labelLarge` en `context.colors.primaryBase`
 
 #### Botón Destructivo
 - **Estilo**: Fondo sólido con `context.colors.error`
-- **Forma**: Border radius `borderRadius.br12`
+- **Forma**: Border radius `AppBorderRadius.br12`
 - **Padding**: `paddings.y.s16` y `paddings.x.s24`
 - **Tipografía**: `context.textTheme.labelLarge` en color blanco
 
@@ -63,14 +63,14 @@ lib/core/ui/components/
 
 #### Card Principal
 - **Fondo**: `context.colors.surface`
-- **Forma**: Border radius `borderRadius.br16`
+- **Forma**: Border radius `AppBorderRadius.br16`
 - **Sombra**: Elevación sutil usando `context.colors.gray20` con opacidad
 - **Padding**: `paddings.all.s16`
 - **Separación**: `spacings.y.s12` entre cards
 
 #### Card de Lista
 - **Fondo**: `context.colors.surface`
-- **Forma**: Border radius `borderRadius.br12`
+- **Forma**: Border radius `AppBorderRadius.br12`
 - **Separadores**: Líneas sutiles con `context.colors.gray20`
 - **Padding**: `paddings.all.s12`
 
@@ -78,7 +78,7 @@ lib/core/ui/components/
 
 #### Campo de Texto
 - **Fondo**: `context.colors.gray10`
-- **Forma**: Border radius `borderRadius.br10`
+- **Forma**: Border radius `AppBorderRadius.br10`
 - **Padding**: `paddings.all.s16`
 - **Tipografía**: `context.textTheme.bodyLarge`
 - **Estados**: Normal, focused, error con colores apropiados
@@ -135,14 +135,14 @@ final themeLight = _baseTheme.copyWith(
     style: ElevatedButton.styleFrom(
       elevation: 1.0,
       shadowColor: lightColors.gray20,
-      shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+      shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
     ),
   ),
   
   cardTheme: CardTheme(
     elevation: 1.0,
     shadowColor: lightColors.gray20.withValues(alpha: 0.3),
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br16),
+    shape: RoundedRectangleBorder(borderRadius: AppBorderRadius.br16),
     color: lightColors.surface,
   ),
   
@@ -150,7 +150,7 @@ final themeLight = _baseTheme.copyWith(
     filled: true,
     fillColor: lightColors.gray10,
     border: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide.none,
     ),
     contentPadding: paddings.all.s16,
@@ -201,7 +201,7 @@ enum MTComponentState {
 
 ### Dialogs y Modals
 - **Fondo**: `context.colors.surface`
-- **Forma**: Border radius `borderRadius.br16`
+- **Forma**: Border radius `AppBorderRadius.br16`
 - **Sombra**: Elevación pronunciada
 - **Botones**: Estilo personalizado con separadores sutiles
 

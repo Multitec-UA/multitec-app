@@ -6,18 +6,21 @@ import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
-import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
-import 'package:multitec_app/core/ui/components/lists/section_header.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
+import 'package:multitec_app/core/ui/styles/border_radius.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/schedule_state.dart';
-import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_error_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/empty_list_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/list_error_placeholder.dart';
+import 'package:multitec_app/features/schedule/presentation/widgets/load_more_items_indicator.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
 
+//TODO: Ver si dejar los widgets privados aqui o en archivos diferentes
 class ScheduleScreen extends StatelessWidget {
   const ScheduleScreen({super.key, this.initialTab});
 
@@ -25,37 +28,58 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-
     return DefaultTabController(
       length: 2,
       initialIndex: initialTab == ScheduleType.activity ? 1 : 0,
-      child: Scaffold(
-        backgroundColor: colors.background,
-        appBar: AppBar(
-          title: const MultitecAppBar(),
-          titleSpacing: 0,
-          backgroundColor: colors.surface,
-          elevation: 0,
-          bottom: TabBar(
-            indicatorColor: colors.primaryBase,
-            labelColor: colors.primaryBase,
-            unselectedLabelColor: colors.textSecondary,
-            labelStyle: Theme.of(
-              context,
-            ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w600),
-            unselectedLabelStyle: Theme.of(context).textTheme.labelLarge,
-            tabs: const [
-              Tab(text: 'Eventos', icon: Icon(Icons.event)),
-              Tab(text: 'Actividades', icon: Icon(Icons.local_activity)),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: const MultitecAppBar(
+            action: MultitecAppBarAction.profileShortcut,
+          ),
+          body: Column(
+            children: [
+              Padding(
+                padding: paddings.all.s12,
+                child: Container(
+                  padding: paddings.all.s4,
+                  decoration: BoxDecoration(
+                    color: context.colors.primaryBase.withValues(alpha: 0.06),
+                    borderRadius: AppBorderRadius.br16,
+                    border: Border.all(
+                      color: context.colors.gray20,
+                      width: 0.5,
+                    ),
+                  ),
+                  child: TabBar(
+                    dividerColor: Colors.transparent,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: BoxDecoration(
+                      color: context.colors.primaryBase,
+                      borderRadius: AppBorderRadius.br12,
+                    ),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: context.colors.textSecondary,
+                    labelStyle: context.textTheme.labelLarge?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                    unselectedLabelStyle: context.textTheme.labelLarge,
+                    tabs: const [
+                      Tab(text: 'Eventos'),
+                      Tab(text: 'Actividades'),
+                    ],
+                  ),
+                ),
+              ),
+              const Expanded(
+                child: TabBarView(
+                  children: [
+                    _ScheduleTabView(type: ScheduleType.event),
+                    _ScheduleTabView(type: ScheduleType.activity),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
-        body: const TabBarView(
-          children: [
-            _ScheduleTabView(type: ScheduleType.event),
-            _ScheduleTabView(type: ScheduleType.activity),
-          ],
         ),
       ),
     );
@@ -85,18 +109,18 @@ class _ScheduleTabViewState extends State<_ScheduleTabView>
         locator<GetScheduleItemsByTypeUseCase>(),
         locator<EventBus>(),
       )..loadScheduleItems(),
-      child: const _Body(),
+      child: _Body(type: widget.type),
     );
   }
 }
 
 class _Body extends StatelessWidget {
-  const _Body();
+  const _Body({required this.type});
+
+  final ScheduleType type;
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-
     return BlocBuilder<ScheduleCubit, ScheduleState>(
       buildWhen: (p, c) =>
           p.status != c.status ||
@@ -110,60 +134,25 @@ class _Body extends StatelessWidget {
 
         return switch (state.status) {
           RequestStatus.initial || RequestStatus.loading => Center(
-            child: CircularProgressIndicator(color: colors.primaryBase),
+            child: CircularProgressIndicator(color: context.colors.primaryBase),
           ),
 
-          RequestStatus.failure => ScheduleListErrorPlaceholder(
+          RequestStatus.failure => ListErrorPlaceholder(
             message: state.failure.toScheduleListMessage(context),
             onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(
               isRefreshing: true,
             ),
           ),
 
-          RequestStatus.success => _EmptyState(),
+          RequestStatus.success => EmptyListPlaceholder(
+            title:
+                'No hay ${type == ScheduleType.event ? 'eventos' : 'actividades'} disponibles',
+            subtitle: type == ScheduleType.event
+                ? 'Los eventos aparecerán aquí cuando estén disponibles'
+                : 'Las actividades aparecerán aquí cuando estén disponibles',
+          ),
         };
       },
-    );
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Center(
-      child: Padding(
-        padding: paddings.all.s24,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.calendar_today_outlined,
-              size: 64,
-              color: colors.textSecondary,
-            ),
-            spacings.y.s16,
-            Text(
-              'No hay elementos disponibles',
-              style: textTheme.headlineSmall?.copyWith(
-                color: colors.textPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            spacings.y.s8,
-            Text(
-              'Los horarios aparecerán aquí cuando estén disponibles',
-              style: textTheme.bodyMedium?.copyWith(
-                color: colors.textSecondary,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -207,114 +196,37 @@ class _ListSectionState extends State<_ListSection> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
     final itemCount =
         widget.state.items.length + (widget.state.hasMore ? 1 : 0);
 
     return RefreshIndicator(
-      color: colors.primaryBase,
-      backgroundColor: colors.surface,
+      color: context.colors.primaryBase,
+      backgroundColor: context.colors.surface,
       onRefresh: () =>
           context.read<ScheduleCubit>().loadScheduleItems(isRefreshing: true),
-      child: CustomScrollView(
+      child: ListView.builder(
         controller: _scrollController,
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          SliverToBoxAdapter(
-            child: SectionHeader(
-              title: 'Horarios',
-              subtitle: '${widget.state.items.length} elementos',
-            ),
-          ),
-          SliverPadding(
-            padding: paddings.x.s16,
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                if (index >= widget.state.items.length) {
-                  return _LoadMoreIndicator(
-                    isLoading:
-                        widget.state.status.isLoading &&
-                        widget.state.items.isNotEmpty,
-                    hasError:
-                        widget.state.status.isFailure &&
-                        widget.state.items.isNotEmpty,
-                    onRetry: () =>
-                        context.read<ScheduleCubit>().loadScheduleItems(),
-                  );
-                }
+        padding: paddings.x.s16,
+        itemCount: itemCount,
+        itemBuilder: (context, index) {
+          if (index >= widget.state.items.length) {
+            return LoadMoreItemsIndicator(
+              isLoading: widget.state.status.isLoading,
+              hasError: widget.state.status.isFailure,
+              onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
+            );
+          }
 
-                final item = widget.state.items[index];
-                final isLast = index == widget.state.items.length - 1;
+          final item = widget.state.items[index];
 
-                return Padding(
-                  padding: EdgeInsets.only(
-                    bottom: isLast ? sizes.s16 : sizes.s8,
-                  ),
-                  child: ScheduleListItem(item: item),
-                );
-              }, childCount: itemCount),
-            ),
-          ),
-        ],
+          return ScheduleListItem(item: item);
+        },
       ),
     );
   }
 }
 
-class _LoadMoreIndicator extends StatelessWidget {
-  const _LoadMoreIndicator({
-    required this.isLoading,
-    required this.hasError,
-    required this.onRetry,
-  });
-
-  final bool isLoading;
-  final bool hasError;
-  final VoidCallback onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.colors;
-    final textTheme = Theme.of(context).textTheme;
-
-    if (isLoading) {
-      return Padding(
-        padding: paddings.all.s16,
-        child: Center(
-          child: CircularProgressIndicator(color: colors.primaryBase),
-        ),
-      );
-    }
-
-    if (hasError) {
-      return Padding(
-        padding: paddings.all.s16,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Error al cargar más elementos',
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colors.textSecondary,
-                ),
-              ),
-              spacings.y.s12,
-              MTButton(
-                variant: MTButtonVariant.secondary,
-                text: 'Reintentar',
-                onPressed: onRetry,
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return const SizedBox.shrink();
-  }
-}
-
+//TODO: Check
 extension _ScheduleListFailureL10nX on Failure? {
   String toScheduleListMessage(BuildContext context) {
     final l10n = context.l10n;

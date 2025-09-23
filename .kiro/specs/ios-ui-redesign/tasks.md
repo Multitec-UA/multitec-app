@@ -41,7 +41,7 @@
 
   - Crear `lib/core/ui/components/inputs/mt_input_field.dart` para campos de texto
   - Implementar estados (normal, focused, error) con colores apropiados
-  - Usar `context.colors.gray10` para fondo y `borderRadius.br10` para forma
+  - Usar `context.colors.gray10` para fondo y `AppBorderRadius.br10` para forma
   - _Requisitos: 2.3, 8.1, 8.4_
 
 - [x] 2.4 Implementar MTListTile con estilo personalizado
@@ -86,7 +86,7 @@
 
 
   - Modificar componentes en `lib/core/ui/components/dialogs/` y `lib/core/ui/components/modals/`
-  - Aplicar `borderRadius.br16`, elevación pronunciada y botones con estilo personalizado
+  - Aplicar `AppBorderRadius.br16`, elevación pronunciada y botones con estilo personalizado
   - Usar `context.colors.surface` para fondo y separadores sutiles
   - _Requisitos: 2.2, 8.2, 8.4_
 

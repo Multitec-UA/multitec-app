@@ -6,6 +6,7 @@ import 'package:multitec_app/features/schedule/domain/events/schedule_events.dar
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_state.dart';
 
+//TODO: Este TODO esta aqui pero porque tiene que estar en algun sitio: Ordenar los archivos de schedules por sub-features
 class JoinedSchedulesCubit extends SafeCubit<JoinedSchedulesState> {
   JoinedSchedulesCubit(this._getJoinedScheduleItems, this._eventBus)
     : super(const JoinedSchedulesState()) {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/styles/mt_style_config.dart';
 import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/styles/ui_constants.dart';
 import 'package:multitec_app/core/ui/theme/app_colors.dart';
 import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
 
@@ -13,7 +12,6 @@ const darkColors = DarkColors();
 final themeLight = _baseTheme.copyWith(
   extensions: const <ThemeExtension<dynamic>>[AppColorsTheme.light],
 
-  // General theme colors
   scaffoldBackgroundColor: lightColors.background,
   colorScheme: ColorScheme.light(
     primary: lightColors.primaryBase,
@@ -26,7 +24,6 @@ final themeLight = _baseTheme.copyWith(
     onSurfaceVariant: lightColors.textPrimary,
   ),
 
-  // Text theme
   textTheme: TextTheme(
     displayLarge: TextStyle(
       color: lightColors.textPrimary,
@@ -103,7 +100,7 @@ final themeLight = _baseTheme.copyWith(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     backgroundColor: lightColors.background.withValues(alpha: 0.95),
-    elevation: MTStyleConfig.bottomNavElevation,
+    elevation: UIConstants.bottomNavElevation,
     selectedItemColor: lightColors.primaryBase,
     unselectedItemColor: lightColors.textSecondary,
     selectedIconTheme: const IconThemeData(size: 24),
@@ -112,14 +109,13 @@ final themeLight = _baseTheme.copyWith(
     showSelectedLabels: false,
   ),
 
-  // ElevatedButton theme configuration
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      elevation: MTStyleConfig.buttonElevation,
+      elevation: UIConstants.buttonElevation,
       shadowColor: lightColors.gray20.withValues(
-        alpha: MTStyleConfig.shadowOpacity,
+        alpha: UIConstants.shadowOpacity,
       ),
-      shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+      shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
       backgroundColor: lightColors.primaryBase,
       foregroundColor: Colors.white,
       disabledBackgroundColor: lightColors.gray20,
@@ -129,48 +125,47 @@ final themeLight = _baseTheme.copyWith(
     ),
   ),
 
-  // Card theme configuration
   cardTheme: CardThemeData(
-    elevation: MTStyleConfig.cardElevation,
+    elevation: UIConstants.cardElevation,
     shadowColor: lightColors.gray20.withValues(
-      alpha: MTStyleConfig.shadowOpacity,
+      alpha: UIConstants.shadowOpacity,
     ),
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br16),
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br16),
     color: lightColors.surface,
     margin: EdgeInsets.zero,
   ),
 
-  // InputDecoration theme configuration
+  // TODO: Mantener?
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: lightColors.gray10,
-    border: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+    border: const OutlineInputBorder(
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide.none,
     ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+    enabledBorder: const OutlineInputBorder(
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide.none,
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide(
         color: lightColors.primaryBase,
-        width: MTStyleConfig.focusedBorderWidth,
+        width: UIConstants.focusedBorderWidth,
       ),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide(
         color: lightColors.error,
-        width: MTStyleConfig.errorBorderWidth,
+        width: UIConstants.errorBorderWidth,
       ),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide(
         color: lightColors.error,
-        width: MTStyleConfig.errorBorderWidth,
+        width: UIConstants.errorBorderWidth,
       ),
     ),
     contentPadding: paddings.all.s16,
@@ -188,13 +183,12 @@ final themeLight = _baseTheme.copyWith(
     errorStyle: TextStyle(color: lightColors.error, fontSize: 12),
   ),
 
-  // ListTile theme configuration
   listTileTheme: ListTileThemeData(
     contentPadding: paddings.all.s16,
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
     tileColor: lightColors.surface,
     selectedTileColor: lightColors.primaryBase.withValues(
-      alpha: MTStyleConfig.overlayOpacity,
+      alpha: UIConstants.overlayOpacity,
     ),
     iconColor: lightColors.textSecondary,
     textColor: lightColors.textPrimary,
@@ -208,13 +202,12 @@ final themeLight = _baseTheme.copyWith(
     ),
   ),
 
-  // Dialog theme configuration
   dialogTheme: DialogThemeData(
-    elevation: MTStyleConfig.modalElevation,
+    elevation: UIConstants.modalElevation,
     shadowColor: lightColors.gray20.withValues(
-      alpha: MTStyleConfig.shadowOpacity,
+      alpha: UIConstants.shadowOpacity,
     ),
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br16),
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br16),
     backgroundColor: lightColors.surface,
     titleTextStyle: TextStyle(
       color: lightColors.textPrimary,
@@ -224,25 +217,24 @@ final themeLight = _baseTheme.copyWith(
     contentTextStyle: TextStyle(color: lightColors.textPrimary, fontSize: 14),
   ),
 
-  // BottomSheet theme configuration
+  // TODO: Mantener?
   bottomSheetTheme: BottomSheetThemeData(
-    elevation: MTStyleConfig.modalElevation,
+    elevation: UIConstants.modalElevation,
     shadowColor: lightColors.gray20.withValues(
-      alpha: MTStyleConfig.shadowOpacity,
+      alpha: UIConstants.shadowOpacity,
     ),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(borderRadius.br16.topLeft.x),
-        topRight: Radius.circular(borderRadius.br16.topRight.x),
+        topLeft: Radius.circular(AppBorderRadius.br16.topLeft.x),
+        topRight: Radius.circular(AppBorderRadius.br16.topRight.x),
       ),
     ),
     backgroundColor: lightColors.surface,
   ),
 
-  // SnackBar theme configuration
   snackBarTheme: SnackBarThemeData(
-    elevation: MTStyleConfig.cardElevation,
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+    elevation: UIConstants.cardElevation,
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
     behavior: SnackBarBehavior.floating,
     backgroundColor: lightColors.gray50,
     contentTextStyle: const TextStyle(color: Colors.white, fontSize: 14),
@@ -253,7 +245,6 @@ final themeLight = _baseTheme.copyWith(
 final themeDark = _baseTheme.copyWith(
   extensions: const <ThemeExtension<dynamic>>[AppColorsTheme.dark],
 
-  // General theme colors
   scaffoldBackgroundColor: darkColors.background,
   colorScheme: ColorScheme.dark(
     primary: darkColors.primaryBase,
@@ -268,7 +259,6 @@ final themeDark = _baseTheme.copyWith(
     onError: Colors.white,
   ),
 
-  // Text theme
   textTheme: TextTheme(
     displayLarge: TextStyle(
       color: darkColors.textPrimary,
@@ -345,7 +335,7 @@ final themeDark = _baseTheme.copyWith(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     backgroundColor: darkColors.background.withValues(alpha: 0.95),
-    elevation: MTStyleConfig.bottomNavElevation,
+    elevation: UIConstants.bottomNavElevation,
     selectedItemColor: darkColors.primaryBase,
     unselectedItemColor: darkColors.textSecondary,
     selectedIconTheme: const IconThemeData(size: 24),
@@ -354,14 +344,13 @@ final themeDark = _baseTheme.copyWith(
     showSelectedLabels: false,
   ),
 
-  // ElevatedButton theme configuration
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      elevation: MTStyleConfig.buttonElevation,
+      elevation: UIConstants.buttonElevation,
       shadowColor: darkColors.gray20.withValues(
-        alpha: MTStyleConfig.shadowOpacity,
+        alpha: UIConstants.shadowOpacity,
       ),
-      shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+      shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
       backgroundColor: darkColors.primaryBase,
       foregroundColor: Colors.white,
       disabledBackgroundColor: darkColors.gray20,
@@ -371,48 +360,45 @@ final themeDark = _baseTheme.copyWith(
     ),
   ),
 
-  // Card theme configuration
   cardTheme: CardThemeData(
-    elevation: MTStyleConfig.cardElevation,
-    shadowColor: darkColors.gray20.withValues(
-      alpha: MTStyleConfig.shadowOpacity,
-    ),
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br16),
+    elevation: UIConstants.cardElevation,
+    shadowColor: darkColors.gray20.withValues(alpha: UIConstants.shadowOpacity),
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br16),
     color: darkColors.surface,
     margin: EdgeInsets.zero,
   ),
 
-  // InputDecoration theme configuration
+  // TODO: Mantener?
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: darkColors.gray10,
-    border: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+    border: const OutlineInputBorder(
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide.none,
     ),
-    enabledBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+    enabledBorder: const OutlineInputBorder(
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide.none,
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide(
         color: darkColors.primaryBase,
-        width: MTStyleConfig.focusedBorderWidth,
+        width: UIConstants.focusedBorderWidth,
       ),
     ),
     errorBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide(
         color: darkColors.error,
-        width: MTStyleConfig.errorBorderWidth,
+        width: UIConstants.errorBorderWidth,
       ),
     ),
     focusedErrorBorder: OutlineInputBorder(
-      borderRadius: borderRadius.br10,
+      borderRadius: AppBorderRadius.br10,
       borderSide: BorderSide(
         color: darkColors.error,
-        width: MTStyleConfig.errorBorderWidth,
+        width: UIConstants.errorBorderWidth,
       ),
     ),
     contentPadding: paddings.all.s16,
@@ -430,13 +416,12 @@ final themeDark = _baseTheme.copyWith(
     errorStyle: TextStyle(color: darkColors.error, fontSize: 12),
   ),
 
-  // ListTile theme configuration
   listTileTheme: ListTileThemeData(
     contentPadding: paddings.all.s16,
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
     tileColor: darkColors.surface,
     selectedTileColor: darkColors.primaryBase.withValues(
-      alpha: MTStyleConfig.overlayOpacity,
+      alpha: UIConstants.overlayOpacity,
     ),
     iconColor: darkColors.textSecondary,
     textColor: darkColors.textPrimary,
@@ -447,13 +432,10 @@ final themeDark = _baseTheme.copyWith(
     subtitleTextStyle: TextStyle(fontSize: 14, color: darkColors.textSecondary),
   ),
 
-  // Dialog theme configuration
   dialogTheme: DialogThemeData(
-    elevation: MTStyleConfig.modalElevation,
-    shadowColor: darkColors.gray20.withValues(
-      alpha: MTStyleConfig.shadowOpacity,
-    ),
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br16),
+    elevation: UIConstants.modalElevation,
+    shadowColor: darkColors.gray20.withValues(alpha: UIConstants.shadowOpacity),
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br16),
     backgroundColor: darkColors.surface,
     titleTextStyle: TextStyle(
       color: darkColors.textPrimary,
@@ -463,25 +445,22 @@ final themeDark = _baseTheme.copyWith(
     contentTextStyle: TextStyle(color: darkColors.textPrimary, fontSize: 14),
   ),
 
-  // BottomSheet theme configuration
+  // TODO: Mantener?
   bottomSheetTheme: BottomSheetThemeData(
-    elevation: MTStyleConfig.modalElevation,
-    shadowColor: darkColors.gray20.withValues(
-      alpha: MTStyleConfig.shadowOpacity,
-    ),
+    elevation: UIConstants.modalElevation,
+    shadowColor: darkColors.gray20.withValues(alpha: UIConstants.shadowOpacity),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(borderRadius.br16.topLeft.x),
-        topRight: Radius.circular(borderRadius.br16.topRight.x),
+        topLeft: Radius.circular(AppBorderRadius.br16.topLeft.x),
+        topRight: Radius.circular(AppBorderRadius.br16.topRight.x),
       ),
     ),
     backgroundColor: darkColors.surface,
   ),
 
-  // SnackBar theme configuration
   snackBarTheme: SnackBarThemeData(
-    elevation: MTStyleConfig.cardElevation,
-    shape: RoundedRectangleBorder(borderRadius: borderRadius.br12),
+    elevation: UIConstants.cardElevation,
+    shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.br12),
     behavior: SnackBarBehavior.floating,
     backgroundColor: darkColors.gray50,
     contentTextStyle: const TextStyle(color: Colors.white, fontSize: 14),
