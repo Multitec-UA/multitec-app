@@ -6,31 +6,23 @@ import 'package:multitec_app/features/auth/data/datasources/firebase_auth_dataso
 import 'package:multitec_app/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl(
-    this._authRemoteDataSource,
-  );
+  AuthRepositoryImpl(this._authRemoteDataSource);
 
   final FirebaseAuthDataSource _authRemoteDataSource;
 
   @override
   Future<Result<Unit, Failure>> signInWithGoogle() {
-    return guardAsync<Unit>(
-      () async {
-        await _authRemoteDataSource.signInWithGoogle();
-        return unit;
-      },
-      hint: 'AuthRepository.signInWithGoogle',
-    );
+    return guardAsync<Unit>(() async {
+      await _authRemoteDataSource.signInWithGoogle();
+      return unit;
+    }, hint: 'AuthRepository.signInWithGoogle');
   }
 
   @override
   Future<Result<Unit, Failure>> signOut() {
-    return guardAsync<Unit>(
-      () async {
-        await _authRemoteDataSource.signOut();
-        return unit;
-      },
-      hint: 'AuthRepository.signOut',
-    );
+    return guardAsync<Unit>(() async {
+      await _authRemoteDataSource.signOut();
+      return unit;
+    }, hint: 'AuthRepository.signOut');
   }
 }
