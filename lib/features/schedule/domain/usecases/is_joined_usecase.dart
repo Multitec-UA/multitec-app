@@ -12,14 +12,11 @@ class IsJoinedUseCase {
   Future<Result<bool, Failure>> call(String itemId) async {
     final userResult = _userRepository.getUser();
 
-    return userResult.when(
-      (user) {
-        if (user == null) {
-          return const Result.success(false);
-        }
-        return _scheduleRepository.isJoined(itemId, user);
-      },
-      Result.error,
-    );
+    return userResult.when((user) {
+      if (user == null) {
+        return const Result.success(false);
+      }
+      return _scheduleRepository.isJoined(itemId, user);
+    }, Result.error);
   }
 }

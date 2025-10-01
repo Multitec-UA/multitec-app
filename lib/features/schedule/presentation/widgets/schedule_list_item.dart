@@ -4,10 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
 import 'package:multitec_app/core/ui/components/chips/category_chip.dart';
-import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
-import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
+import 'package:multitec_app/core/ui/styles/styles.dart';
+import 'package:multitec_app/core/ui/theme/theme.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 
 class ScheduleListItem extends StatelessWidget {

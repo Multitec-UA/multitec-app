@@ -4,10 +4,7 @@ import 'package:multitec_app/features/auth/domain/repositories/auth_repository.d
 import 'package:multitec_app/features/schedule/domain/repositories/schedule_repository.dart';
 
 class SignOutUseCase {
-  SignOutUseCase(
-    this._authRepository,
-    this._scheduleRepository,
-  );
+  SignOutUseCase(this._authRepository, this._scheduleRepository);
 
   final AuthRepository _authRepository;
   final ScheduleRepository _scheduleRepository;
