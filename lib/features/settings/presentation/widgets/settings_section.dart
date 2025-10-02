@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/ui/components/lists/section_header.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 
 class SettingsSection extends StatelessWidget {
   const SettingsSection({

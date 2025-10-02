@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/ui/design/foundations/border_radius.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:multitec_app/core/ui/extensions/context_extension.dart';
-import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
-import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
 
 class AppSnackBar extends SnackBar {
   AppSnackBar({

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/network/network.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/firebase_options.dart';
 
@@ -85,17 +85,16 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 }
 
 Widget errorBuilderWidget(FlutterErrorDetails details) {
-  final text =
-      kReleaseMode ? 'Se ha producido un error' : details.exception.toString();
+  final text = kReleaseMode
+      ? 'Se ha producido un error'
+      : details.exception.toString();
 
   return Material(
     child: ColoredBox(
       color: Colors.grey,
       child: Padding(
         padding: paddings.all.s16,
-        child: SingleChildScrollView(
-          child: Text(text),
-        ),
+        child: SingleChildScrollView(child: Text(text)),
       ),
     ),
   );

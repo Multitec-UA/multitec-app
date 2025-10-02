@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
+import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
 
 class SectionHeader extends StatelessWidget {
   const SectionHeader({

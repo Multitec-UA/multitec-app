@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
-import 'package:multitec_app/core/ui/styles/styles.dart';
-import 'package:multitec_app/core/ui/theme/theme.dart';
+import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:multitec_app/features/settings/presentation/cubits/locale_cubit.dart';
 
 class LanguageSelector extends StatelessWidget {

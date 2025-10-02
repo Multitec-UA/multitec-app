@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/theme.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 
 class WelcomeSection extends StatelessWidget {
   const WelcomeSection({required this.userName, super.key});

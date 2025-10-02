@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/features/profile/presentation/widgets/widgets.dart';
 import 'package:multitec_app/features/user/domain/entities/user.dart';
 import 'package:multitec_app/features/user/presentation/cubits/user_cubit.dart';

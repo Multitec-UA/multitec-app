@@ -7,7 +7,7 @@ import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_state.dart';

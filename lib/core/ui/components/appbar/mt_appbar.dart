@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/router/app_router.dart';
-import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
+import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
 
 enum MultitecAppBarAction { none, profileShortcut, settingsShortcut }
 

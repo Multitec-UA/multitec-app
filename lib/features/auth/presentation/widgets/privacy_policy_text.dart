@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
-import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //TODO: Ver si dejar este nombre u otro

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
-import 'package:multitec_app/core/ui/styles/styles.dart';
-import 'package:multitec_app/core/ui/theme/theme.dart';
+import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 
 class QuickActionCard extends StatelessWidget {
   const QuickActionCard({

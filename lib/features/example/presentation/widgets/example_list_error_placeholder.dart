@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 
 class ExampleListErrorPlaceholder extends StatelessWidget {
   const ExampleListErrorPlaceholder({
@@ -19,11 +19,7 @@ class ExampleListErrorPlaceholder extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
-              Icons.error_outline,
-              size: 64,
-              color: Colors.red,
-            ),
+            const Icon(Icons.error_outline, size: 64, color: Colors.red),
             spacings.y.s16,
             Text(message),
             spacings.y.s24,

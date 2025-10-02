@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
-import 'package:multitec_app/core/ui/styles/border_radius.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
-import 'package:multitec_app/core/ui/theme/context_theme_extension.dart';
+import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 
 Future<void> showInfoDialog({
   required BuildContext context,

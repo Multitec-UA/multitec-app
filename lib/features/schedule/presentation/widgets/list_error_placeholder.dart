@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
+import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
 
 class ListErrorPlaceholder extends StatelessWidget {
   const ListErrorPlaceholder({

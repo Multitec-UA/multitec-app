@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:multitec_app/core/ui/styles/styles.dart';
-import 'package:multitec_app/core/ui/theme/theme.dart';
+import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
+import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:multitec_app/features/user/domain/entities/user.dart';
 
 class ProfileHeader extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
-import 'package:multitec_app/core/ui/styles/spacings.dart';
-import 'package:multitec_app/core/ui/theme/app_colors_extension.dart';
+import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
+import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/settings/presentation/cubits/theme_cubit.dart';
 
 class ThemeSelector extends StatelessWidget {
