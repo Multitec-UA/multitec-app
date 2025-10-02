@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart' as dio_cache;
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter/foundation.dart';
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/utils/cache/cache.dart';
 
 class DioCacheInterceptorService implements CacheService {
   @override

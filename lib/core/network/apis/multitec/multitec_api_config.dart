@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:multitec_app/core/constants/constants.dart';
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/utils/cache/cache.dart';
 
 class MultitecApiConfig {
   static const String baseUrl = Environment.multitecUrl;
@@ -8,8 +8,8 @@ class MultitecApiConfig {
   static const Duration timeout = Duration(seconds: 12);
 
   static Future<List<Interceptor>> getInterceptors() async => [
-        await _getCacheInterceptor(),
-      ];
+    await _getCacheInterceptor(),
+  ];
 
   static final CacheOptions _cacheOptions = CacheOptions(
     storeType: CacheStoreType.hive,
@@ -19,7 +19,8 @@ class MultitecApiConfig {
   );
 
   static Future<Interceptor> _getCacheInterceptor() async {
-    return DioCacheInterceptorService()
-        .buildCacheInterceptor(options: _cacheOptions);
+    return DioCacheInterceptorService().buildCacheInterceptor(
+      options: _cacheOptions,
+    );
   }
 }

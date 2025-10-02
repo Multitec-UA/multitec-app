@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/utils/cache/cache.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class CacheService {

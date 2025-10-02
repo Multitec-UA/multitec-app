@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:multitec_app/core/constants/constants.dart';
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/interceptors/api_key_interceptor.dart';
+import 'package:multitec_app/core/network/utils/cache/cache.dart';
 
 class GoogleMapsApiConfig {
   static const String baseUrl = Environment.googleMapsUrl;
@@ -13,9 +14,9 @@ class GoogleMapsApiConfig {
   static const Duration timeout = Duration(seconds: 12);
 
   static Future<List<Interceptor>> getInterceptors() async => [
-        await _getCacheInterceptor(),
-        _getApiKeyInterceptor(),
-      ];
+    await _getCacheInterceptor(),
+    _getApiKeyInterceptor(),
+  ];
 
   static final CacheOptions _cacheOptions = CacheOptions(
     storeType: CacheStoreType.hive,
@@ -25,11 +26,12 @@ class GoogleMapsApiConfig {
   );
 
   static Future<Interceptor> _getCacheInterceptor() async {
-    return DioCacheInterceptorService()
-        .buildCacheInterceptor(options: _cacheOptions);
+    return DioCacheInterceptorService().buildCacheInterceptor(
+      options: _cacheOptions,
+    );
   }
 
   static Interceptor _getApiKeyInterceptor() {
-    return const ApiKeyDioInterceptor(apiKey);
+    return const ApiKeyInterceptor(apiKey);
   }
 }

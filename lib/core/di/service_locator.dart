@@ -5,7 +5,9 @@ import 'package:multitec_app/core/database/openers/sembast_io_opener.dart';
 import 'package:multitec_app/core/database/openers/sembast_web_opener.dart';
 import 'package:multitec_app/core/database/sembast_database.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/apis/google_maps/google_maps_api_client.dart';
+import 'package:multitec_app/core/network/apis/multitec/multitec_api_client.dart';
+import 'package:multitec_app/core/network/network_service.dart';
 import 'package:multitec_app/core/preferences/local_storage.dart';
 import 'package:multitec_app/core/preferences/shared_preferences.dart';
 import 'package:multitec_app/features/auth/data/datasources/firebase_auth_datasource.dart';
@@ -15,7 +17,6 @@ import 'package:multitec_app/features/auth/domain/repositories/auth_repository.d
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/city_search/city_search.dart';
 import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';
 import 'package:multitec_app/features/example/data/datasources/example_remote_datasource.dart';
@@ -70,21 +71,14 @@ Future<void> serviceLocatorSetUp() async {
   }
 
   /// Network ///
-  locator
-    ..enableRegisteringMultipleInstancesOfOneType()
-    ..registerSingletonAsync<Square1Api>(Square1ApiClient.create)
-    ..registerSingletonAsync<GoogleMapsApi>(GoogleMapsApiClient.create)
-    ..registerSingletonAsync<NetworkService>(
-      MultitecApiClient.create,
-      instanceName: 'MultitecApi',
-    )
-    ..registerSingletonWithDependencies<CitySearchRepository>(
-      () => ApiCitySearchRepository(
-        square1Api: locator<Square1Api>(),
-        googleMapsApi: locator<GoogleMapsApi>(),
-      ),
-      dependsOn: [Square1Api, GoogleMapsApi],
-    );
+  locator.registerSingletonAsync<NetworkService>(
+    GoogleMapsApiClient.create,
+    instanceName: 'GoogleMapsApi',
+  );
+  locator.registerSingletonAsync<NetworkService>(
+    MultitecApiClient.create,
+    instanceName: 'MultitecApi',
+  );
 
   /// EventBus ///
   locator.registerLazySingleton<EventBus>(EventBusImpl.new);

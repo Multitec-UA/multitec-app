@@ -1,4 +1,4 @@
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/utils/cache/cache.dart';
 
 class CacheOptions {
   CacheOptions({
@@ -12,9 +12,9 @@ class CacheOptions {
     this.decrypt,
     this.allowPostMethod = false,
   }) : assert(
-          !(cipher && (encrypt == null || decrypt == null)),
-          'If cipher is enabled, both encrypt and decrypt functions must be provided',
-        );
+         !(cipher && (encrypt == null || decrypt == null)),
+         'If cipher is enabled, both encrypt and decrypt functions must be provided',
+       );
 
   final CacheStoreType storeType;
   final CachePolicy policy;

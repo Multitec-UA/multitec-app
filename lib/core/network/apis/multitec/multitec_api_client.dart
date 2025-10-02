@@ -1,12 +1,12 @@
-import 'package:multitec_app/core/network/network.dart';
+import 'package:multitec_app/core/network/apis/multitec/multitec_api_config.dart';
+import 'package:multitec_app/core/network/network_service.dart';
 
 class MultitecApiClient extends NetworkService {
-  MultitecApiClient._({
-    super.interceptors,
-  }) : super(
-          baseUrl: MultitecApiConfig.baseUrl,
-          timeout: MultitecApiConfig.timeout,
-        );
+  MultitecApiClient._({super.interceptors})
+    : super(
+        baseUrl: MultitecApiConfig.baseUrl,
+        timeout: MultitecApiConfig.timeout,
+      );
 
   static Future<MultitecApiClient> create() async {
     final interceptors = await MultitecApiConfig.getInterceptors();
