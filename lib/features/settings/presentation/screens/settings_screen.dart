@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
@@ -17,7 +18,10 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colors.background,
-      appBar: const MultitecAppBar(showTitleLogo: false, title: 'Ajustes'),
+      appBar: MultitecAppBar(
+        showTitleLogo: false,
+        title: context.l10n.settingsTitle,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +45,7 @@ class _PreferencesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SettingsSection(
-      title: 'Preferencias',
+      title: context.l10n.settingsPreferencesTitle,
       children: [
         const LanguageSelector(),
         spacings.y.s16,
@@ -59,11 +63,11 @@ class _HelpSection extends StatelessWidget {
     final colors = context.colors;
 
     return SettingsSection(
-      title: 'Ayuda',
+      title: context.l10n.settingsHelpTitle,
       children: [
         MTSettingsTile(
-          title: 'Ayuda y Feedback',
-          subtitle: 'Obtener ayuda y enviar comentarios',
+          title: context.l10n.helpAndFeedbackTitle,
+          subtitle: context.l10n.helpAndFeedbackSubtitle,
           leading: Icon(Icons.help_outline, color: colors.primaryBase),
           onTap: () => context.pushNamed(AppRoute.helpAndFeedback.name),
         ),
@@ -78,7 +82,7 @@ class _AccountSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SettingsSection(
-      title: 'Cuenta',
+      title: context.l10n.settingsAccountTitle,
       children: [const SignOutButton(), spacings.y.s24],
     );
   }

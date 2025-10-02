@@ -61,7 +61,7 @@ class _UserName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      name ?? 'Usuario',
+      name ?? 'User',
       style: context.textTheme.headlineSmall?.copyWith(
         fontWeight: FontWeight.w700,
         color: context.colors.primaryBase,

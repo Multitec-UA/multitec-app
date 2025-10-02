@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
 import 'package:multitec_app/core/ui/components/lists/section_header.dart';
@@ -13,25 +14,25 @@ class ProfileOptionsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SectionHeader(title: 'Mis actividades y Eventos'),
+        SectionHeader(title: context.l10n.profileMySchedulesSectionTitle),
 
         MTSettingsTile(
           leading: Icon(
             Icons.event_available,
             color: context.colors.primaryBase,
           ),
-          title: 'Mis actividades y eventos',
-          subtitle: 'Ver guardados',
+          title: context.l10n.profileMySchedulesTitle,
+          subtitle: context.l10n.profileMySchedulesSubtitle,
           onTap: () => context.pushNamed(AppRoute.joinedSchedules.name),
         ),
 
         spacings.y.s20,
 
-        const SectionHeader(title: 'Configuración'),
+        SectionHeader(title: context.l10n.profileSettingsSectionTitle),
         MTSettingsTile(
           leading: Icon(Icons.settings, color: context.colors.primaryBase),
-          title: 'Ajustes',
-          subtitle: 'Tema, idioma y más',
+          title: context.l10n.profileSettingsTitle,
+          subtitle: context.l10n.profileSettingsSubtitle,
           onTap: () => context.pushNamed(AppRoute.settings.name),
         ),
       ],

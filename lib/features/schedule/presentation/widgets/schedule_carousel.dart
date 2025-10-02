@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
@@ -44,14 +45,13 @@ class _CarouselBody extends StatelessWidget {
           RequestStatus.loading => const _LoadingState(),
           RequestStatus.success =>
             state.items.isEmpty
-                ? const EmptyListPlaceholder(
-                    title: 'No hay eventos próximos',
-                    subtitle:
-                        'Vuelve pronto para ver nuevos eventos y actividades',
+                ? EmptyListPlaceholder(
+                    title: context.l10n.scheduleEmptyTitle,
+                    subtitle: context.l10n.scheduleEmptySubtitle,
                   )
                 : _Carousel(items: state.items),
           RequestStatus.failure => ListErrorPlaceholder(
-            message: 'Error al cargar eventos',
+            message: context.l10n.scheduleLoadError,
             onRetry: () =>
                 context.read<ScheduleCarouselCubit>().loadLatestScheduleItems(),
           ),
@@ -123,7 +123,7 @@ class _SeeMoreSchedulesButton extends StatelessWidget {
             ),
             spacings.y.s12,
             Text(
-              'Ver más',
+              context.l10n.seeMore,
               style: textTheme.titleSmall?.copyWith(
                 color: colors.primaryBase,
                 fontWeight: FontWeight.w700,
@@ -132,7 +132,7 @@ class _SeeMoreSchedulesButton extends StatelessWidget {
             ),
             spacings.y.s4,
             Text(
-              'eventos',
+              context.l10n.events,
               style: textTheme.bodySmall?.copyWith(color: colors.textSecondary),
               textAlign: TextAlign.center,
             ),

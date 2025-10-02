@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
 import 'package:multitec_app/core/ui/components/lists/section_header.dart';
 import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
@@ -15,14 +16,14 @@ class DeveloperSection extends StatelessWidget {
         ? Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SectionHeader(title: 'Desarrollador'),
+              SectionHeader(title: context.l10n.developerSectionTitle),
               MTSettingsTile(
                 leading: Icon(
                   Icons.delete_outline,
                   color: context.colors.error,
                 ),
-                title: 'Limpiar base de datos',
-                subtitle: 'Eliminar datos locales',
+                title: context.l10n.developerClearDbTitle,
+                subtitle: context.l10n.developerClearDbSubtitle,
                 showChevron: false,
                 onTap: () async {
                   await locator<ScheduleLocalDataSource>()

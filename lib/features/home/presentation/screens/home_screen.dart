@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
 import 'package:multitec_app/core/ui/components/lists/section_header.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
@@ -30,12 +31,12 @@ class HomeScreen extends StatelessWidget {
 
             spacings.y.s8,
 
-            const SectionHeader(title: 'Próximos eventos y actividades'),
+            SectionHeader(title: context.l10n.homeUpcomingSectionTitle),
             const ScheduleCarousel(),
 
             spacings.y.s16,
 
-            const SectionHeader(title: 'Acciones rápidas'),
+            SectionHeader(title: context.l10n.homeQuickActionsSectionTitle),
             const QuickActionsSection(),
             spacings.y.s32,
           ],

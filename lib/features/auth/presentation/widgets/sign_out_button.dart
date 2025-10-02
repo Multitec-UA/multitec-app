@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/components/dialogs/confirmation_dialog.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
@@ -35,7 +36,7 @@ class _Button extends StatelessWidget {
                 ? null
                 : () => _showSignOutConfirmationDialog(context),
             isLoading: isLoading,
-            text: 'Cerrar sesión',
+            text: context.l10n.signOut,
           ),
         );
       },
@@ -45,9 +46,9 @@ class _Button extends StatelessWidget {
   Future<void> _showSignOutConfirmationDialog(BuildContext context) async {
     await showConfirmationDialog(
       context: context,
-      title: 'Cerrar sesión',
-      content: '¿Estás seguro de que quieres cerrar sesión?',
-      confirmText: 'Salir',
+      title: context.l10n.signOutDialogTitle,
+      content: context.l10n.signOutDialogContent,
+      confirmText: context.l10n.signOutConfirm,
       onConfirm: () => context.read<SignOutCubit>().signOut(),
     );
   }

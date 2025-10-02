@@ -53,8 +53,8 @@ class _ScheduleDetailView extends StatelessWidget {
       appBar: MultitecAppBar(
         showTitleLogo: false,
         title: item.type == ScheduleType.event.value
-            ? 'Detalles del Evento'
-            : 'Detalles de la Actividad',
+            ? context.l10n.eventDetailsTitle
+            : context.l10n.activityDetailsTitle,
       ),
       body: BlocConsumer<ScheduleDetailCubit, ScheduleDetailState>(
         listener: (context, state) {
@@ -175,7 +175,7 @@ class _DetailsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(title: 'Información del Evento'),
+        SectionHeader(title: context.l10n.eventInfoSectionTitle),
         Padding(
           padding: paddings.x.s16,
           child: MTCard(
@@ -184,14 +184,14 @@ class _DetailsSection extends StatelessWidget {
                 MTDetailTile(
                   icon: Icons.calendar_today_outlined,
                   iconColor: context.colors.info,
-                  title: 'Fecha',
+                  title: context.l10n.date,
                   subtitle: dateFormat.format(item.startsAt),
                 ),
                 spacings.y.s8,
                 MTDetailTile(
                   icon: Icons.access_time_outlined,
                   iconColor: context.colors.warning,
-                  title: 'Hora',
+                  title: context.l10n.time,
                   subtitle: timeFormat.format(item.startsAt),
                 ),
                 if (item.location != null) ...[
@@ -199,7 +199,7 @@ class _DetailsSection extends StatelessWidget {
                   MTDetailTile(
                     icon: Icons.location_on_outlined,
                     iconColor: context.colors.error,
-                    title: 'Ubicación',
+                    title: context.l10n.location,
                     subtitle: item.location!,
                   ),
                 ],
@@ -225,15 +225,15 @@ class _AttendeesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(title: 'Participación'),
+        SectionHeader(title: context.l10n.participationSectionTitle),
         Padding(
           padding: paddings.x.s16,
           child: MTCard(
             child: MTDetailTile(
               icon: Icons.group_outlined,
               iconColor: colors.success,
-              title: 'Asistentes',
-              subtitle: 'Personas inscritas',
+              title: context.l10n.attendees,
+              subtitle: context.l10n.registeredPeople,
               trailing: Container(
                 width: 36,
                 alignment: Alignment.center,

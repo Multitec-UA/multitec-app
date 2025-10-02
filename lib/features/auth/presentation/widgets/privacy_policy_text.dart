@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,21 +14,22 @@ class PrivacyPolicyText extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: 'Al continuar aceptas nuestra ',
+            text: context.l10n.privacyPolicyPrefix,
             style: context.textTheme.bodySmall?.copyWith(
               color: context.colors.textSecondary,
             ),
           ),
           TextSpan(
-            text: 'política de privacidad',
+            text: context.l10n.privacyPolicyLinkText,
             style: context.textTheme.bodySmall?.copyWith(
               color: context.colors.primaryBase,
               decoration: TextDecoration.underline,
             ),
-            recognizer: TapGestureRecognizer()..onTap = _launchPrivacyPolicy,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => _launchPrivacyPolicy(context),
           ),
           TextSpan(
-            text: '.',
+            text: context.l10n.privacyPolicySuffix,
             style: context.textTheme.bodySmall?.copyWith(
               color: context.colors.textSecondary,
             ),
@@ -38,8 +40,8 @@ class PrivacyPolicyText extends StatelessWidget {
     );
   }
 
-  Future<void> _launchPrivacyPolicy() async {
-    final uri = Uri.parse('https://www.google.com');
+  Future<void> _launchPrivacyPolicy(BuildContext context) async {
+    final uri = Uri.parse(AppLocalizations.of(context).privacyPolicyUrl);
     await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
@@ -35,7 +36,7 @@ Future<void> showConfirmationDialog({
                     ctx.pop();
                     onCancel?.call();
                   },
-                  text: cancelText ?? 'Cancelar',
+                  text: cancelText ?? context.l10n.cancel,
                 ),
               ),
               spacings.x.s12,
@@ -47,7 +48,7 @@ Future<void> showConfirmationDialog({
                     onConfirm?.call();
                     ctx.pop();
                   },
-                  text: confirmText ?? 'Aceptar',
+                  text: confirmText ?? context.l10n.confirm,
                 ),
               ),
             ],

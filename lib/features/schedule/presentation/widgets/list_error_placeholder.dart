@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
@@ -27,7 +28,7 @@ class ListErrorPlaceholder extends StatelessWidget {
             Icon(Icons.error_outline, size: 64, color: colors.error),
             spacings.y.s16,
             Text(
-              'Error al cargar',
+              context.l10n.listErrorTitle,
               style: textTheme.headlineSmall?.copyWith(
                 color: colors.textPrimary,
                 fontWeight: FontWeight.w600,
@@ -44,7 +45,7 @@ class ListErrorPlaceholder extends StatelessWidget {
             MTButton(
               type: MTButtonType.secondary,
               size: MTButtonSize.small,
-              text: 'Reintentar',
+              text: context.l10n.retry,
               onPressed: onRetry,
             ),
           ],

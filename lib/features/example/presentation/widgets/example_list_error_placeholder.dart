@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 
 class ExampleListErrorPlaceholder extends StatelessWidget {
@@ -26,7 +27,7 @@ class ExampleListErrorPlaceholder extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: const Text('Reintentar'),
+              label: Text(context.l10n.retry),
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/features/home/presentation/widgets/quick_action_card.dart';
@@ -20,8 +21,8 @@ class QuickActionsSection extends StatelessWidget {
               Expanded(
                 child: QuickActionCard(
                   icon: Icons.event,
-                  title: 'Eventos',
-                  subtitle: 'Ver eventos disponibles',
+                  title: context.l10n.quickActionsEventsTitle,
+                  subtitle: context.l10n.quickActionsEventsSubtitle,
                   onTap: () => context.goNamed(
                     AppRoute.schedule.name,
                     extra: ScheduleType.event,
@@ -32,8 +33,8 @@ class QuickActionsSection extends StatelessWidget {
               Expanded(
                 child: QuickActionCard(
                   icon: Icons.local_activity,
-                  title: 'Actividades',
-                  subtitle: 'Ver actividades disponibles',
+                  title: context.l10n.quickActionsActivitiesTitle,
+                  subtitle: context.l10n.quickActionsActivitiesSubtitle,
                   onTap: () => context.goNamed(
                     AppRoute.schedule.name,
                     extra: ScheduleType.activity,
@@ -48,8 +49,8 @@ class QuickActionsSection extends StatelessWidget {
               Expanded(
                 child: QuickActionCard(
                   icon: Icons.schedule,
-                  title: 'Mis guardados',
-                  subtitle: 'Eventos y actividades guardadas',
+                  title: context.l10n.quickActionsSavedTitle,
+                  subtitle: context.l10n.quickActionsSavedSubtitle,
                   onTap: () => context.goNamed(AppRoute.joinedSchedules.name),
                 ),
               ),
@@ -62,8 +63,8 @@ class QuickActionsSection extends StatelessWidget {
                 Expanded(
                   child: QuickActionCard(
                     icon: Icons.temple_hindu_rounded,
-                    title: 'Feature Example',
-                    subtitle: 'Ir a Feature Example',
+                    title: context.l10n.quickActionsExampleTitle,
+                    subtitle: context.l10n.quickActionsExampleSubtitle,
                     onTap: () => context.pushNamed(AppRoute.example.name),
                   ),
                 ),

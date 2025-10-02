@@ -22,9 +22,9 @@ class JoinedSchedulesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MultitecAppBar(
+      appBar: MultitecAppBar(
         showTitleLogo: false,
-        title: 'Mis actividades y eventos',
+        title: context.l10n.joinedSchedulesTitle,
       ),
       body: BlocProvider(
         create: (_) => JoinedSchedulesCubit(
@@ -65,10 +65,9 @@ class _Body extends StatelessWidget {
                 .loadJoinedSchedules(isRefreshing: true),
           ),
 
-          RequestStatus.success => const EmptyListPlaceholder(
-            title: 'No te has unido a ningún evento o actividad',
-            subtitle:
-                'Explora los eventos y actividades disponibles para unirte',
+          RequestStatus.success => EmptyListPlaceholder(
+            title: context.l10n.joinedSchedulesEmptyTitle,
+            subtitle: context.l10n.joinedSchedulesEmptySubtitle,
           ),
         };
       },
@@ -148,10 +147,8 @@ extension _JoinedSchedulesFailureL10nX on Failure? {
     if (this == null) return l10n.genericError;
 
     return switch (this) {
-      NetworkFailure _ =>
-        'No se han podido obtener tus eventos debido a un fallo de conexión',
-      TimeoutFailure _ =>
-        'No se han podido obtener tus eventos porque ha tardado demasiado',
+      NetworkFailure _ => l10n.joinedSchedulesNetworkError,
+      TimeoutFailure _ => l10n.joinedSchedulesTimeoutError,
       _ => toLocalizedMessage(context),
     };
   }

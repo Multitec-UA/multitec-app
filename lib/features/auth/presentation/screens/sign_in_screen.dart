@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
 import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
@@ -103,7 +104,7 @@ class _WelcomeTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Bienvenido a Multitec',
+      context.l10n.signInWelcomeTitle,
       textAlign: TextAlign.center,
       style: context.textTheme.headlineSmall?.copyWith(
         fontWeight: FontWeight.w700,
@@ -116,7 +117,7 @@ class _WelcomeDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Inicia sesión para acceder a la comunidad de Multitec UA',
+      context.l10n.signInWelcomeDescription,
       textAlign: TextAlign.center,
       style: context.textTheme.bodyLarge?.copyWith(
         color: context.colors.textSecondary,
@@ -137,7 +138,7 @@ class _DomainNotice extends StatelessWidget {
         borderRadius: AppBorderRadius.br10,
       ),
       child: Text(
-        'Solo cuentas @multitecua.com',
+        context.l10n.domainRestrictionNotice,
         style: context.textTheme.labelMedium?.copyWith(
           color: context.colors.textSecondary,
           fontWeight: FontWeight.w500,

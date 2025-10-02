@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/lists/mt_list_tile.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
@@ -15,8 +16,8 @@ class ThemeSelector extends StatelessWidget {
     return Column(
       children: [
         MTSwitchTile(
-          title: 'Tema del sistema',
-          subtitle: 'Seguir configuración del dispositivo',
+          title: context.l10n.themeSystemTitle,
+          subtitle: context.l10n.themeSystemSubtitle,
           leading: Icon(
             Icons.brightness_auto,
             color: context.colors.primaryBase,
@@ -33,7 +34,7 @@ class ThemeSelector extends StatelessWidget {
         if (currentThemeMode != ThemeMode.system) ...[
           spacings.y.s8,
           MTSwitchTile(
-            title: 'Tema claro',
+            title: context.l10n.themeLightTitle,
             leading: Icon(Icons.light_mode, color: context.colors.primaryBase),
             value: currentThemeMode == ThemeMode.light,
             onChanged: (value) {

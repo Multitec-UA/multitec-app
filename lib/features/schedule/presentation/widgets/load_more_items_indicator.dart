@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
@@ -32,7 +33,7 @@ class LoadMoreItemsIndicator extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Error al cargar más elementos',
+                context.l10n.loadMoreError,
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: context.colors.textSecondary,
                 ),
@@ -41,7 +42,7 @@ class LoadMoreItemsIndicator extends StatelessWidget {
               MTButton(
                 type: MTButtonType.secondary,
                 size: MTButtonSize.small,
-                text: 'Reintentar',
+                text: context.l10n.retry,
                 onPressed: onRetry,
               ),
             ],

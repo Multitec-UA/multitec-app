@@ -24,7 +24,7 @@ class LanguageSelector extends StatelessWidget {
       itemBuilder: (context) {
         return supportedLocales.map((locale) {
           final isSelected = locale.languageCode == currentLocale.languageCode;
-          final displayName = _getLanguageDisplayName(locale);
+          final displayName = _getLanguageDisplayName(context, locale);
           return PopupMenuItem<Locale>(
             value: locale,
             child: Container(
@@ -51,20 +51,20 @@ class LanguageSelector extends StatelessWidget {
         context.read<LocaleCubit>().setLocale(value);
       },
       child: MTSettingsTile(
-        title: 'Idioma',
-        value: _getLanguageDisplayName(currentLocale),
+        title: context.l10n.languageTitle,
+        value: _getLanguageDisplayName(context, currentLocale),
         leading: Icon(Icons.language, color: context.colors.primaryBase),
         showChevron: false,
       ),
     );
   }
 
-  String _getLanguageDisplayName(Locale locale) {
+  String _getLanguageDisplayName(BuildContext context, Locale locale) {
     switch (locale.languageCode) {
       case 'es':
-        return 'Español';
+        return context.l10n.languageSpanish;
       case 'en':
-        return 'English';
+        return context.l10n.languageEnglish;
       default:
         return locale.languageCode.toUpperCase();
     }

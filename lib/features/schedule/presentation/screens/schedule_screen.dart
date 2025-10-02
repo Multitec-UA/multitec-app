@@ -61,9 +61,9 @@ class ScheduleScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                     unselectedLabelStyle: context.textTheme.labelLarge,
-                    tabs: const [
-                      Tab(text: 'Eventos'),
-                      Tab(text: 'Actividades'),
+                    tabs: [
+                      Tab(text: context.l10n.scheduleTabEvents),
+                      Tab(text: context.l10n.scheduleTabActivities),
                     ],
                   ),
                 ),
@@ -143,11 +143,8 @@ class _Body extends StatelessWidget {
           ),
 
           RequestStatus.success => EmptyListPlaceholder(
-            title:
-                'No hay ${type == ScheduleType.event ? 'eventos' : 'actividades'} disponibles',
-            subtitle: type == ScheduleType.event
-                ? 'Los eventos aparecerán aquí cuando estén disponibles'
-                : 'Las actividades aparecerán aquí cuando estén disponibles',
+            title: context.l10n.noItemsAvailable,
+            subtitle: context.l10n.scheduleEmptySubtitle,
           ),
         };
       },
@@ -231,10 +228,8 @@ extension _ScheduleListFailureL10nX on Failure? {
     if (this == null) return l10n.genericError;
 
     return switch (this) {
-      NetworkFailure _ =>
-        'No se ha podido obtener la lista debido a un fallo de conexión',
-      TimeoutFailure _ =>
-        'No se ha podido obtener la lista porque ha tardado demasiado',
+      NetworkFailure _ => toLocalizedMessage(context),
+      TimeoutFailure _ => toLocalizedMessage(context),
       _ => toLocalizedMessage(context),
     };
   }

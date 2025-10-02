@@ -44,7 +44,7 @@ class _Body extends StatelessWidget {
         if (state.reportStatus.isSuccess) {
           showSuccessSnackBar(
             context,
-            message: 'Informe enviado correctamente',
+            message: context.l10n.reportSentSuccess,
           );
         } else if (state.reportStatus.isFailure) {
           showErrorSnackBar(
@@ -82,7 +82,7 @@ class _SendReportButton extends StatelessWidget {
               ? null
               : () => context.read<ExampleCubit>().sendReport(),
           icon: const Icon(Icons.send),
-          label: Text(isSending ? 'Enviando…' : 'Enviar informe'),
+          label: Text(isSending ? context.l10n.sending : context.l10n.sendReport),
         ),
       ),
     );
@@ -110,8 +110,8 @@ class _ListSection extends StatelessWidget {
             onRetry: () => context.read<ExampleCubit>().loadExampleItems(),
           ),
 
-          RequestStatus.success when state.items.isEmpty => const Center(
-            child: Text('No hay elementos disponibles'),
+          RequestStatus.success when state.items.isEmpty => Center(
+            child: Text(context.l10n.noItemsAvailable),
           ),
 
           RequestStatus.success => RefreshIndicator(
@@ -136,10 +136,8 @@ extension _ExampleListFailureL10nX on Failure? {
     if (this == null) return l10n.genericError;
 
     return switch (this) {
-      NetworkFailure _ =>
-        'No se ha podido obtener la lista debido a un fallo de conexión',
-      TimeoutFailure _ =>
-        'No se ha podido obtener la lista porque ha tardado demasiado',
+      NetworkFailure _ => l10n.exampleListNetworkError,
+      TimeoutFailure _ => l10n.exampleListTimeoutError,
       _ => toLocalizedMessage(context),
     };
   }

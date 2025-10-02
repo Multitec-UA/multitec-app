@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/components/dialogs/info_dialog.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
@@ -41,7 +42,7 @@ class _GoogleSignInButton extends StatelessWidget {
               ? null
               : () => context.read<SignInCubit>().signInWithGoogle(),
           isLoading: isLoading,
-          text: 'Iniciar sesión con Google',
+          text: context.l10n.signInWithGoogle,
         ),
       ),
     );
@@ -60,11 +61,10 @@ class _HelpButton extends StatelessWidget {
           ? null
           : () => showInfoDialog(
               context: context,
-              content:
-                  'Debes usar una cuenta de Google con el dominio @multitecua.com.\n\nSi necesitas acceso, contacta con tu coordinador o soporte.',
-              actionButtonText: 'Entendido',
+              content: context.l10n.signInHelpContent,
+              actionButtonText: context.l10n.understood,
             ),
-      child: const Text('¿Necesitas ayuda?'),
+      child: Text(context.l10n.needHelpQuestion),
     );
   }
 }
