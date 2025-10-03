@@ -11,8 +11,8 @@ import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_state.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/empty_list_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/list_error_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/load_more_items_indicator.dart';
@@ -102,7 +102,7 @@ class _ScheduleTabViewState extends State<_ScheduleTabView>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocProvider(
-      create: (_) => ScheduleCubit(
+      create: (_) => ScheduleListCubit(
         widget.type,
         locator<GetScheduleItemsByTypeUseCase>(),
         locator<EventBus>(),
@@ -119,7 +119,7 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScheduleCubit, ScheduleState>(
+    return BlocBuilder<ScheduleListCubit, ScheduleListState>(
       buildWhen: (p, c) =>
           p.status != c.status ||
           p.items != c.items ||
@@ -137,7 +137,7 @@ class _Body extends StatelessWidget {
 
           RequestStatus.failure => ListErrorPlaceholder(
             message: state.failure.toScheduleListMessage(context),
-            onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(
+            onRetry: () => context.read<ScheduleListCubit>().loadScheduleItems(
               isRefreshing: true,
             ),
           ),
@@ -155,7 +155,7 @@ class _Body extends StatelessWidget {
 class _ListSection extends StatefulWidget {
   const _ListSection({required this.state});
 
-  final ScheduleState state;
+  final ScheduleListState state;
 
   @override
   State<_ListSection> createState() => _ListSectionState();
@@ -178,7 +178,7 @@ class _ListSectionState extends State<_ListSection> {
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<ScheduleCubit>().loadScheduleItems();
+      context.read<ScheduleListCubit>().loadScheduleItems();
     }
   }
 
@@ -197,8 +197,9 @@ class _ListSectionState extends State<_ListSection> {
     return RefreshIndicator(
       color: context.colors.primaryBase,
       backgroundColor: context.colors.surface,
-      onRefresh: () =>
-          context.read<ScheduleCubit>().loadScheduleItems(isRefreshing: true),
+      onRefresh: () => context.read<ScheduleListCubit>().loadScheduleItems(
+        isRefreshing: true,
+      ),
       child: ListView.builder(
         controller: _scrollController,
         padding: paddings.x.s16,
@@ -208,7 +209,8 @@ class _ListSectionState extends State<_ListSection> {
             return LoadMoreItemsIndicator(
               isLoading: widget.state.status.isLoading,
               hasError: widget.state.status.isFailure,
-              onRetry: () => context.read<ScheduleCubit>().loadScheduleItems(),
+              onRetry: () =>
+                  context.read<ScheduleListCubit>().loadScheduleItems(),
             );
           }
 

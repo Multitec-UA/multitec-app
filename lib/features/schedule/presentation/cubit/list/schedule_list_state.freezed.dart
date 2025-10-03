@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'schedule_state.dart';
+part of 'schedule_list_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'schedule_state.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$ScheduleState {
+mixin _$ScheduleListState {
 
  List<ScheduleItem> get items; RequestStatus get status; bool get hasMore; Failure? get failure;
-/// Create a copy of ScheduleState
+/// Create a copy of ScheduleListState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ScheduleStateCopyWith<ScheduleState> get copyWith => _$ScheduleStateCopyWithImpl<ScheduleState>(this as ScheduleState, _$identity);
+$ScheduleListStateCopyWith<ScheduleListState> get copyWith => _$ScheduleListStateCopyWithImpl<ScheduleListState>(this as ScheduleListState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScheduleState&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScheduleListState&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
@@ -34,15 +34,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'ScheduleState(items: $items, status: $status, hasMore: $hasMore, failure: $failure)';
+  return 'ScheduleListState(items: $items, status: $status, hasMore: $hasMore, failure: $failure)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ScheduleStateCopyWith<$Res>  {
-  factory $ScheduleStateCopyWith(ScheduleState value, $Res Function(ScheduleState) _then) = _$ScheduleStateCopyWithImpl;
+abstract mixin class $ScheduleListStateCopyWith<$Res>  {
+  factory $ScheduleListStateCopyWith(ScheduleListState value, $Res Function(ScheduleListState) _then) = _$ScheduleListStateCopyWithImpl;
 @useResult
 $Res call({
  List<ScheduleItem> items, RequestStatus status, bool hasMore, Failure? failure
@@ -53,14 +53,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$ScheduleStateCopyWithImpl<$Res>
-    implements $ScheduleStateCopyWith<$Res> {
-  _$ScheduleStateCopyWithImpl(this._self, this._then);
+class _$ScheduleListStateCopyWithImpl<$Res>
+    implements $ScheduleListStateCopyWith<$Res> {
+  _$ScheduleListStateCopyWithImpl(this._self, this._then);
 
-  final ScheduleState _self;
-  final $Res Function(ScheduleState) _then;
+  final ScheduleListState _self;
+  final $Res Function(ScheduleListState) _then;
 
-/// Create a copy of ScheduleState
+/// Create a copy of ScheduleListState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? items = null,Object? status = null,Object? hasMore = null,Object? failure = freezed,}) {
   return _then(_self.copyWith(
@@ -75,8 +75,8 @@ as Failure?,
 }
 
 
-/// Adds pattern-matching-related methods to [ScheduleState].
-extension ScheduleStatePatterns on ScheduleState {
+/// Adds pattern-matching-related methods to [ScheduleListState].
+extension ScheduleListStatePatterns on ScheduleListState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -89,10 +89,10 @@ extension ScheduleStatePatterns on ScheduleState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ScheduleState value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ScheduleListState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _ScheduleState() when $default != null:
+case _ScheduleListState() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -111,10 +111,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ScheduleState value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ScheduleListState value)  $default,){
 final _that = this;
 switch (_that) {
-case _ScheduleState():
+case _ScheduleListState():
 return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
@@ -129,10 +129,10 @@ return $default(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ScheduleState value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ScheduleListState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _ScheduleState() when $default != null:
+case _ScheduleListState() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -152,7 +152,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ScheduleItem> items,  RequestStatus status,  bool hasMore,  Failure? failure)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _ScheduleState() when $default != null:
+case _ScheduleListState() when $default != null:
 return $default(_that.items,_that.status,_that.hasMore,_that.failure);case _:
   return orElse();
 
@@ -173,7 +173,7 @@ return $default(_that.items,_that.status,_that.hasMore,_that.failure);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ScheduleItem> items,  RequestStatus status,  bool hasMore,  Failure? failure)  $default,) {final _that = this;
 switch (_that) {
-case _ScheduleState():
+case _ScheduleListState():
 return $default(_that.items,_that.status,_that.hasMore,_that.failure);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -190,7 +190,7 @@ return $default(_that.items,_that.status,_that.hasMore,_that.failure);}
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ScheduleItem> items,  RequestStatus status,  bool hasMore,  Failure? failure)?  $default,) {final _that = this;
 switch (_that) {
-case _ScheduleState() when $default != null:
+case _ScheduleListState() when $default != null:
 return $default(_that.items,_that.status,_that.hasMore,_that.failure);case _:
   return null;
 
@@ -202,8 +202,8 @@ return $default(_that.items,_that.status,_that.hasMore,_that.failure);case _:
 /// @nodoc
 
 
-class _ScheduleState implements ScheduleState {
-  const _ScheduleState({final  List<ScheduleItem> items = const <ScheduleItem>[], this.status = RequestStatus.initial, this.hasMore = true, this.failure}): _items = items;
+class _ScheduleListState implements ScheduleListState {
+  const _ScheduleListState({final  List<ScheduleItem> items = const <ScheduleItem>[], this.status = RequestStatus.initial, this.hasMore = true, this.failure}): _items = items;
   
 
  final  List<ScheduleItem> _items;
@@ -217,17 +217,17 @@ class _ScheduleState implements ScheduleState {
 @override@JsonKey() final  bool hasMore;
 @override final  Failure? failure;
 
-/// Create a copy of ScheduleState
+/// Create a copy of ScheduleListState
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ScheduleStateCopyWith<_ScheduleState> get copyWith => __$ScheduleStateCopyWithImpl<_ScheduleState>(this, _$identity);
+_$ScheduleListStateCopyWith<_ScheduleListState> get copyWith => __$ScheduleListStateCopyWithImpl<_ScheduleListState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScheduleState&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScheduleListState&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.status, status) || other.status == status)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
@@ -236,15 +236,15 @@ int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(
 
 @override
 String toString() {
-  return 'ScheduleState(items: $items, status: $status, hasMore: $hasMore, failure: $failure)';
+  return 'ScheduleListState(items: $items, status: $status, hasMore: $hasMore, failure: $failure)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ScheduleStateCopyWith<$Res> implements $ScheduleStateCopyWith<$Res> {
-  factory _$ScheduleStateCopyWith(_ScheduleState value, $Res Function(_ScheduleState) _then) = __$ScheduleStateCopyWithImpl;
+abstract mixin class _$ScheduleListStateCopyWith<$Res> implements $ScheduleListStateCopyWith<$Res> {
+  factory _$ScheduleListStateCopyWith(_ScheduleListState value, $Res Function(_ScheduleListState) _then) = __$ScheduleListStateCopyWithImpl;
 @override @useResult
 $Res call({
  List<ScheduleItem> items, RequestStatus status, bool hasMore, Failure? failure
@@ -255,17 +255,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ScheduleStateCopyWithImpl<$Res>
-    implements _$ScheduleStateCopyWith<$Res> {
-  __$ScheduleStateCopyWithImpl(this._self, this._then);
+class __$ScheduleListStateCopyWithImpl<$Res>
+    implements _$ScheduleListStateCopyWith<$Res> {
+  __$ScheduleListStateCopyWithImpl(this._self, this._then);
 
-  final _ScheduleState _self;
-  final $Res Function(_ScheduleState) _then;
+  final _ScheduleListState _self;
+  final $Res Function(_ScheduleListState) _then;
 
-/// Create a copy of ScheduleState
+/// Create a copy of ScheduleListState
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? items = null,Object? status = null,Object? hasMore = null,Object? failure = freezed,}) {
-  return _then(_ScheduleState(
+  return _then(_ScheduleListState(
 items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
 as List<ScheduleItem>,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as RequestStatus,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
