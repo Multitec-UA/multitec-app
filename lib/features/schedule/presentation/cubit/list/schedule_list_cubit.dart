@@ -6,7 +6,7 @@ import 'package:multitec_app/core/utils/safe_cubit.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_list_state.dart';
 
 class ScheduleListCubit extends SafeCubit<ScheduleListState> {
   ScheduleListCubit(this._type, this._getScheduleItems, this._eventBus)

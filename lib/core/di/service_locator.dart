@@ -34,7 +34,7 @@ import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedu
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/joined_schedules_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/joined/joined_schedules_cubit.dart';
 import 'package:multitec_app/features/settings/data/datasources/settings_local_datasource.dart';
 import 'package:multitec_app/features/settings/data/repositories/settings_repository_impl.dart';
 import 'package:multitec_app/features/settings/domain/repositories/settings_repository.dart';

@@ -7,7 +7,7 @@ import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dar
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_state.dart';
 
 class ScheduleDetailCubit extends SafeCubit<ScheduleDetailState> {
   ScheduleDetailCubit({

@@ -133,7 +133,6 @@ final themeLight = _baseTheme.copyWith(
     margin: EdgeInsets.zero,
   ),
 
-  // TODO: Mantener?
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: lightColors.gray10,
@@ -215,7 +214,6 @@ final themeLight = _baseTheme.copyWith(
     contentTextStyle: TextStyle(color: lightColors.textPrimary, fontSize: 14),
   ),
 
-  // TODO: Mantener?
   bottomSheetTheme: BottomSheetThemeData(
     elevation: UIConstants.modalElevation,
     shadowColor: lightColors.gray20.withValues(
@@ -366,7 +364,6 @@ final themeDark = _baseTheme.copyWith(
     margin: EdgeInsets.zero,
   ),
 
-  // TODO: Mantener?
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: darkColors.gray10,
@@ -443,7 +440,6 @@ final themeDark = _baseTheme.copyWith(
     contentTextStyle: TextStyle(color: darkColors.textPrimary, fontSize: 14),
   ),
 
-  // TODO: Mantener?
   bottomSheetTheme: BottomSheetThemeData(
     elevation: UIConstants.modalElevation,
     shadowColor: darkColors.gray20.withValues(alpha: UIConstants.shadowOpacity),

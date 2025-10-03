@@ -18,10 +18,9 @@ import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dar
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_detail_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_state.dart';
 
-//TODO: Ver si dejar los widgets privados aqui o en archivos diferentes
 class ScheduleDetailScreen extends StatelessWidget {
   const ScheduleDetailScreen({required this.item, super.key});
 

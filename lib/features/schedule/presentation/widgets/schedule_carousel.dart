@@ -12,8 +12,8 @@ import 'package:multitec_app/core/ui/design/theme/app_colors_extension.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/schedule_carousel_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/carousel/schedule_carousel_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/carousel/schedule_carousel_state.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/empty_list_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/list_error_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
@@ -143,7 +143,7 @@ class _SeeMoreSchedulesButton extends StatelessWidget {
   }
 }
 
-//TODO: Quitar loadingstate y hacerlo con paquete shimmer
+//TODO: Do it with shimmer
 class _LoadingState extends StatelessWidget {
   const _LoadingState();
 

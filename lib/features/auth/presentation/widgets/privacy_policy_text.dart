@@ -4,7 +4,6 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//TODO: Ver si dejar este nombre u otro
 class PrivacyPolicyText extends StatelessWidget {
   const PrivacyPolicyText({super.key});
 

@@ -11,14 +11,13 @@ import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_list_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_list_state.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/empty_list_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/list_error_placeholder.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/load_more_items_indicator.dart';
 import 'package:multitec_app/features/schedule/presentation/widgets/schedule_list_item.dart';
 
-//TODO: Ver si dejar los widgets privados aqui o en archivos diferentes
 class ScheduleScreen extends StatelessWidget {
   const ScheduleScreen({super.key, this.initialTab});
 

@@ -87,7 +87,6 @@ class _Logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: Cambiar tamaño del logo en esta screen
     return Container(
       height: 100,
       decoration: const BoxDecoration(

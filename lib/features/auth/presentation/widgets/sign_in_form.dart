@@ -32,7 +32,6 @@ class _GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: hacer borderradius mas redondo
     return Padding(
       padding: paddings.x.s32,
       child: SizedBox(
