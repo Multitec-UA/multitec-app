@@ -1,6 +1,5 @@
 import 'package:multitec_app/features/schedule/domain/entities/paginated_result.dart';
 
-//TODO: Convertir a freezed?
 class PaginatedResultDto<T> {
   const PaginatedResultDto({
     required this.items,

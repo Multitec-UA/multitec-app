@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:multitec_app/core/router/app_router.dart';
 import 'package:multitec_app/core/ui/components/cards/mt_card.dart';
 import 'package:multitec_app/core/ui/components/chips/category_chip.dart';
 import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
+import 'package:multitec_app/core/utils/date_time_extensions.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 
 class ScheduleListItem extends StatelessWidget {
@@ -16,9 +16,6 @@ class ScheduleListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    //TODO: Ver donde poner esto bien, hay otro TODO parecido en DetailScreen
-    final dateFormat = DateFormat('dd/MM/yyyy');
-    final timeFormat = DateFormat('HH:mm');
 
     return MTCard(
       onTap: () => context.pushNamed(AppRoute.scheduleDetail.name, extra: item),
@@ -48,7 +45,7 @@ class ScheduleListItem extends StatelessWidget {
               children: [
                 _InfoChip(
                   text:
-                      '${dateFormat.format(item.startsAt)} • ${timeFormat.format(item.startsAt)}',
+                      '${item.startsAt.toShortDate(context)} • ${item.startsAt.toTime(context)}',
                   icon: Icons.access_time_outlined,
                   iconColor: colors.warning,
                 ),

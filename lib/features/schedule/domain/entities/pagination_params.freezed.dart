@@ -207,7 +207,7 @@ return $default(_that.cursor,_that.limit);case _:
 
 
 class _PaginationParams implements PaginationParams {
-  const _PaginationParams({this.cursor, this.limit = 20});
+  const _PaginationParams({this.cursor, this.limit = PaginationParams.defaultLimit});
   
 
 @override final  String? cursor;

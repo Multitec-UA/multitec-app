@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
-import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/appbar/mt_appbar.dart';
@@ -135,7 +134,7 @@ class _Body extends StatelessWidget {
           ),
 
           RequestStatus.failure => ListErrorPlaceholder(
-            message: state.failure.toScheduleListMessage(context),
+            message: state.failure.toLocalizedMessage(context),
             onRetry: () => context.read<ScheduleListCubit>().loadScheduleItems(
               isRefreshing: true,
             ),
@@ -219,19 +218,5 @@ class _ListSectionState extends State<_ListSection> {
         },
       ),
     );
-  }
-}
-
-//TODO: Check
-extension _ScheduleListFailureL10nX on Failure? {
-  String toScheduleListMessage(BuildContext context) {
-    final l10n = context.l10n;
-    if (this == null) return l10n.genericError;
-
-    return switch (this) {
-      NetworkFailure _ => toLocalizedMessage(context),
-      TimeoutFailure _ => toLocalizedMessage(context),
-      _ => toLocalizedMessage(context),
-    };
   }
 }

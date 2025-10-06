@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
+import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
 import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
@@ -37,7 +38,7 @@ class _Body extends StatelessWidget {
         if (state.status.isFailure) {
           showErrorSnackBar(
             context,
-            message: state.failure.toLocalizedMessage(context),
+            message: state.failure.toSignInFailureMessage(context),
           );
         }
       },
@@ -144,5 +145,18 @@ class _DomainNotice extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extension _SignInFailureL10nX on Failure? {
+  String toSignInFailureMessage(BuildContext context) {
+    final l10n = context.l10n;
+    if (this == null) return l10n.genericError;
+
+    return switch (this) {
+      NetworkFailure _ => l10n.signInNetworkError,
+      TimeoutFailure _ => l10n.signInTimeoutError,
+      _ => toLocalizedMessage(context),
+    };
   }
 }

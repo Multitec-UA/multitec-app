@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 
-//TODO: Convertir a freezed?
 class ScheduleItemDto {
   const ScheduleItemDto({
     required this.id,

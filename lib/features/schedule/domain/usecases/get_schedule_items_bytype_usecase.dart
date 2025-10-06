@@ -13,12 +13,9 @@ class GetScheduleItemsByTypeUseCase {
   Future<Result<PaginatedResult<ScheduleItem>, Failure>> call({
     required ScheduleType type,
     String? cursor,
-    int? limit,
+    int limit = PaginationParams.defaultLimit,
   }) => _repository.getScheduleItemsByType(
     type,
-    PaginationParams(
-      cursor: cursor,
-      limit: limit ?? 20,
-    ), //TODO: Ver esto para no pasar 20 a pelo
+    PaginationParams(cursor: cursor, limit: limit),
   );
 }

@@ -14,7 +14,7 @@ class GetJoinedScheduleItemsUseCase {
 
   Future<Result<PaginatedResult<ScheduleItem>, Failure>> call({
     String? cursor,
-    int? limit,
+    int limit = PaginationParams.defaultLimit,
   }) async {
     final userResult = _userRepository.getUser();
 
@@ -23,10 +23,7 @@ class GetJoinedScheduleItemsUseCase {
 
       return _scheduleRepository.getJoinedScheduleItems(
         user.id,
-        PaginationParams(
-          cursor: cursor,
-          limit: limit ?? 20,
-        ), //TODO: Ver esto para no pasar 20 a pelo
+        PaginationParams(cursor: cursor, limit: limit),
       );
     }, Result.error);
   }

@@ -59,7 +59,7 @@ class _Body extends StatelessWidget {
           ),
 
           RequestStatus.failure => ListErrorPlaceholder(
-            message: state.failure.toJoinedSchedulesMessage(context),
+            message: state.failure.toJoinedSchedulesFailureMessage(context),
             onRetry: () => context
                 .read<JoinedSchedulesCubit>()
                 .loadJoinedSchedules(isRefreshing: true),
@@ -140,9 +140,8 @@ class _ListSectionState extends State<_ListSection> {
   }
 }
 
-//TODO: Check
 extension _JoinedSchedulesFailureL10nX on Failure? {
-  String toJoinedSchedulesMessage(BuildContext context) {
+  String toJoinedSchedulesFailureMessage(BuildContext context) {
     final l10n = context.l10n;
     if (this == null) return l10n.genericError;
 

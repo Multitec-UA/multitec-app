@@ -42,10 +42,7 @@ class _Body extends StatelessWidget {
       listenWhen: (prev, curr) => prev.reportStatus != curr.reportStatus,
       listener: (context, state) {
         if (state.reportStatus.isSuccess) {
-          showSuccessSnackBar(
-            context,
-            message: context.l10n.reportSentSuccess,
-          );
+          showSuccessSnackBar(context, message: context.l10n.reportSentSuccess);
         } else if (state.reportStatus.isFailure) {
           showErrorSnackBar(
             context,
@@ -82,7 +79,9 @@ class _SendReportButton extends StatelessWidget {
               ? null
               : () => context.read<ExampleCubit>().sendReport(),
           icon: const Icon(Icons.send),
-          label: Text(isSending ? context.l10n.sending : context.l10n.sendReport),
+          label: Text(
+            isSending ? context.l10n.sending : context.l10n.sendReport,
+          ),
         ),
       ),
     );
@@ -129,7 +128,7 @@ class _ListSection extends StatelessWidget {
   }
 }
 
-// Mapper especifico de la vista para failures
+// Specific mapper for failures
 extension _ExampleListFailureL10nX on Failure? {
   String toExampleListMessage(BuildContext context) {
     final l10n = context.l10n;

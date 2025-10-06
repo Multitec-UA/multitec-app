@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/events/event_bus_adapter.dart';
 import 'package:multitec_app/core/exceptions/failure_localization.dart';
@@ -14,6 +13,7 @@ import 'package:multitec_app/core/ui/components/lists/section_header.dart';
 import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
 import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
+import 'package:multitec_app/core/utils/date_time_extensions.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
@@ -167,10 +167,6 @@ class _DetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO: sacar esto a otro sitio?
-    final dateFormat = DateFormat('EEEE, MMMM d, y', context.l10n.localeName);
-    final timeFormat = DateFormat('HH:mm', context.l10n.localeName);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -184,14 +180,14 @@ class _DetailsSection extends StatelessWidget {
                   icon: Icons.calendar_today_outlined,
                   iconColor: context.colors.info,
                   title: context.l10n.date,
-                  subtitle: dateFormat.format(item.startsAt),
+                  subtitle: item.startsAt.toLocalizedFullDate(context),
                 ),
                 spacings.y.s8,
                 MTDetailTile(
                   icon: Icons.access_time_outlined,
                   iconColor: context.colors.warning,
                   title: context.l10n.time,
-                  subtitle: timeFormat.format(item.startsAt),
+                  subtitle: item.startsAt.toTime(context),
                 ),
                 if (item.location != null) ...[
                   spacings.y.s8,

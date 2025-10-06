@@ -80,6 +80,30 @@ class AppLocalizationsEs extends AppLocalizations {
       'Error del servidor. Inténtalo de nuevo más tarde.';
 
   @override
+  String get exampleListNetworkError =>
+      'No se ha podido obtener la lista debido a un fallo de conexión';
+
+  @override
+  String get exampleListTimeoutError =>
+      'No se ha podido obtener la lista porque ha tardado demasiado';
+
+  @override
+  String get joinedSchedulesNetworkError =>
+      'No se han podido obtener tus eventos debido a un fallo de conexión';
+
+  @override
+  String get joinedSchedulesTimeoutError =>
+      'No se han podido obtener tus eventos porque ha tardado demasiado';
+
+  @override
+  String get signInNetworkError =>
+      'No se ha podido iniciar sesión debido a un fallo de conexión';
+
+  @override
+  String get signInTimeoutError =>
+      'No se ha podido iniciar sesión porque ha tardado demasiado';
+
+  @override
   String get details => 'Detalles';
 
   @override
@@ -121,14 +145,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get joinedSchedulesEmptySubtitle =>
       'Explora los eventos y actividades disponibles para unirte';
-
-  @override
-  String get joinedSchedulesNetworkError =>
-      'No se han podido obtener tus eventos debido a un fallo de conexión';
-
-  @override
-  String get joinedSchedulesTimeoutError =>
-      'No se han podido obtener tus eventos porque ha tardado demasiado';
 
   @override
   String get listErrorTitle => 'Error al cargar';
@@ -195,14 +211,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get noItemsAvailable => 'No hay elementos disponibles';
-
-  @override
-  String get exampleListNetworkError =>
-      'No se ha podido obtener la lista debido a un fallo de conexión';
-
-  @override
-  String get exampleListTimeoutError =>
-      'No se ha podido obtener la lista porque ha tardado demasiado';
 
   @override
   String get eventDetailsTitle => 'Detalles del Evento';

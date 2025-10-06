@@ -224,6 +224,42 @@ abstract class AppLocalizations {
   /// **'Server error. Please try again later.'**
   String get errorHttp5xxServer;
 
+  /// No description provided for @exampleListNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t fetch the list due to a connection error'**
+  String get exampleListNetworkError;
+
+  /// No description provided for @exampleListTimeoutError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t fetch the list because it took too long'**
+  String get exampleListTimeoutError;
+
+  /// No description provided for @joinedSchedulesNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t fetch your events due to a connection error'**
+  String get joinedSchedulesNetworkError;
+
+  /// No description provided for @joinedSchedulesTimeoutError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t fetch your events because it took too long'**
+  String get joinedSchedulesTimeoutError;
+
+  /// No description provided for @signInNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t sign in due to a connection error'**
+  String get signInNetworkError;
+
+  /// No description provided for @signInTimeoutError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t sign in because it took too long'**
+  String get signInTimeoutError;
+
   /// Details section title
   ///
   /// In en, this message translates to:
@@ -301,18 +337,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explore available events and activities to join'**
   String get joinedSchedulesEmptySubtitle;
-
-  /// No description provided for @joinedSchedulesNetworkError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t fetch your events due to a connection error'**
-  String get joinedSchedulesNetworkError;
-
-  /// No description provided for @joinedSchedulesTimeoutError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t fetch your events because it took too long'**
-  String get joinedSchedulesTimeoutError;
 
   /// No description provided for @listErrorTitle.
   ///
@@ -439,18 +463,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No items available'**
   String get noItemsAvailable;
-
-  /// No description provided for @exampleListNetworkError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t fetch the list due to a connection error'**
-  String get exampleListNetworkError;
-
-  /// No description provided for @exampleListTimeoutError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t fetch the list because it took too long'**
-  String get exampleListTimeoutError;
 
   /// No description provided for @eventDetailsTitle.
   ///

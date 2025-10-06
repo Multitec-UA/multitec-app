@@ -14,8 +14,7 @@ class FirebaseAuthDataSource {
     if (kIsWeb) {
       try {
         final cred = await _firebaseAuth.signInWithPopup(provider);
-        //TODO: Borrar
-        //await _enforceAllowedDomainOrSignOut(cred.user);
+        await _enforceAllowedDomainOrSignOut(cred.user);
       } on Object {
         await _firebaseAuth.signInWithRedirect(provider);
       }
@@ -23,8 +22,7 @@ class FirebaseAuthDataSource {
     }
 
     final cred = await _firebaseAuth.signInWithProvider(provider);
-    //TODO: Borrar
-    //await _enforceAllowedDomainOrSignOut(cred.user);
+    await _enforceAllowedDomainOrSignOut(cred.user);
   }
 
   Future<void> _enforceAllowedDomainOrSignOut(User? user) async {
@@ -36,12 +34,6 @@ class FirebaseAuthDataSource {
       throw AuthDomainNotAllowedException();
     }
   }
-
-  // Future<void> validateSession() async {
-  //   final user = _firebaseAuth.currentUser;
-  //   if (user == null) return;
-  //   await _enforceAllowedDomainOrSignOut(user);
-  // }
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();

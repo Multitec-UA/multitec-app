@@ -1,9 +1,10 @@
+import 'dart:async';
 import 'package:multiple_result/multiple_result.dart';
+import 'package:multitec_app/core/exceptions/error_reporter.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/exceptions/guard.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
-import 'package:multitec_app/features/schedule/data/dtos/schedule_item_dto.dart';
 import 'package:multitec_app/features/schedule/domain/entities/paginated_result.dart';
 import 'package:multitec_app/features/schedule/domain/entities/pagination_params.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
@@ -42,10 +43,6 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
   Future<Result<Unit, Failure>> joinScheduleItem(ScheduleItem item, User user) {
     return guardAsync<Unit>(() async {
       await _remote.joinScheduleItem(item.id, user);
-      final dto = ScheduleItemDto.fromDomain(
-        item,
-      ).copyWith(joinedAt: DateTime.now());
-      await _local.saveJoinedScheduleItem(dto);
       return unit;
     }, hint: 'ScheduleRepository.joinScheduleItem');
   }
@@ -77,12 +74,10 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
     PaginationParams params,
   ) async {
     return guardAsync<PaginatedResult<ScheduleItem>>(() async {
-      //TODO: Revisarlo y ordenarlo
       if (params.cursor == null) {
         final localItems = await _local.getJoinedScheduleItems();
         if (localItems.isNotEmpty) {
-          // Actualizamos la caché en segundo plano
-          await _refreshJoinedSchedulesInBackground(userId);
+          unawaited(_refreshJoinedSchedulesInBackground(userId));
           final domainItems = localItems.map((dto) => dto.toDomain()).toList();
           return PaginatedResult<ScheduleItem>(
             items: domainItems,
@@ -92,10 +87,8 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
         }
       }
 
-      // Para páginas siguientes o si no hay caché local, vamos a red
       final paginatedDto = await _remote.getJoinedScheduleItems(userId, params);
 
-      // Guardamos los resultados en caché (hace merge automático)
       await _local.saveJoinedScheduleItems(paginatedDto.items);
 
       return paginatedDto.toDomain((dto) => dto.toDomain());
@@ -109,8 +102,12 @@ class ScheduleRepositoryImpl implements ScheduleRepository {
         const PaginationParams(),
       );
       await _local.saveJoinedScheduleItems(paginatedDto.items);
-    } catch (e) {
-      // Silently fail background refresh
+    } catch (e, s) {
+      ErrorReporter().report(
+        e,
+        stackTrace: s,
+        hint: 'ScheduleRepository._refreshJoinedSchedulesInBackground',
+      );
     }
   }
 

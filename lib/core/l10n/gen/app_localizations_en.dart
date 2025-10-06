@@ -77,6 +77,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorHttp5xxServer => 'Server error. Please try again later.';
 
   @override
+  String get exampleListNetworkError =>
+      'Couldn\'t fetch the list due to a connection error';
+
+  @override
+  String get exampleListTimeoutError =>
+      'Couldn\'t fetch the list because it took too long';
+
+  @override
+  String get joinedSchedulesNetworkError =>
+      'Couldn\'t fetch your events due to a connection error';
+
+  @override
+  String get joinedSchedulesTimeoutError =>
+      'Couldn\'t fetch your events because it took too long';
+
+  @override
+  String get signInNetworkError =>
+      'Couldn\'t sign in due to a connection error';
+
+  @override
+  String get signInTimeoutError => 'Couldn\'t sign in because it took too long';
+
+  @override
   String get details => 'Details';
 
   @override
@@ -118,14 +141,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get joinedSchedulesEmptySubtitle =>
       'Explore available events and activities to join';
-
-  @override
-  String get joinedSchedulesNetworkError =>
-      'Couldn\'t fetch your events due to a connection error';
-
-  @override
-  String get joinedSchedulesTimeoutError =>
-      'Couldn\'t fetch your events because it took too long';
 
   @override
   String get listErrorTitle => 'Load error';
@@ -192,14 +207,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noItemsAvailable => 'No items available';
-
-  @override
-  String get exampleListNetworkError =>
-      'Couldn\'t fetch the list due to a connection error';
-
-  @override
-  String get exampleListTimeoutError =>
-      'Couldn\'t fetch the list because it took too long';
 
   @override
   String get eventDetailsTitle => 'Event Details';
