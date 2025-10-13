@@ -4,8 +4,6 @@
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
 [dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
-[Leer en español](README-es.md)
-
 <br/> 
 
 <h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
