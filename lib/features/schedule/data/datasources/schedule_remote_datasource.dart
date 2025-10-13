@@ -60,8 +60,8 @@ class ScheduleRemoteDataSource {
     final query = _firestore
         .collection('schedule')
         .where('published', isEqualTo: true)
-        .where('startsAt', isGreaterThanOrEqualTo: Timestamp.fromDate(now))
-        .orderBy('startsAt')
+        .where('endsAt', isGreaterThanOrEqualTo: Timestamp.fromDate(now))
+        .orderBy('endsAt')
         .limit(limit);
 
     final snapshot = await query.get();

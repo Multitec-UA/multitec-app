@@ -20,6 +20,7 @@ import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_state.dart';
+import 'package:path/path.dart';
 
 class ScheduleDetailScreen extends StatelessWidget {
   const ScheduleDetailScreen({required this.item, super.key});
@@ -273,9 +274,11 @@ class _JoinButton extends StatelessWidget {
           type: state.isJoined
               ? MTButtonType.destructive
               : MTButtonType.primary,
-          text: state.isJoined
-              ? context.l10n.leaveEvent
-              : context.l10n.joinEvent,
+          text: getButtonText(
+            context,
+            isJoined: state.isJoined,
+            itemType: state.item.type,
+          ),
           onPressed: state.toggleJoinStatus.isLoading
               ? null
               : () {
@@ -286,5 +289,19 @@ class _JoinButton extends StatelessWidget {
         );
       },
     );
+  }
+
+  String getButtonText(
+    BuildContext context, {
+    required bool isJoined,
+    required String itemType,
+  }) {
+    return isJoined
+        ? itemType == 'activity'
+              ? context.l10n.leaveActivity
+              : context.l10n.leaveEvent
+        : itemType == 'event'
+        ? context.l10n.joinEvent
+        : context.l10n.joinActivity;
   }
 }

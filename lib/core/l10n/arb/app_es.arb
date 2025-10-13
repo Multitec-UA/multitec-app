@@ -58,6 +58,14 @@
   "@leaveEvent": {
     "description": "Texto del botón para salir del evento"
   },
+  "joinActivity": "Unirse a la Actividad",
+  "@joinActivity": {
+    "description": "Texto del botón para unirse a la actividad"
+  },
+  "leaveActivity": "Salir de la Actividad",
+  "@leaveActivity": {
+    "description": "Texto del botón para salir de la actividad"
+  },
   "welcomeUser": "¡Bienvenido, {name}!",
   "homeUpcomingSectionTitle": "Próximos eventos y actividades",
   "@homeUpcomingSectionTitle": {

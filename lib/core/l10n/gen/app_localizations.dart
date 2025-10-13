@@ -302,6 +302,18 @@ abstract class AppLocalizations {
   /// **'Leave Event'**
   String get leaveEvent;
 
+  /// Join activity button text
+  ///
+  /// In en, this message translates to:
+  /// **'Join Activity'**
+  String get joinActivity;
+
+  /// Leave activity button text
+  ///
+  /// In en, this message translates to:
+  /// **'Leave Activity'**
+  String get leaveActivity;
+
   /// No description provided for @welcomeUser.
   ///
   /// In en, this message translates to:
