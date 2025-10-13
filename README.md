@@ -29,35 +29,19 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 
 <br/> 
 
-[🎥 Vista previa](#-vista-previa) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Instalación y Configuración](#-installation-and-configuration) • [📫 Contacto](#-contacto)
-
----
-
-## 🎥 Vista previa
-
-* 🎬 **Overview** (20–30 s): navegación principal + rendimiento percibido.
-  `<video src="assets/previews/overview.mp4" controls width="640"></video>`
-* 📅 **Agenda / Schedule** — `schedule.gif`
-* ➕ **Unirse/Salir de actividad** — `join-unjoin.gif`
-* 👤 **Perfil** — `profile.gif`
-* ⚙️ **Ajustes (tema/idioma)** — `settings.gif`
-
 ---
 
 ## 🧱 Arquitectura
 
-* **Clean Architecture + BLoC/Cubit**:
-  `presentation (widgets/pages) ↔ application (blocs/cubits) ↔ domain (entities/usecases/repos) ↔ data (dtos/datasources/repo impl)`
-* **DI** con `get_it` (`service_locator.dart`).
-* **Navegación** con **GoRouter** y `ScaffoldWithNestedNavigation` (tabs/bottom nav con estado preservado).
-* **Red**: `NetworkService` con clientes (`MultitecApiClient`, `GoogleMapsApiClient`), interceptores (`AuthInterceptor`, `ApiKeyInterceptor`) y `MethodChannel` para API keys.
+**Clean Architecture + BLoC/Cubit**:
+  `presentation (cubits/screens/widgets) ↔ domain (entities/usecases/repos) ↔ data (dtos/datasources/repo impl)`
 
 **Árbol de carpetas (resumen)**
 
 ```text
 lib/
   core/
-    constants/        # API/base URLs vía --dart-define
+    constants/        # API/base URLs
     database/         # Sembast (IO/Web)
     di/               # get_it service locator
     events/           # event bus
@@ -66,7 +50,7 @@ lib/
     network/          # Dio clients, cache, interceptors
     router/           # GoRouter + nested shell
     ui/               # Design system, theming, componentes
-    utils/            # helpers (p.ej. SafeCubit)
+    utils/            # helpers 
   features/
     auth/             # Firebase Auth + Google Sign-In
     schedule/         # Agenda (data/domain/presentation)
