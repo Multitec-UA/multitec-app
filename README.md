@@ -1,4 +1,4 @@
-# Multitec Appp
+# Multitec App
 
 <!-- ![coverage][coverage_badge] -->
 
