@@ -1,9 +1,6 @@
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/davidgonzaleziniguez)
 
 
-
-
-
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
 [dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
@@ -13,12 +10,11 @@
 
 <h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
 
-> **Mobile app to help members keep up with events and interact with the community** 
-
+> **Aplicación oficial de la comunidad de estudiantes Multitec UA**
 
 <div align="center">
 <p>
-  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.32+-02569B?logo=flutter&logoColor=white" alt="Flutter"></a>
+  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.32.4-02569B?logo=flutter&logoColor=white" alt="Flutter"></a>
   <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.8%2B-0175C2?logo=dart&logoColor=white" alt="Dart"></a>
   <img src="https://img.shields.io/badge/Architecture-Clean%20/ %20Hexagonal-blueviolet" alt="Architecture: Clean/Hexagonal">
   <a href="https://bloclibrary.dev/#/"><img src="https://img.shields.io/badge/State-BLoC-7f52ff" alt="BLoC"></a>
@@ -26,8 +22,9 @@
 </p>
 </div>
 
+Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integra **Firebase Auth**, **Cloud Firestore** y **Sembast** para la persistencia offline.
 
-Desarrollada en Flutter con BLoC y Clean Architecture, integra Firebase Auth para la autenticación, Cloud Firestore para datos en tiempo real y Sembast para la persistencia offline.
+Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consulta la agenda de eventos, gestiona tu participación en actividades y accede a tu perfil de socio en cualquier momento, incluso sin conexión.
 
 
 [🎥 Vista previa](#-vista-previa) • [📖 Qué es Multitec App](#-qué-es-multitec-app) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Setup](#-setup) • [📫 Contacto](#-contacto)
@@ -50,7 +47,10 @@ Desarrollada en Flutter con BLoC y Clean Architecture, integra Firebase Auth par
 ---
 
 ## 📖 Qué es Multitec App
-Aplicación Flutter de producción para la asociación de estudiantes Multitec. Incluye autenticación con Google, agenda de eventos/actividades con join/unjoin, perfil de usuario, i18n (es/en), theming claro/oscuro, caché offline y soporte Android • iOS • Web.
+
+Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consulta la agenda de eventos, gestiona tu participación en actividades y accede a tu perfil de socio en cualquier momento, incluso sin conexión.
+
+Desarrollada en Flutter con BLoC y Clean Architecture, con integración de Firebase Auth, Cloud Firestore y Sembast para la persistencia offline.
 
 ---
 
