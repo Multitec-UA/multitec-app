@@ -1,4 +1,6 @@
-[![LinkedIn · David González](https://img.shields.io/badge/-LinkedIn%20·%20David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/davidgonzaleziniguez)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/davidgonzaleziniguez)
+
+
 
 
 
@@ -25,7 +27,7 @@
 </div>
 
 
-Aplicación Flutter (BLoC + Clean Architecture) para la asociación de estudiantes **Multitec**.
+Desarrollada en Flutter con BLoC y Clean Architecture, integra Firebase Auth para la autenticación, Cloud Firestore para datos en tiempo real y Sembast para la persistencia offline.
 
 
 [🎥 Vista previa](#-vista-previa) • [📖 Qué es Multitec App](#-qué-es-multitec-app) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Setup](#-setup) • [📫 Contacto](#-contacto)
