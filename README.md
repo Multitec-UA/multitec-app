@@ -1,3 +1,8 @@
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+[Español](README-es.md)
+
+<!-- HEADER -->
 # Multitec App
 
 <!-- ![coverage][coverage_badge] -->
