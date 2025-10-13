@@ -22,18 +22,18 @@
 </p>
 </div>
 
-Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integra **Firebase Auth**, **Cloud Firestore** y **Sembast** para la persistencia offline.
 
-Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consulta la agenda de eventos, gestiona tu participación en actividades y accede a tu perfil de socio en cualquier momento, incluso sin conexión.
+Desarrollada en Flutter con **BLoC** y **Clean Architecture**, con integración de **Firebase Auth**, **Cloud Firestore** y **Sembast** para la persistencia offline.
 
+Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
-[🎥 Vista previa](#-vista-previa) • [📖 Qué es Multitec App](#-qué-es-multitec-app) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Setup](#-setup) • [📫 Contacto](#-contacto)
+<br/> 
+
+[🎥 Vista previa](#-vista-previa) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Instalación y Configuración](#-installation-and-configuration) • [📫 Contacto](#-contacto)
 
 ---
 
-## 👀 Vista previa
-
-> Sube 1 MP4 de 20–30 s + 3–6 GIFs breves. Colócalos en `assets/previews/`.
+## 🎥 Vista previa
 
 * 🎬 **Overview** (20–30 s): navegación principal + rendimiento percibido.
   `<video src="assets/previews/overview.mp4" controls width="640"></video>`
@@ -41,16 +41,6 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 * ➕ **Unirse/Salir de actividad** — `join-unjoin.gif`
 * 👤 **Perfil** — `profile.gif`
 * ⚙️ **Ajustes (tema/idioma)** — `settings.gif`
-
-**Emojis útiles**: 🎬📅⭐👤⚙️🌙🌍⚡
-
----
-
-## 📖 Qué es Multitec App
-
-Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consulta la agenda de eventos, gestiona tu participación en actividades y accede a tu perfil de socio en cualquier momento, incluso sin conexión.
-
-Desarrollada en Flutter con BLoC y Clean Architecture, con integración de Firebase Auth, Cloud Firestore y Sembast para la persistencia offline.
 
 ---
 
@@ -92,80 +82,124 @@ lib/
 ---
 
 ## 🧩 Dependencias
-**Principales paquetes** (ver `pubspec.yaml`):
 
-* Estado: `bloc`, `flutter_bloc`
-* Routing: `go_router`
-* Red/Cache: `dio`, `dio_cache_interceptor`, `dio_cache_interceptor_hive_store`
-* Persistencia: `sembast`, `sembast_web`, `shared_preferences`
-* Firebase: `firebase_core`, `firebase_auth`, `cloud_firestore`
-* DI: `get_it`
-* Serialización/Modelado: `freezed_annotation`, `json_serializable`
-* Utilidades: `multiple_result`, `event_bus`, `flutter_localizations`, `flutter_svg`, `url_launcher`, `device_preview`
+**Gestión de estado**
+- `bloc` + `flutter_bloc`
 
-**Dev**: `very_good_analysis`, `bloc_test`, `mockito`, `freezed`, `build_runner`, `json_serializable`, `husky`, `commitlint_cli`
+**Routing**
+- `go_router` 
+
+**Persistencia**
+- `sembast` + `sembast_web` 
+- `shared_preferences` 
+
+**Firebase**
+- `firebase_core`, `firebase_auth`, `cloud_firestore`
+
+**DI**
+- `get_it` 
+
+**Serialización / Modelado**
+- `freezed`, `freezed_annotation`, `json_serializable` 
+
+**Red / Caché**
+- `dio`
+- `dio_cache_interceptor` + `dio_cache_interceptor_hive_store` 
+
+**Utilidades**
+- `multiple_result` 
+- `event_bus`
+- `flutter_localizations` 
+- `url_launcher`
+
+**Testing & Code Quality**
+- `bloc_test`
+- `mockito`
+- `very_good_analysis`
+
+**Automatización & productividad**
+- `husky`, `commitlint_cli`
+- `mason_cli`
 
 ---
 
 ## 🗺️ Roadmap
 
-* [ ] Deep links / App Links.
-* [ ] Tests de integración (`integration_test`).
-* [ ] Analytics + Crash reporting.
-* [ ] Modo offline completo para agenda.
+- [ ] Notificaciones push para avisos y recordatorios de eventos  
+- [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
+- [ ] Sistema de votación online para elecciones de la junta directiva  
+- [ ] Chat interno para actividades o eventos de larga duración
+- [ ] Módulo de buzón de sugerencias 
 
 ---
 
 
-## 🚀 Setup
+## ⚙️ Installation and Configuration 
 
-### Requisitos
+### Downloading and installing project 🧑‍💻
 
-* **Flutter** `3.32.0` (FVM en `.fvmrc`).
-* **Dart** `3.8+`.
-* **Firebase** configurado (`flutterfire configure` o añade `google-services.json` / `GoogleService-Info.plist`).
+Clone the project repository (choose one):
 
-### 1) Variables de entorno (`--dart-define`)
+```sh
+# Using SSH
+git clone git@github.com:Multitec-UA/multitec-app.git
+```
 
-El proyecto lee *build-time env vars* en `core/constants/environment.dart`:
+or
 
-* `GOOGLE_MAPS_API_KEY` — clave de Maps.
-* `GOOGLE_MAPS_URL` — p. ej. `https://maps.googleapis.com/maps/api`.
-* `MULTITEC_URL` — backend Multitec.
-* `SQUARE1_URL` — servicio adicional.
+```sh
+# Using HTTPS
+git clone https://github.com/Multitec-UA/multitec-app.git
+```
 
-> Alternativa: `environment/{development,staging,production}_key.json` si inyectas claves por *platform channel*.
+Then, navigate into the project folder:
 
-### 2) Dependencias y codegen
+```sh
+cd multitec-app
+```
 
-```bash
-# (Opcional) usar FVM
+Install **FVM** (Flutter Version Management) globally to manage Flutter SDK versions easily:
+
+```sh
+dart pub global activate fvm
+```
+
+Use FVM to install the Flutter version specified in the `.fvmrc` file (this installs Flutter locally to the project):
+
+```sh
 fvm install
+```
+
+> ⚠️ After running `fvm install`, it is likely necessary to restart VSCode or at least its terminal for the changes to take effect and for VSCode to use the FVM-installed Flutter version properly.
+
+### Downloading and installing project dependencies ✨
+
+Fetch all packages:
+
+```sh
 fvm flutter pub get
-
-# Codegen (freezed/json)
-dart run build_runner build -d
 ```
 
-### 3) Ejecutar por *flavor*
+Finally, install Husky git hooks:
 
-```bash
-# Desarrollo
-flutter run --flavor development -t lib/main_development.dart \
-  --dart-define=GOOGLE_MAPS_API_KEY=xxxx \
-  --dart-define=GOOGLE_MAPS_URL=https://maps.googleapis.com/maps/api \
-  --dart-define=MULTITEC_URL=https://api.tu-backend.dev \
-  --dart-define=SQUARE1_URL=https://square1.dev
-
-# Staging
-flutter run --flavor staging -t lib/main_staging.dart [--dart-define=...]
-
-# Producción
-flutter run --flavor production -t lib/main_production.dart [--dart-define=...]
+```sh
+fvm dart run husky install
 ```
 
-> **Android**: `productFlavors { development | staging | production }` en `android/app/build.gradle` (con `applicationIdSuffix` y `manifestPlaceholders`).
-> **Web**: `flutter run -d chrome` (ajusta `--web-renderer=html|canvaskit`).
+### Using Mason bricks 🧱
+
+This project uses [Mason](https://pub.dev/packages/mason_cli) to generate feature folders inside `lib/features` following the standard structure.
+
+Install Mason CLI:
+
+```sh
+dart pub global activate mason_cli
+```
+
+To generate a new feature, run:
+```sh
+mason make feature
+```
 
 ---
 
@@ -175,15 +209,7 @@ David González Íñiguez
 - Email: davidgab08@gmail.com
 - Linkedin: [davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
 
----
 
-<div align="center">
-
-*¿Te gusta el proyecto?* ¡Una ⭐ ayuda a que más gente lo encuentre!
-
-[⬆ Volver arriba](#-multitec-app--flutter-app-para-la-gestión-de-comunidad)
-
-</div>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
