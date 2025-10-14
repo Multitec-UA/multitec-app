@@ -45,8 +45,8 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
       <th style="text-align:center;">Detalles de Evento</th>
       <th style="text-align:center;">Perfil</th>
       <th style="text-align:center;">Mis Eventos Guardados</th>
-      <th style="text-align:center;">Ajustes</th>
       <th style="text-align:center;">Login</th>
+      <th style="text-align:center;">Ajustes</th>
     </tr>
     <tr>
       <td align="center">
@@ -65,10 +65,10 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
         <img src="https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea" width="200" alt="Mis Eventos Guardados">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Ajustes">
+        <img src="https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582" width="200" alt="Login">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582" width="200" alt="Login">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Ajustes">
       </td>
     </tr>
   </table>
