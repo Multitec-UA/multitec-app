@@ -12,6 +12,8 @@
 
 > **Aplicación oficial de la comunidad de estudiantes Multitec UA**
 
+<br/> 
+
 <div align="center">
 <p>
   <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.32.4-02569B?logo=flutter&logoColor=white" alt="Flutter"></a>
@@ -23,17 +25,17 @@
 </div>
 
 
-Desarrollada en Flutter con **BLoC** y **Clean Architecture**, con integración de **Firebase Auth**, **Cloud Firestore** y **Sembast** para la persistencia offline.
+Desarrollada en Flutter con **BLoC** y **Clean Architecture**, con integración de **Firebase Auth**, **Cloud Firestore** y **Sembast**.
 
 Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
 <br/> 
 
-[🎥 Vista previa](#-vista-previa) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Instalación y Configuración](#-installation-and-configuration) • [📫 Contacto](#-contacto)
+[🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
 ---
 
-## 🎥 Vista previa
+<h2 id="vista-previa">🎥 Vista previa</h2>
 
 * 🎬 **Overview** (20–30 s): navegación principal + rendimiento percibido.
   `<video src="assets/previews/overview.mp4" controls width="640"></video>`
@@ -44,92 +46,58 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 
 ---
 
-## 🧩 Arquitectura
+<h2 id="arquitectura">🏛️ Arquitectura</h2>
 
-> **Clean Architecture + BLoC/Cubit**
+🔸**Clean Architecture** + **BLoC**, con enfoque **feature-first** : separación de responsabilidades, bajo acoplamiento y alta testabilidad.
 
-### 🔹 Responsabilidades por capa
-
-🧱 **Data** — `dtos · datasources · repositories impl`  
-
-🧩 **Domain** — `entities · usecases · repositories`  
-
-🎨 **Presentation** — `cubits · screens · widgets`
-
-<br/>
-
-### 🔹 Estructura de carpetas
+### Estructura por capas
+🔹 **Data** — `datasources • dtos • repository implementations`  
+🔹 **Domain** — `entities • usecases • repositories`  
+🔹 **Presentation** — `cubits • screens • widgets`
 
 ```text
 feature/
 ├── data/
 │   ├── datasources/
-│   │   ├── local/
-│   │   │   └── user_local_data_source.dart
-│   │   └── remote/
-│   │       └── user_remote_data_source.dart
 │   ├── dtos/
-│   │   └── user_dto.dart
 │   └── repositories/
-│       └── user_repository_impl.dart
 │
 ├── domain/
 │   ├── entities/
-│   │   └── user.dart
 │   ├── repositories/
-│   │   └── user_repository.dart
 │   └── usecases/
-│       ├── get_user.dart
-│       └── update_user.dart
 │
 └── presentation/
     ├── cubits/
-    │   └── user/
-    │       ├── user_cubit.dart
-    │       └── user_state.dart
     ├── screens/
-    │   └── profile_page.dart
     └── widgets/
-        └── user_profile_card.dart
 ````
 
-```text
-├── core/
-    ├── errors/
-    │   ├── exceptions.dart
-    │   └── failures.dart
-    ├── network/
-    │   ├── network_info.dart
-    │   └── api_client.dart
-    ├── utils/
-    │   ├── constants.dart
-    │   └── app_utils.dart
-    └── theme/
-        ├── app_theme.dart
-        └── app_colors.dart
-````
 
-**Árbol de carpetas (resumen)**
-
+### Árbol de carpetas (resumen)
 ```text
 lib/
   core/
     constants/        # API/base URLs
     database/         # Sembast (IO/Web)
-    di/               # get_it service locator
+    di/               # Inyección de dependencias (get_it)
     events/           # event bus
-    exceptions/       # Failure, guard, reporting
+    exceptions/       # Failures, excepciones, reporting y guard clauses
     l10n/             # ARB + gen_l10n
     network/          # Dio clients, cache, interceptors
+    preferences/      # SharedPreferences
     router/           # GoRouter + nested shell
-    ui/               # Design system, theming, componentes
-    utils/            # helpers 
+    ui/               # Design system, theming, componentes reutilizables
+    utils/            # Helpers y extensiones comunes
+
   features/
-    auth/             # Firebase Auth + Google Sign-In
-    schedule/         # Agenda (data/domain/presentation)
-    user/             # Perfil y estado de usuario
-    settings/         # Tema/Idioma
-    home/, profile/, example/
+    auth/
+    home/        
+    schedule/         
+    user/                   
+    profile/
+    settings/
+
   bootstrap.dart
   main_development.dart
   main_staging.dart
@@ -138,7 +106,7 @@ lib/
 
 ---
 
-## 🧩 Dependencias
+<h2 id="dependencias">🧩 Dependencias</h2>
 
 **Gestión de estado**
 - `bloc` + `flutter_bloc`
@@ -180,18 +148,18 @@ lib/
 
 ---
 
-## 🗺️ Roadmap
+<h2 id="roadmap">🗺️ Roadmap</h2>
 
-- [ ] Notificaciones push para avisos y recordatorios de eventos  
 - [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
-- [ ] Sistema de votación online para elecciones de la junta directiva  
-- [ ] Chat interno para actividades o eventos de larga duración
+- [ ] Sistema de votación online para elecciones de la junta directiva
+- [ ] Notificaciones push para avisos y recordatorios de eventos   
+- [ ] Chat interno para actividades o eventos de larga duración 
 - [ ] Módulo de buzón de sugerencias 
 
 ---
 
 
-## ⚙️ Installation and Configuration 
+<h2 id="getting-started">🚀 Getting Started</h2>
 
 ### Downloading and installing project 🧑‍💻
 
@@ -260,9 +228,9 @@ mason make feature
 
 ---
 
-## 📫 Contacto
+<h2 id="contacto">📫 Contacto</h2>
 
-David González Íñiguez 
+Developer: David González Íñiguez 
 - Email: davidgab08@gmail.com
 - Linkedin: [davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
 
