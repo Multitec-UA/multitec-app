@@ -43,8 +43,6 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
       <th text-align:center; width="220">Login</th>
       <th text-align:center; width="220">Home</th>
       <th text-align:center; width="220">Schedule</th>
-      <th text-align:center; width="220">Schedule</th>
-      <th text-align:center; width="220">Schedule</th>
     </tr>
     <tr>
       <td align="center">
@@ -54,13 +52,6 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
         <img width="220" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
       </td>
       <td align="center">
-        <img width="220" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
-      </td>
-        <td align="center">
-        <img width="220" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
-      </td>
-        </td>
-        <td align="center">
         <img width="220" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
       </td>
     </tr>
