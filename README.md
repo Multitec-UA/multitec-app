@@ -31,99 +31,47 @@ Built with **Flutter**, following **Clean Architecture** and **BLoC**, integrate
 
 Multitec App gives Multitec UA members a simple way to keep up with the association’s activities: browse the events agenda, join/leave activities, and access your member profile anytime — even offline.
 
-<br/> 
-
 [🎥 App Showcase](#app-showcase) • [🏛️ Architecture ](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
 
 ---
 <h2 id="app-showcase">🎥 App Showcase</h2>
 
-
-<div align="center">
-  <div style="max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 6px;">
-    <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed; min-width:1600px;">
-      <tr>
-        <th style="text-align:center; width:220px;">Profile</th>
-        <th style="text-align:center; width:220px;">My Events</th>
-        <th style="text-align:center; width:220px;">Login</th>
-        <th style="text-align:center; width:220px;">Home</th>
-      </tr>
-      <tr>
-        <td align="center"><img alt="profile"  width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" /></td>
-        <td align="center"><img alt="myevents" width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/a7d5c717-d6e1-432e-8f30-f6ebbe04e874" /></td>
-        <td align="center"><img alt="login"    width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/c112799e-056f-47f8-9c42-406955306c41" /></td>
-        <td align="center"><img alt="home"     width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/a73685ea-4c39-4ece-ae0e-19eb3818624c" /></td>
-      </tr>
-    </table>
-  </div>
-</div>
-
-<div align="center">
-  <div style="max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 6px;">
-    <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed; min-width:1600px;">
-      <tr>
-        <th style="text-align:center; width:220px;">Details</th>
-        <th style="text-align:center; width:220px;">Agenda</th>
-        <th style="text-align:center; width:220px;">Settings</th>
-      </tr>
-      <tr>
-        <td align="center"><img alt="details"  width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/730c1eec-8beb-4d0a-961d-39d11a30eef9" /></td>
-        <td align="center"><img alt="agenda"   width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/69475da1-ee51-4b7d-b90f-9927a27335bd" /></td>
-        <td align="center"><img alt="settings" width="220" style="height:auto; max-width:none;" src="https://github.com/user-attachments/assets/41f97223-4d76-4cde-a421-8cf369c6d894" /></td>
-      </tr>
-    </table>
-  </div>
-</div>
-
-
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
     <tr>
+      <th style="text-align:center;">Home</th>
+      <th style="text-align:center;">Agenda</th>
+      <th style="text-align:center;">Details</th>
       <th style="text-align:center;">Profile</th>
       <th style="text-align:center;">My Events</th>
       <th style="text-align:center;">Login</th>
-      <th style="text-align:center;">Home</th>
-      <th style="text-align:center;">Details</th>
-      <th style="text-align:center;">Agenda</th>
       <th style="text-align:center;">Settings</th>
     </tr>
     <tr>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Login, Home & Profile">
+        <img src="https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584" width="200" alt="Home">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Movie Details">
+        <img src="https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1" width="200" alt="Agenda">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
+        <img src="https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b" width="200" alt="Details">
       </td>
-       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd" width="200" alt="Profile">
       </td>
-       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea" width="200" alt="My Events">
       </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582" width="200" alt="Login">
       </td>
-       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
-      </td>
-    </td>
-       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Settings">
       </td>
     </tr>
   </table>
 </div>
-
-<!---
-![settings](https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43)
-![profile](https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd)
-![myevents](https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea)
-![login](https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582)
-![home](https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584)
-![details](https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b)
-![agenda](https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1)
---->
 
 ---
 
