@@ -12,7 +12,7 @@
 
 <h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
 
-> **Aplicación oficial de la comunidad de estudiantes Multitec UA**
+> **Official App of the Multitec UA student community**
 
 <br/> 
 
@@ -27,25 +27,23 @@
 </div>
 
 
-Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **Firebase Auth**, **Cloud Firestore** y **Sembast**.
+Built with **Flutter**, following **Clean Architecture** and **BLoC**, integrated with **Firebase Auth**, **Cloud Firestore**, and **Sembast**.
 
-Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
+Multitec App gives Multitec UA members a simple way to keep up with the association’s activities: browse the events agenda, join/leave activities, and access your member profile anytime — even offline.
 
 <br/> 
 
-[🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contacto](#contacto)
+[🎥 App Showcase](#app-showcase) • [🏛️ Architecture ](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
 
 ---
-<br/>
-<h2 id="vista-previa">🎥 Vista previa</h2>
+<h2 id="app-showcase">🎥 App Showcase</h2>
 
 ---
-<br/>
-<h2 id="arquitectura">🏛️ Arquitectura</h2>
+<h2 id="architecture">🏛️ Architecture</h2>
 
-🔸**Clean Architecture** + **BLoC**, con enfoque **feature-first** : separación de responsabilidades, bajo acoplamiento y alta testabilidad.
+🔸 **Clean Architecture** + **BLoC**, **feature-first** approach: clear separation of concerns, low coupling, and high testability.
 
-### Estructura por capas
+### Layer structure
 🔹 **Data** — `datasources • dtos • repository implementations`  
 🔹 **Domain** — `entities • usecases • repositories`  
 🔹 **Presentation** — `cubits • screens • widgets`
@@ -69,7 +67,7 @@ feature/
 ````
 
 
-### Árbol de carpetas (resumen)
+### Folder tree (summary)
 ```text
 lib/
   core/
@@ -100,16 +98,15 @@ lib/
 ```
 
 ---
-<br/>
-<h2 id="dependencias">🧩 Dependencias</h2>
+<h2 id="dependencies">🧩 Dependencies</h2>
 
-**Gestión de estados**
+**State management**
 - `bloc` + `flutter_bloc`
 
 **Routing**
 - `go_router` 
 
-**Persistencia**
+**Persistence**
 - `sembast` + `sembast_web` 
 - `shared_preferences` 
 
@@ -119,14 +116,14 @@ lib/
 **DI**
 - `get_it` 
 
-**Serialización / Modelado**
+**Serialization / Modeling**
 - `freezed`, `freezed_annotation`, `json_serializable` 
 
-**Red / Caché**
+**Networking / Cache**
 - `dio`
 - `dio_cache_interceptor` + `dio_cache_interceptor_hive_store` 
 
-**Utilidades**
+**Utilities**
 - `multiple_result` 
 - `event_bus`
 - `flutter_localizations` 
@@ -137,23 +134,21 @@ lib/
 - `mockito`
 - `very_good_analysis`
 
-**Automatización & productividad**
+**Automation & Productivity**
 - `husky`, `commitlint_cli`
 - `mason_cli`
 
 ---
-<br/>
 <h2 id="roadmap">🗺️ Roadmap</h2>
 
-- [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
-- [ ] Sistema de votación online para elecciones de la junta directiva
-- [ ] Notificaciones push para avisos y recordatorios de eventos   
-- [ ] Chat interno para actividades o eventos de larga duración 
-- [ ] Módulo de buzón de sugerencias 
+- [ ] NFC member card to access the association’s space
+- [ ] Online voting system for board elections
+- [ ] Push notifications for announcements and event reminders
+- [ ] Chat for long-term activities or events
+- [ ] Suggestion box module
 
 ---
 
-<br/>
 <h2 id="getting-started">🚀 Getting Started</h2>
 
 ### Downloading and installing project 🧑‍💻
@@ -223,8 +218,7 @@ mason make feature
 
 ---
 
-<br/>
-<h2 id="contacto">📫 Contacto</h2>
+<h2 id="contact">📫 Contact</h2>
 
 <div align="center">
 
