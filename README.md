@@ -38,6 +38,7 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 ---
 <h2 id="app-showcase">🎥 App Showcase</h2>
 
+
 <div align="center">
   <!-- Scroll horizontal -->
   <div style="max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 6px;">
@@ -106,6 +107,34 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
     </table>
   </div>
 </div>
+
+asdadasd
+
+<div align="center">
+  <div style="max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 6px;">
+    <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed; min-width:calc(4 * 220px + 3 * 12px);">
+      <colgroup>
+        <col style="width:220px">
+        <col style="width:220px">
+        <col style="width:220px">
+        <col style="width:220px">
+      </colgroup>
+      <tr>
+        <th style="text-align:center;">Profile</th>
+        <th style="text-align:center;">My Events</th>
+        <th style="text-align:center;">Login</th>
+        <th style="text-align:center;">Home</th>
+      </tr>
+      <tr>
+        <td align="center"><img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" width="220" alt="Profile"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/a7d5c717-d6e1-432e-8f30-f6ebbe04e874" width="220" alt="My Events"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/c112799e-056f-47f8-9c42-406955306c41" width="220" alt="Login"></td>
+        <td align="center"><img src="https://github.com/user-attachments/assets/a73685ea-4c39-4ece-ae0e-19eb3818624c" width="220" alt="Home"></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
 
 
 <div align="center">
@@ -273,6 +302,105 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
     </tr>
   </table>
 </div>
+
+
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th style="text-align:center;">Profile</th>
+      <th style="text-align:center;">My Events</th>
+      <th style="text-align:center;">Login</th>
+      <th style="text-align:center;">Home</th>
+      <th style="text-align:center;">Details</th>
+      <th style="text-align:center;">Agenda</th>
+      <th style="text-align:center;">Settings</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Login, Home & Profile">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Movie Details">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+      </td>
+       <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+      </td>
+       <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+      </td>
+      </td>
+       <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+      </td>
+    </td>
+       <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+      </td>
+    </tr>
+  </table>
+</div>
+
+![settings](https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43)
+![profile](https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd)
+![myevents](https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea)
+![login](https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582)
+![home](https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584)
+![details](https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b)
+![agenda](https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1)
+
+
+<div align="center" style="overflow-x:auto; width:100%;">
+  <table style="
+      border-collapse:separate;
+      border-spacing:12px 0;
+      table-layout:fixed;
+      /* suma aprox. = 5*245 + separaciones */
+      min-width:1300px;">
+    <tr>
+      <th style="text-align:center;">Login, Home & Profile</th>
+      <th style="text-align:center;">Movie Details</th>
+      <th style="text-align:center;">Premieres</th>
+      <th style="text-align:center;">Premieres</th>
+      <th style="text-align:center;">Premieres</th>
+      <th style="text-align:center;">Premieres</th>
+      <th style="text-align:center;">Premieres</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Login, Home & Profile"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Movie Details"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Premieres"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Premieres"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Premieres"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Premieres"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+       <td align="center">
+        <img src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" alt="Premieres"
+             style="width:245px; height:auto; max-width:none; display:block;">
+      </td>
+    </tr>
+  </table>
+</div>
+
 
 
 
