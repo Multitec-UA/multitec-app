@@ -38,30 +38,34 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 ---
 <h2 id="app-showcase">🎥 App Showcase</h2>
 
-<div align="center" style="overflow-x:auto; white-space:nowrap;">
-  <table style="border-collapse:separate; border-spacing:12px 0; min-width:1400px; table-layout:fixed;">
-    <thead>
+<div align="center">
+  <div style="max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 6px;">
+    <table style="border-collapse:separate; border-spacing:12px 0; min-width:1540px; table-layout:fixed;">
       <tr>
-        <th style="text-align:center; width:220;">Login</th>
-        <th style="text-align:center; width:220;">Home</th>
-        <th style="text-align:center; width:220;">Schedule</th>
-        <th style="text-align:center; width:220;">Activity / Event Detail</th>
-        <th style="text-align:center; width:220;">Profile</th>
-        <th style="text-align:center; width:220;">Settings</th>
+        <th style="text-align:center; width:220px;">Profile</th>
+        <th style="text-align:center; width:220px;">My Events</th>
+        <th style="text-align:center; width:220px;">Login</th>
+        <th style="text-align:center; width:220px;">Home</th>
+        <th style="text-align:center; width:220px;">Details</th>
+        <th style="text-align:center; width:220px;">Agenda</th>
+        <th style="text-align:center; width:220px;">Settings</th>
       </tr>
-    </thead>
-    <tbody>
       <tr>
-        <td align="center"><img src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" alt="login" width="220"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" alt="home" width="220"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" alt="schedule" width="220"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" alt="activity detail" width="220"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" alt="profile" width="220"></td>
-        <td align="center"><img src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" alt="settings" width="220"></td>
+        <td align="center"><img width="220" alt="profile" loading="lazy" src="https://github.com/user-attachments/assets/0bf02009-549a-4c6e-99a2-14185b1558a3" /></td>
+        <td align="center"><img width="220" alt="myevents" loading="lazy" src="https://github.com/user-attachments/assets/a7d5c717-d6e1-432e-8f30-f6ebbe04e874" /></td>
+        <td align="center"><img width="220" alt="login" loading="lazy" src="https://github.com/user-attachments/assets/c112799e-056f-47f8-9c42-406955306c41" /></td>
+        <td align="center"><img width="220" alt="home" loading="lazy" src="https://github.com/user-attachments/assets/a73685ea-4c39-4ece-ae0e-19eb3818624c" /></td>
+        <td align="center"><img width="220" alt="details" loading="lazy" src="https://github.com/user-attachments/assets/730c1eec-8beb-4d0a-961d-39d11a30eef9" /></td>
+        <td align="center"><img width="220" alt="agenda" loading="lazy" src="https://github.com/user-attachments/assets/69475da1-ee51-4b7d-b90f-9927a27335bd" /></td>
+        <td align="center"><img width="220" alt="settings" loading="lazy" src="https://github.com/user-attachments/assets/41f97223-4d76-4cde-a421-8cf369c6d894" /></td>
       </tr>
-    </tbody>
-  </table>
+    </table>
+  </div>
 </div>
+
+
+
+
 
 ---
 
