@@ -46,13 +46,13 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
     </tr>
     <tr>
       <td align="center">
-        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+        <img width="220" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
       </td>
       <td align="center">
-        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+        <img width="220" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
       </td>
       <td align="center">
-        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+        <img width="220" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
       </td>
     </tr>
   </table>
@@ -67,13 +67,13 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
     </tr>
     <tr>
       <td align="center">
-        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+        <img width="220" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
       </td>
       <td align="center">
-        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+        <img width="220" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
       </td>
       <td align="center">
-        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+        <img width="220" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
       </td>
     </tr>
   </table>
