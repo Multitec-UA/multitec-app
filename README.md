@@ -38,44 +38,27 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 ---
 <h2 id="app-showcase">🎥 App Showcase</h2>
 
-<div align="center" style="overflow-x:auto; white-space:nowrap;">
-
-  <table style="border-collapse:separate; border-spacing:12px 0; min-width:1400px; table-layout:fixed;">
-    <thead>
-      <tr>
-        <th style="text-align:center; width:220px;">Login</th>
-        <th style="text-align:center; width:220px;">Home</th>
-        <th style="text-align:center; width:220px;">Schedule</th>
-        <th style="text-align:center; width:220px;">Activity / Event Detail</th>
-        <th style="text-align:center; width:220px;">Profile</th>
-        <th style="text-align:center; width:220px;">Settings</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td align="center">
-          <img src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" alt="login" width="220" height="auto" style="max-width:220px;">
-        </td>
-        <td align="center">
-          <img src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" alt="home" width="220" height="auto" style="max-width:220px;">
-        </td>
-        <td align="center">
-          <img src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" alt="schedule" width="220" height="auto" style="max-width:220px;">
-        </td>
-        <td align="center">
-          <img src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" alt="activity detail" width="220" height="auto" style="max-width:220px;">
-        </td>
-        <td align="center">
-          <img src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" alt="profile" width="220" height="auto" style="max-width:220px;">
-        </td>
-        <td align="center">
-          <img src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" alt="settings" width="220" height="auto" style="max-width:220px;">
-        </td>
-      </tr>
-    </tbody>
+<div align="center" style="max-width:100%; overflow-x:auto; padding:10px 0;">
+  <table style="border-collapse:separate; border-spacing:12px; min-width:1400px;">
+    <tr>
+      <th style="text-align:center;">Login</th>
+      <th style="text-align:center;">Home</th>
+      <th style="text-align:center;">Schedule</th>
+      <th style="text-align:center;">Activity / Event Detail</th>
+      <th style="text-align:center;">Profile</th>
+      <th style="text-align:center;">Settings</th>
+    </tr>
+    <tr>
+      <td align="center"><img src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" width="240" alt="login"></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" width="240" alt="home"></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" width="240" alt="schedule"></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" width="240" alt="event"></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" width="240" alt="profile"></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" width="240" alt="settings"></td>
+    </tr>
   </table>
-
 </div>
+
 
 
 <div align="center">
