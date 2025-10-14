@@ -31,49 +31,44 @@ Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **F
 
 Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
-<br/> 
 
 [🎥 Vista previa](#vista-previa) • [🚀 Funcionalidades](#funcionalidades) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚶‍➡️ Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
 ---
 <h2 id="vista-previa">🎥 Vista previa</h2>
-<div align="center">
-  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
-    <tr>
-      <th text-align:center;">Login</th>
-      <th text-align:center;">Inicio</th>
-      <th text-align:center;">Agenda</th>
-    </tr>
-    <tr>
-      <td align="center">
-        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
-      </td>
-      <td align="center">
-        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
-      </td>
-      <td align="center">
-        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
-      </td>
-    </tr>
-  </table>
-</div>
 
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
     <tr>
-      <th text-align:center;">Detalle de Evento/Actividad</th>
-      <th text-align:center;">Perfil</th>
-      <th text-align:center;">Ajustes</th>
+      <th style="text-align:center;">Inicio</th>
+      <th style="text-align:center;">Agenda</th>
+      <th style="text-align:center;">Detalles de Evento</th>
+      <th style="text-align:center;">Perfil</th>
+      <th style="text-align:center;">Mis Eventos Guardados</th>
+      <th style="text-align:center;">Ajustes</th>
+      <th style="text-align:center;">Login</th>
     </tr>
     <tr>
       <td align="center">
-        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+        <img src="https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584" width="200" alt="Inicio">
       </td>
       <td align="center">
-        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+        <img src="https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1" width="200" alt="Agenda">
       </td>
       <td align="center">
-        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+        <img src="https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b" width="200" alt="Detalles de Evento">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd" width="200" alt="Perfil">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea" width="200" alt="Mis Eventos Guardados">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Ajustes">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582" width="200" alt="Login">
       </td>
     </tr>
   </table>
