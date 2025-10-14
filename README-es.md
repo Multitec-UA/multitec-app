@@ -33,12 +33,54 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 
 <br/> 
 
-[🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contacto](#contacto)
+[🎥 Vista previa](#vista-previa) • [🚀 Funcionalidades](#funcionalidades) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚶‍➡️ Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
 ---
 <h2 id="vista-previa">🎥 Vista previa</h2>
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th text-align:center;">Login</th>
+      <th text-align:center;">Inicio</th>
+      <th text-align:center;">Agenda</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+      </td>
+      <td align="center">
+        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+      </td>
+      <td align="center">
+        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th text-align:center;">Detalle de Evento/Actividad</th>
+      <th text-align:center;">Perfil</th>
+      <th text-align:center;">Ajustes</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+      </td>
+      <td align="center">
+        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+      </td>
+      <td align="center">
+        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
+
 <h2 id="arquitectura">🏛️ Arquitectura</h2>
 
 🔸**Clean Architecture** + **BLoC**, con enfoque **feature-first** : separación de responsabilidades, bajo acoplamiento y alta testabilidad.
@@ -150,7 +192,7 @@ lib/
 
 ---
 
-<h2 id="getting-started">🚀 Getting Started</h2>
+<h2 id="getting-started">🚶‍➡️ Getting Started</h2>
 
 ### Descarga e instalación del proyecto 🧑‍💻
 
