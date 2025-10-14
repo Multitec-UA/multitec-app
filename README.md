@@ -4,6 +4,8 @@
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
 [dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
+[Leer en español](README-es.md)
+
 <br/> 
 
 <h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
@@ -27,12 +29,85 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 
 <br/> 
 
+[🎥 Vista previa](#-vista-previa) • [🧩 Arquitectura](#-arquitectura) • [🧱 Dependencias](#-dependencias) • [🗺️ Roadmap](#-roadmap) • [🛠️ Instalación y Configuración](#-installation-and-configuration) • [📫 Contacto](#-contacto)
+
 ---
 
-## 🧱 Arquitectura
+## 🎥 Vista previa
 
-**Clean Architecture + BLoC/Cubit**:
-  `presentation (cubits/screens/widgets) ↔ domain (entities/usecases/repos) ↔ data (dtos/datasources/repo impl)`
+* 🎬 **Overview** (20–30 s): navegación principal + rendimiento percibido.
+  `<video src="assets/previews/overview.mp4" controls width="640"></video>`
+* 📅 **Agenda / Schedule** — `schedule.gif`
+* ➕ **Unirse/Salir de actividad** — `join-unjoin.gif`
+* 👤 **Perfil** — `profile.gif`
+* ⚙️ **Ajustes (tema/idioma)** — `settings.gif`
+
+---
+
+## 🧩 Arquitectura
+
+> **Clean Architecture + BLoC/Cubit**
+
+### 🔹 Responsabilidades por capa
+
+🧱 **Data** — `dtos · datasources · repositories impl`  
+
+🧩 **Domain** — `entities · usecases · repositories`  
+
+🎨 **Presentation** — `cubits · screens · widgets`
+
+<br/>
+
+### 🔹 Estructura de carpetas
+
+```text
+feature/
+├── data/
+│   ├── datasources/
+│   │   ├── local/
+│   │   │   └── user_local_data_source.dart
+│   │   └── remote/
+│   │       └── user_remote_data_source.dart
+│   ├── dtos/
+│   │   └── user_dto.dart
+│   └── repositories/
+│       └── user_repository_impl.dart
+│
+├── domain/
+│   ├── entities/
+│   │   └── user.dart
+│   ├── repositories/
+│   │   └── user_repository.dart
+│   └── usecases/
+│       ├── get_user.dart
+│       └── update_user.dart
+│
+└── presentation/
+    ├── cubits/
+    │   └── user/
+    │       ├── user_cubit.dart
+    │       └── user_state.dart
+    ├── screens/
+    │   └── profile_page.dart
+    └── widgets/
+        └── user_profile_card.dart
+````
+
+```text
+├── core/
+    ├── errors/
+    │   ├── exceptions.dart
+    │   └── failures.dart
+    ├── network/
+    │   ├── network_info.dart
+    │   └── api_client.dart
+    ├── utils/
+    │   ├── constants.dart
+    │   └── app_utils.dart
+    └── theme/
+        ├── app_theme.dart
+        └── app_colors.dart
+````
 
 **Árbol de carpetas (resumen)**
 
