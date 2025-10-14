@@ -37,8 +37,50 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 
 ---
 <h2 id="app-showcase">🎥 App Showcase</h2>
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th text-align:center;">Login</th>
+      <th text-align:center;">Home</th>
+      <th text-align:center;">Schedule</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+      </td>
+      <td align="center">
+        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+      </td>
+      <td align="center">
+        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th text-align:center;">Activity/Event Detail</th>
+      <th text-align:center;">Profile</th>
+      <th text-align:center;">Settings</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img width="240" alt="login" src="https://github.com/user-attachments/assets/b64c16e5-cdbb-4e63-9522-4d1d5a4f73a0" />
+      </td>
+      <td align="center">
+        <img width="240" alt="profile" src="https://github.com/user-attachments/assets/b84f37a1-19da-4a6b-90d2-7a8d3c0a41f3" />
+      </td>
+      <td align="center">
+        <img width="240" alt="settings" src="https://github.com/user-attachments/assets/7f363e95-1d12-4529-8bd3-4cbd686da5c7" />
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
+
 <h2 id="architecture">🏛️ Architecture</h2>
 
 🔸 **Clean Architecture** + **BLoC**, **feature-first** approach: clear separation of concerns, low coupling, and high testability.
