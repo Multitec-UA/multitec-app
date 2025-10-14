@@ -40,9 +40,9 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
     <tr>
-      <th text-align:center;">Login</th>
-      <th text-align:center;">Home</th>
-      <th text-align:center;">Schedule</th>
+      <th text-align:center; width="220">Login</th>
+      <th text-align:center; width="220">Home</th>
+      <th text-align:center; width="220">Schedule</th>
     </tr>
     <tr>
       <td align="center">
@@ -61,9 +61,9 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
     <tr>
-      <th text-align:center;">Activity/Event Detail</th>
-      <th text-align:center;">Profile</th>
-      <th text-align:center;">Settings</th>
+      <th text-align:center; width="220">Activity/Event Detail</th>
+      <th text-align:center; width="220">Profile</th>
+      <th text-align:center; width="220">Settings</th>
     </tr>
     <tr>
       <td align="center">
