@@ -79,36 +79,6 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
     <tr>
-      <th text-align:center;">Login, Home & Profile</th>
-      <th text-align:center;">Movie Details</th>
-      <th text-align:center;">Premieres</th>
-      <th text-align:center;">Premieres</th>
-      <th text-align:center;">Premieres</th>
-    </tr>
-    <tr>
-      <td align="center">
-        <img src="https://github.com/user-attachments/assets/e5060161-52e6-4b94-b982-a4bc31b99dab" width="245" alt="Login, Home & Profile">
-      </td>
-      <td align="center">
-        <img src="https://github.com/user-attachments/assets/772567db-5dea-41e6-bff4-912c7d49a264" width="245" alt="Movie Details">
-      </td>
-      <td align="center">
-        <img src="https://github.com/user-attachments/assets/6577c17f-ddbe-4de5-8198-6fbbc8e3c0c5" width="245" alt="Premieres">
-      </td>
-       <td align="center">
-        <img src="https://github.com/user-attachments/assets/6577c17f-ddbe-4de5-8198-6fbbc8e3c0c5" width="245" alt="Premieres">
-      </td>
-       <td align="center">
-        <img src="https://github.com/user-attachments/assets/6577c17f-ddbe-4de5-8198-6fbbc8e3c0c5" width="245" alt="Premieres">
-      </td>
-    </tr>
-  </table>
-</div>
-
-
-<div align="center">
-  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
-    <tr>
       <th style="text-align:center;">Profile</th>
       <th style="text-align:center;">My Events</th>
       <th style="text-align:center;">Login</th>
@@ -145,6 +115,7 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
   </table>
 </div>
 
+<!---
 ![settings](https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43)
 ![profile](https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd)
 ![myevents](https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea)
@@ -152,7 +123,7 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 ![home](https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584)
 ![details](https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b)
 ![agenda](https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1)
-
+--->
 
 <div align="center" style="overflow-x:auto; width:100%;">
   <table style="
