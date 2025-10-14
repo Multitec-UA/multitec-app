@@ -89,27 +89,27 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
     </tr>
     <tr>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Login, Home & Profile">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Login, Home & Profile">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Movie Details">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Movie Details">
       </td>
       <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
       </td>
        <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
       </td>
        <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
       </td>
       </td>
        <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
       </td>
     </td>
        <td align="center">
-        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="240" alt="Premieres">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Premieres">
       </td>
     </tr>
   </table>
