@@ -1,4 +1,6 @@
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/davidgonzaleziniguez)
+[![Developer LinkedIn | David González](https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=555555)](https://linkedin.com/in/davidgonzaleziniguez)
+
+
 
 
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
@@ -25,7 +27,7 @@
 </div>
 
 
-Desarrollada en Flutter con **BLoC** y **Clean Architecture**, con integración de **Firebase Auth**, **Cloud Firestore** y **Sembast**.
+Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **Firebase Auth**, **Cloud Firestore** y **Sembast**.
 
 Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
@@ -34,18 +36,11 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 [🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
 ---
-
+<br/>
 <h2 id="vista-previa">🎥 Vista previa</h2>
 
-* 🎬 **Overview** (20–30 s): navegación principal + rendimiento percibido.
-  `<video src="assets/previews/overview.mp4" controls width="640"></video>`
-* 📅 **Agenda / Schedule** — `schedule.gif`
-* ➕ **Unirse/Salir de actividad** — `join-unjoin.gif`
-* 👤 **Perfil** — `profile.gif`
-* ⚙️ **Ajustes (tema/idioma)** — `settings.gif`
-
 ---
-
+<br/>
 <h2 id="arquitectura">🏛️ Arquitectura</h2>
 
 🔸**Clean Architecture** + **BLoC**, con enfoque **feature-first** : separación de responsabilidades, bajo acoplamiento y alta testabilidad.
@@ -105,10 +100,10 @@ lib/
 ```
 
 ---
-
+<br/>
 <h2 id="dependencias">🧩 Dependencias</h2>
 
-**Gestión de estado**
+**Gestión de estados**
 - `bloc` + `flutter_bloc`
 
 **Routing**
@@ -147,7 +142,7 @@ lib/
 - `mason_cli`
 
 ---
-
+<br/>
 <h2 id="roadmap">🗺️ Roadmap</h2>
 
 - [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
@@ -158,7 +153,7 @@ lib/
 
 ---
 
-
+<br/>
 <h2 id="getting-started">🚀 Getting Started</h2>
 
 ### Downloading and installing project 🧑‍💻
@@ -228,11 +223,22 @@ mason make feature
 
 ---
 
+<br/>
 <h2 id="contacto">📫 Contacto</h2>
 
-Developer: David González Íñiguez 
-- Email: davidgab08@gmail.com
-- Linkedin: [davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
+<div align="center">
+
+👨‍💻 **Developed by [David González Íñiguez](https://linkedin.com/in/davidgonzaleziniguez)**  
+
+📧 [davidgab08@gmail.com](mailto:davidgab08@gmail.com)  
+🔗 [linkedin.com/in/davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
+
+<br/>
+
+⭐️ If you like this project, consider giving it a star!  
+💬 Open to collaborations and Flutter opportunities.
+
+</div>
 
 
 
