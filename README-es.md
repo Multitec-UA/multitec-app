@@ -32,7 +32,7 @@ Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **F
 Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
 
-[🎥 Vista previa](#vista-previa) • [🚀 Funcionalidades](#funcionalidades) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚶‍➡️ Getting Started](#getting-started) • [📫 Contacto](#contacto)
+[🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚶‍➡️ Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
 ---
 <h2 id="vista-previa">🎥 Vista previa</h2>
