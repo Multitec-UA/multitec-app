@@ -32,10 +32,10 @@ Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **F
 Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
 
-[🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚶‍➡️ Getting Started](#getting-started) • [📫 Contacto](#contacto)
+[🪟 Vista previa](#vista-previa) • [🔧 Tecnología](#tecnologia) • [🧱 Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
 ---
-<h2 id="vista-previa">🎥 Vista previa</h2>
+<h2 id="vista-previa">🪟 Vista previa</h2>
 
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
@@ -76,9 +76,24 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 
 ---
 
-<h2 id="arquitectura">🏛️ Arquitectura</h2>
+<h2 id="tecnologia">🔧 Tecnología</h2>
 
-🔸**Clean Architecture** + **BLoC**, con enfoque **feature-first** : separación de responsabilidades, bajo acoplamiento y alta testabilidad.
+- **Arquitectura**: Clean Architecture
+- **Gestor de estados**: BLoC/Cubit
+- **Navegación**: GoRouter (nested navigation)
+- **Autenticación**: Firebase Auth (Google Sign-In)
+- **Backend**: Cloud Firestore para agenda y participación
+- **Offline/local**: Sembast (IO/Web) para persistencia
+- **Networking/HTTP**: **Dio** + caché (`dio_cache_interceptor` + Hive store)
+- **Inyección de dependencias**: `get_it`
+- **Localización y tema**: `gen_l10n` (EN/ES) + claro/oscuro
+- **Plataformas**: Android · iOS · Web
+
+---
+
+<h2 id="arquitectura">🧱 Arquitectura</h2>
+
+🔸**Clean Architecture** + **BLoC**: separación de responsabilidades, bajo acoplamiento y alta testabilidad.
 
 ### Estructura por capas
 🔹 **Data** — `datasources • dtos • repository implementations`  
@@ -187,7 +202,7 @@ lib/
 
 ---
 
-<h2 id="getting-started">🚶‍➡️ Getting Started</h2>
+<h2 id="getting-started">🚀 Getting Started</h2>
 
 ### Descarga e instalación del proyecto 🧑‍💻
 
