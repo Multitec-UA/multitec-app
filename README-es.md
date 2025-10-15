@@ -1,165 +1,278 @@
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Developer LinkedIn | David González](https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=555555)](https://linkedin.com/in/davidgonzaleziniguez)
 
-[English](README.md)
 
-# Multitec App
 
-<!-- ![coverage][coverage_badge] -->
 
-[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
-[![License: MIT][license_badge]][license_link]
+[dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
+[dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
-A Very Good Project created with [Very Good CLI][very_good_cli_link]. Built under [BloC](https://bloclibrary.dev/architecture/) architecture.  
-<br>
+[Read in English](README.md)
 
-<p align="center">
-<a href="https://bloclibrary.dev/#/architecture"><img src="https://bloclibrary.dev/_astro/bloc_architecture_full.CYn-T9Ox_emLFv.webp" alt="Bloc Architecture"></a>
+<br/> 
+
+<h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
+
+> **Aplicación oficial de la comunidad de estudiantes Multitec UA**
+
+<br/> 
+
+<div align="center">
+<p>
+  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.32.4-02569B?logo=flutter&logoColor=white" alt="Flutter"></a>
+  <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.8%2B-0175C2?logo=dart&logoColor=white" alt="Dart"></a>
+  <img src="https://img.shields.io/badge/Architecture-Clean%20/ %20Hexagonal-blueviolet" alt="Architecture: Clean/Hexagonal">
+  <a href="https://bloclibrary.dev/#/"><img src="https://img.shields.io/badge/State-BLoC-7f52ff" alt="BLoC"></a>
+  <img src="https://img.shields.io/badge/Platforms-Android%20%20iOS%20%20Web-5E6C84?labelColor=55555" alt="Platforms: Android · iOS · Web">
 </p>
+</div>
+
+
+Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **Firebase Auth**, **Cloud Firestore** y **Sembast**.
+
+Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
+
+
+[🎥 Vista previa](#vista-previa) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚶‍➡️ Getting Started](#getting-started) • [📫 Contacto](#contacto)
+
+---
+<h2 id="vista-previa">🎥 Vista previa</h2>
+
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th style="text-align:center;">Inicio</th>
+      <th style="text-align:center;">Agenda</th>
+      <th style="text-align:center;">Detalles de Evento</th>
+      <th style="text-align:center;">Perfil</th>
+      <th style="text-align:center;">Mis Eventos Guardados</th>
+      <th style="text-align:center;">Login</th>
+      <th style="text-align:center;">Ajustes</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584" width="200" alt="Inicio">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1" width="200" alt="Agenda">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b" width="200" alt="Detalles de Evento">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd" width="200" alt="Perfil">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea" width="200" alt="Mis Eventos Guardados">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582" width="200" alt="Login">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Ajustes">
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
-## Flutter Installation & Configuration 👾
+<h2 id="arquitectura">🏛️ Arquitectura</h2>
 
-For setting up flutter we recommend following this guide: [very-good-flutter-setup](https://verygood.ventures/blog/very-good-flutter-setup).
+🔸**Clean Architecture** + **BLoC**, con enfoque **feature-first** : separación de responsabilidades, bajo acoplamiento y alta testabilidad.
 
-### Downloading and installing project 🧑‍💻
+### Estructura por capas
+🔹 **Data** — `datasources • dtos • repository implementations`  
+🔹 **Domain** — `entities • usecases • repositories`  
+🔹 **Presentation** — `cubits • screens • widgets`
 
-Clone the project repository (choose one):
+```text
+feature/
+├── data/
+│   ├── datasources/
+│   ├── dtos/
+│   └── repositories/
+│
+├── domain/
+│   ├── entities/
+│   ├── repositories/
+│   └── usecases/
+│
+└── presentation/
+    ├── cubits/
+    ├── screens/
+    └── widgets/
+````
+
+
+### Árbol de carpetas (resumen)
+```text
+lib/
+  core/
+    constants/        # API/base URLs
+    database/         # Sembast (IO/Web)
+    di/               # Inyección de dependencias (get_it)
+    events/           # event bus
+    exceptions/       # Failures, excepciones, reporting y guard clauses
+    l10n/             # ARB + gen_l10n
+    network/          # Dio clients, cache, interceptors
+    preferences/      # SharedPreferences
+    router/           # GoRouter + nested shell
+    ui/               # Design system, theming, componentes reutilizables
+    utils/            # Helpers y extensiones comunes
+
+  features/
+    auth/
+    home/        
+    schedule/         
+    user/                   
+    profile/
+    settings/
+
+  bootstrap.dart
+  main_development.dart
+  main_staging.dart
+  main_production.dart
+```
+
+---
+<h2 id="dependencias">🧩 Dependencias</h2>
+
+**Gestión de estados**
+- `bloc` + `flutter_bloc`
+
+**Routing**
+- `go_router` 
+
+**Persistencia**
+- `sembast` + `sembast_web` 
+- `shared_preferences` 
+
+**Firebase**
+- `firebase_core`, `firebase_auth`, `cloud_firestore`
+
+**DI**
+- `get_it` 
+
+**Serialización / Modelado**
+- `freezed`, `freezed_annotation`, `json_serializable` 
+
+**Red / Caché**
+- `dio`
+- `dio_cache_interceptor` + `dio_cache_interceptor_hive_store` 
+
+**Utilidades**
+- `multiple_result` 
+- `event_bus`
+- `flutter_localizations` 
+- `url_launcher`
+
+**Testing & Code Quality**
+- `bloc_test`
+- `mockito`
+- `very_good_analysis`
+
+**Automatización & productividad**
+- `husky`, `commitlint_cli`
+- `mason_cli`
+
+---
+
+<h2 id="roadmap">🗺️ Roadmap</h2>
+
+- [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
+- [ ] Sistema de votación online para elecciones de la junta directiva
+- [ ] Notificaciones push para avisos y recordatorios de eventos   
+- [ ] Chat interno para actividades o eventos de larga duración 
+- [ ] Módulo de buzón de sugerencias 
+
+---
+
+<h2 id="getting-started">🚶‍➡️ Getting Started</h2>
+
+### Descarga e instalación del proyecto 🧑‍💻
+
+Clona el repositorio del proyecto (elige una opción):
 
 ```sh
-# Using SSH
+# Usando SSH
 git clone git@github.com:Multitec-UA/multitec-app.git
 ```
 
 or
 
 ```sh
-# Using HTTPS
+# Usando HTTPS
 git clone https://github.com/Multitec-UA/multitec-app.git
 ```
 
-Then, navigate into the project folder:
+Luego, navega hasta la carpeta del proyecto:
 
 ```sh
 cd multitec-app
 ```
 
-Install **FVM** (Flutter Version Management) globally to manage Flutter SDK versions easily:
+Instala FVM (Flutter Version Management) de forma global para gestionar fácilmente las versiones del SDK de Flutter:
 
 ```sh
 dart pub global activate fvm
 ```
 
-Use FVM to install the Flutter version specified in the `.fvmrc` file (this installs Flutter locally to the project):
+Usa FVM para instalar la versión de Flutter especificada en el archivo .fvmrc (esto instala Flutter localmente para el proyecto):
 
 ```sh
 fvm install
 ```
 
-> ⚠️ After running `fvm install`, it is likely necessary to restart VSCode or at least its terminal for the changes to take effect and for VSCode to use the FVM-installed Flutter version properly.
+> ⚠️ Después de ejecutar fvm install, puede ser necesario reiniciar VSCode o al menos su terminal para que los cambios surtan efecto y se use correctamente la versión de Flutter instalada con FVM.
 
-### Downloading and installing project dependencies ✨
+### Descarga e instalación de dependencias ✨
 
-Fetch all packages:
+Obtén todos los paquetes del proyecto:
 
 ```sh
 fvm flutter pub get
 ```
 
-Finally, install Husky git hooks:
+Finalmente, instala los git hooks de Husky:
 
 ```sh
 fvm dart run husky install
 ```
 
-### Using Mason bricks 🧱
+### Uso de bricks con Mason 🧱
 
-This project uses [Mason](https://pub.dev/packages/mason_cli) to generate feature folders inside `lib/features` following the standard structure.
+Este proyecto utiliza [Mason](https://pub.dev/packages/mason_cli) para generar carpetas de features dentro de `lib/features` siguiendo la estructura estándar.
 
-Install Mason CLI:
+Instala la CLI de Mason:
 
 ```sh
 dart pub global activate mason_cli
 ```
 
-To generate a new feature, run:
+Para generar una nueva feature, ejecuta:
 ```sh
 mason make feature
 ```
 
-### Setup environments and secrets
-
-Create the **environment** folder in the project root and define 3 files inside of it corresponding to the 3 different flavours (you can find and download the files in the link below).
-
-Also before testing in Android define a **secrets.properties** file inside the android directory.
-
-```
-multitec-app
-|-- android/
-  |-- secrets.properties
-|-- environment/
-  |-- development_key.json
-  |-- production_key.json
-  |-- staging_key.json
-|-- lib/
-...
-```
-
-> ⚠️ Signing keys are required for certain APIs to work (Ask project maintainers).
-
-[Download files](https://drive.proton.me/urls/CM6Y693B80#0xMaToSrri7C)
-_\*Remember to replace VALID_API_KEY_HERE with your google maps api key in the all files._
-
-#### development_key.json file
-
-```json
-{
-  "SQUARE1_URL": "http://connect-demo.mobile1.io/square1/connect/v1",
-  "GOOGLE_MAPS_URL": "https://maps.googleapis.com/maps/api",
-  "GOOGLE_MAPS_API_KEY": "VALID_API_KEY_HERE"
-}
-```
-
-#### secrets.properties file
-
-```properties
-MAPS_API_KEY=VALID_API_KEY_HERE
-
-```
-
 ---
 
-## Getting Started 🚀
+<h2 id="contacto">📫 Contacto</h2>
 
-This project contains 3 flavors:
+<div align="center">
 
-- development
-- staging
-- production
+👨‍💻 **Desarrollado por [David González Íñiguez](https://linkedin.com/in/davidgonzaleziniguez)**  
 
-To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
+📧 [davidgab08@gmail.com](mailto:davidgab08@gmail.com)  
+🔗 [linkedin.com/in/davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
 
-```sh
-# Development
-$ flutter run --flavor development --target lib/main_development.dart --dart-define-from-file environment/development_key.json
+<br/>
 
-# Staging
-$ flutter run --flavor staging --target lib/main_staging.dart --dart-define-from-file environment/staging_key.json
+⭐️ Si te ha gustado el proyecto, ¡considera dejar una estrella!  
+💬 Abierto a colaboraciones y oportunidades relacionadas con Flutter.
 
-# Production
-$ flutter run --flavor production --target lib/main_production.dart --dart-define-from-file environment/production_key.json
-```
+</div>
 
-_\*Multitec App works on iOS and Android._
 
-[coverage_badge]: coverage_badge.svg
-[flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
-[internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
-[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
-[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
-[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
-[very_good_cli_link]: https://github.com/VeryGoodOpenSource/very_good_cli
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

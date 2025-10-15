@@ -1,14 +1,19 @@
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/davidgonzaleziniguez)
+[![Developer LinkedIn | David González](https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=555555)](https://linkedin.com/in/davidgonzaleziniguez)
+
 
 
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
 [dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
+[Leer en español](README-es.md)
+
 <br/> 
 
 <h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
 
-> **Aplicación oficial de la comunidad de estudiantes Multitec UA**
+> **Official App of the Multitec UA student community**
+
+<br/> 
 
 <div align="center">
 <p>
@@ -21,40 +26,106 @@
 </div>
 
 
-Desarrollada en Flutter con **BLoC** y **Clean Architecture**, con integración de **Firebase Auth**, **Cloud Firestore** y **Sembast** para la persistencia offline.
+Built with **Flutter**, following **Clean Architecture** and **BLoC**, integrated with **Firebase Auth**, **Cloud Firestore**, and **Sembast**.
 
-Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
+Multitec App gives Multitec UA members a simple way to keep up with the association’s activities: browse the events agenda, join/leave activities, and access your member profile anytime — even offline.
 
-<br/> 
+[🎥 App Showcase](#app-showcase) • [🏛️ Architecture](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
+
+---
+<h2 id="app-showcase">🎥 App Showcase</h2>
+
+<div align="center">
+  <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
+    <tr>
+      <th style="text-align:center;">Home</th>
+      <th style="text-align:center;">Agenda</th>
+      <th style="text-align:center;">Details</th>
+      <th style="text-align:center;">Profile</th>
+      <th style="text-align:center;">My Events</th>
+      <th style="text-align:center;">Login</th>
+      <th style="text-align:center;">Settings</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/2e5c2ba8-0b0b-4177-aa99-9ffa46495584" width="200" alt="Home">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9c236277-4c63-47aa-84bb-2b8319a2cfe1" width="200" alt="Agenda">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/73971499-4056-4594-85e6-d5053fb6c03b" width="200" alt="Details">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/158ed4b4-21c1-4451-a3f6-f7118c2a9cbd" width="200" alt="Profile">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/d8fda5ec-66f0-4b45-b021-19bd6210eeea" width="200" alt="My Events">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9f62ebaa-1ee9-4d84-bd10-ad45ed1c5582" width="200" alt="Login">
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/8edc094c-1e42-4712-afcf-05ce24218c43" width="200" alt="Settings">
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
-## 🧱 Arquitectura
+<h2 id="architecture">🏛️ Architecture</h2>
 
-**Clean Architecture + BLoC/Cubit**:
-  `presentation (cubits/screens/widgets) ↔ domain (entities/usecases/repos) ↔ data (dtos/datasources/repo impl)`
+🔸 **Clean Architecture** + **BLoC**, **feature-first** approach: clear separation of concerns, low coupling, and high testability.
 
-**Árbol de carpetas (resumen)**
+### Layer structure
+🔹 **Data** — `datasources • dtos • repository implementations`  
+🔹 **Domain** — `entities • usecases • repositories`  
+🔹 **Presentation** — `cubits • screens • widgets`
 
+```text
+feature/
+├── data/
+│   ├── datasources/
+│   ├── dtos/
+│   └── repositories/
+│
+├── domain/
+│   ├── entities/
+│   ├── repositories/
+│   └── usecases/
+│
+└── presentation/
+    ├── cubits/
+    ├── screens/
+    └── widgets/
+````
+
+
+### Folder tree (summary)
 ```text
 lib/
   core/
     constants/        # API/base URLs
     database/         # Sembast (IO/Web)
-    di/               # get_it service locator
-    events/           # event bus
-    exceptions/       # Failure, guard, reporting
+    di/               # Dependency injection (get_it)
+    events/           # Event bus
+    exceptions/       # Failures, excepciones, reporting & guard clauses
     l10n/             # ARB + gen_l10n
     network/          # Dio clients, cache, interceptors
+    preferences/      # SharedPreferences
     router/           # GoRouter + nested shell
-    ui/               # Design system, theming, componentes
-    utils/            # helpers 
+    ui/               # Design system, theming, reusable components
+    utils/            # Common helpers & extensions
+
   features/
-    auth/             # Firebase Auth + Google Sign-In
-    schedule/         # Agenda (data/domain/presentation)
-    user/             # Perfil y estado de usuario
-    settings/         # Tema/Idioma
-    home/, profile/, example/
+    auth/
+    home/        
+    schedule/         
+    user/                   
+    profile/
+    settings/
+
   bootstrap.dart
   main_development.dart
   main_staging.dart
@@ -62,16 +133,15 @@ lib/
 ```
 
 ---
+<h2 id="dependencies">🧩 Dependencies</h2>
 
-## 🧩 Dependencias
-
-**Gestión de estado**
+**State management**
 - `bloc` + `flutter_bloc`
 
 **Routing**
 - `go_router` 
 
-**Persistencia**
+**Persistence**
 - `sembast` + `sembast_web` 
 - `shared_preferences` 
 
@@ -81,14 +151,14 @@ lib/
 **DI**
 - `get_it` 
 
-**Serialización / Modelado**
+**Serialization / Modeling**
 - `freezed`, `freezed_annotation`, `json_serializable` 
 
-**Red / Caché**
+**Networking / Cache**
 - `dio`
 - `dio_cache_interceptor` + `dio_cache_interceptor_hive_store` 
 
-**Utilidades**
+**Utilities**
 - `multiple_result` 
 - `event_bus`
 - `flutter_localizations` 
@@ -99,24 +169,22 @@ lib/
 - `mockito`
 - `very_good_analysis`
 
-**Automatización & productividad**
+**Automation & Productivity**
 - `husky`, `commitlint_cli`
 - `mason_cli`
 
 ---
+<h2 id="roadmap">🗺️ Roadmap</h2>
 
-## 🗺️ Roadmap
-
-- [ ] Notificaciones push para avisos y recordatorios de eventos  
-- [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
-- [ ] Sistema de votación online para elecciones de la junta directiva  
-- [ ] Chat interno para actividades o eventos de larga duración
-- [ ] Módulo de buzón de sugerencias 
+- [ ] NFC member card to access the association’s space
+- [ ] Online voting system for board elections
+- [ ] Push notifications for announcements and event reminders
+- [ ] Chat for long-term activities or events
+- [ ] Suggestion box module
 
 ---
 
-
-## ⚙️ Installation and Configuration 
+<h2 id="getting-started">🚀 Getting Started</h2>
 
 ### Downloading and installing project 🧑‍💻
 
@@ -185,11 +253,21 @@ mason make feature
 
 ---
 
-## 📫 Contacto
+<h2 id="contact">📫 Contact</h2>
 
-David González Íñiguez 
-- Email: davidgab08@gmail.com
-- Linkedin: [davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
+<div align="center">
+
+👨‍💻 **Developed by [David González Íñiguez](https://linkedin.com/in/davidgonzaleziniguez)**  
+
+📧 [davidgab08@gmail.com](mailto:davidgab08@gmail.com)  
+🔗 [linkedin.com/in/davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
+
+<br/>
+
+⭐️ If you like this project, consider giving it a star!  
+💬 Open to collaborations and Flutter opportunities.
+
+</div>
 
 
 
