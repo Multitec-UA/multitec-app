@@ -121,6 +121,7 @@ feature/
 
 
 ### Árbol de carpetas (resumen)
+>Estructura **feature-first** (cada feature encapsula <code>data/</code>, <code>domain/</code> y <code>presentation/</code>)
 ```text
 lib/
   core/
