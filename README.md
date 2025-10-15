@@ -118,6 +118,7 @@ feature/
 
 
 ### Folder tree (summary)
+>Module layout: **feature-first** (each feature encapsulates <code>data/</code>, <code>domain/</code> and <code>presentation/</code>)
 ```text
 lib/
   core/
@@ -125,7 +126,7 @@ lib/
     database/         # Sembast (IO/Web)
     di/               # Dependency injection (get_it)
     events/           # Event bus
-    exceptions/       # Failures, excepciones, reporting & guard clauses
+    exceptions/       # Failures, exceptions, reporting & guard clauses
     l10n/             # ARB + gen_l10n
     network/          # Dio clients, cache, interceptors
     preferences/      # SharedPreferences
