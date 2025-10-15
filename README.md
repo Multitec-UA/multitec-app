@@ -2,7 +2,6 @@
 
 
 
-
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
 [dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
@@ -31,7 +30,7 @@ Built with **Flutter**, following **Clean Architecture** and **BLoC**, integrate
 
 Multitec App gives Multitec UA members a simple way to keep up with the association’s activities: browse the events agenda, join/leave activities, and access your member profile anytime — even offline.
 
-[🎥 App Showcase](#app-showcase) • [🏛️ Architecture ](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
+[🎥 App Showcase](#app-showcase) • [🏛️ Architecture](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
 
 ---
 <h2 id="app-showcase">🎥 App Showcase</h2>
@@ -109,15 +108,15 @@ lib/
   core/
     constants/        # API/base URLs
     database/         # Sembast (IO/Web)
-    di/               # Inyección de dependencias (get_it)
-    events/           # event bus
-    exceptions/       # Failures, excepciones, reporting y guard clauses
+    di/               # Dependency injection (get_it)
+    events/           # Event bus
+    exceptions/       # Failures, excepciones, reporting & guard clauses
     l10n/             # ARB + gen_l10n
     network/          # Dio clients, cache, interceptors
     preferences/      # SharedPreferences
     router/           # GoRouter + nested shell
-    ui/               # Design system, theming, componentes reutilizables
-    utils/            # Helpers y extensiones comunes
+    ui/               # Design system, theming, reusable components
+    utils/            # Common helpers & extensions
 
   features/
     auth/
