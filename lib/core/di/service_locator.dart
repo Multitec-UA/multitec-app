@@ -17,13 +17,6 @@ import 'package:multitec_app/features/auth/domain/repositories/auth_repository.d
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/example/data/datasources/example_local_datasource.dart';
-import 'package:multitec_app/features/example/data/datasources/example_mock_datasource.dart';
-import 'package:multitec_app/features/example/data/datasources/example_remote_datasource.dart';
-import 'package:multitec_app/features/example/data/repositories/example_repository_impl.dart';
-import 'package:multitec_app/features/example/domain/repositories/example_repository.dart';
-import 'package:multitec_app/features/example/domain/usecases/fetch_example_items_usecase.dart';
-import 'package:multitec_app/features/example/domain/usecases/send_report_usecase.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_local_datasource.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_mock_datasource.dart';
 import 'package:multitec_app/features/schedule/data/datasources/schedule_remote_datasource.dart';
@@ -100,35 +93,6 @@ Future<void> serviceLocatorSetUp() async {
   );
   locator.registerLazySingleton<LocaleCubit>(
     () => LocaleCubit(locator<SettingsRepository>()),
-  );
-
-  /// Example Feature ///
-  // Datasources
-  locator.registerLazySingleton<ExampleRemoteDataSource>(
-    () => useMocks
-        ? ExampleMockDataSource()
-        : ExampleRemoteDataSourceImpl(
-            locator<NetworkService>(instanceName: 'MultitecApi'),
-          ),
-  );
-  locator.registerLazySingleton<ExampleLocalDataSource>(
-    () => ExampleLocalDataSource(locator<LocalDatabase>()),
-  );
-
-  // Repository
-  locator.registerLazySingleton<ExampleRepository>(
-    () => ExampleRepositoryImpl(
-      locator<ExampleRemoteDataSource>(),
-      locator<ExampleLocalDataSource>(),
-    ),
-  );
-
-  // UseCases
-  locator.registerFactory(
-    () => FetchExampleItemsUseCase(locator<ExampleRepository>()),
-  );
-  locator.registerFactory(
-    () => SendReportUseCase(locator<ExampleRepository>()),
   );
 
   /// Auth Feature ///

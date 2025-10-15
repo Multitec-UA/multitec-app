@@ -224,18 +224,6 @@ abstract class AppLocalizations {
   /// **'Server error. Please try again later.'**
   String get errorHttp5xxServer;
 
-  /// No description provided for @exampleListNetworkError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t fetch the list due to a connection error'**
-  String get exampleListNetworkError;
-
-  /// No description provided for @exampleListTimeoutError.
-  ///
-  /// In en, this message translates to:
-  /// **'Couldn\'t fetch the list because it took too long'**
-  String get exampleListTimeoutError;
-
   /// No description provided for @joinedSchedulesNetworkError.
   ///
   /// In en, this message translates to:
@@ -553,18 +541,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved events and activities'**
   String get quickActionsSavedSubtitle;
-
-  /// No description provided for @quickActionsExampleTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Feature Example'**
-  String get quickActionsExampleTitle;
-
-  /// No description provided for @quickActionsExampleSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Go to Feature Example'**
-  String get quickActionsExampleSubtitle;
 
   /// No description provided for @confirm.
   ///

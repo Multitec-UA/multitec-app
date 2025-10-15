@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multitec_app/core/di/service_locator.dart';
 import 'package:multitec_app/core/exceptions/error_reporter.dart';
-import 'package:multitec_app/core/network/apis/google_maps/google_maps_api_config.dart';
-import 'package:multitec_app/core/network/utils/api_key_channel.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/firebase_options.dart';
@@ -57,13 +54,6 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-
-      if (!kIsWeb && Platform.isIOS) {
-        await ApiKeyChannel.provideKey(
-          apiKey: GoogleMapsApiConfig.apiKey,
-          method: GoogleMapsApiConfig.apiKeyChannelMethod,
-        );
-      }
 
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,

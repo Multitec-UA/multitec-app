@@ -6,7 +6,6 @@ import 'package:multitec_app/core/ui/screens/not_found_screen.dart';
 import 'package:multitec_app/features/auth/domain/enums/autentication_status.dart';
 import 'package:multitec_app/features/auth/domain/services/auth_service.dart';
 import 'package:multitec_app/features/auth/presentation/screens/sign_in_screen.dart';
-import 'package:multitec_app/features/example/presentation/screens/example_screen.dart';
 import 'package:multitec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:multitec_app/features/profile/presentation/screens/profile_screen.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
@@ -25,8 +24,7 @@ enum AppRoute {
   joinedSchedules('/joinedschedules'),
   profile('/profile'),
   settings('/settings'),
-  helpAndFeedback('/help-feedback'),
-  example('/example');
+  helpAndFeedback('/help-feedback');
 
   const AppRoute(this.path);
   final String path;
@@ -78,14 +76,6 @@ final goRouter = GoRouter(
               path: AppRoute.home.path,
               pageBuilder: (context, state) =>
                   const NoTransitionPage(child: HomeScreen()),
-              routes: [
-                GoRoute(
-                  parentNavigatorKey: _shellNavigatorHomeKey,
-                  path: AppRoute.example.path,
-                  name: AppRoute.example.name,
-                  builder: (context, state) => const ExampleScreen(),
-                ),
-              ],
             ),
           ],
         ),
