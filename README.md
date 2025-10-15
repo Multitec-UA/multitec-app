@@ -118,7 +118,7 @@ feature/
 
 
 ### Folder tree (summary)
->Module layout: **feature-first** (each feature encapsulates <code>data/</code>, <code>domain/</code> and <code>presentation/</code>)
+>**Feature-first** structure (each feature encapsulates <code>data/</code>, <code>domain/</code> and <code>presentation/</code>)
 ```text
 lib/
   core/
