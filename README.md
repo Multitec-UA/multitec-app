@@ -30,10 +30,10 @@ Built with **Flutter**, following **Clean Architecture** and **BLoC**, integrate
 
 Multitec App gives Multitec UA members a simple way to keep up with the association’s activities: browse the events agenda, join/leave activities, and access your member profile anytime — even offline.
 
-[🎥 App Showcase](#app-showcase) • [🏛️ Architecture](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
+[🎬 App Showcase](#app-showcase) • [⚙️ Technology](#technology) • [🏛️ Architecture](#architecture) • [🧩 Dependencies](#dependencies) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contact](#contact)
 
 ---
-<h2 id="app-showcase">🎥 App Showcase</h2>
+<h2 id="app-showcase">🎬 App Showcase</h2>
 
 <div align="center">
   <table style="border-collapse:separate; border-spacing:12px 0; table-layout:fixed;">
@@ -74,9 +74,24 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 
 ---
 
+<h2 id="technology">⚙️ Technology</h2>
+
+- **Architecture**: Clean Architecture  
+- **State management**: BLoC/Cubit  
+- **Navigation**: GoRouter (nested navigation)  
+- **Authentication**: Firebase Auth (Google Sign-In)  
+- **Backend**: Cloud Firestore for event scheduling and participation  
+- **Offline/local**: Sembast (IO/Web) for local persistence  
+- **Networking/HTTP**: **Dio** + cache (`dio_cache_interceptor` + Hive store)  
+- **Dependency injection**: `get_it`  
+- **Localization & theme**: `gen_l10n` (EN/ES) + light/dark theme  
+- **Platforms**: Android · iOS · Web
+
+---
+
 <h2 id="architecture">🏛️ Architecture</h2>
 
-🔸 **Clean Architecture** + **BLoC**, **feature-first** approach: clear separation of concerns, low coupling, and high testability.
+🔸 **Clean Architecture** + **BLoC**: clear separation of concerns, low coupling, and high testability.
 
 ### Layer structure
 🔹 **Data** — `datasources • dtos • repository implementations`  
