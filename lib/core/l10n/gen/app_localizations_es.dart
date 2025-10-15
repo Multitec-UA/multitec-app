@@ -80,14 +80,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'Error del servidor. Inténtalo de nuevo más tarde.';
 
   @override
-  String get exampleListNetworkError =>
-      'No se ha podido obtener la lista debido a un fallo de conexión';
-
-  @override
-  String get exampleListTimeoutError =>
-      'No se ha podido obtener la lista porque ha tardado demasiado';
-
-  @override
   String get joinedSchedulesNetworkError =>
       'No se han podido obtener tus eventos debido a un fallo de conexión';
 
@@ -256,12 +248,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get quickActionsSavedSubtitle => 'Ver eventos y actividades guardados';
-
-  @override
-  String get quickActionsExampleTitle => 'Feature Example';
-
-  @override
-  String get quickActionsExampleSubtitle => 'Ir a Feature Example';
 
   @override
   String get confirm => 'Aceptar';

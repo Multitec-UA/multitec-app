@@ -77,14 +77,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorHttp5xxServer => 'Server error. Please try again later.';
 
   @override
-  String get exampleListNetworkError =>
-      'Couldn\'t fetch the list due to a connection error';
-
-  @override
-  String get exampleListTimeoutError =>
-      'Couldn\'t fetch the list because it took too long';
-
-  @override
   String get joinedSchedulesNetworkError =>
       'Couldn\'t fetch your events due to a connection error';
 
@@ -252,12 +244,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get quickActionsSavedSubtitle => 'Saved events and activities';
-
-  @override
-  String get quickActionsExampleTitle => 'Feature Example';
-
-  @override
-  String get quickActionsExampleSubtitle => 'Go to Feature Example';
 
   @override
   String get confirm => 'Confirm';
