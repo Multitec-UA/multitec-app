@@ -84,7 +84,8 @@ Multitec App gives Multitec UA members a simple way to keep up with the associat
 - **Offline/local**: Sembast (IO/Web) for local persistence  
 - **Networking/HTTP**: **Dio** + cache (`dio_cache_interceptor` + Hive store)  
 - **Dependency injection**: `get_it`  
-- **Localization & theme**: `gen_l10n` (EN/ES) + light/dark theme  
+- **Localization & theme**: `gen_l10n` (EN/ES) + light/dark theme
+- **Testing** (*in progress*): unit, integration, and BLoC tests (`bloc_test`, `mocktail`, `integration_test`)
 - **Platforms**: Android · iOS · Web
 
 ---
@@ -182,7 +183,7 @@ lib/
 
 **Testing & Code Quality**
 - `bloc_test`
-- `mockito`
+- `mocktail`
 - `very_good_analysis`
 
 **Automation & Productivity**
