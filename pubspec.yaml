@@ -17,7 +17,7 @@ dependencies:
   dio_cache_interceptor_hive_store: ^4.0.0
   event_bus: ^2.0.1
   firebase_auth: ^6.0.2
-  firebase_core: ^4.1.0
+  firebase_core: ^4.2.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
