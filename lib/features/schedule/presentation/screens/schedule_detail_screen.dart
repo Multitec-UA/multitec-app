@@ -20,7 +20,6 @@ import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_cubit.dart';
 import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_state.dart';
-import 'package:path/path.dart';
 
 class ScheduleDetailScreen extends StatelessWidget {
   const ScheduleDetailScreen({required this.item, super.key});
