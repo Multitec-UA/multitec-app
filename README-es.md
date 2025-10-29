@@ -88,7 +88,6 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 - **Networking/HTTP**: **Dio** + caché (`dio_cache_interceptor` + Hive store)
 - **Inyección de dependencias**: `get_it`
 - **Localización y tema**: `gen_l10n` (EN/ES) + claro/oscuro
-- **Testing** (*en progreso*): pruebas unitarias, de integración y de BLoC (`bloc_test`, `mocktail`, `integration_test`)
 - **Plataformas**: Android · iOS · Web
 
 ---
