@@ -8,8 +8,8 @@ import 'package:multitec_app/core/ui/components/snackbars/snack_bar.dart';
 import 'package:multitec_app/core/ui/design/foundations/foundations.dart';
 import 'package:multitec_app/core/ui/design/theme/theme.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_in_with_google_usecase.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_in_cubit.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_in_state.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_in_cubit.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_in_state.dart';
 import 'package:multitec_app/features/auth/presentation/widgets/privacy_policy_text.dart';
 import 'package:multitec_app/features/auth/presentation/widgets/sign_in_form.dart';
 
