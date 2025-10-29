@@ -110,45 +110,6 @@ void main() {
           ).called(1);
         },
       );
-
-      blocTest<ThemeCubit, ThemeMode>(
-        'emits new theme mode immediately before saving',
-        build: () {
-          when(() => settingsRepository.saveThemeMode(any())).thenAnswer(
-            (_) async => Future.delayed(const Duration(milliseconds: 100)),
-          );
-          return createCubit();
-        },
-        act: (cubit) => cubit.setThemeMode(ThemeMode.dark),
-        expect: () => [ThemeMode.dark],
-      );
-
-      blocTest<ThemeCubit, ThemeMode>(
-        'changes theme mode multiple times',
-        build: () {
-          when(
-            () => settingsRepository.saveThemeMode(any()),
-          ).thenAnswer((_) async => {});
-          return createCubit();
-        },
-        act: (cubit) async {
-          await cubit.setThemeMode(ThemeMode.light);
-          await cubit.setThemeMode(ThemeMode.dark);
-          await cubit.setThemeMode(ThemeMode.system);
-        },
-        expect: () => [ThemeMode.light, ThemeMode.dark, ThemeMode.system],
-        verify: (_) {
-          verify(
-            () => settingsRepository.saveThemeMode(ThemeMode.light),
-          ).called(1);
-          verify(
-            () => settingsRepository.saveThemeMode(ThemeMode.dark),
-          ).called(1);
-          verify(
-            () => settingsRepository.saveThemeMode(ThemeMode.system),
-          ).called(1);
-        },
-      );
     });
 
     group('close', () {

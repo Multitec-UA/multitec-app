@@ -4,7 +4,7 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/components/dialogs/info_dialog.dart';
 import 'package:multitec_app/core/ui/design/foundations/spacings.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_in_cubit.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_in_cubit.dart';
 
 class SignInForm extends StatelessWidget {
   const SignInForm({super.key});

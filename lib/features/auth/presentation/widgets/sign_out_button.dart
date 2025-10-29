@@ -5,8 +5,8 @@ import 'package:multitec_app/core/l10n/l10n.dart';
 import 'package:multitec_app/core/ui/components/buttons/mt_button.dart';
 import 'package:multitec_app/core/ui/components/dialogs/confirmation_dialog.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_out_cubit.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_out_state.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_out_cubit.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_out_state.dart';
 
 class SignOutButton extends StatelessWidget {
   const SignOutButton({super.key});

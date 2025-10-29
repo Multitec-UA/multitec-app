@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -11,8 +10,8 @@ import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dar
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/is_joined_usecase.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/toggle_join_schedule_item_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/detail/schedule_detail_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/detail/schedule_detail_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/detail/schedule_detail_state.dart';
 
 class MockIsJoinedUseCase extends Mock implements IsJoinedUseCase {}
 

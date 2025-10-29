@@ -59,18 +59,15 @@ void main() {
 
     group('constructor - auth status initialization', () {
       test('calls getUser when auth status is authenticated', () async {
-        // Arrange
         statusNotifier.value = AuthenticationStatus.authenticated;
         when(
           () => authService.status,
         ).thenReturn(AuthenticationStatus.authenticated);
         when(() => userRepository.getUser()).thenReturn(const Success(tUser));
 
-        // Act
         final cubit = createCubit();
         await Future<void>.delayed(Duration.zero);
 
-        // Assert
         expect(cubit.state.status, RequestStatus.success);
         expect(cubit.state.user, tUser);
         verify(() => userRepository.getUser()).called(1);
@@ -79,17 +76,14 @@ void main() {
       });
 
       test('emits initial state when auth status is unauthenticated', () async {
-        // Arrange
         statusNotifier.value = AuthenticationStatus.unauthenticated;
         when(
           () => authService.status,
         ).thenReturn(AuthenticationStatus.unauthenticated);
 
-        // Act
         final cubit = createCubit();
         await Future<void>.delayed(Duration.zero);
 
-        // Assert
         expect(cubit.state, const UserState());
         verifyNever(() => userRepository.getUser());
 
@@ -97,15 +91,12 @@ void main() {
       });
 
       test('emits initial state when auth status is unknown', () async {
-        // Arrange
         statusNotifier.value = AuthenticationStatus.unknown;
         when(() => authService.status).thenReturn(AuthenticationStatus.unknown);
 
-        // Act
         final cubit = createCubit();
         await Future<void>.delayed(Duration.zero);
 
-        // Assert
         expect(cubit.state, const UserState());
         verifyNever(() => userRepository.getUser());
 
@@ -177,7 +168,7 @@ void main() {
         },
         seed: () => const UserState(status: RequestStatus.loading),
         act: (cubit) => cubit.getUser(),
-        expect: () => [],
+        expect: () => <UserState>[],
         verify: (_) {
           verifyNever(() => userRepository.getUser());
         },

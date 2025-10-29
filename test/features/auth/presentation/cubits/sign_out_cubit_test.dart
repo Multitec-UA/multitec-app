@@ -5,8 +5,8 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:multitec_app/core/exceptions/failure.dart';
 import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_out_cubit.dart';
-import 'package:multitec_app/features/auth/presentation/cubit/sign_out_state.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_out_cubit.dart';
+import 'package:multitec_app/features/auth/presentation/cubits/sign_out_state.dart';
 
 class MockSignOutUseCase extends Mock implements SignOutUseCase {}
 
@@ -72,15 +72,15 @@ void main() {
 
       blocTest<SignOutCubit, SignOutState>(
         'does not call use case when already loading',
+        seed: () => const SignOutState(status: RequestStatus.loading),
         build: () {
           when(
             () => signOutUseCase.call(),
           ).thenAnswer((_) async => const Success(unit));
           return createCubit();
         },
-        seed: () => const SignOutState(status: RequestStatus.loading),
         act: (cubit) => cubit.signOut(),
-        expect: () => [],
+        expect: () => const <SignOutState>[],
         verify: (_) {
           verifyNever(() => signOutUseCase.call());
         },

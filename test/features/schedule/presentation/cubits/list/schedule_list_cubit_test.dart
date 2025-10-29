@@ -12,8 +12,8 @@ import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dar
 import 'package:multitec_app/features/schedule/domain/entities/schedule_type.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_schedule_items_bytype_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_list_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/list/schedule_list_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/list/schedule_list_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/list/schedule_list_state.dart';
 
 class MockGetScheduleItemsByTypeUseCase extends Mock
     implements GetScheduleItemsByTypeUseCase {}

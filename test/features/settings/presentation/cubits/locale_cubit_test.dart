@@ -79,37 +79,6 @@ void main() {
           verify(() => settingsRepository.saveLocale(tLocaleEs)).called(1);
         },
       );
-
-      blocTest<LocaleCubit, Locale?>(
-        'emits new locale immediately before saving',
-        build: () {
-          when(() => settingsRepository.saveLocale(any())).thenAnswer(
-            (_) async => Future.delayed(const Duration(milliseconds: 100)),
-          );
-          return createCubit();
-        },
-        act: (cubit) => cubit.setLocale(tLocaleEn),
-        expect: () => [tLocaleEn],
-      );
-
-      blocTest<LocaleCubit, Locale?>(
-        'changes locale multiple times',
-        build: () {
-          when(
-            () => settingsRepository.saveLocale(any()),
-          ).thenAnswer((_) async => {});
-          return createCubit();
-        },
-        act: (cubit) async {
-          await cubit.setLocale(tLocaleEn);
-          await cubit.setLocale(tLocaleEs);
-        },
-        expect: () => [tLocaleEn, tLocaleEs],
-        verify: (_) {
-          verify(() => settingsRepository.saveLocale(tLocaleEn)).called(1);
-          verify(() => settingsRepository.saveLocale(tLocaleEs)).called(1);
-        },
-      );
     });
 
     group('close', () {

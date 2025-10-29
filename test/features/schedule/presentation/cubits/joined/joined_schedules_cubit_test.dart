@@ -11,8 +11,8 @@ import 'package:multitec_app/features/schedule/domain/entities/paginated_result.
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_joined_schedule_items_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/joined/joined_schedules_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/joined/joined_schedules_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/joined/joined_schedules_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/joined/joined_schedules_state.dart';
 
 class MockGetJoinedScheduleItemsUseCase extends Mock
     implements GetJoinedScheduleItemsUseCase {}
@@ -337,6 +337,18 @@ void main() {
     });
 
     group('ScheduleItemAttendanceToggledEvent handling', () {
+      final tScheduleItem3 = ScheduleItem(
+        id: '3',
+        type: 'event',
+        title: 'New Event',
+        description: 'Description',
+        startsAt: DateTime(2025, 1, 25),
+        published: true,
+        attendeesCount: 0,
+        createdAt: DateTime(2025, 1, 3),
+        updatedAt: DateTime(2025, 1, 3),
+      );
+
       blocTest<JoinedSchedulesCubit, JoinedSchedulesState>(
         'removes item when user leaves',
         build: () {
@@ -420,22 +432,9 @@ void main() {
         },
         act: (cubit) async {
           await cubit.loadJoinedSchedules();
-
-          final newItem = ScheduleItem(
-            id: '3',
-            type: 'event',
-            title: 'New Event',
-            description: 'Description',
-            startsAt: DateTime(2025, 1, 25),
-            published: true,
-            attendeesCount: 0,
-            createdAt: DateTime(2025, 1, 3),
-            updatedAt: DateTime(2025, 1, 3),
-          );
-
           streamController.add(
             ScheduleItemAttendanceToggledEvent(
-              scheduleItem: newItem,
+              scheduleItem: tScheduleItem3,
               join: true,
             ),
           );
@@ -452,17 +451,7 @@ void main() {
           JoinedSchedulesState(
             status: RequestStatus.success,
             items: [
-              ScheduleItem(
-                id: '3',
-                type: 'event',
-                title: 'New Event',
-                description: 'Description',
-                startsAt: DateTime(2025, 1, 25),
-                published: true,
-                attendeesCount: 1,
-                createdAt: DateTime(2025, 1, 3),
-                updatedAt: DateTime(2025, 1, 3),
-              ),
+              tScheduleItem3.copyWith(attendeesCount: 1),
               tScheduleItem1,
               tScheduleItem2,
             ],

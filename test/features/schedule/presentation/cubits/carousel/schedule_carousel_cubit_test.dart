@@ -10,8 +10,8 @@ import 'package:multitec_app/core/ui/cubit/request_status.dart';
 import 'package:multitec_app/features/schedule/domain/entities/schedule_item.dart';
 import 'package:multitec_app/features/schedule/domain/events/schedule_events.dart';
 import 'package:multitec_app/features/schedule/domain/usecases/get_latest_schedule_items_usecase.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/carousel/schedule_carousel_cubit.dart';
-import 'package:multitec_app/features/schedule/presentation/cubit/carousel/schedule_carousel_state.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/carousel/schedule_carousel_cubit.dart';
+import 'package:multitec_app/features/schedule/presentation/cubits/carousel/schedule_carousel_state.dart';
 
 class MockGetLatestScheduleItemsUseCase extends Mock
     implements GetLatestScheduleItemsUseCase {}
