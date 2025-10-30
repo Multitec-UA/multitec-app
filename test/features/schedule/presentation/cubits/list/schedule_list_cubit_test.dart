@@ -36,8 +36,8 @@ void main() {
       startsAt: DateTime(2025, 1, 15),
       published: true,
       attendeesCount: 10,
-      createdAt: DateTime(2025, 1, 1),
-      updatedAt: DateTime(2025, 1, 1),
+      createdAt: DateTime(2025),
+      updatedAt: DateTime(2025),
       location: 'Location 1',
       category: 'Category 1',
     );
@@ -112,7 +112,7 @@ void main() {
         'emits [loading, success] when schedule items are loaded successfully',
         build: () {
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -123,11 +123,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
         verify: (_) {
-          verify(() => getScheduleItems(type: tType, cursor: null)).called(1);
+          verify(() => getScheduleItems(type: tType)).called(1);
         },
       );
 
@@ -135,7 +134,7 @@ void main() {
         'emits [loading, failure] when loading schedule items fails',
         build: () {
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => const Error(tFailure));
           return createCubit();
         },
@@ -148,20 +147,20 @@ void main() {
           ),
         ],
         verify: (_) {
-          verify(() => getScheduleItems(type: tType, cursor: null)).called(1);
+          verify(() => getScheduleItems(type: tType)).called(1);
         },
       );
 
       blocTest<ScheduleListCubit, ScheduleListState>(
         'emits [loading, success] with empty list when no items are available',
         build: () {
-          final emptyResult = PaginatedResult<ScheduleItem>(
-            items: const [],
+          const emptyResult = PaginatedResult<ScheduleItem>(
+            items: [],
             hasMore: false,
           );
           when(
-            () => getScheduleItems(type: tType, cursor: null),
-          ).thenAnswer((_) async => Success(emptyResult));
+            () => getScheduleItems(type: tType),
+          ).thenAnswer((_) async => const Success(emptyResult));
           return createCubit();
         },
         act: (cubit) => cubit.loadScheduleItems(),
@@ -169,9 +168,7 @@ void main() {
           const ScheduleListState(status: RequestStatus.loading),
           const ScheduleListState(
             status: RequestStatus.success,
-            items: [],
             hasMore: false,
-            failure: null,
           ),
         ],
       );
@@ -190,7 +187,7 @@ void main() {
           );
 
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => Success(firstPage));
 
           when(
@@ -209,18 +206,15 @@ void main() {
             status: RequestStatus.success,
             items: [tScheduleItem1],
             hasMore: true,
-            failure: null,
           ),
           ScheduleListState(
             status: RequestStatus.loading,
             items: [tScheduleItem1],
-            hasMore: true,
           ),
           ScheduleListState(
             status: RequestStatus.success,
             items: [tScheduleItem1, tScheduleItem2],
             hasMore: false,
-            failure: null,
           ),
         ],
       );
@@ -240,9 +234,7 @@ void main() {
           );
 
           var callCount = 0;
-          when(() => getScheduleItems(type: tType, cursor: null)).thenAnswer((
-            _,
-          ) async {
+          when(() => getScheduleItems(type: tType)).thenAnswer((_) async {
             callCount++;
             return callCount == 1 ? Success(firstLoad) : Success(refreshLoad);
           });
@@ -259,23 +251,16 @@ void main() {
             status: RequestStatus.success,
             items: [tScheduleItem1],
             hasMore: true,
-            failure: null,
           ),
-          ScheduleListState(
-            status: RequestStatus.initial,
-            items: [tScheduleItem1],
-            hasMore: true,
-          ),
+          ScheduleListState(items: [tScheduleItem1]),
           ScheduleListState(
             status: RequestStatus.loading,
             items: [tScheduleItem1],
-            hasMore: true,
           ),
           ScheduleListState(
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
       );
@@ -283,7 +268,7 @@ void main() {
       blocTest<ScheduleListCubit, ScheduleListState>(
         'does not load when already loading',
         build: () {
-          when(() => getScheduleItems(type: tType, cursor: null)).thenAnswer(
+          when(() => getScheduleItems(type: tType)).thenAnswer(
             (_) => Future.delayed(
               const Duration(milliseconds: 100),
               () => Success(tPaginatedResult),
@@ -292,9 +277,9 @@ void main() {
           return createCubit();
         },
         act: (cubit) async {
-          cubit.loadScheduleItems();
+          unawaited(cubit.loadScheduleItems());
           await Future<void>.delayed(const Duration(milliseconds: 10));
-          cubit.loadScheduleItems();
+          unawaited(cubit.loadScheduleItems());
         },
         wait: const Duration(milliseconds: 150),
         expect: () => [
@@ -303,11 +288,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
         verify: (_) {
-          verify(() => getScheduleItems(type: tType, cursor: null)).called(1);
+          verify(() => getScheduleItems(type: tType)).called(1);
         },
       );
 
@@ -316,7 +300,7 @@ void main() {
         build: () {
           final result = PaginatedResult(items: tScheduleItems, hasMore: false);
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => Success(result));
           return createCubit();
         },
@@ -330,11 +314,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: false,
-            failure: null,
           ),
         ],
         verify: (_) {
-          verify(() => getScheduleItems(type: tType, cursor: null)).called(1);
+          verify(() => getScheduleItems(type: tType)).called(1);
         },
       );
     });
@@ -344,7 +327,7 @@ void main() {
         'increments attendeesCount when user joins an event',
         build: () {
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -364,7 +347,6 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
           ScheduleListState(
             status: RequestStatus.success,
@@ -372,8 +354,6 @@ void main() {
               tScheduleItem1.copyWith(attendeesCount: 11),
               tScheduleItem2,
             ],
-            hasMore: true,
-            failure: null,
           ),
         ],
       );
@@ -382,7 +362,7 @@ void main() {
         'decrements attendeesCount when user leaves an event',
         build: () {
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -402,13 +382,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
           ScheduleListState(
             status: RequestStatus.success,
             items: [tScheduleItem1.copyWith(attendeesCount: 9), tScheduleItem2],
-            hasMore: true,
-            failure: null,
           ),
         ],
       );
@@ -417,7 +394,7 @@ void main() {
         'does not emit new state when event is for non-existent item',
         build: () {
           when(
-            () => getScheduleItems(type: tType, cursor: null),
+            () => getScheduleItems(type: tType),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -432,8 +409,8 @@ void main() {
             startsAt: DateTime(2025, 1, 15),
             published: true,
             attendeesCount: 0,
-            createdAt: DateTime(2025, 1, 1),
-            updatedAt: DateTime(2025, 1, 1),
+            createdAt: DateTime(2025),
+            updatedAt: DateTime(2025),
           );
 
           streamController.add(
@@ -450,7 +427,6 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
       );

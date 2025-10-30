@@ -46,7 +46,7 @@ void main() {
         act: (cubit) => cubit.signInWithGoogle(),
         expect: () => [
           const SignInState(status: RequestStatus.loading),
-          const SignInState(status: RequestStatus.success, failure: null),
+          const SignInState(status: RequestStatus.success),
         ],
         verify: (_) {
           verify(() => signInWithGoogle.call()).called(1);

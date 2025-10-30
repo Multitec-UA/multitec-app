@@ -32,8 +32,8 @@ void main() {
       startsAt: DateTime(2025, 1, 15),
       published: true,
       attendeesCount: 10,
-      createdAt: DateTime(2025, 1, 1),
-      updatedAt: DateTime(2025, 1, 1),
+      createdAt: DateTime(2025),
+      updatedAt: DateTime(2025),
       location: 'Location 1',
       category: 'Category 1',
     );
@@ -112,7 +112,6 @@ void main() {
           ScheduleCarouselState(
             status: RequestStatus.success,
             items: tScheduleItems,
-            failure: null,
           ),
         ],
         verify: (_) {
@@ -152,11 +151,7 @@ void main() {
         act: (cubit) => cubit.loadLatestScheduleItems(),
         expect: () => [
           const ScheduleCarouselState(status: RequestStatus.loading),
-          const ScheduleCarouselState(
-            status: RequestStatus.success,
-            items: [],
-            failure: null,
-          ),
+          const ScheduleCarouselState(status: RequestStatus.success),
         ],
       );
     });
@@ -185,7 +180,6 @@ void main() {
           ScheduleCarouselState(
             status: RequestStatus.success,
             items: tScheduleItems,
-            failure: null,
           ),
           ScheduleCarouselState(
             status: RequestStatus.success,
@@ -193,7 +187,6 @@ void main() {
               tScheduleItem1.copyWith(attendeesCount: 11),
               tScheduleItem2,
             ],
-            failure: null,
           ),
         ],
       );
@@ -221,12 +214,10 @@ void main() {
           ScheduleCarouselState(
             status: RequestStatus.success,
             items: tScheduleItems,
-            failure: null,
           ),
           ScheduleCarouselState(
             status: RequestStatus.success,
             items: [tScheduleItem1.copyWith(attendeesCount: 9), tScheduleItem2],
-            failure: null,
           ),
         ],
       );
@@ -250,8 +241,8 @@ void main() {
             startsAt: DateTime(2025, 1, 15),
             published: true,
             attendeesCount: 0,
-            createdAt: DateTime(2025, 1, 1),
-            updatedAt: DateTime(2025, 1, 1),
+            createdAt: DateTime(2025),
+            updatedAt: DateTime(2025),
           );
 
           streamController.add(
@@ -267,7 +258,6 @@ void main() {
           ScheduleCarouselState(
             status: RequestStatus.success,
             items: tScheduleItems,
-            failure: null,
           ),
         ],
       );
