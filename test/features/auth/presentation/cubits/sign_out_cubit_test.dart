@@ -45,7 +45,7 @@ void main() {
         act: (cubit) => cubit.signOut(),
         expect: () => [
           const SignOutState(status: RequestStatus.loading),
-          const SignOutState(status: RequestStatus.success, failure: null),
+          const SignOutState(status: RequestStatus.success),
         ],
         verify: (_) {
           verify(() => signOutUseCase.call()).called(1);

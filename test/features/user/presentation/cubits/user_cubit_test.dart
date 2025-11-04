@@ -72,7 +72,7 @@ void main() {
         expect(cubit.state.user, tUser);
         verify(() => userRepository.getUser()).called(1);
 
-        cubit.close();
+        await cubit.close();
       });
 
       test('emits initial state when auth status is unauthenticated', () async {
@@ -87,7 +87,7 @@ void main() {
         expect(cubit.state, const UserState());
         verifyNever(() => userRepository.getUser());
 
-        cubit.close();
+        await cubit.close();
       });
 
       test('emits initial state when auth status is unknown', () async {
@@ -100,7 +100,7 @@ void main() {
         expect(cubit.state, const UserState());
         verifyNever(() => userRepository.getUser());
 
-        cubit.close();
+        await cubit.close();
       });
     });
 
@@ -114,11 +114,7 @@ void main() {
         act: (cubit) => cubit.getUser(),
         expect: () => [
           const UserState(status: RequestStatus.loading),
-          const UserState(
-            status: RequestStatus.success,
-            user: tUser,
-            failure: null,
-          ),
+          const UserState(status: RequestStatus.success, user: tUser),
         ],
         verify: (_) {
           verify(() => userRepository.getUser()).called(1);
@@ -134,11 +130,7 @@ void main() {
         act: (cubit) => cubit.getUser(),
         expect: () => [
           const UserState(status: RequestStatus.loading),
-          const UserState(
-            status: RequestStatus.success,
-            user: null,
-            failure: null,
-          ),
+          const UserState(status: RequestStatus.success),
         ],
       );
 

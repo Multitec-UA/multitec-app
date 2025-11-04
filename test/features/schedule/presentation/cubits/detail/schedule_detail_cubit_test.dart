@@ -35,8 +35,8 @@ void main() {
       startsAt: DateTime(2025, 1, 15),
       published: true,
       attendeesCount: 10,
-      createdAt: DateTime(2025, 1, 1),
-      updatedAt: DateTime(2025, 1, 1),
+      createdAt: DateTime(2025),
+      updatedAt: DateTime(2025),
       location: 'Location',
       category: 'Category',
     );
@@ -113,7 +113,6 @@ void main() {
             item: tScheduleItem,
             isJoined: true,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
         verify: (_) {
@@ -132,9 +131,7 @@ void main() {
         expect: () => [
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
         verify: (_) {
@@ -179,20 +176,15 @@ void main() {
         expect: () => [
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.loading,
           ),
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
         verify: (_) {
@@ -222,7 +214,6 @@ void main() {
             item: tScheduleItem,
             isJoined: true,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
           ScheduleDetailState(
             item: tScheduleItem,
@@ -233,7 +224,6 @@ void main() {
             item: tScheduleItem,
             isJoined: true,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
         verify: (_) {
@@ -261,18 +251,14 @@ void main() {
         expect: () => [
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.loading,
           ),
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.failure,
             failure: tFailure,
           ),
@@ -302,15 +288,12 @@ void main() {
         expect: () => [
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
           ScheduleDetailState(
             item: tScheduleItem.copyWith(attendeesCount: 11),
             isJoined: true,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
       );
@@ -338,13 +321,10 @@ void main() {
             item: tScheduleItem,
             isJoined: true,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
           ScheduleDetailState(
             item: tScheduleItem.copyWith(attendeesCount: 9),
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
       );
@@ -368,8 +348,8 @@ void main() {
             startsAt: DateTime(2025, 1, 15),
             published: true,
             attendeesCount: 5,
-            createdAt: DateTime(2025, 1, 1),
-            updatedAt: DateTime(2025, 1, 1),
+            createdAt: DateTime(2025),
+            updatedAt: DateTime(2025),
           );
 
           streamController.add(
@@ -383,9 +363,7 @@ void main() {
         expect: () => [
           ScheduleDetailState(
             item: tScheduleItem,
-            isJoined: false,
             toggleJoinStatus: RequestStatus.success,
-            failure: null,
           ),
         ],
       );

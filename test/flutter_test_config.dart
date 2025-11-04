@@ -5,5 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   TestWidgetsFlutterBinding.ensureInitialized();
   SharedPreferences.setMockInitialValues({});
+
+  setUpAll(() {});
+
+  tearDownAll(() {});
+
   await testMain();
 }

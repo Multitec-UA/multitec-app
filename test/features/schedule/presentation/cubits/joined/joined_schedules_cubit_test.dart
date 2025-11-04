@@ -33,8 +33,8 @@ void main() {
       startsAt: DateTime(2025, 1, 15),
       published: true,
       attendeesCount: 10,
-      createdAt: DateTime(2025, 1, 1),
-      updatedAt: DateTime(2025, 1, 1),
+      createdAt: DateTime(2025),
+      updatedAt: DateTime(2025),
       location: 'Location 1',
       category: 'Category 1',
     );
@@ -109,7 +109,7 @@ void main() {
         'emits [loading, success] when joined schedules are loaded successfully',
         build: () {
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -120,11 +120,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
         verify: (_) {
-          verify(() => getJoinedScheduleItems(cursor: null)).called(1);
+          verify(() => getJoinedScheduleItems()).called(1);
         },
       );
 
@@ -132,7 +131,7 @@ void main() {
         'emits [loading, failure] when loading joined schedules fails',
         build: () {
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => const Error(tFailure));
           return createCubit();
         },
@@ -145,20 +144,20 @@ void main() {
           ),
         ],
         verify: (_) {
-          verify(() => getJoinedScheduleItems(cursor: null)).called(1);
+          verify(() => getJoinedScheduleItems()).called(1);
         },
       );
 
       blocTest<JoinedSchedulesCubit, JoinedSchedulesState>(
         'emits [loading, success] with empty list when no items are available',
         build: () {
-          final emptyResult = PaginatedResult<ScheduleItem>(
-            items: const [],
+          const emptyResult = PaginatedResult<ScheduleItem>(
+            items: [],
             hasMore: false,
           );
           when(
-            () => getJoinedScheduleItems(cursor: null),
-          ).thenAnswer((_) async => Success(emptyResult));
+            () => getJoinedScheduleItems(),
+          ).thenAnswer((_) async => const Success(emptyResult));
           return createCubit();
         },
         act: (cubit) => cubit.loadJoinedSchedules(),
@@ -166,9 +165,7 @@ void main() {
           const JoinedSchedulesState(status: RequestStatus.loading),
           const JoinedSchedulesState(
             status: RequestStatus.success,
-            items: [],
             hasMore: false,
-            failure: null,
           ),
         ],
       );
@@ -187,7 +184,7 @@ void main() {
           );
 
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => Success(firstPage));
 
           when(
@@ -206,18 +203,15 @@ void main() {
             status: RequestStatus.success,
             items: [tScheduleItem1],
             hasMore: true,
-            failure: null,
           ),
           JoinedSchedulesState(
             status: RequestStatus.loading,
             items: [tScheduleItem1],
-            hasMore: true,
           ),
           JoinedSchedulesState(
             status: RequestStatus.success,
             items: [tScheduleItem1, tScheduleItem2],
             hasMore: false,
-            failure: null,
           ),
         ],
       );
@@ -237,9 +231,7 @@ void main() {
           );
 
           var callCount = 0;
-          when(() => getJoinedScheduleItems(cursor: null)).thenAnswer((
-            _,
-          ) async {
+          when(() => getJoinedScheduleItems()).thenAnswer((_) async {
             callCount++;
             return callCount == 1 ? Success(firstLoad) : Success(refreshLoad);
           });
@@ -256,23 +248,16 @@ void main() {
             status: RequestStatus.success,
             items: [tScheduleItem1],
             hasMore: true,
-            failure: null,
           ),
-          JoinedSchedulesState(
-            status: RequestStatus.initial,
-            items: [tScheduleItem1],
-            hasMore: true,
-          ),
+          JoinedSchedulesState(items: [tScheduleItem1]),
           JoinedSchedulesState(
             status: RequestStatus.loading,
             items: [tScheduleItem1],
-            hasMore: true,
           ),
           JoinedSchedulesState(
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
       );
@@ -280,7 +265,7 @@ void main() {
       blocTest<JoinedSchedulesCubit, JoinedSchedulesState>(
         'does not load when already loading',
         build: () {
-          when(() => getJoinedScheduleItems(cursor: null)).thenAnswer(
+          when(() => getJoinedScheduleItems()).thenAnswer(
             (_) => Future.delayed(
               const Duration(milliseconds: 100),
               () => Success(tPaginatedResult),
@@ -289,9 +274,9 @@ void main() {
           return createCubit();
         },
         act: (cubit) async {
-          cubit.loadJoinedSchedules();
+          unawaited(cubit.loadJoinedSchedules());
           await Future<void>.delayed(const Duration(milliseconds: 10));
-          cubit.loadJoinedSchedules();
+          unawaited(cubit.loadJoinedSchedules());
         },
         wait: const Duration(milliseconds: 150),
         expect: () => [
@@ -300,11 +285,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
         ],
         verify: (_) {
-          verify(() => getJoinedScheduleItems(cursor: null)).called(1);
+          verify(() => getJoinedScheduleItems()).called(1);
         },
       );
 
@@ -313,7 +297,7 @@ void main() {
         build: () {
           final result = PaginatedResult(items: tScheduleItems, hasMore: false);
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => Success(result));
           return createCubit();
         },
@@ -327,11 +311,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: false,
-            failure: null,
           ),
         ],
         verify: (_) {
-          verify(() => getJoinedScheduleItems(cursor: null)).called(1);
+          verify(() => getJoinedScheduleItems()).called(1);
         },
       );
     });
@@ -353,7 +336,7 @@ void main() {
         'removes item when user leaves',
         build: () {
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -373,13 +356,10 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
           JoinedSchedulesState(
             status: RequestStatus.success,
             items: [tScheduleItem2],
-            hasMore: true,
-            failure: null,
           ),
         ],
       );
@@ -388,7 +368,7 @@ void main() {
         'increments attendeesCount when user joins existing item',
         build: () {
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -408,7 +388,6 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
           JoinedSchedulesState(
             status: RequestStatus.success,
@@ -416,8 +395,6 @@ void main() {
               tScheduleItem1.copyWith(attendeesCount: 11),
               tScheduleItem2,
             ],
-            hasMore: true,
-            failure: null,
           ),
         ],
       );
@@ -426,7 +403,7 @@ void main() {
         'adds new item at the beginning when user joins non-existing item',
         build: () {
           when(
-            () => getJoinedScheduleItems(cursor: null),
+            () => getJoinedScheduleItems(),
           ).thenAnswer((_) async => Success(tPaginatedResult));
           return createCubit();
         },
@@ -446,7 +423,6 @@ void main() {
             status: RequestStatus.success,
             items: tScheduleItems,
             hasMore: true,
-            failure: null,
           ),
           JoinedSchedulesState(
             status: RequestStatus.success,
@@ -455,8 +431,6 @@ void main() {
               tScheduleItem1,
               tScheduleItem2,
             ],
-            hasMore: true,
-            failure: null,
           ),
         ],
       );
