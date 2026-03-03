@@ -226,8 +226,10 @@ cd multitec-app
 
 Install **FVM** (Flutter Version Management) globally to manage Flutter SDK versions easily:
 
+(Homebrew installation as example, more at [FVM official site](https://fvm.app/documentation/getting-started/installation))
+
 ```sh
-dart pub global activate fvm
+brew install fvm
 ```
 
 Use FVM to install the Flutter version specified in the `.fvmrc` file (this installs Flutter locally to the project):
