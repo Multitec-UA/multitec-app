@@ -1,20 +1,17 @@
 [![Developer LinkedIn | David González](https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=555555)](https://linkedin.com/in/davidgonzaleziniguez)
 
-
-
-
 [dev-linkedin-badge]: https://img.shields.io/badge/Developer%20LinkedIn-David%20Gonz%C3%A1lez-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white
 [dev-linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
 
 [Read in English](README.md)
 
-<br/> 
+<br/>
 
 <h1><img src="assets/pngs/multitec_icon.png" alt="Logo" height="35"> Multitec App</h1>
 
 > **Aplicación oficial de la comunidad de estudiantes Multitec UA**
 
-<br/> 
+<br/>
 
 <div align="center">
 <p>
@@ -26,16 +23,14 @@
 </p>
 </div>
 
-
 Desarrollada en Flutter con **BLoC** y **Clean Architecture**, integrada con **Firebase Auth**, **Cloud Firestore** y **Sembast**.
 
 Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir las actividades de la asociación: consultar la agenda de eventos, gestionar su participación y acceder al perfil de socio en cualquier momento, incluso sin conexión.
 
-
 [🎬 Vista previa](#vista-previa) • [⚙️ Tecnología](#tecnologia) • [🏛️ Arquitectura](#arquitectura) • [🧩 Dependencias](#dependencias) • [🗺️ Roadmap](#roadmap) • [🚀 Getting Started](#getting-started) • [📫 Contacto](#contacto)
 
-
 ---
+
 <h2 id="vista-previa">🎬 Vista previa</h2>
 
 <div align="center">
@@ -97,6 +92,7 @@ Multitec App ofrece a los miembros de Multitec UA una forma sencilla de seguir l
 🔸**Clean Architecture** + **BLoC**: separación de responsabilidades, bajo acoplamiento y alta testabilidad.
 
 ### Estructura por capas
+
 🔹 **Data** — `datasources • dtos • repository implementations`  
 🔹 **Domain** — `entities • usecases • repositories`  
 🔹 **Presentation** — `cubits • screens • widgets`
@@ -117,11 +113,12 @@ feature/
     ├── cubits/
     ├── screens/
     └── widgets/
-````
-
+```
 
 ### Árbol de carpetas (resumen)
->Estructura **feature-first** (cada feature encapsula <code>data/</code>, <code>domain/</code> y <code>presentation/</code>)
+
+> Estructura **feature-first** (cada feature encapsula <code>data/</code>, <code>domain/</code> y <code>presentation/</code>)
+
 ```text
 lib/
   core/
@@ -139,9 +136,9 @@ lib/
 
   features/
     auth/
-    home/        
-    schedule/         
-    user/                   
+    home/
+    schedule/
+    user/
     profile/
     settings/
 
@@ -152,43 +149,54 @@ lib/
 ```
 
 ---
+
 <h2 id="dependencias">🧩 Dependencias</h2>
 
 **Gestión de estados**
+
 - `bloc` + `flutter_bloc`
 
 **Routing**
-- `go_router` 
+
+- `go_router`
 
 **Persistencia**
-- `sembast` + `sembast_web` 
-- `shared_preferences` 
+
+- `sembast` + `sembast_web`
+- `shared_preferences`
 
 **Firebase**
+
 - `firebase_core`, `firebase_auth`, `cloud_firestore`
 
 **DI**
-- `get_it` 
+
+- `get_it`
 
 **Serialización / Modelado**
-- `freezed`, `freezed_annotation`, `json_serializable` 
+
+- `freezed`, `freezed_annotation`, `json_serializable`
 
 **Red / Caché**
+
 - `dio`
-- `dio_cache_interceptor` + `dio_cache_interceptor_hive_store` 
+- `dio_cache_interceptor` + `dio_cache_interceptor_hive_store`
 
 **Utilidades**
-- `multiple_result` 
+
+- `multiple_result`
 - `event_bus`
-- `flutter_localizations` 
+- `flutter_localizations`
 - `url_launcher`
 
 **Testing & Code Quality**
+
 - `bloc_test`
 - `mocktail`
 - `very_good_analysis`
 
 **Automatización & productividad**
+
 - `husky`, `commitlint_cli`
 - `mason_cli`
 
@@ -198,9 +206,9 @@ lib/
 
 - [ ] Integración con tarjeta **NFC** para acceder al local de la asociación
 - [ ] Sistema de votación online para elecciones de la junta directiva
-- [ ] Notificaciones push para avisos y recordatorios de eventos   
-- [ ] Chat interno para actividades o eventos de larga duración 
-- [ ] Módulo de buzón de sugerencias 
+- [ ] Notificaciones push para avisos y recordatorios de eventos
+- [ ] Chat interno para actividades o eventos de larga duración
+- [ ] Módulo de buzón de sugerencias
 
 ---
 
@@ -228,10 +236,12 @@ Luego, navega hasta la carpeta del proyecto:
 cd multitec-app
 ```
 
-Instala FVM (Flutter Version Management) de forma global para gestionar fácilmente las versiones del SDK de Flutter:
+Instala **FVM** (Flutter Version Management) de forma global para gestionar fácilmente las versiones del SDK de Flutter:
+
+(Instalación ejemplo con Homebrew, para más información [FVM official site](https://fvm.app/documentation/getting-started/installation))
 
 ```sh
-dart pub global activate fvm
+brew install fvm
 ```
 
 Usa FVM para instalar la versión de Flutter especificada en el archivo .fvmrc (esto instala Flutter localmente para el proyecto):
@@ -267,6 +277,7 @@ dart pub global activate mason_cli
 ```
 
 Para generar una nueva feature, ejecuta:
+
 ```sh
 mason make feature
 ```
@@ -277,7 +288,7 @@ mason make feature
 
 <div align="center">
 
-👨‍💻 **Desarrollado por [David González Íñiguez](https://linkedin.com/in/davidgonzaleziniguez)**  
+👨‍💻 **Desarrollado por [David González Íñiguez](https://linkedin.com/in/davidgonzaleziniguez)**
 
 📧 [davidgab08@gmail.com](mailto:davidgab08@gmail.com)  
 🔗 [linkedin.com/in/davidgonzaleziniguez](https://linkedin.com/in/davidgonzaleziniguez)
@@ -289,9 +300,8 @@ mason make feature
 
 </div>
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/davidgonzaleziniguez
